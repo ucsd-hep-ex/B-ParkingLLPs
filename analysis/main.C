@@ -14,17 +14,17 @@ TString inpath = "root://cmsxrootd.fnal.gov//store/group/phys_exotica/delayedjet
 //Fill Sample file Chain
 std::fstream s;
 TString sampleName = "BToKPhi_MuonGenFilter_mPhi1p0_ctau1000_1pb_weighted.root";
-//TString outFileName = sampleName+".root";
 std::cout<<inpath+sampleName<<std::endl;
 chain->Add(inpath+sampleName);
+//TString outFileName = sampleName+".root";
 
 
-analyzer S(chain);
-S.Initt();
+analyzer S;
+S.Init(chain);
+S.Loop();
 
 //std::vector<float> *vz = S.vz;
 
-S.Loop();
 
 
 

@@ -4,15 +4,23 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 
+analyzer::analyzer() 
+{
+}
+
+analyzer::~analyzer()
+{
+}
 
 void analyzer::Loop()
 {
+   std::cout<<"In Loop"<<std::endl;
+   fChain->GetListOfBranches();
    if (fChain == 0) return;
 
    
    //TH1F h_jetPt = new TH1F("h_jetPt","h_jetPt", 100,0.,500.);
    Long64_t nentries = 10;//fChain->GetEntriesFast();
-
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
