@@ -655,5 +655,7 @@ public :
    virtual ~analyzer_base();
    virtual void Init(TChain *tree);
    virtual Long64_t LoadTree(Long64_t entry);
+   double        dR(double eta1, double phi1, double eta2, double phi2);
+   double        DeltaPhi(double phi1, double phi2);
 };
 #endif

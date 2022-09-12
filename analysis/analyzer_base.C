@@ -1,4 +1,5 @@
 #include "analyzer_base.h"
+#include "TMath.h"
 #include <iostream>
 
 //----------------------------analyzer_base
@@ -352,4 +353,26 @@ void analyzer_base::Init(TChain *tree)
    fChain->SetBranchAddress("dtRechitClusterMuonVetoGlobal", dtRechitClusterMuonVetoGlobal, &b_dtRechitClusterMuonVetoGlobal);
    fChain->SetBranchAddress("dtRechitClusterMetEENoise_dPhi", dtRechitClusterMetEENoise_dPhi, &b_dtRechitClusterMetEENoise_dPhi);
    fChain->SetBranchAddress("weight", &weight, &b_weight);
+}
+
+
+//-------------------------dR
+double analyzer_base::dR(double eta1, double phi1, double eta2, double phi2)
+{
+  double deltaeta = abs(eta1 - eta2);
+  double deltaphi = DeltaPhi(phi1, phi2);
+  double deltar = sqrt(deltaeta*deltaeta + deltaphi*deltaphi);
+  return deltar;
+}
+
+//-------------------------DeltaPhi
+double analyzer_base::DeltaPhi(double phi1, double phi2)
+//Gives the (minimum) separation in phi between the specified phi values
+//Must return a positive value
+{
+  double pi = TMath::Pi();
+  double dphi = fabs(phi1-phi2);
+  if(dphi>pi)
+    dphi = 2.0*pi - dphi;
+  return dphi;
 }
