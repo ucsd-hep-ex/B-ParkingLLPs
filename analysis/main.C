@@ -16,11 +16,11 @@ TStopwatch sw;
 sw.Start();
 
 TChain* chain = new TChain("MuonSystem");
-TString inpath = "root://cmsxrootd.fnal.gov//store/group/phys_exotica/delayedjets/displacedJetMuonAnalyzer/csc/V1p17/MC_Fall18/v2/v3/normalized/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
 
 //Fill Sample file Chain
 std::fstream s;
-TString sampleName = "BToKPhi_MuonGenFilter_mPhi1p0_ctau1000_1pb_weighted.root";
+TString sampleName = "ParkingBPH4_2018A.root";
 std::cout<<inpath+sampleName<<std::endl;
 chain->Add(inpath+sampleName);
 //TString outFileName = sampleName+".root";
