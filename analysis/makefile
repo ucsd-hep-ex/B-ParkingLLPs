@@ -4,6 +4,8 @@ CXXDEPFLAGS = -MMD -MP
 all: main
 
 main:  analyzer_base.o\
+       analyzer_objects.o\
+       analyzer_histograms.o\
        analyzer.o \
        main.C 
 	g++ --std=c++11 $^ -o Run.exe ${ROOTFLAGS} ${CXXDEPFLAGS}

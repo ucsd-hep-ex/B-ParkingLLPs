@@ -1,4 +1,5 @@
 #include "analyzer.h"
+#include "analyzer_base.h"
 #include <TTree.h>
 #include <TFile.h>
 #include <TChain.h>
@@ -16,33 +17,25 @@ TStopwatch sw;
 sw.Start();
 
 TChain* chain = new TChain("MuonSystem");
-TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
 
 //Fill Sample file Chain
-std::fstream s;
-TString sampleName = "ParkingBPH4_2018A.root";
+///??std::fstream s;
+//TString sampleName = "ParkingBPH4_2018A.root";
+TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300.root";
 std::cout<<inpath+sampleName<<std::endl;
 chain->Add(inpath+sampleName);
-//TString outFileName = sampleName+".root";
-
-
-analyzer S;
-S.Init(chain);
-S.Loop();
-
-//std::vector<float> *vz = S.vz;
-
-
-
-
-
 
 
 //TFile *f = TFile::Open(sampleName+"_plots.root", "recreate");
-//f->cd();
-//   h_pf_pt->Write();
-//   h_pf_vz->Write();
-//f->Close();
+analyzer S;
+S.Init(chain);
+S.f_out.push_back( new TFile(sampleName+"_plots.root", "RECREATE") ); 
+S.InitHistos();
+S.Loop();
+S.f_out[0]->Close();
+
 
 std::cout<<"Done with Final Loop"<<std::endl;
 

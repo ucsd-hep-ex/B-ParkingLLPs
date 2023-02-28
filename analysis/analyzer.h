@@ -13,9 +13,9 @@
 #include <TChain.h>
 #include <TFile.h>
 
-#include "analyzer_base.h"
+#include "analyzer_histograms.h"
 
-class analyzer : public analyzer_base {
+class analyzer : public analyzer_histograms {
 public :
    //TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    //Int_t           fCurrent; //!current Tree number in a TChain

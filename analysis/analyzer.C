@@ -4,6 +4,9 @@
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <TLorentzVector.h>
+#include <iterator>
+#include <map>
+#include <iostream>
 
 analyzer::analyzer() 
 {
@@ -18,37 +21,35 @@ void analyzer::Loop()
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
    if (fChain == 0) return;
-
-   //std::vector<TLorentzVector> v_CscRechitClusters;
-   
-   TH1F* h_nLeptons = new TH1F("h_nLeptons","h_nLeptons", 100,0,100);
-   TH1F* h_lepPt   = new TH1F("h_lepPt","h_lepPt", 100,0,500);
-   Long64_t nentries = 1000001;//fChain->GetEntriesFast();
+   std::map<TString,float> cutFlow;
+   //Long64_t nentries = fChain->GetEntriesFast();
+   Long64_t nentries = 20;
    Long64_t nbytes = 0, nb = 0;
+   std::cout<<"nentries: "<<nentries<<std::endl;
+   cutFlow.insert(std::pair<TString, float> ("No cuts", nentries));
+   cutFlow.insert(std::pair<TString, float> ("abs(LepID)==13", 0));
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       if (jentry %1000000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
-      for (int i=0; i<nLeptons; i++){
-	h_lepPt->Fill(lepPt[i]);
+
+      //Fill cutFlow
+      if(abs(lepPdgId[0])==13) cutFlow["abs(LepID)==13"] += 1;
+
+      for (int j=0; j< nLeptons; j++){
+      std::cout<<"PdgId: "<<lepPdgId[j] <<"      ,"<<"Pt: "<<lepPt[j]<<std::endl;
       }
-      h_nLeptons->Fill(nLeptons);
+      //Fill the histograms by event
+      FillHistos();
 
-
-      //v_CscRechitClusters.clear();
-      //TLorentzVector* lv_llp = new TLorentzVector(gLLP_pt, gLLP_eta, gLLP_phi, gLLP_e);
-      //for (unsigned i=0; i<nCscRechitClusters; i++){
-      //   TLorentzVector lv;
-      //   lv.SetXYZT(cscRechitClusterX[i], cscRechitClusterY[i], cscRechitClusterZ[i], cscRechitClusterTime[i]);
-      //   v_CscRechitClusters.push_back(lv);
-      //}
-
+      std::cout<<"################# EVENT  "<< jentry<<"   #####################"<<std::endl;
+   }//end jentries
+   for (std::map<TString,float>::iterator itr = cutFlow.begin(); itr != cutFlow.end(); ++itr) {
+    std::cout << '\t' << itr->first << '\t' << itr->second
+         << '\n';
    }
-   TCanvas *c = new TCanvas();
-   h_nLeptons->Draw();
-   c->SaveAs("h_nLeptons.pdf");
-   h_lepPt->Draw();
-   c->SaveAs("h_lepPt.pdf");
+
+   WriteHistos();
    
 }
