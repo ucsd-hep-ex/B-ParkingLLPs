@@ -17,6 +17,8 @@ class analyzer_config : public analyzer_base{
 
   int DtSize;
   int CscSize;
+ 
+  Float_t CscEta;
 
   double dr_LeadMu_DtCluster;
   double dr_LeadMu_CscCluster;
@@ -24,7 +26,12 @@ class analyzer_config : public analyzer_base{
   double dr_GenMu_CscCluster;
  
   Float_t DtMuonVetoPt;
+  Float_t CscMuonVetoPt;
   Int_t   DtMB1Veto;
+  
+  Float_t cscClusterTimeLow;
+  Float_t cscClusterTimeHigh;
+  Float_t cscClusterTimeSpread;
 
   int HLTIndexLow;
   int HLTIndexHigh;
