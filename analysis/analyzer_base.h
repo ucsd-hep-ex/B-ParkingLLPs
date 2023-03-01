@@ -25,8 +25,11 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    //global variables here
+   int counter = 0;
    std::vector<TFile*> f_out;
    std::vector<int> muon_list;
+   std::vector<int> DtCluster_list;
+   std::vector<int> CscCluster_list;
    std::map<TString,float> cutFlow;
    std::vector<TString> cutFlowKeys;
 

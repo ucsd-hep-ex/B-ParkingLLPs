@@ -10,7 +10,12 @@ class analyzer_objects : public analyzer_config{
            analyzer_objects();
   virtual ~analyzer_objects();
 
+  double dR(double eta1, double phi1, double eta2, double phi2);
+  double DeltaPhi(double phi1, double phi2);
+
   std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut);
+  std::vector<int> DtClusterPassSel (bool passHLT, int DtSizeCut , float dr_MuonCut);
+  std::vector<int> CscClusterPassSel(bool passHLT, int CscSizeCut, float dr_MuonCut);
 };
 
 #endif
