@@ -4,6 +4,7 @@ CXXDEPFLAGS = -MMD -MP
 all: main
 
 main:  analyzer_base.o\
+       analyzer_config.o\
        analyzer_objects.o\
        analyzer_histograms.o\
        analyzer.o \

@@ -4,6 +4,7 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+#include <map>
 
 #define N_MAX_LEPTONS 100
 #define N_MAX_TRACKS 2000
@@ -23,7 +24,11 @@ public :
    TChain          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
 
+   //global variables here
    std::vector<TFile*> f_out;
+   std::vector<int> muon_list;
+   std::map<TString,float> cutFlow;
+   std::vector<TString> cutFlowKeys;
 
    // Declaration of leaf types
    UInt_t          runNum;

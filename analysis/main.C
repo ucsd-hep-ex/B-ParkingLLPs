@@ -31,6 +31,7 @@ chain->Add(inpath+sampleName);
 //TFile *f = TFile::Open(sampleName+"_plots.root", "recreate");
 analyzer S;
 S.Init(chain);
+S.setConfig();
 S.f_out.push_back( new TFile(sampleName+"_plots.root", "RECREATE") ); 
 S.InitHistos();
 S.Loop();
