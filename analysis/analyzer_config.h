@@ -14,6 +14,8 @@ class analyzer_config : public analyzer_base{
 
   Float_t muPt;
   Float_t muEta;
+  int HLTIndexLow;
+  int HLTIndexHigh;
 };
 #endif
 

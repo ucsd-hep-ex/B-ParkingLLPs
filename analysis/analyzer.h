@@ -30,6 +30,7 @@ public :
    virtual void     Loop();
    //virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
+   bool doesPassHLT(); 
 };
 
 #endif
@@ -59,5 +60,14 @@ Int_t analyzer::Cut(Long64_t entry)
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
+}
+
+
+bool analyzer::doesPassHLT(){
+  bool doesPass = false;
+  for (int t= HLTIndexLow; t <= HLTIndexHigh; t++){
+    if (HLTDecision[t]) {doesPass = true; continue;}
+  }
+  return doesPass;
 }
 #endif // #ifdef analyzer_cxx

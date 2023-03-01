@@ -14,5 +14,7 @@ void analyzer_config::setConfig(){
 
   muPt = 7.;
   muEta = 1.5;
+  HLTIndexLow = 1157;
+  HLTIndexHigh = 1197;
 
 }

@@ -33,7 +33,9 @@ void analyzer::Loop()
    cutFlow.insert(std::pair<TString, float> ("Muon Exists", 0));        cutFlowKeys.push_back("Muon Exists");
    cutFlow.insert(std::pair<TString, float> ("MuonPt > 7 GeV", 0));     cutFlowKeys.push_back("MuonPt > 7 GeV");
    cutFlow.insert(std::pair<TString, float> ("abs(MuonEta) < 1.5", 0)); cutFlowKeys.push_back("abs(MuonEta) < 1.5");
-   cutFlow.insert(std::pair<TString, float> ("MuonHLtRequirement", 0)); cutFlowKeys.push_back("MuonHLtRequirement");
+   cutFlow.insert(std::pair<TString, float> ("MuonHLTRequirement", 0)); cutFlowKeys.push_back("MuonHLTRequirement");
+   cutFlow.insert(std::pair<TString, float> ("MuonQuality", 0));        cutFlowKeys.push_back("MuonQuality");
+   cutFlow.insert(std::pair<TString, float> ("HLT", 0));                cutFlowKeys.push_back("HLT");
 
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
@@ -43,7 +45,7 @@ void analyzer::Loop()
    
       //object lists
       muon_list =  muonPassSel(muPt, muEta);
-
+      if(doesPassHLT()) cutFlow["HLT"] +=1;
       //Fill the histograms by event
       FillHistos();
 
@@ -59,3 +61,4 @@ void analyzer::Loop()
    WriteHistos();
    
 }
+
