@@ -1,6 +1,7 @@
 #include "analyzer_objects.h"
 #include <math.h>
 #include "TMath.h"
+#include <iostream>
 
 //----------------------------analyzer_objects
 analyzer_objects::analyzer_objects()
@@ -71,12 +72,11 @@ std::vector<int> analyzer_objects::DtClusterPassSel(bool passHLT, int DtSizeCut,
           PassOverlapMuon = true;
           if(dR_LLP < dr_GenMu_DtCluster){
             OverlapGenMuon = true;
-            counter++;
             if (dtRechitCluster_match_RPChits_dPhi0p5[j] > 0){
               PassRPCMatching = true;
               if(dtRechitClusterMuonVetoPt[j] < DtMuonVetoPt){
                 PassMuonVeto = true;
-                if( dtRechitCluster_match_MB1hits_0p5[j] >= DtMB1Veto){
+                if( dtRechitCluster_match_MB1hits_0p5[j] <= DtMB1Veto){
                   PassMB1Veto = true;
                   if(dtRechitCluster_match_RPCBx_dPhi0p5[j] == 0){
                     PassRPCTimeCut = true;
@@ -132,12 +132,12 @@ std::vector<int> analyzer_objects::CscClusterPassSel(bool passHLT, int CscSizeCu
           PassOverlapMuon = true;
           if(dR_LLP < dr_GenMu_CscCluster){
           OverlapGenLLP = true;
-            if( cscRechitClusterNRechitChamberPlus11 <=0 && cscRechitClusterNRechitChamberMinus11 <=0 &&
-                cscRechitClusterNRechitChamberPlus12 <=0 && cscRechitClusterNRechitChamberMinus12 <=0){
+            if( cscRechitClusterNRechitChamberPlus11[j] <=0 && cscRechitClusterNRechitChamberMinus11[j] <=0 &&
+                cscRechitClusterNRechitChamberPlus12[j] <=0 && cscRechitClusterNRechitChamberMinus12[j] <=0){
               PassME1112Veto = true;
-              if( cscRechitCluster_match_MB1Seg_0p4 == 0){
+              if( cscRechitCluster_match_MB1Seg_0p4[j] == 0){
                 PassMB1Veto = true;
-                if(cscRechitCluster_match_RB1_0p4 == 0){
+                if(cscRechitCluster_match_RB1_0p4[j] == 0){
                   PassRB1Veto = true;
                   if(cscRechitClusterMuonVetoPt[j] < CscMuonVetoPt){
                     PassMuonVeto = true;

@@ -82,7 +82,7 @@ void analyzer::Loop()
    //print cutFlow table
    int width = 30;
    for (int c = 0; c<cutFlowKeys.size(); c++) {
-    std::cout << '\t'<<setw(width)<<left<< cutFlowKeys[c] << '\t'<<setw(width)<<left<< cutFlow[cutFlowKeys[c]]
+    std::cout << '\t'<<setw(width)<<left<< cutFlowKeys[c] <<","<< '\t'<<setw(width)<<left<< cutFlow[cutFlowKeys[c]]
          << '\n';
    }
    std::cout<<"Counter: "<<counter<<std::endl;

@@ -4,9 +4,9 @@
 #include "TH1F.h"
 #include "TH2F.h"
 
-#include "analyzer_objects.h"
+#include "analyzer_selections.h"
 
-class analyzer_histograms : public analyzer_objects{
+class analyzer_histograms : public analyzer_selections{
 
   public : 
  
@@ -14,6 +14,8 @@ class analyzer_histograms : public analyzer_objects{
   virtual ~analyzer_histograms();
 
   TH1F* h_nLeptons;
+  TH1F* h_cscRechitClusterSize;
+  TH1F* h_dtRechitClusterSize;
   
   void InitHistos();
   void FillHistos();
