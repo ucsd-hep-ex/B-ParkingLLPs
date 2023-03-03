@@ -80,16 +80,16 @@ void analyzer_base::Init(TChain *tree)
    fChain->SetBranchAddress("lepSF", lepSF, &b_lepSF);
    fChain->SetBranchAddress("lepLooseId", lepLooseId, &b_lepLooseId);
    fChain->SetBranchAddress("lepTightId", lepTightId, &b_lepTightId);
-   fChain->SetBranchAddress("nJets", &nJets, &b_nJets);
-   fChain->SetBranchAddress("jetE", jetE, &b_jetE);
-   fChain->SetBranchAddress("jetPt", jetPt, &b_jetPt);
-   fChain->SetBranchAddress("jetEta", jetEta, &b_jetEta);
-   fChain->SetBranchAddress("jetPhi", jetPhi, &b_jetPhi);
-   fChain->SetBranchAddress("jetTightPassId", jetTightPassId, &b_jetTightPassId);
+//   fChain->SetBranchAddress("nJets", &nJets, &b_nJets);
+//   fChain->SetBranchAddress("jetE", jetE, &b_jetE);
+//   fChain->SetBranchAddress("jetPt", jetPt, &b_jetPt);
+//   fChain->SetBranchAddress("jetEta", jetEta, &b_jetEta);
+//   fChain->SetBranchAddress("jetPhi", jetPhi, &b_jetPhi);
+//   fChain->SetBranchAddress("jetTightPassId", jetTightPassId, &b_jetTightPassId);
    fChain->SetBranchAddress("HLTDecision", HLTDecision, &b_HLTDecision);
    fChain->SetBranchAddress("nCscRechits", &nCscRechits, &b_nCscRechits);
    fChain->SetBranchAddress("nCscRings", &nCscRings, &b_nCscRings);
-   fChain->SetBranchAddress("nDTRechits", &nDTRechits, &b_nDTRechits);
+//   fChain->SetBranchAddress("nDTRechits", &nDTRechits, &b_nDTRechits);
    fChain->SetBranchAddress("nDtRings", &nDtRings, &b_nDtRings);
    fChain->SetBranchAddress("nCscRechitClusters", &nCscRechitClusters, &b_nCscRechitClusters);
    fChain->SetBranchAddress("cscRechitClusterX", cscRechitClusterX, &b_cscRechitClusterX);
@@ -250,7 +250,7 @@ void analyzer_base::Init(TChain *tree)
    fChain->SetBranchAddress("dtRechitClusterGenMuonVetoPt_dR0p8", dtRechitClusterGenMuonVetoPt_dR0p8, &b_dtRechitClusterGenMuonVetoPt_dR0p8);
    fChain->SetBranchAddress("dtRechitClusterMuonVetoPt", dtRechitClusterMuonVetoPt, &b_dtRechitClusterMuonVetoPt);
    fChain->SetBranchAddress("dtRechitClusterMetEENoise_dPhi", dtRechitClusterMetEENoise_dPhi, &b_dtRechitClusterMetEENoise_dPhi);
-   fChain->SetBranchAddress("weight", &weight, &b_weight);
+//   fChain->SetBranchAddress("weight", &weight, &b_weight);
 }
 
 

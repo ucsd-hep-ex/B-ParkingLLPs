@@ -6,6 +6,7 @@ all: main
 main:  analyzer_base.o\
        analyzer_config.o\
        analyzer_objects.o\
+       analyzer_selections.o\
        analyzer_histograms.o\
        analyzer.o \
        main.C 

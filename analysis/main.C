@@ -25,11 +25,11 @@ TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/
 //Fill Sample file Chain
 ///??std::fstream s;
 //TString sampleName = "ParkingBPH4_2018A";
-TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300.root";
+TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
 //-- what Tony and Aram use
 //TString sampleName = "PhiToPi0Pi0_mPhi0p3_ctau300";
 std::cout<<inpath+sampleName<<std::endl;
-chain->Add(inpath+sampleName);
+chain->Add(inpath+sampleName+".root");
 
 
 //TFile *f = TFile::Open(sampleName+"_plots.root", "recreate");
