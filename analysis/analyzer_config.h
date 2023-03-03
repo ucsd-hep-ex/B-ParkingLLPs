@@ -11,6 +11,8 @@ class analyzer_config : public analyzer_base{
   virtual ~analyzer_config();
   void     setConfig();
 
+  //static const Bool_t cutFlow = kFALSE;
+  static const Bool_t b_cutFlow = kTRUE;
 
   Float_t muPt;
   Float_t muEta;
@@ -35,6 +37,8 @@ class analyzer_config : public analyzer_base{
 
   int HLTIndexLow;
   int HLTIndexHigh;
+
+  Bool_t doCutFlow();
 };
 #endif
 

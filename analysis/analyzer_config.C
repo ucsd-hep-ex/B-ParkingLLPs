@@ -37,4 +37,9 @@ void analyzer_config::setConfig(){
   HLTIndexLow = 1157;
   HLTIndexHigh = 1197;
 
+
+}
+
+Bool_t analyzer_config::doCutFlow(){
+  return b_cutFlow;
 }

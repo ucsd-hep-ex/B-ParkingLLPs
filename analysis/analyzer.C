@@ -72,7 +72,12 @@ void analyzer::Loop()
       CscCluster_list =  CscClusterPassSel(doesPassHLT(), CscSize, dr_LeadMu_CscCluster);
 
       // continue doing the cutflow
-      if(doesPassHLT()) {cutFlow["HLT"] +=1;}
+      if(doesPassHLT() && b_cutFlow) {
+      cutFlow["HLT"] +=1;
+      DtClusterPassSel_CutFlow (DtSize , dr_LeadMu_DtCluster );
+      CscClusterPassSel_CutFlow(CscSize, dr_LeadMu_CscCluster);
+
+      }
 
       //Fill the histograms by event
       FillHistos();
@@ -80,10 +85,12 @@ void analyzer::Loop()
    }//end jentries
 
    //print cutFlow table
-   int width = 30;
-   for (int c = 0; c<cutFlowKeys.size(); c++) {
-    std::cout << '\t'<<setw(width)<<left<< cutFlowKeys[c] <<","<< '\t'<<setw(width)<<left<< cutFlow[cutFlowKeys[c]]
-         << '\n';
+   if(b_cutFlow){
+     int width = 30;
+     for (int c = 0; c<cutFlowKeys.size(); c++) {
+      std::cout << '\t'<<setw(width)<<left<< cutFlowKeys[c] <<","<< '\t'<<setw(width)<<left<< cutFlow[cutFlowKeys[c]]
+           << '\n';
+     }
    }
    std::cout<<"Counter: "<<counter<<std::endl;
    WriteHistos();

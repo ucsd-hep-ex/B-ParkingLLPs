@@ -16,6 +16,9 @@ class analyzer_objects : public analyzer_config{
   std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut);
   std::vector<int> DtClusterPassSel (bool passHLT, int DtSizeCut , float dr_MuonCut);
   std::vector<int> CscClusterPassSel(bool passHLT, int CscSizeCut, float dr_MuonCut);
+
+  void DtClusterPassSel_CutFlow (int DtSizeCut , float dr_MuonCut);
+  void CscClusterPassSel_CutFlow(int CscSizeCut, float dr_MuonCut);
 };
 
 #endif
