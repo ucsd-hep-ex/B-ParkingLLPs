@@ -68,21 +68,32 @@ void analyzer::Loop()
    
       // object lists
       muon_list       =  muonPassSel(muPt, muEta);
-      DtCluster_list  =  DtClusterPassSel (doesPassHLT(), DtSize , dr_LeadMu_DtCluster );
-      CscCluster_list =  CscClusterPassSel(doesPassHLT(), CscSize, dr_LeadMu_CscCluster);
+      std::vector<std::vector<int>> dummy; 
+      dummy.push_back( CscClusterPassSel(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_SR(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_OOT(doesPassHLT()) );
+      CscClusterPassSel_all = dummy;
+      dummy.clear();
+      dummy.push_back( DtClusterPassSel(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_SR(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_OOT(doesPassHLT()) );
+      DtClusterPassSel_all = dummy;
 
       // continue doing the cutflow
       if(doesPassHLT() && b_cutFlow) {
       cutFlow["HLT"] +=1;
-      DtClusterPassSel_CutFlow (DtSize , dr_LeadMu_DtCluster );
-      CscClusterPassSel_CutFlow(CscSize, dr_LeadMu_CscCluster);
-
+      DtClusterPassSel_CutFlow ();
+      CscClusterPassSel_CutFlow();
       }
 
       //Fill the histograms by event
-      FillHistos();
+      FillHistos(0);
+      FillHistos(1);
+      FillHistos(2);
 
    }//end jentries
+
+
 
    //print cutFlow table
    if(b_cutFlow){
@@ -93,7 +104,10 @@ void analyzer::Loop()
      }
    }
    std::cout<<"Counter: "<<counter<<std::endl;
-   WriteHistos();
+   std::cout<<"Counter2: "<<counter2<<std::endl;
+   WriteHistos(0);
+   WriteHistos(1);
+   WriteHistos(2);
    
 }
 

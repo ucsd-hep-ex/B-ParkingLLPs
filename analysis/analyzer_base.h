@@ -25,11 +25,37 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    //global variables here
-   int counter = 0;
+   int counter  = 0;
+   int counter2 = 0;
    std::vector<TFile*> f_out;
+   std::vector<std::vector<int>> DtClusterPassSel_all;
+   std::vector<std::vector<int>> CscClusterPassSel_all;
    std::vector<int> muon_list;
    std::vector<int> DtCluster_list;
    std::vector<int> CscCluster_list;
+   bool passGoodMuon = false;
+   //CSCs
+   bool PassClusterSize_csc       = false;
+   bool PassOverlapMuon_csc       = false;
+   bool OverlapGenLLP_csc         = false;
+   bool PassME1112Veto_csc        = false;
+   bool PassMB1Veto_csc           = false;
+   bool PassRB1Veto_csc           = false;
+   bool PassMuonVeto_csc          = false;
+   bool PassClusterTime_csc       = false;
+   bool PassClusterTimeSpread_csc = false;
+   bool PassClusterEta_csc        = false;
+   bool PassID_csc                = false;
+   //DTs
+   bool PassClusterSize_dt = false;
+   bool PassOverlapMuon_dt = false;
+   bool OverlapGenMuon_dt  = false;
+   bool PassRPCMatching_dt = false;
+   bool PassMuonVeto_dt    = false;
+   bool PassMB1Veto_dt     = false;
+   bool PassRPCTimeCut_dt  = false;
+   bool PassMB1Adjacent_dt = false;
+
    std::map<TString,float> cutFlow;
    std::vector<TString> cutFlowKeys;
 

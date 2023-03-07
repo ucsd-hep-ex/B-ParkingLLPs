@@ -17,29 +17,38 @@ TStopwatch sw;
 sw.Start();
 
 TChain* chain = new TChain("MuonSystem");
-//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
-TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
 //-- what Tony and Aram use
 //TString inpath = "root://cmsxrootd.fnal.gov//store/user/ahayrape/BigNtupler/";
 
 //Fill Sample file Chain
 ///??std::fstream s;
-//TString sampleName = "ParkingBPH4_2018A";
-TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
+TString sampleName = "ParkingBPH4_2018A";
+//TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
 //-- what Tony and Aram use
 //TString sampleName = "PhiToPi0Pi0_mPhi0p3_ctau300";
 std::cout<<inpath+sampleName<<std::endl;
 chain->Add(inpath+sampleName+".root");
 
+std::vector<TString> selBinNames;
+selBinNames.push_back("test");
+selBinNames.push_back("SR");
+selBinNames.push_back("OOT");
 
 //TFile *f = TFile::Open(sampleName+"_plots.root", "recreate");
 analyzer S;
 S.Init(chain);
 S.setConfig();
-S.f_out.push_back( new TFile(sampleName+"_plots.root", "RECREATE") ); 
+for (int i =0; i<selBinNames.size(); i++){
+  S.f_out.push_back( new TFile(sampleName+selBinNames[i]+"_plots.root", "RECREATE") ); 
+}
 S.InitHistos();
 S.Loop();
-S.f_out[0]->Close();
+for (int j = 0; j<selBinNames.size(); j++){
+  std::cout<<"Closing "<<selBinNames[j]<<"  histograms file"<<std::endl;
+  S.f_out[j]->Close();
+}
 
 
 std::cout<<"Done with Final Loop"<<std::endl;

@@ -11,39 +11,101 @@ analyzer_histograms::~analyzer_histograms()
 {
 }
 
-//TH1F* InitTH1F (TString name, TString title, int nbins, Float_t binLow, Float_t binHigh){
-//
-//  TH1F* histoTH1F = new TH1F( name , title , nbins , binLow , binHigh );
-//  histoTH1F->Sumw2();
-//
-//  return histoTH1F;
-//}
+TH1F* InitTH1F (TString name, TString title, int nbins, Float_t binLow, Float_t binHigh){
+
+  TH1F* histoTH1F = new TH1F( name , title , nbins , binLow , binHigh );
+  histoTH1F->Sumw2();
+
+  return histoTH1F;
+}
 
 void analyzer_histograms::InitHistos(){
-  f_out[0]->cd();
-  h_nLeptons = new TH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
-  h_cscRechitClusterSize = new TH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 300, 0, 300);
-  h_dtRechitClusterSize  = new TH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  300, 0, 300);
+  for (int i = 0; i< SELBINNAMESIZE; i++){
+    f_out[i]->cd();
+    h_nLeptons[i]             = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
+    h_nCscRechits[i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
+    h_cscRechitClusterSize[i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 300, 0, 300);
+    h_cscRechitClusterTimeWeighted         [i] = InitTH1F("h_cscRechitClusterTimeWeighted"         , "h_cscRechitClusterTimeWeighted", 200, -100, 100);
+    h_cscRechitClusterTimeTotal            [i] = InitTH1F("h_cscRechitClusterTimeTotal"            , "h_cscRechitClusterTimeTotal", 200, -100, 100);
+    h_cscRechitClusterTimeSpreadWeightedAll[i] = InitTH1F("h_cscRechitClusterTimeSpreadWeightedAll", "h_cscRechitClusterTimeSpreadWeightedAll", 200, -100, 100);
 
+
+    h_nDTRechits[i]  = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
+    h_dtRechitClusterSize[i]  = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  300, 0, 300);
+    h_dtRechitCluster_match_RPCTime_dR0p4                  [i] = InitTH1F("h_dtRechitCluster_match_RPCTime_dR0p4", "h_dtRechitCluster_match_RPCTime_dR0p4",  200, -100, 100);
+    h_dtRechitCluster_match_RPCTimeSpread_dR0p4            [i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_dR0p4", "h_dtRechitCluster_match_RPCTimeSpread_dR0p4",  200, -100, 100);
+    h_dtRechitCluster_match_RPChits_dR0p4                  [i] = InitTH1F("h_dtRechitCluster_match_RPChits_dR0p4", "h_dtRechitCluster_match_RPChits_dR0p4",  200, -100, 100);
+    h_dtRechitCluster_match_RPCTime_dPhi0p5                [i] = InitTH1F("h_dtRechitCluster_match_RPCTime_dPhi0p5",  "h_dtRechitCluster_match_RPCTime_dPhi0p5",  200, -100, 100);
+    h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5          [i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5", "h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5",  200, -100, 100);
+    h_dtRechitCluster_match_RPCTime_sameStation_dR0p4      [i] = InitTH1F("h_dtRechitCluster_match_RPCTime_sameStation_dR0p4", "h_dtRechitCluster_match_RPCTime_sameStation_dR0p4", 200, -100, 100);
+    h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4", "h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4", 200, -100, 100);
+  }
 }
 
-void analyzer_histograms::FillHistos(){
-  f_out[0]->cd();
-  h_nLeptons->Fill(nLeptons);
-  for(int i = 0; i < CscCluster_list.size(); i++){
-    int c = CscCluster_list[i];
-    h_cscRechitClusterSize->Fill(cscRechitClusterSize[i]);
+void analyzer_histograms::FillHistos(int selbin){
+  f_out[selbin]->cd();
+  h_nLeptons[selbin]->Fill(nLeptons);
+  
+  h_nCscRechits                            [selbin]->Fill(nCscRechits);
+  for(int i = 0; i < CscClusterPassSel_all[selbin].size(); i++){
+    int c =  CscClusterPassSel_all[selbin][i];
+    h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c]);
+    h_cscRechitClusterTimeWeighted           [selbin]->Fill(cscRechitClusterTimeWeighted         [c]);
+    h_cscRechitClusterTimeTotal              [selbin]->Fill(cscRechitClusterTimeTotal            [c]);
+    h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Fill(cscRechitClusterTimeSpreadWeightedAll[c]);
   }
-  for(int i = 0; i < DtCluster_list.size(); i++){
-    int d = DtCluster_list[i];
-    h_dtRechitClusterSize->Fill(cscRechitClusterSize[d]);
+    h_nDTRechits                                             [selbin]->Fill(nDTRechits);
+  for(int i = 0; i < DtClusterPassSel_all[selbin].size(); i++){
+    int d = DtClusterPassSel_all[selbin][i];
+    h_dtRechitClusterSize                                    [selbin]->Fill(cscRechitClusterSize                                 [d]);
+    h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPCTime_dR0p4                  [d]);
+    h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dR0p4            [d]);
+    h_dtRechitCluster_match_RPChits_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPChits_dR0p4                  [d]);
+    h_dtRechitCluster_match_RPCTime_dPhi0p5                  [selbin]->Fill(dtRechitCluster_match_RPCTime_dPhi0p5                [d]);
+    h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dPhi0p5          [d]);
+    h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Fill(dtRechitCluster_match_RPCTime_sameStation_dR0p4      [d]);
+    h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[d]);
   }
 }
 
-void analyzer_histograms::WriteHistos(){
-  f_out[0]->cd();
-  h_nLeptons->Write();
-  h_cscRechitClusterSize->Write();
-  h_dtRechitClusterSize->Write();
+void analyzer_histograms::WriteHistos(int selbin){
+  f_out[selbin]->cd();
+  h_nLeptons[selbin]->Write();
 
+  h_nCscRechits                            [selbin]->Write();
+  h_cscRechitClusterSize                   [selbin]->Write();
+  h_cscRechitClusterTimeWeighted           [selbin]->Write();
+  h_cscRechitClusterTimeTotal              [selbin]->Write();
+  h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Write();
+
+  h_nDTRechits                                             [selbin]->Write();
+  h_dtRechitClusterSize                                    [selbin]->Write();
+  h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Write();
+  h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Write();
+  h_dtRechitCluster_match_RPChits_dR0p4                    [selbin]->Write();
+  h_dtRechitCluster_match_RPCTime_dPhi0p5                  [selbin]->Write();
+  h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Write();
+  h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Write();
+  h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Write();
+}
+
+void analyzer_histograms::DeleteHistos(int selbin){
+  f_out[selbin]->cd();
+  h_nLeptons[selbin]->Delete();
+
+  h_nCscRechits                            [selbin]->Delete();
+  h_cscRechitClusterSize                   [selbin]->Delete();
+  h_cscRechitClusterTimeWeighted           [selbin]->Delete();
+  h_cscRechitClusterTimeTotal              [selbin]->Delete();
+  h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Delete();
+
+  h_nDTRechits                                             [selbin]->Delete();
+  h_dtRechitClusterSize                                    [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Delete();
+  h_dtRechitCluster_match_RPChits_dR0p4                    [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTime_dPhi0p5                  [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Delete();
 }

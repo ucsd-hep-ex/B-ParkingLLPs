@@ -10,9 +10,10 @@ class analyzer_config : public analyzer_base{
            analyzer_config();
   virtual ~analyzer_config();
   void     setConfig();
-
-  static const Bool_t b_cutFlow = kFALSE;
-  //static const Bool_t b_cutFlow = kTRUE;
+  
+  static const int SELBINNAMESIZE  = 3;
+  //static const Bool_t b_cutFlow = kFALSE;
+  static const Bool_t b_cutFlow = kTRUE;
 
   Float_t muPt;
   Float_t muEta;

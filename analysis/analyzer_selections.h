@@ -10,6 +10,8 @@ class analyzer_selections : public analyzer_objects{
            analyzer_selections();
   virtual ~analyzer_selections();
 
+ bool SignalRegion(TString clusterFlavour);
+ bool OOTRegion(TString clusterFlavour);
 };
 
 #endif
