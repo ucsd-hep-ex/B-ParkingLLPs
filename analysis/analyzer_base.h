@@ -33,6 +33,7 @@ public :
    std::vector<int> muon_list;
    std::vector<int> DtCluster_list;
    std::vector<int> CscCluster_list;
+
    bool passGoodMuon = false;
    //CSCs
    bool PassClusterSize_csc       = false;

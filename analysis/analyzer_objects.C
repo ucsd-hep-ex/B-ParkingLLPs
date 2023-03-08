@@ -63,16 +63,17 @@ std::vector<int> analyzer_objects::CscClusterPassSel(bool passHLT){
     for (int j = 0; j <nCscRechitClusters; j++){
       if(
         askDoesPassClusterSize_csc(j)        && 
-        askDoesPassOverlapMuon_csc(j)        &&
-        askDoesOverlapGenLLP_csc(j)          &&
+        //askDoesPassOverlapMuon_csc(j)        &&
+        //askDoesOverlapGenLLP_csc(j)          &&
         askDoesPassME1112Veto_csc(j)         &&
         askDoesPassMB1Veto_csc(j)            &&
         askDoesPassRB1Veto_csc(j)            &&
-        askDoesPassMuonVeto_csc(j)           &&
-        askDoesPassClusterTime_csc(j)        &&
-        askDoesPassClusterTimeSpread_csc(j)  &&
-        askDoesPassClusterEta_csc(j)         &&
-        askDoesPassID_csc(j)                   ) ids.push_back(j);
+        //askDoesPassMuonVeto_csc(j)           &&
+        //askDoesPassClusterTime_csc(j)        &&
+        //askDoesPassClusterTimeSpread_csc(j)  &&
+        askDoesPassClusterEta_csc(j)         //&&
+        //askDoesPassID_csc(j)                   
+        ) ids.push_back(j);
     }
   } 
   return ids;
@@ -85,12 +86,12 @@ std::vector<int> analyzer_objects::DtClusterPassSel(bool passHLT){
     for (int j = 0; j <nDtRechitClusters; j++){
       if(
         askDoesPassClusterSize_dt(j) &&
-        askDoesPassOverlapMuon_dt(j) &&
-        askDoesOverlapGenMuon_dt(j)  &&
+        //askDoesPassOverlapMuon_dt(j) &&
+        //askDoesOverlapGenMuon_dt(j)  &&
         askDoesPassRPCMatching_dt(j) &&
-        askDoesPassMuonVeto_dt(j)    &&
+        //askDoesPassMuonVeto_dt(j)    &&
         askDoesPassMB1Veto_dt(j)     &&
-        askDoesPassRPCTimeCut_dt(j)  &&
+        //askDoesPassRPCTimeCut_dt(j)  &&
         askDoesPassMB1Adjacent_dt(j)   ) ids.push_back(j);
     }
   }
@@ -114,9 +115,13 @@ std::vector<int> analyzer_objects::CscClusterPassSel_SR(bool passHLT){
         askDoesPassClusterTime_csc(j)        &&
         askDoesPassClusterTimeSpread_csc(j)  &&
         askDoesPassClusterEta_csc(j)         &&
-        askDoesPassID_csc(j)                   ) {ids.push_back(j); counter++;}
+        askDoesPassID_csc(j)                   ){
+        ids.push_back(j); 
+        counter++;
+      }
     }
   } 
+  
   return ids;
 }
 

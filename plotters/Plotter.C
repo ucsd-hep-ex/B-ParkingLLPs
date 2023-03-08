@@ -15,7 +15,7 @@
 #include <stdlib.h>     /* getenv */
 
 
-void Plotter(TString region){
+void Plotter(TString region, bool dolog){
 
   //region="OOT";
   TString inpath = "/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"; 
@@ -27,14 +27,15 @@ void Plotter(TString region){
 
   TFile* sigFile = TFile::Open(sigpath);  
   TFile* bkgFile = TFile::Open(bkgpath);  
-  
+  std::cout<<sigpath<<std::endl;
+  std::cout<<bkgpath<<std::endl;
   TH1F* h_sig;
   TH1F* h_bkg;
 
    // make canvas and text
   TCanvas* canvas = new TCanvas("canvas","canvas",900,100,500,500); 
   gStyle->SetOptStat(0);
-  //gPad->SetLogy(dolog);
+  gPad->SetLogy(dolog);
   gPad->SetTickx();
   gPad->SetTicky();
   gStyle->SetLineWidth(3);
@@ -42,28 +43,37 @@ void Plotter(TString region){
 
   std::vector<TString> variables;
   variables.clear();
-  variables.push_back("nLeptons");
-  variables.push_back("cscRechitClusterSize");
-  variables.push_back("cscRechitClusterTimeWeighted");
-  variables.push_back("cscRechitClusterTimeTotal");
-  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
-  variables.push_back("dtRechitClusterSize");
-  variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
-  variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
-  variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
-  variables.push_back("dtRechitCluster_match_RPCTime_dPhi0p5");
-  variables.push_back("dtRechitCluster_match_RPCTimeSpread_dPhi0p5");
-  variables.push_back("dtRechitCluster_match_RPCTime_sameStation_dR0p4");
-  variables.push_back("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4");
+  //variables.push_back("nLeptons");
+  variables.push_back("nCscRechits");
+  //variables.push_back("cscRechitClusterSize");
+  //variables.push_back("cscRechitClusterTimeWeighted");
+  //variables.push_back("cscRechitClusterTimeTotal");
+  //variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
+  //variables.push_back("nDTRechits");
+  //variables.push_back("dtRechitClusterSize");
+  //variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPCTime_dPhi0p5");
+  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dPhi0p5");
+  //variables.push_back("dtRechitCluster_match_RPCTime_sameStation_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4");
 
   for (int i =0; i<variables.size(); i++){
   
+  if(variables[i]=="nCscRechits"){
+    h_sig = (TH1F*)sigFile->Get(variables[i])->Clone("h_sig");
+    h_bkg = (TH1F*)bkgFile->Get(variables[i])->Clone("h_bkg");
+  }
+  else{
     h_sig = (TH1F*)sigFile->Get("h_"+variables[i])->Clone("h_sig");
     h_bkg = (TH1F*)bkgFile->Get("h_"+variables[i])->Clone("h_bkg");
+  }
+    std::cout<<"MaxSignal: "<<h_sig->GetMaximum()<<"    Maxbkg: "<<h_bkg->GetMaximum()<<std::endl;
 
     if (h_sig->GetEntries()>0) h_sig->Scale(1./h_sig->Integral());
     if (h_bkg->GetEntries()>0) h_bkg->Scale(1./h_bkg->Integral());
-    std::cout<<"MaxSignal: "<<h_sig->GetMaximum()<<"    Maxbkg: "<<h_bkg->GetMaximum()<<std::endl;
+    std::cout<<"MaxSignal_: "<<h_sig->GetMaximum()<<"    Maxbkg_: "<<h_bkg->GetMaximum()<<std::endl;
 
     double ymax=0;
     ymax = max(h_sig->GetMaximum(), h_bkg->GetMaximum());   
@@ -92,6 +102,7 @@ void Plotter(TString region){
     gPad->Update();
     gPad->RedrawAxis();
 
-    canvas->SaveAs(variables[i]+"_"+region+".pdf");
+    if(dolog) canvas->SaveAs(variables[i]+"_"+region+"_log.pdf");
+    else canvas->SaveAs(variables[i]+"_"+region+".pdf");
   } 
 }

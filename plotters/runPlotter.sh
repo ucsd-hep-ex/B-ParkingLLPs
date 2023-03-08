@@ -1,0 +1,6 @@
+#root -l -b -q 'Plotter.C("test", false)'
+#root -l -b -q 'Plotter.C("SR", false)'
+#root -l -b -q 'Plotter.C("OOT", false)'
+#root -l -b -q 'Plotter.C("test", true)'
+root -l -b -q 'Plotter.C("SR", true)'
+root -l -b -q 'Plotter.C("OOT", true)'
