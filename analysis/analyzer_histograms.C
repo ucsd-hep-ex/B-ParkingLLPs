@@ -22,18 +22,18 @@ TH1F* InitTH1F (TString name, TString title, int nbins, Float_t binLow, Float_t 
 void analyzer_histograms::InitHistos(){
   for (int i = 0; i< SELBINNAMESIZE; i++){
     f_out[i]->cd();
-    h_nLeptons[i]             = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
-    h_nCscRechits[i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
-    h_cscRechitClusterSize[i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 300, 0, 300);
-    h_cscRechitClusterDPhiLeadMuon[i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon", "h_cscRechitClusterDPhiLeadMuon", 30, -5, 5);
+    h_nLeptons                             [i]             = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
+    h_nCscRechits                          [i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
+    h_cscRechitClusterSize                 [i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 300, 0, 300);
+    h_cscRechitClusterDPhiLeadMuon         [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon", "h_cscRechitClusterDPhiLeadMuon", 30, 0, 4);
     h_cscRechitClusterTimeWeighted         [i] = InitTH1F("h_cscRechitClusterTimeWeighted"         , "h_cscRechitClusterTimeWeighted", 200, -100, 100);
     h_cscRechitClusterTimeTotal            [i] = InitTH1F("h_cscRechitClusterTimeTotal"            , "h_cscRechitClusterTimeTotal", 200, -100, 100);
-    h_cscRechitClusterTimeSpreadWeightedAll[i] = InitTH1F("h_cscRechitClusterTimeSpreadWeightedAll", "h_cscRechitClusterTimeSpreadWeightedAll", 200, -100, 100);
+    h_cscRechitClusterTimeSpreadWeightedAll[i] = InitTH1F("h_cscRechitClusterTimeSpreadWeightedAll", "h_cscRechitClusterTimeSpreadWeightedAll", 200, 0, 200);
 
 
-    h_nDTRechits[i]  = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
-    h_dtRechitClusterSize[i]  = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  300, 0, 300);
-    h_dtRechitClusterDPhiLeadMuon[i]  = InitTH1F("h_dtRechitClusterDPhiLeadMuon",  "h_dtRechitClusterDPhiLeadMuon",  30, -5, 5);
+    h_nDTRechits                                           [i]  = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
+    h_dtRechitClusterSize                                  [i]  = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  300, 0, 300);
+    h_dtRechitClusterDPhiLeadMuon                          [i]  = InitTH1F("h_dtRechitClusterDPhiLeadMuon",  "h_dtRechitClusterDPhiLeadMuon",  30, 0, 4);
     h_dtRechitCluster_match_RPCTime_dR0p4                  [i] = InitTH1F("h_dtRechitCluster_match_RPCTime_dR0p4", "h_dtRechitCluster_match_RPCTime_dR0p4",  200, -100, 100);
     h_dtRechitCluster_match_RPCTimeSpread_dR0p4            [i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_dR0p4", "h_dtRechitCluster_match_RPCTimeSpread_dR0p4",  200, -100, 100);
     h_dtRechitCluster_match_RPChits_dR0p4                  [i] = InitTH1F("h_dtRechitCluster_match_RPChits_dR0p4", "h_dtRechitCluster_match_RPChits_dR0p4",  200, -100, 100);
