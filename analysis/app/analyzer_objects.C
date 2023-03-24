@@ -62,8 +62,8 @@ std::vector<int> analyzer_objects::CscClusterPassSel(bool passHLT){
   else{
     for (int j = 0; j <nCscRechitClusters; j++){
       if(
-        askDoesPassClusterSize_csc(j)        && 
-        askDoesPassOverlapMuon_csc(j)        &&
+        //askDoesPassClusterSize_csc(j)        && 
+        //askDoesPassOverlapMuon_csc(j)        &&
         //askDoesOverlapGenLLP_csc(j)          &&
         askDoesPassME1112Veto_csc(j)         &&
         askDoesPassMB1Veto_csc(j)            &&
@@ -85,8 +85,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel(bool passHLT){
   else{
     for (int j = 0; j <nDtRechitClusters; j++){
       if(
-        askDoesPassClusterSize_dt(j) &&
-        askDoesPassOverlapMuon_dt(j) &&
+        //askDoesPassClusterSize_dt(j) &&
+        //askDoesPassOverlapMuon_dt(j) &&
         //askDoesOverlapGenMuon_dt(j)  &&
         askDoesPassRPCMatching_dt(j) &&
         //askDoesPassMuonVeto_dt(j)    &&

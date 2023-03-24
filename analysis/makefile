@@ -1,14 +1,17 @@
 ROOTFLAGS=`root-config --cflags --libs` 
-CXXDEPFLAGS = -MMD -MP
+CXXDEPFLAGS = -MMD -MP -I$(shell pwd)/include
+
+APPDIR = $(shell pwd)/app
 
 all: main
 
-main:  analyzer_base.o\
-       analyzer_config.o\
-       analyzer_objects.o\
-       analyzer_selections.o\
-       analyzer_histograms.o\
-       analyzer.o \
+main:  ${APPDIR}/analyzer_base.o\
+       ${APPDIR}/analyzer_config.o\
+       ${APPDIR}/analyzer_objects.o\
+       ${APPDIR}/analyzer_selections.o\
+       ${APPDIR}/analyzer_histograms.o\
+       ${APPDIR}/analyzer.o \
+       ${APPDIR}/CommandLineInput.o\
        main.C 
 	g++ --std=c++11 $^ -o Run.exe ${ROOTFLAGS} ${CXXDEPFLAGS}
 
@@ -17,3 +20,4 @@ main:  analyzer_base.o\
 
 clean:
 	rm -f  *.{o,d,exe}
+	rm -f  ${APPDIR}/*.{o,d,exe}

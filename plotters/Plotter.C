@@ -47,6 +47,7 @@ void Plotter(TString region, bool dolog){
   variables.push_back("nCscRechits");
   variables.push_back("cscRechitClusterDPhiLeadMuon");
   variables.push_back("dtRechitClusterDPhiLeadMuon");
+  variables.push_back("dtRechitCluster_match_RPCBx_dPhi0p5");
   variables.push_back("cscRechitClusterSize");
   variables.push_back("cscRechitClusterTimeWeighted");
   variables.push_back("cscRechitClusterTimeTotal");

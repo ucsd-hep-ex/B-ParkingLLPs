@@ -6,15 +6,19 @@
 #include "TH1F.h"
 #include "TH2F.h"
 #include <fstream>
+#include "CommandLineInput.h"
 
 #include <TStopwatch.h>
 
 
-int main(){
-
+int main(int argc, char* argv[]){
 //start stopwatch
 TStopwatch sw;
 sw.Start();
+
+std::string s_SampleName = ParseCommandLine( argc, argv, "--SampleName=" );
+std::cout<<s_SampleName<<std::endl;
+//std::string s_TF_Unc = ParseCommandLine( argc, argv, "-TF_Unc=" );
 
 Bool_t isMC = kTRUE;
 
@@ -45,7 +49,7 @@ analyzer S;
 S.Init(chain, isMC);
 S.setConfig();
 for (int i =0; i<selBinNames.size(); i++){
-  S.f_out.push_back( new TFile(sampleName+selBinNames[i]+"_plots.root", "RECREATE") ); 
+  S.f_out.push_back( new TFile("roots/"+sampleName+selBinNames[i]+"_plots.root", "RECREATE") ); 
 }
 S.InitHistos();
 S.Loop();

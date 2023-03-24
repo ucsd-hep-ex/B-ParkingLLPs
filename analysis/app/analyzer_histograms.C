@@ -31,9 +31,10 @@ void analyzer_histograms::InitHistos(){
     h_cscRechitClusterTimeSpreadWeightedAll[i] = InitTH1F("h_cscRechitClusterTimeSpreadWeightedAll", "h_cscRechitClusterTimeSpreadWeightedAll", 200, 0, 200);
 
 
-    h_nDTRechits                                           [i]  = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
-    h_dtRechitClusterSize                                  [i]  = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  300, 0, 300);
-    h_dtRechitClusterDPhiLeadMuon                          [i]  = InitTH1F("h_dtRechitClusterDPhiLeadMuon",  "h_dtRechitClusterDPhiLeadMuon",  30, 0, 4);
+    h_nDTRechits                                           [i] = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
+    h_dtRechitClusterSize                                  [i] = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  300, 0, 300);
+    h_dtRechitClusterDPhiLeadMuon                          [i] = InitTH1F("h_dtRechitClusterDPhiLeadMuon",  "h_dtRechitClusterDPhiLeadMuon",  30, 0, 4);
+    h_dtRechitCluster_match_RPCBx_dPhi0p5                  [i] = InitTH1F("h_dtRechitCluster_match_RPCBx_dPhi0p5",  "h_dtRechitCluster_match_RPCBx_dPhi0p5",  20, -10, 10);
     h_dtRechitCluster_match_RPCTime_dR0p4                  [i] = InitTH1F("h_dtRechitCluster_match_RPCTime_dR0p4", "h_dtRechitCluster_match_RPCTime_dR0p4",  200, -100, 100);
     h_dtRechitCluster_match_RPCTimeSpread_dR0p4            [i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_dR0p4", "h_dtRechitCluster_match_RPCTimeSpread_dR0p4",  200, -100, 100);
     h_dtRechitCluster_match_RPChits_dR0p4                  [i] = InitTH1F("h_dtRechitCluster_match_RPChits_dR0p4", "h_dtRechitCluster_match_RPChits_dR0p4",  200, -100, 100);
@@ -65,6 +66,7 @@ void analyzer_histograms::FillHistos(int selbin){
     double dPhi = -999;
     if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], dtRechitClusterPhi[d]);
     h_dtRechitClusterDPhiLeadMuon                            [selbin]->Fill(dPhi);  
+    h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Fill(dtRechitCluster_match_RPCBx_dPhi0p5                  [d]);  
     h_dtRechitClusterSize                                    [selbin]->Fill(cscRechitClusterSize                                 [d]);
     h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPCTime_dR0p4                  [d]);
     h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dR0p4            [d]);
@@ -88,6 +90,7 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Write();
 
   h_dtRechitClusterDPhiLeadMuon                            [selbin]->Write();
+  h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Write();
   h_nDTRechits                                             [selbin]->Write();
   h_dtRechitClusterSize                                    [selbin]->Write();
   h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Write();
@@ -111,6 +114,7 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Delete();
 
   h_dtRechitClusterDPhiLeadMuon                            [selbin]->Delete();
+  h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Delete();
   h_nDTRechits                                             [selbin]->Delete();
   h_dtRechitClusterSize                                    [selbin]->Delete();
   h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Delete();
