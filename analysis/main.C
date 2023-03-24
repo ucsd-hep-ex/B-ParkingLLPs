@@ -16,20 +16,24 @@ int main(){
 TStopwatch sw;
 sw.Start();
 
+Bool_t isMC = kTRUE;
+
 TChain* chain = new TChain("MuonSystem");
-TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
-//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
 //-- what Tony and Aram use
 //TString inpath = "root://cmsxrootd.fnal.gov//store/user/ahayrape/BigNtupler/";
 
 //Fill Sample file Chain
 ///??std::fstream s;
-TString sampleName = "ParkingBPH4_2018A";
-//TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
+//TString sampleName = "ParkingBPH4_2018A";
+TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
 //-- what Tony and Aram use
 //TString sampleName = "PhiToPi0Pi0_mPhi0p3_ctau300";
 std::cout<<inpath+sampleName<<std::endl;
 chain->Add(inpath+sampleName+".root");
+
+if(sampleName.Contains("Parking")) isMC = kFALSE;
 
 std::vector<TString> selBinNames;
 selBinNames.push_back("test");
@@ -38,7 +42,7 @@ selBinNames.push_back("OOT");
 
 //TFile *f = TFile::Open(sampleName+"_plots.root", "recreate");
 analyzer S;
-S.Init(chain);
+S.Init(chain, isMC);
 S.setConfig();
 for (int i =0; i<selBinNames.size(); i++){
   S.f_out.push_back( new TFile(sampleName+selBinNames[i]+"_plots.root", "RECREATE") ); 

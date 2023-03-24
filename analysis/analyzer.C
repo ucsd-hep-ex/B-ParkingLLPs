@@ -24,7 +24,7 @@ void analyzer::Loop()
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 5000;
+   //Long64_t nentries = 5000000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -103,6 +103,7 @@ void analyzer::Loop()
            << '\n';
      }
    }
+   std::cout<<"isMC?: "<<isMC<<std::endl;
    std::cout<<"Counter: "<<counter<<std::endl;
    std::cout<<"Counter2: "<<counter2<<std::endl;
    WriteHistos(0);

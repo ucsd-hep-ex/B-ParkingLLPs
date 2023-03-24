@@ -43,21 +43,23 @@ void Plotter(TString region, bool dolog){
 
   std::vector<TString> variables;
   variables.clear();
-  //variables.push_back("nLeptons");
+  variables.push_back("nLeptons");
   variables.push_back("nCscRechits");
-  //variables.push_back("cscRechitClusterSize");
-  //variables.push_back("cscRechitClusterTimeWeighted");
-  //variables.push_back("cscRechitClusterTimeTotal");
-  //variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
-  //variables.push_back("nDTRechits");
-  //variables.push_back("dtRechitClusterSize");
-  //variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
-  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
-  //variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
-  //variables.push_back("dtRechitCluster_match_RPCTime_dPhi0p5");
-  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dPhi0p5");
-  //variables.push_back("dtRechitCluster_match_RPCTime_sameStation_dR0p4");
-  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4");
+  variables.push_back("cscRechitClusterDPhiLeadMuon");
+  variables.push_back("dtRechitClusterDPhiLeadMuon");
+  variables.push_back("cscRechitClusterSize");
+  variables.push_back("cscRechitClusterTimeWeighted");
+  variables.push_back("cscRechitClusterTimeTotal");
+  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
+  variables.push_back("nDTRechits");
+  variables.push_back("dtRechitClusterSize");
+  variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
+  variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
+  variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
+  variables.push_back("dtRechitCluster_match_RPCTime_dPhi0p5");
+  variables.push_back("dtRechitCluster_match_RPCTimeSpread_dPhi0p5");
+  variables.push_back("dtRechitCluster_match_RPCTime_sameStation_dR0p4");
+  variables.push_back("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4");
 
   for (int i =0; i<variables.size(); i++){
   

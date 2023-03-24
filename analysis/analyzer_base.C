@@ -27,9 +27,10 @@ Long64_t analyzer_base::LoadTree(Long64_t entry)
 }
 
 
-void analyzer_base::Init(TChain *tree)
+void analyzer_base::Init(TChain *tree, Bool_t isMC_)
 {
    std::cout<<"in the INITT "<<std::endl;
+   isMC = isMC_;
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;

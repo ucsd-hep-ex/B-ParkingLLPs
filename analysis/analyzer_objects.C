@@ -63,7 +63,7 @@ std::vector<int> analyzer_objects::CscClusterPassSel(bool passHLT){
     for (int j = 0; j <nCscRechitClusters; j++){
       if(
         askDoesPassClusterSize_csc(j)        && 
-        //askDoesPassOverlapMuon_csc(j)        &&
+        askDoesPassOverlapMuon_csc(j)        &&
         //askDoesOverlapGenLLP_csc(j)          &&
         askDoesPassME1112Veto_csc(j)         &&
         askDoesPassMB1Veto_csc(j)            &&
@@ -86,7 +86,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel(bool passHLT){
     for (int j = 0; j <nDtRechitClusters; j++){
       if(
         askDoesPassClusterSize_dt(j) &&
-        //askDoesPassOverlapMuon_dt(j) &&
+        askDoesPassOverlapMuon_dt(j) &&
         //askDoesOverlapGenMuon_dt(j)  &&
         askDoesPassRPCMatching_dt(j) &&
         //askDoesPassMuonVeto_dt(j)    &&
@@ -215,16 +215,47 @@ void analyzer_objects::DtClusterPassSel_CutFlow(){
   bool PassMB1Veto     = false;
   bool PassRPCTimeCut  = false;
   bool PassMB1Adjacent = false;
-  for (int j = 0; j <nDtRechitClusters; j++){
-    if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], dtRechitClusterEta[j], dtRechitClusterPhi[j]);
-    else dR_mu = 0.0;
-    dR_LLP = dR(gLLP_eta, gLLP_phi, dtRechitClusterEta[j], dtRechitClusterPhi[j]);
-    if(dtRechitClusterSize[j] >= DtSize){
-      PassClusterSize = true;
-      if( dR_mu > dr_LeadMu_DtCluster){
-        PassOverlapMuon = true;
-        if(dR_LLP < dr_GenMu_DtCluster){
-          OverlapGenMuon = true;
+  if(isMC){
+    for (int j = 0; j <nDtRechitClusters; j++){
+      if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], dtRechitClusterEta[j], dtRechitClusterPhi[j]);
+      else dR_mu = 0.0;
+      dR_LLP = dR(gLLP_eta, gLLP_phi, dtRechitClusterEta[j], dtRechitClusterPhi[j]);
+      if(dtRechitClusterSize[j] >= DtSize){
+        PassClusterSize = true;
+        if( dR_mu > dr_LeadMu_DtCluster){
+          PassOverlapMuon = true;
+          if(dR_LLP < dr_GenMu_DtCluster){
+            OverlapGenMuon = true;
+            if (dtRechitCluster_match_RPChits_dPhi0p5[j] > 0){
+              PassRPCMatching = true;
+              if(dtRechitClusterMuonVetoPt[j] < DtMuonVetoPt){
+                PassMuonVeto = true;
+                if( dtRechitCluster_match_MB1hits_0p5[j] <= DtMB1Veto){
+                  PassMB1Veto = true;
+                  if(dtRechitCluster_match_RPCBx_dPhi0p5[j] == 0){
+                    PassRPCTimeCut = true;
+                    if(dtRechitCluster_match_MB1hits_cosmics_plus[j] <=8&& dtRechitCluster_match_MB1hits_cosmics_minus[j]<=8){
+                      PassMB1Adjacent = true;
+                    }  
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  else{
+    OverlapGenMuon = true;
+    for (int j = 0; j <nDtRechitClusters; j++){
+      if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], dtRechitClusterEta[j], dtRechitClusterPhi[j]);
+      else dR_mu = 0.0;
+      dR_LLP = dR(gLLP_eta, gLLP_phi, dtRechitClusterEta[j], dtRechitClusterPhi[j]);
+      if(dtRechitClusterSize[j] >= DtSize){
+        PassClusterSize = true;
+        if( dR_mu > dr_LeadMu_DtCluster){
+          PassOverlapMuon = true;
           if (dtRechitCluster_match_RPChits_dPhi0p5[j] > 0){
             PassRPCMatching = true;
             if(dtRechitClusterMuonVetoPt[j] < DtMuonVetoPt){
@@ -269,16 +300,63 @@ void analyzer_objects::CscClusterPassSel_CutFlow(){
   bool PassClusterTimeSpread = false;
   bool PassClusterEta        = false;
   bool PassID                = false;
-  for (int j = 0; j <nCscRechitClusters; j++){
-    if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], cscRechitClusterEta[j], cscRechitClusterPhi[j]);
-    else dR_mu = 0.0;
-    dR_LLP = dR(gLLP_eta, gLLP_phi, cscRechitClusterEta[j], cscRechitClusterPhi[j]);
-    if(cscRechitClusterSize[j] >= CscSize){
-      PassClusterSize = true;
-      if( dR_mu > dr_LeadMu_CscCluster){
-        PassOverlapMuon = true;
-        if(dR_LLP < dr_GenMu_CscCluster){
-        OverlapGenLLP = true;
+  if(isMC){
+    for (int j = 0; j <nCscRechitClusters; j++){
+      if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], cscRechitClusterEta[j], cscRechitClusterPhi[j]);
+      else dR_mu = 0.0;
+      dR_LLP = dR(gLLP_eta, gLLP_phi, cscRechitClusterEta[j], cscRechitClusterPhi[j]);
+      if(cscRechitClusterSize[j] >= CscSize){
+        PassClusterSize = true;
+        if( dR_mu > dr_LeadMu_CscCluster){
+          PassOverlapMuon = true;
+          if(dR_LLP < dr_GenMu_CscCluster){
+          OverlapGenLLP = true;
+            if( cscRechitClusterNRechitChamberPlus11[j] <=0 && cscRechitClusterNRechitChamberMinus11[j] <=0 &&
+                cscRechitClusterNRechitChamberPlus12[j] <=0 && cscRechitClusterNRechitChamberMinus12[j] <=0){
+              PassME1112Veto = true;
+              if( cscRechitCluster_match_MB1Seg_0p4[j] == 0){
+                PassMB1Veto = true;
+                if(cscRechitCluster_match_RB1_0p4[j] == 0){
+                  PassRB1Veto = true;
+                  if(cscRechitClusterMuonVetoPt[j] < CscMuonVetoPt){
+                    PassMuonVeto = true;
+                    if( cscRechitClusterTimeWeighted[j] >= cscClusterTimeLow && cscRechitClusterTimeWeighted[j] <= cscClusterTimeHigh){
+                      PassClusterTime = true;
+                      if(cscRechitClusterTimeSpreadWeightedAll[j] <= cscClusterTimeSpread){
+                        PassClusterTimeSpread = true;
+                        if(fabs(cscRechitClusterEta[j]) < CscEta){
+                          PassClusterEta = true;
+                          if( 
+        		           (cscRechitClusterNStation10[j] > 1 && fabs(cscRechitClusterEta[j])<1.9) || 
+                             (cscRechitClusterNStation10[j]== 1 && fabs(cscRechitClusterAvgStation10[j])==4 && fabs(cscRechitClusterEta[j])<1.8) || 
+                             (cscRechitClusterNStation10[j]== 1 && fabs(cscRechitClusterAvgStation10[j])==3 && fabs(cscRechitClusterEta[j])<1.5) || 
+                             (cscRechitClusterNStation10[j]== 1 && fabs(cscRechitClusterAvgStation10[j])==2 && fabs(cscRechitClusterEta[j])<1.7) || 
+                             (cscRechitClusterNStation10[j]== 1 && fabs(cscRechitClusterAvgStation10[j])==1 && fabs(cscRechitClusterEta[j])<1.0)  
+                            ){
+                            PassID = true;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  else{
+    OverlapGenLLP = true;
+    for (int j = 0; j <nCscRechitClusters; j++){
+      if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], cscRechitClusterEta[j], cscRechitClusterPhi[j]);
+      else dR_mu = 0.0;
+      dR_LLP = dR(gLLP_eta, gLLP_phi, cscRechitClusterEta[j], cscRechitClusterPhi[j]);
+      if(cscRechitClusterSize[j] >= CscSize){
+        PassClusterSize = true;
+        if( dR_mu > dr_LeadMu_CscCluster){
+          PassOverlapMuon = true;
           if( cscRechitClusterNRechitChamberPlus11[j] <=0 && cscRechitClusterNRechitChamberMinus11[j] <=0 &&
               cscRechitClusterNRechitChamberPlus12[j] <=0 && cscRechitClusterNRechitChamberMinus12[j] <=0){
             PassME1112Veto = true;
@@ -295,7 +373,7 @@ void analyzer_objects::CscClusterPassSel_CutFlow(){
                       if(fabs(cscRechitClusterEta[j]) < CscEta){
                         PassClusterEta = true;
                         if( 
-      		           (cscRechitClusterNStation10[j] > 1 && fabs(cscRechitClusterEta[j])<1.9) || 
+              	           (cscRechitClusterNStation10[j] > 1 && fabs(cscRechitClusterEta[j])<1.9) || 
                            (cscRechitClusterNStation10[j]== 1 && fabs(cscRechitClusterAvgStation10[j])==4 && fabs(cscRechitClusterEta[j])<1.8) || 
                            (cscRechitClusterNStation10[j]== 1 && fabs(cscRechitClusterAvgStation10[j])==3 && fabs(cscRechitClusterEta[j])<1.5) || 
                            (cscRechitClusterNStation10[j]== 1 && fabs(cscRechitClusterAvgStation10[j])==2 && fabs(cscRechitClusterEta[j])<1.7) || 
@@ -362,8 +440,11 @@ bool analyzer_objects::askDoesPassOverlapMuon_dt(int index){
 
 bool analyzer_objects::askDoesOverlapGenMuon_dt(int index){
   double dR_LLP = dR(gLLP_eta, gLLP_phi, dtRechitClusterEta[index], dtRechitClusterPhi[index]);
-  if(dR_LLP < dr_GenMu_DtCluster) return true;
-  else return false;
+  if (isMC) {
+    if(dR_LLP < dr_GenMu_DtCluster)return true; 
+    else return false;
+  }
+  else return true;//if Data this cut does nothing
 }
 bool analyzer_objects::askDoesPassClusterSize_dt(int index){ 
   if(dtRechitClusterSize[index] >= DtSize) return true; 
@@ -411,8 +492,11 @@ bool analyzer_objects::askDoesPassOverlapMuon_csc(int index){
 
 bool analyzer_objects::askDoesOverlapGenLLP_csc(int index){
   double dR_LLP = dR(gLLP_eta, gLLP_phi, cscRechitClusterEta[index], cscRechitClusterPhi[index]);
-  if(dR_LLP < dr_GenMu_CscCluster)return true; 
-  else return false;
+  if (isMC) {
+    if(dR_LLP < dr_GenMu_CscCluster)return true; 
+    else return false;
+  }
+  else return true;//if Data this cut does nothing
 }
 
 bool analyzer_objects::askDoesPassME1112Veto_csc        (int index){

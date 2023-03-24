@@ -25,6 +25,7 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    //global variables here
+   Bool_t isMC = kFALSE;
    int counter  = 0;
    int counter2 = 0;
    std::vector<TFile*> f_out;
@@ -506,7 +507,7 @@ public :
 
    analyzer_base();
    virtual ~analyzer_base();
-   virtual void Init(TChain *tree);
+   virtual void Init(TChain *tree, Bool_t isMC_);
    virtual Long64_t LoadTree(Long64_t entry);
    double        dR(double eta1, double phi1, double eta2, double phi2);
    double        DeltaPhi(double phi1, double phi2);
