@@ -13,7 +13,7 @@ main:  ${APPDIR}/analyzer_base.o\
        ${APPDIR}/analyzer.o \
        ${APPDIR}/CommandLineInput.o\
        main.C 
-	g++ --std=c++11 $^ -o Run.exe ${ROOTFLAGS} ${CXXDEPFLAGS}
+	g++ --std=c++11 $^ -o RunAnalyzer.exe ${ROOTFLAGS} ${CXXDEPFLAGS}
 
 %.o: %.C  
 	g++ --std=c++11 -c $^ -o $@ ${ROOTFLAGS} ${CXXDEPFLAGS} 
