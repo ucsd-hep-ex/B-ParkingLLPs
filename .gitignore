@@ -1,3 +1,6 @@
+# job outputs
+condor/gitignore
+
 # Prerequisites
 *.d
 
