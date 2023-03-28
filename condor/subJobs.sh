@@ -1,6 +1,6 @@
 #!/bin/bash
 
-doSubmit=false
+doSubmit=true
 path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0"
 
 samples=(  \

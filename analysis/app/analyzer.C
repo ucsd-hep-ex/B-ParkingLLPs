@@ -23,8 +23,8 @@ void analyzer::Loop()
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
    if (fChain == 0) return;
-   //Long64_t nentries = fChain->GetEntriesFast();
-   Long64_t nentries = 1000;
+   Long64_t nentries = fChain->GetEntriesFast();
+   //Long64_t nentries = 1000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
