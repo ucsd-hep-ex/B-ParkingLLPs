@@ -16,40 +16,49 @@ int main(int argc, char* argv[]){
 TStopwatch sw;
 sw.Start();
 
-std::string s_SampleName = ParseCommandLine( argc, argv, "--SampleName=" );
-std::cout<<s_SampleName<<std::endl;
-//std::string s_TF_Unc = ParseCommandLine( argc, argv, "-TF_Unc=" );
-
+TString s_Sample = ParseCommandLine( argc, argv, "--Sample=" );
+TString s_Path   = ParseCommandLine( argc, argv, "--Path=" );
 Bool_t isMC = kTRUE;
 
 TChain* chain = new TChain("MuonSystem");
-//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
-TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/ParkingBPH4_2018A/";
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
 //-- what Tony and Aram use
 //TString inpath = "root://cmsxrootd.fnal.gov//store/user/ahayrape/BigNtupler/";
 
 //Fill Sample file Chain
-///??std::fstream s;
-//TString sampleName = "ParkingBPH4_2018A";
-TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
+TString sampleName = "ParkingBPH4_2018A";
+//TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
 //-- what Tony and Aram use
 //TString sampleName = "PhiToPi0Pi0_mPhi0p3_ctau300";
-std::cout<<inpath+sampleName<<std::endl;
-chain->Add(inpath+sampleName+".root");
 
-if(sampleName.Contains("Parking")) isMC = kFALSE;
+
+TString Sample;
+TString theSample;
+if(s_Sample != "") {
+  Sample = s_Path+s_Sample+".root";
+  theSample = s_Sample;
+}
+else {
+  Sample = inpath+sampleName+".root";
+  theSample = sampleName;
+}
+std::cout<<Sample<<std::endl;
+chain->Add(Sample);
+
+if(theSample.Contains("Parking")) isMC = kFALSE;
 
 std::vector<TString> selBinNames;
 selBinNames.push_back("test");
 selBinNames.push_back("SR");
 selBinNames.push_back("OOT");
 
-//TFile *f = TFile::Open(sampleName+"_plots.root", "recreate");
+//TFile *f = TFile::Open(theSample+"_plots.root", "recreate");
 analyzer S;
 S.Init(chain, isMC);
 S.setConfig();
 for (int i =0; i<selBinNames.size(); i++){
-  S.f_out.push_back( new TFile("roots/"+sampleName+selBinNames[i]+"_plots.root", "RECREATE") ); 
+  S.f_out.push_back( new TFile("roots/"+theSample+selBinNames[i]+"_plots.root", "RECREATE") ); 
 }
 S.InitHistos();
 S.Loop();
