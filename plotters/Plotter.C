@@ -36,6 +36,7 @@ void Plotter(TString region, bool dolog, TString inpath){
   TCanvas* canvas = new TCanvas("canvas","canvas",900,100,500,500); 
   gStyle->SetOptStat(0);
   gPad->SetLogy(dolog);
+  gPad->SetGrid();
   gPad->SetTickx();
   gPad->SetTicky();
   gStyle->SetLineWidth(3);
@@ -43,24 +44,30 @@ void Plotter(TString region, bool dolog, TString inpath){
 
   std::vector<TString> variables;
   variables.clear();
-//  variables.push_back("nLeptons");
-//  variables.push_back("nCscRechits");
-  variables.push_back("cscRechitClusterDPhiLeadMuon");
-  variables.push_back("dtRechitClusterDPhiLeadMuon");
-  variables.push_back("dtRechitCluster_match_RPCBx_dPhi0p5");
-  variables.push_back("cscRechitClusterSize");
-//  variables.push_back("cscRechitClusterTimeWeighted");
+  variables.push_back("cscRechitClusterTime");
   variables.push_back("cscRechitClusterTimeTotal");
-//  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
-//  variables.push_back("nDTRechits");
-  variables.push_back("dtRechitClusterSize");
-//  variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
-//  variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
-//  variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
-//  variables.push_back("dtRechitCluster_match_RPCTime_dPhi0p5");
-//  variables.push_back("dtRechitCluster_match_RPCTimeSpread_dPhi0p5");
-//  variables.push_back("dtRechitCluster_match_RPCTime_sameStation_dR0p4");
-//  variables.push_back("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4");
+  variables.push_back("cscRechitClusterTimeWeighted");
+  variables.push_back("cscRechitClusterTimeSpread");
+  variables.push_back("cscRechitClusterTimeSpreadWeighted");
+  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
+  //variables.push_back("nLeptons");
+  //variables.push_back("nCscRechits");
+  //variables.push_back("cscRechitClusterDPhiLeadMuon");
+  //variables.push_back("dtRechitClusterDPhiLeadMuon");
+  //variables.push_back("dtRechitCluster_match_RPCBx_dPhi0p5");
+  //variables.push_back("cscRechitClusterSize");
+  //variables.push_back("cscRechitClusterTime");
+  //variables.push_back("cscRechitClusterTimeTotal");
+  //variables.push_back("cscRechitClusterTimeWeighted");
+  //variables.push_back("dtRechitClusterSize");
+  //variables.push_back("nDTRechits");
+  //variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPCTime_dPhi0p5");
+  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dPhi0p5");
+  //variables.push_back("dtRechitCluster_match_RPCTime_sameStation_dR0p4");
+  //variables.push_back("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4");
 
   for (int i =0; i<variables.size(); i++){
   
@@ -91,21 +98,26 @@ void Plotter(TString region, bool dolog, TString inpath){
 
     h_sig->Draw("hist");
     h_bkg->Draw("hist sames");
-    h_sig->SetMaximum(ymax*(1.5));
-    
+    if(dolog)  h_sig->SetMaximum(ymax*(4));
+    else       h_sig->SetMaximum(ymax*(1.2));
+
+    h_sig->SetTitle("");    
+    h_sig->GetYaxis()->SetTitle("a.u.");
+    h_sig->GetYaxis()->SetTitleOffset(1.5);
+    h_sig->GetXaxis()->SetTitle(variables[i]);
     h_sig->SetLineColor(kRed);
     h_bkg->SetLineColor(kBlack);
 
     h_sig->SetLineWidth(2);
     h_bkg->SetLineWidth(2);
 
-    leg->AddEntry(h_sig, "$PhiTo$pi^0$pi^0 m=0.3GeV ctau=300","l");
+    leg->AddEntry(h_sig, "#Phi#rightarrow#pi^{0}#pi^{0}    m_{#Phi}=0.3GeV, c#tau_{#Phi}=300mm","l");
     leg->AddEntry(h_bkg, "Background","l");
     leg->Draw("sames");
     gPad->Update();
     gPad->RedrawAxis();
 
-    if(dolog) canvas->SaveAs("plotDump/"+variables[i]+"_"+region+"_log.pdf");
-    else canvas->SaveAs("plotDump/"+variables[i]+"_"+region+".pdf");
+    if(dolog) canvas->SaveAs("plotDump/ADDTIME-MUPTVETO-TIMESPREAD/"+variables[i]+"_"+region+"_log.pdf");
+    else canvas->SaveAs("plotDump/ADDTIME-MUPTVETO-TIMESPREAD/"+variables[i]+"_"+region+".pdf");
   } 
 }

@@ -1,9 +1,11 @@
-path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"
+#path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"
+#invertID
+path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/ADDTIME-MUPTVETO-TIMESPREAD/"
 
 regions=(\
  "test" \
-# "SR"  \
-# "OOT" \
+ "SR"  \
+ "OOT" \
 )
 
 dologs=(\
