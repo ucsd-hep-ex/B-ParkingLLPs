@@ -1,7 +1,7 @@
 #!/bin/bash
 
 doSubmit=true
-path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_0"
+path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1"
 
 samples=(  \
 "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
@@ -19,6 +19,7 @@ mkdir -p gitignore/$vName
 mkdir -p gitignore/$vName/logs
 
 cd gitignore/$vName
+cp ../../../analysis/RunAnalyzer.exe .
 setUp="./setup.C"
 grep -h "loggit" ../../../analysis/app/* >> ${setUp}
 
@@ -27,7 +28,7 @@ printf "universe = vanilla\n" > submitfile
 printf "Executable = ../../runJobs.sh\n" >> submitfile
 printf "Should_Transfer_Files = YES \n" >> submitfile
 printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
-printf "Transfer_Input_Files = ../../../analysis/RunAnalyzer.exe\n" >> submitfile
+printf "Transfer_Input_Files = RunAnalyzer.exe\n" >> submitfile
 
 printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
 printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile
