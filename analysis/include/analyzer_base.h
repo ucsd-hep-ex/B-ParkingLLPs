@@ -121,8 +121,11 @@ public :
    Float_t         cscRechitClusterX[N_MAX_CSC];   //[nCscRechitClusters]
    Float_t         cscRechitClusterY[N_MAX_CSC];   //[nCscRechitClusters]
    Float_t         cscRechitClusterZ[N_MAX_CSC];   //[nCscRechitClusters]
+   Float_t         cscRechitClusterTime[N_MAX_CSC];   //[nCscRechitClusters]
    Float_t         cscRechitClusterTimeWeighted[N_MAX_CSC];   //[nCscRechitClusters]
    Float_t         cscRechitClusterTimeTotal[N_MAX_CSC];   //[nCscRechitClusters]
+   Float_t         cscRechitClusterTimeSpread[N_MAX_CSC];   //[nCscRechitClusters]
+   Float_t         cscRechitClusterTimeSpreadWeighted[N_MAX_CSC];   //[nCscRechitClusters]
    Float_t         cscRechitClusterTimeSpreadWeightedAll[N_MAX_CSC];   //[nCscRechitClusters]
    Float_t         cscRechitClusterGenMuonDeltaR[N_MAX_CSC];   //[nCscRechitClusters]
    Float_t         cscRechitClusterPhi[N_MAX_CSC];   //[nCscRechitClusters]
@@ -342,7 +345,11 @@ public :
    TBranch        *b_cscRechitClusterX;   //!
    TBranch        *b_cscRechitClusterY;   //!
    TBranch        *b_cscRechitClusterZ;   //!
+   TBranch        *b_cscRechitClusterTime;   //!
+   TBranch        *b_cscRechitClusterTimeTotal;   //!
    TBranch        *b_cscRechitClusterTimeWeighted;   //!
+   TBranch        *b_cscRechitClusterTimeSpread;   //!
+   TBranch        *b_cscRechitClusterTimeSpreadWeighted;   //!
    TBranch        *b_cscRechitClusterTimeSpreadWeightedAll;   //!
    TBranch        *b_cscRechitClusterGenMuonDeltaR;   //!
    TBranch        *b_cscRechitClusterPhi;   //!

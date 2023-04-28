@@ -26,8 +26,11 @@ void analyzer_histograms::InitHistos(){
     h_nCscRechits                          [i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
     h_cscRechitClusterSize                 [i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 300, 0, 300);
     h_cscRechitClusterDPhiLeadMuon         [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon", "h_cscRechitClusterDPhiLeadMuon", 30, 0, 4);
+    h_cscRechitClusterTime                 [i] = InitTH1F("h_cscRechitClusterTime"                 , "h_cscRechitClusterTime",         200, -100, 100);
     h_cscRechitClusterTimeWeighted         [i] = InitTH1F("h_cscRechitClusterTimeWeighted"         , "h_cscRechitClusterTimeWeighted", 200, -100, 100);
-    h_cscRechitClusterTimeTotal            [i] = InitTH1F("h_cscRechitClusterTimeTotal"            , "h_cscRechitClusterTimeTotal", 200, -100, 100);
+    h_cscRechitClusterTimeTotal            [i] = InitTH1F("h_cscRechitClusterTimeTotal"            , "h_cscRechitClusterTimeTotal",    200, -100, 100);
+    h_cscRechitClusterTimeSpread           [i] = InitTH1F("h_cscRechitClusterTimeSpread",            "h_cscRechitClusterTimeSpread",            200, 0, 200);
+    h_cscRechitClusterTimeSpreadWeighted   [i] = InitTH1F("h_cscRechitClusterTimeSpreadWeighted",     "h_cscRechitClusterTimeSpreadWeighted",   200, 0, 200);
     h_cscRechitClusterTimeSpreadWeightedAll[i] = InitTH1F("h_cscRechitClusterTimeSpreadWeightedAll", "h_cscRechitClusterTimeSpreadWeightedAll", 200, 0, 200);
 
 
@@ -56,8 +59,11 @@ void analyzer_histograms::FillHistos(int selbin){
     if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[c]);
     h_cscRechitClusterDPhiLeadMuon           [selbin]->Fill(dPhi);  
     h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c]);
+    h_cscRechitClusterTime                   [selbin]->Fill(cscRechitClusterTime                 [c]);
     h_cscRechitClusterTimeWeighted           [selbin]->Fill(cscRechitClusterTimeWeighted         [c]);
     h_cscRechitClusterTimeTotal              [selbin]->Fill(cscRechitClusterTimeTotal            [c]);
+    h_cscRechitClusterTimeSpread             [selbin]->Fill(cscRechitClusterTimeSpread           [c]);
+    h_cscRechitClusterTimeSpreadWeighted     [selbin]->Fill(cscRechitClusterTimeSpreadWeighted   [c]);
     h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Fill(cscRechitClusterTimeSpreadWeightedAll[c]);
   }
     if(DtClusterPassSel_all[selbin].size()>0) h_nDTRechits[selbin]->Fill(nDTRechits);
@@ -85,8 +91,11 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_cscRechitClusterDPhiLeadMuon           [selbin]->Write();
   h_nCscRechits                            [selbin]->Write();
   h_cscRechitClusterSize                   [selbin]->Write();
+  h_cscRechitClusterTime                   [selbin]->Write();
   h_cscRechitClusterTimeWeighted           [selbin]->Write();
   h_cscRechitClusterTimeTotal              [selbin]->Write();
+  h_cscRechitClusterTimeSpread             [selbin]->Write();
+  h_cscRechitClusterTimeSpreadWeighted     [selbin]->Write();
   h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Write();
 
   h_dtRechitClusterDPhiLeadMuon                            [selbin]->Write();
@@ -109,8 +118,11 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_cscRechitClusterDPhiLeadMuon           [selbin]->Delete();
   h_nCscRechits                            [selbin]->Delete();
   h_cscRechitClusterSize                   [selbin]->Delete();
+  h_cscRechitClusterTime                   [selbin]->Delete();
   h_cscRechitClusterTimeWeighted           [selbin]->Delete();
   h_cscRechitClusterTimeTotal              [selbin]->Delete();
+  h_cscRechitClusterTimeSpread             [selbin]->Delete();
+  h_cscRechitClusterTimeSpreadWeighted     [selbin]->Delete();
   h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Delete();
 
   h_dtRechitClusterDPhiLeadMuon                            [selbin]->Delete();

@@ -19,8 +19,11 @@ class analyzer_histograms : public analyzer_selections{
   TH1F* h_cscRechitClusterDPhiLeadMuon           [SELBINNAMESIZE];
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize                   [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterTime                   [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeWeighted           [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeTotal              [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterTimeSpread             [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterTimeSpreadWeighted     [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeSpreadWeightedAll  [SELBINNAMESIZE];
 
 

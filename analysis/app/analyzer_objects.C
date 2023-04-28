@@ -62,17 +62,17 @@ std::vector<int> analyzer_objects::CscClusterPassSel(bool passHLT){    // loggit
   else{
     for (int j = 0; j <nCscRechitClusters; j++){                       // loggit
       if(                                                              // loggit
-        //askDoesPassClusterSize_csc(j)        &&                      // loggit 
+        askDoesPassClusterSize_csc(j)        &&                      // loggit 
         askDoesPassOverlapMuon_csc(j)        &&                        // loggit
         //askDoesOverlapGenLLP_csc(j)          &&                      // loggit
         askDoesPassME1112Veto_csc(j)         &&                        // loggit
         askDoesPassMB1Veto_csc(j)            &&                        // loggit
         askDoesPassRB1Veto_csc(j)            &&                        // loggit
-        //askDoesPassMuonVeto_csc(j)           &&                      // loggit
+        askDoesPassMuonVeto_csc(j)           &&                      // loggit
         //askDoesPassClusterTime_csc(j)        &&                      // loggit
-        //askDoesPassClusterTimeSpread_csc(j)  &&                      // loggit
-        askDoesPassClusterEta_csc(j)                                   // loggit
-        //askDoesPassID_csc(j)                 &&                      // loggit
+        askDoesPassClusterTimeSpread_csc(j)  &&                      // loggit
+        askDoesPassClusterEta_csc(j)         &&                          // loggit
+        askDoesPassID_csc(j)                                       // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   } 
@@ -86,7 +86,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel(bool passHLT){     // loggit
     for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
       if(                                                              // loggit
         //askDoesPassClusterSize_dt(j) &&                                // loggit
-        askDoesPassOverlapMuon_dt(j) &&                                // loggit
+        //askDoesPassOverlapMuon_dt(j) &&                                // loggit
         //askDoesOverlapGenMuon_dt(j)  &&                              // loggit
         askDoesPassRPCMatching_dt(j) &&                                // loggit
         //askDoesPassMuonVeto_dt(j)    &&                                // loggit
