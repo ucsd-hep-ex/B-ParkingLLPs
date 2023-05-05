@@ -19,6 +19,8 @@ class analyzer_histograms : public analyzer_selections{
   TH1F* h_cscRechitClusterDPhiLeadMuon           [SELBINNAMESIZE];
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize                   [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterPhi                    [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterEta                    [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTime                   [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeWeighted           [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeTotal              [SELBINNAMESIZE];
@@ -31,6 +33,8 @@ class analyzer_histograms : public analyzer_selections{
   TH1F* h_dtRechitCluster_match_RPCBx_dPhi0p5                    [SELBINNAMESIZE];
   TH1F* h_nDTRechits                                             [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize                                    [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterPhi                                     [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterEta                                     [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPCTime_dR0p4                    [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPChits_dR0p4                    [SELBINNAMESIZE];
