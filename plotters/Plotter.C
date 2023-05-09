@@ -15,7 +15,7 @@
 #include <stdlib.h>     /* getenv */
 
 
-void Plotter(TString region, bool dolog, TString inpath){
+void Plotter(TString region, bool dolog, TString inpath, TString aversion){
 
   //region="OOT";
   //TString inpath = "/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"; 
@@ -44,23 +44,27 @@ void Plotter(TString region, bool dolog, TString inpath){
 
   std::vector<TString> variables;
   variables.clear();
-  variables.push_back("cscRechitClusterTime");
-  variables.push_back("cscRechitClusterTimeTotal");
-  variables.push_back("cscRechitClusterTimeWeighted");
-  variables.push_back("cscRechitClusterTimeSpread");
-  variables.push_back("cscRechitClusterTimeSpreadWeighted");
-  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
+  //variables.push_back("cscRechitClusterTime");
+  //variables.push_back("cscRechitClusterEta");
+  //variables.push_back("cscRechitClusterPhi");
+  //variables.push_back("cscRechitClusterTimeTotal");
+  //variables.push_back("cscRechitClusterTimeWeighted");
+  //variables.push_back("cscRechitClusterTimeSpread");
+  //variables.push_back("cscRechitClusterTimeSpreadWeighted");
+  //variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
   //variables.push_back("nLeptons");
   //variables.push_back("nCscRechits");
-  //variables.push_back("cscRechitClusterDPhiLeadMuon");
-  //variables.push_back("dtRechitClusterDPhiLeadMuon");
+  variables.push_back("cscRechitClusterDPhiLeadMuon");
+  variables.push_back("dtRechitClusterDPhiLeadMuon");
+  //variables.push_back("dtRechitClusterEta");
+  //variables.push_back("dtRechitClusterPhi");
   //variables.push_back("dtRechitCluster_match_RPCBx_dPhi0p5");
   //variables.push_back("cscRechitClusterSize");
   //variables.push_back("cscRechitClusterTime");
   //variables.push_back("cscRechitClusterTimeTotal");
   //variables.push_back("cscRechitClusterTimeWeighted");
   //variables.push_back("dtRechitClusterSize");
-  //variables.push_back("nDTRechits");
+  variables.push_back("nDTRechits");
   //variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
   //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
   //variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
@@ -117,7 +121,7 @@ void Plotter(TString region, bool dolog, TString inpath){
     gPad->Update();
     gPad->RedrawAxis();
 
-    if(dolog) canvas->SaveAs("plotDump/ADDTIME-MUPTVETO-TIMESPREAD/"+variables[i]+"_"+region+"_log.pdf");
-    else canvas->SaveAs("plotDump/ADDTIME-MUPTVETO-TIMESPREAD/"+variables[i]+"_"+region+".pdf");
+    if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+"_log.pdf");
+    else canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+".pdf");
   } 
 }
