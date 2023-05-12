@@ -32,6 +32,9 @@ class analyzer_histograms : public analyzer_selections{
   TH1F* h_dtRechitClusterDPhiLeadMuon                            [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPCBx_dPhi0p5                    [SELBINNAMESIZE];
   TH1F* h_nDTRechits                                             [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterX					 [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterY					 [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterZ					 [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize                                    [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterPhi                                     [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterEta                                     [SELBINNAMESIZE];
