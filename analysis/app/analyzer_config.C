@@ -30,6 +30,8 @@ void analyzer_config::setConfig(){ // loggit
  
   DtMB1Veto = 1;                   // loggit
 
+  dPhiCut_LeadMu_CscCluster = 1.9;  //loggit
+
   cscClusterTimeLow = -5.;         // loggit
   cscClusterTimeHigh = 12.5;       // loggit
   cscClusterTimeSpread = 20.;      // loggit

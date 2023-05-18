@@ -62,17 +62,18 @@ std::vector<int> analyzer_objects::CscClusterPassSel(bool passHLT){    // loggit
   else{
     for (int j = 0; j <nCscRechitClusters; j++){                       // loggit
       if(                                                              // loggit
-       // askDoesPassClusterSize_csc(j)        &&                      // loggit 
+        askDoesPassClusterSize_csc(j)        &&                      // loggit 
         askDoesPassOverlapMuon_csc(j)        &&                      // loggit
-       // askDoesOverlapGenLLP_csc(j)          &&                      // loggit
         askDoesPassME1112Veto_csc(j)         &&                      // loggit
         askDoesPassMB1Veto_csc(j)            &&                      // loggit
         askDoesPassRB1Veto_csc(j)            &&                      // loggit
-       // askDoesPassMuonVeto_csc(j)           &&                      // loggit
-       // askDoesPassClusterTime_csc(j)        &&                      // loggit
-       // askDoesPassClusterTimeSpread_csc(j)  &&                      // loggit
+        askDoesPassMuonVeto_csc(j)           &&                      // loggit
+        !askDoesPassClusterTime_csc(j)        &&                      // loggit
+        askDoesPassClusterTimeSpread_csc(j)  &&                      // loggit
+        askDoesPassID_csc(j)                 &&                        // loggit
+        askDoesPassdPhiLeadMuon_csc(j)       &&                        // loggit
         askDoesPassClusterEta_csc(j)         //&&                      // loggit
-       // askDoesPassID_csc(j)                                         // loggit
+        //askDoesOverlapGenLLP_csc(j)          &&                      // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   } 
@@ -85,20 +86,63 @@ std::vector<int> analyzer_objects::DtClusterPassSel(bool passHLT){     // loggit
   else{
     for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
       if(                                                              // loggit
-       // askDoesPassClusterSize_dt(j) &&                              // loggit
+        //askDoesPassClusterSize_dt(j) &&                              // loggit
         askDoesPassOverlapMuon_dt(j) &&                              // loggit
-       // askDoesOverlapGenMuon_dt(j)  &&                              // loggit
         askDoesPassRPCMatching_dt(j) &&                              // loggit
-       // askDoesPassMuonVeto_dt(j)    &&                              // loggit
+        askDoesPassRPCTimeCut_dt(j)  &&                              // loggit
+        askDoesPassMB1Adjacent_dt(j) &&                              // loggit 
         askDoesPassMB1Veto_dt(j)     &&                              // loggit
-       // askDoesPassRPCTimeCut_dt(j)  &&                              // loggit
-        askDoesPassMB1Adjacent_dt(j)                                 // loggit 
+        askDoesPassMuonVeto_dt(j)    //&&                              // loggit
+        //askDoesOverlapGenMuon_dt(j)  &&                              // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   }                                                                    
   return ids;                                                          // loggit
 }                                                                      // loggit
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//--------------------- Out of Time Region                              // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_OOT(bool passHLT){ // loggit
+  std::vector<int> ids;                                                 // loggit
+  if(!passHLT) return ids;                                                       
+  else{                                                                          
+    for (int j = 0; j <nCscRechitClusters; j++){                        // loggit
+      if(                                                               // loggit
+        askDoesPassClusterSize_csc(j)        &&                         // loggit
+        askDoesPassOverlapMuon_csc(j)        &&                         // loggit
+        askDoesOverlapGenLLP_csc(j)          &&                         // loggit
+        askDoesPassME1112Veto_csc(j)         &&                         // loggit
+        askDoesPassMB1Veto_csc(j)            &&                         // loggit
+        askDoesPassRB1Veto_csc(j)            &&                         // loggit
+        askDoesPassMuonVeto_csc(j)           &&                         // loggit
+        !askDoesPassClusterTime_csc(j)       &&                         // loggit
+        askDoesPassClusterTimeSpread_csc(j)  &&                         // loggit
+        !askDoesPassdPhiLeadMuon_csc(j)      &&                         // loggit
+        askDoesPassClusterEta_csc(j)         &&                         // loggit
+        askDoesPassID_csc(j)                   ) ids.push_back(j);      // loggit
+    }                                                                   // loggit
+  }                                                                              
+  return ids;                                                           // loggit
+}                                                                       // loggit
+                                                                                 
+std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggit
+  std::vector<int> ids;                                                 // loggit
+  if(!passHLT) return ids;
+  else{
+    for (int j = 0; j <nDtRechitClusters; j++){                         // loggit
+      if(                                                               // loggit
+        askDoesPassClusterSize_dt(j) &&                                 // loggit
+        askDoesPassOverlapMuon_dt(j) &&                                 // loggit
+        askDoesOverlapGenMuon_dt(j)  &&                                 // loggit
+        askDoesPassRPCMatching_dt(j) &&                                 // loggit
+        askDoesPassMuonVeto_dt(j)    &&                                 // loggit
+        askDoesPassMB1Veto_dt(j)     &&                                 // loggit
+        !askDoesPassRPCTimeCut_dt(j)  &&                                // loggit
+        askDoesPassMB1Adjacent_dt(j)   ) ids.push_back(j);              // loggit
+    }                                                                   // loggit
+  }
+  return ids;                                                           // loggit
+}                                                                       // loggit
+////////////////////////////////////////////////////
 //--------------------- Signal Region                                  // loggit
 std::vector<int> analyzer_objects::CscClusterPassSel_SR(bool passHLT){ // loggit
   std::vector<int> ids;                                                // loggit
@@ -143,48 +187,6 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT){  // loggit
   }
   return ids;                                                          // loggit
 }                                                                      // loggit
-////////////////////////////////////////////////////
-//--------------------- Out of Time Region                              // loggit
-std::vector<int> analyzer_objects::CscClusterPassSel_OOT(bool passHLT){ // loggit
-  std::vector<int> ids;                                                 // loggit
-  if(!passHLT) return ids;                                                       
-  else{                                                                          
-    for (int j = 0; j <nCscRechitClusters; j++){                        // loggit
-      if(                                                               // loggit
-        askDoesPassClusterSize_csc(j)        &&                         // loggit
-        askDoesPassOverlapMuon_csc(j)        &&                         // loggit
-        askDoesOverlapGenLLP_csc(j)          &&                         // loggit
-        askDoesPassME1112Veto_csc(j)         &&                         // loggit
-        askDoesPassMB1Veto_csc(j)            &&                         // loggit
-        askDoesPassRB1Veto_csc(j)            &&                         // loggit
-        askDoesPassMuonVeto_csc(j)           &&                         // loggit
-        !askDoesPassClusterTime_csc(j)        &&                        // loggit
-        //askDoesPassClusterTimeSpread_csc(j)  &&                       // loggit
-        askDoesPassClusterEta_csc(j)         &&                         // loggit
-        askDoesPassID_csc(j)                   ) ids.push_back(j);      // loggit
-    }                                                                   // loggit
-  }                                                                              
-  return ids;                                                           // loggit
-}                                                                       // loggit
-                                                                                 
-std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggit
-  std::vector<int> ids;                                                 // loggit
-  if(!passHLT) return ids;
-  else{
-    for (int j = 0; j <nDtRechitClusters; j++){                         // loggit
-      if(                                                               // loggit
-        askDoesPassClusterSize_dt(j) &&                                 // loggit
-        askDoesPassOverlapMuon_dt(j) &&                                 // loggit
-        askDoesOverlapGenMuon_dt(j)  &&                                 // loggit
-        askDoesPassRPCMatching_dt(j) &&                                 // loggit
-        askDoesPassMuonVeto_dt(j)    &&                                 // loggit
-        askDoesPassMB1Veto_dt(j)     &&                                 // loggit
-        !askDoesPassRPCTimeCut_dt(j)  &&                                // loggit
-        askDoesPassMB1Adjacent_dt(j)   ) ids.push_back(j);              // loggit
-    }                                                                   // loggit
-  }
-  return ids;                                                           // loggit
-}                                                                       // loggit
 ////////////////////////////////////////////////////
 
 
@@ -487,6 +489,14 @@ bool analyzer_objects::askDoesPassOverlapMuon_csc(int index){
   else dR_mu = 0.0;
 
   if(dR_mu > dr_LeadMu_CscCluster) return true; 
+  else return false;
+}
+bool analyzer_objects::askDoesPassdPhiLeadMuon_csc(int index){ 
+  double dPhi; 
+  if (muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[index]);
+  else dPhi = -999.;
+
+  if(dPhi > dPhiCut_LeadMu_CscCluster) return true; 
   else return false;
 }
 

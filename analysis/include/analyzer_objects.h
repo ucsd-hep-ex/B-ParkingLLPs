@@ -33,6 +33,7 @@ class analyzer_objects : public analyzer_config{
   bool askDoesPassClusterTime_csc       (int index);
   bool askDoesPassClusterTimeSpread_csc (int index);
   bool askDoesPassClusterEta_csc        (int index);
+  bool askDoesPassdPhiLeadMuon_csc      (int index);
   bool askDoesPassID_csc                (int index);
 
 

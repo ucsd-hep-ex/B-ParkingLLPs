@@ -13,7 +13,7 @@ pushd ../analysis/
 make clean; make 
 popd
 echo ""
-read -p $'\e[1;31m Please Provide a version name for these jobs: \e[0m' vName
+read -p $'\e[1;31m Please provide a version name for these jobs: \e[0m' vName
 
 mkdir -p gitignore/$vName
 mkdir -p gitignore/$vName/logs

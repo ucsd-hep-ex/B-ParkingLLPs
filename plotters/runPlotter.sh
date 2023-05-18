@@ -1,14 +1,15 @@
 #path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"
 #invertID
-aversion=ADDTIME-MUPTVETO-ID
+aversion=FullSel-B4DPhi #OOT-dPhi #LooseRegion
 path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/"
 
 mkdir -p plotDump/${aversion}
+cp ${path}/setup.C plotDump/${aversion}
 
 regions=(\
  "test" \
- #"SR"  \
- #"OOT" \
+ "SR"  \
+ "OOT" \
 )
 
 dologs=(\

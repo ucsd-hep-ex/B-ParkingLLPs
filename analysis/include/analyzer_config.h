@@ -32,6 +32,8 @@ class analyzer_config : public analyzer_base{
   Float_t CscMuonVetoPt;
   Int_t   DtMB1Veto;
   
+  double dPhiCut_LeadMu_CscCluster;
+
   Float_t cscClusterTimeLow;
   Float_t cscClusterTimeHigh;
   Float_t cscClusterTimeSpread;
