@@ -53,7 +53,7 @@ selBinNames.push_back("test");
 selBinNames.push_back("SR");
 selBinNames.push_back("OOT");
 
-//TFile *f = TFile::Open(theSample+"_plots.root", "recreate");
+TFile *f = TFile::Open("roots/"+theSample+"_tup.root", "recreate");
 analyzer S;
 S.Init(chain, isMC);
 S.setConfig();
@@ -61,7 +61,7 @@ for (int i =0; i<selBinNames.size(); i++){
   S.f_out.push_back( new TFile("roots/"+theSample+selBinNames[i]+"_plots.root", "RECREATE") ); 
 }
 S.InitHistos();
-S.Loop();
+S.Loop(f);
 for (int j = 0; j<selBinNames.size(); j++){
   std::cout<<"Closing "<<selBinNames[j]<<"  histograms file"<<std::endl;
   S.f_out[j]->Close();

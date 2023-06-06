@@ -45,3 +45,6 @@ void analyzer_config::setConfig(){ // loggit
 Bool_t analyzer_config::doCutFlow(){
   return b_cutFlow;
 }
+Bool_t analyzer_config::doTree(){
+  return b_doTree;
+}

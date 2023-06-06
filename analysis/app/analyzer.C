@@ -18,7 +18,7 @@ analyzer::~analyzer()
 {
 }
 
-void analyzer::Loop()
+void analyzer::Loop(TFile *f)
 {
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
@@ -60,12 +60,20 @@ void analyzer::Loop()
    cutFlow.insert(std::pair<TString, float> ("CscPassClusterEta", 0));         cutFlowKeys.push_back("CscPassClusterEta");
    cutFlow.insert(std::pair<TString, float> ("CscPassID", 0));                 cutFlowKeys.push_back("CscPassID");
 
+
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       if (jentry %1000000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
-   
+
+      //fill miniTree 
+      if (b_doTree){
+        f->cd();
+        clearTree();
+        setTree();
+        Tree->Fill();
+      } 
       // object lists
       muon_list       =  muonPassSel(muPt, muEta);
       std::vector<std::vector<int>> dummy; 
@@ -92,9 +100,12 @@ void analyzer::Loop()
       FillHistos(2);
 
    }//end jentries
-
-
-
+   //Write miniTree
+   if (b_doTree){
+     f->cd();
+     Tree->CloneTree()->Write();
+     f->Close();
+   }
    //print cutFlow table
    if(b_cutFlow){
      int width = 30;
@@ -104,6 +115,7 @@ void analyzer::Loop()
      }
    }
    std::cout<<"isMC?: "<<isMC<<std::endl;
+   std::cout<<"Make Tree?: "<<b_doTree<<std::endl;
    std::cout<<"Counter: "<<counter<<std::endl;
    std::cout<<"Counter2: "<<counter2<<std::endl;
    WriteHistos(0);
