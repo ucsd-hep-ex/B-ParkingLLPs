@@ -22,6 +22,7 @@ class analyzer_config : public analyzer_base{
   int CscSize;
  
   Float_t CscEta;
+  Float_t DtEta;
 
   double dr_LeadMu_DtCluster;
   double dr_LeadMu_CscCluster;
