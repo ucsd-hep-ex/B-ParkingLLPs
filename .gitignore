@@ -1,3 +1,6 @@
+#checkpoints
+*.ipynb_checkpoints*
+
 # job outputs
 condor/gitignore
 
