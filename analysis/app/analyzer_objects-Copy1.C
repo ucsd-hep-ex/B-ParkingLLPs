@@ -90,7 +90,6 @@ std::vector<int> analyzer_objects::DtClusterPassSel(bool passHLT){              
                 askDoesPassMuonVeto_dt(j)    //&&                                                                               // loggit
                 //askDoesPassClusterEta_dt(j)         //&&                                                                      // loggit
                 //askDoesOverlapGenMuon_dt(j)  &&                                                                               // loggit
-                //askDoesPassID_dt(j)                                                                                             // loggit
             ) ids.push_back(j);                                                                                                 // loggit
         }                                                                                                                       // loggit
     }                                                                                                                           // loggit
@@ -137,8 +136,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){          
                 askDoesPassMB1Veto_dt(j)     &&                                                                                 // loggit
                 !askDoesPassRPCTimeCut_dt(j) &&                                                                                 // loggit
                 //askDoesPassClusterEta_dt(j) &&                                                                                // loggit
-                askDoesPassMB1Adjacent_dt(j) //&&                                                                                 // loggit
-                //askDoesPassID_dt(j)                                                                                             // loggit
+                askDoesPassMB1Adjacent_dt(j) &&                                                                                 // loggit
+                askDoesPassID_dt                                                                                                 // loggit
             ) ids.push_back(j);                                                                                                 // loggit
         }                                                                                                                       // loggit
     }                                                                                                                           // loggit
@@ -187,8 +186,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT){           
                 askDoesPassMB1Veto_dt(j)     &&                                                                                 // loggit
                 askDoesPassRPCTimeCut_dt(j)  &&                                                                                 // loggit
                 //askDoesPassClusterEta_dt(j)  &&                                                                               // loggit
-                askDoesPassMB1Adjacent_dt(j) //&&                                                                                 // loggit
-                //askDoesPassID_dt(j)                                                                                             // loggit
+                askDoesPassMB1Adjacent_dt(j)                                                                                    // loggit
             ) ids.push_back(j);                                                                                                 // loggit
         }                                                                                                                       // loggit
     }                                                                                                                           // loggit
