@@ -8,7 +8,7 @@ all: main
 main:  ${APPDIR}/analyzer_base.o\
        ${APPDIR}/analyzer_config.o\
        ${APPDIR}/analyzer_objects.o\
-       ${APPDIR}/analyzer_selections.o\
+       ${APPDIR}/analyzer_tree.o\
        ${APPDIR}/analyzer_histograms.o\
        ${APPDIR}/analyzer.o \
        ${APPDIR}/CommandLineInput.o\

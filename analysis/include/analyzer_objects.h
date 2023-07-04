@@ -22,6 +22,7 @@ class analyzer_objects : public analyzer_config{
   bool askDoesPassMB1Veto_dt     (int index);
   bool askDoesPassRPCTimeCut_dt  (int index);
   bool askDoesPassMB1Adjacent_dt (int index);
+  bool askDoesPassClusterEta_dt  (int index);
 
   bool askDoesPassClusterSize_csc       (int index);
   bool askDoesPassOverlapMuon_csc       (int index);

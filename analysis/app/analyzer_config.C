@@ -19,6 +19,7 @@ void analyzer_config::setConfig(){ // loggit
   CscSize = 0;                     // loggit
 
   CscEta = 1.9;                    // loggit
+  DtEta = 1.9;                    // loggit
 
   dr_LeadMu_DtCluster = 0.8;       // loggit
   dr_LeadMu_CscCluster = 0.8;      // loggit
@@ -43,4 +44,7 @@ void analyzer_config::setConfig(){ // loggit
 
 Bool_t analyzer_config::doCutFlow(){
   return b_cutFlow;
+}
+Bool_t analyzer_config::doTree(){
+  return b_doTree;
 }

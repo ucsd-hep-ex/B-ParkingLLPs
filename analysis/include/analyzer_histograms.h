@@ -4,9 +4,9 @@
 #include "TH1F.h"
 #include "TH2F.h"
 
-#include "analyzer_selections.h"
+#include "analyzer_tree.h"
 
-class analyzer_histograms : public analyzer_selections{
+class analyzer_histograms : public analyzer_tree{
 
   public : 
  
