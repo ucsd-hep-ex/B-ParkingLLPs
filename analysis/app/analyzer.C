@@ -77,12 +77,14 @@ void analyzer::Loop(TFile *f)
       // object lists
       muon_list       =  muonPassSel(muPt, muEta);
       std::vector<std::vector<int>> dummy; 
-      dummy.push_back( CscClusterPassSel(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_test(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_testOOT(doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_SR(doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_OOT(doesPassHLT()) );
       CscClusterPassSel_all = dummy;
       dummy.clear();
-      dummy.push_back( DtClusterPassSel(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_test(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_testOOT(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_SR(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_OOT(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
@@ -98,6 +100,7 @@ void analyzer::Loop(TFile *f)
       FillHistos(0);
       FillHistos(1);
       FillHistos(2);
+      FillHistos(3);
 
    }//end jentries
    //Write miniTree
@@ -121,6 +124,7 @@ void analyzer::Loop(TFile *f)
    WriteHistos(0);
    WriteHistos(1);
    WriteHistos(2);
+   WriteHistos(3);
    
 }
 

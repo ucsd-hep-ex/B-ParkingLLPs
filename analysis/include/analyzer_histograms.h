@@ -19,6 +19,7 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_cscRechitClusterDPhiLeadMuon           [SELBINNAMESIZE];
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize                   [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterSize_v                 [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterPhi                    [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterEta                    [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTime                   [SELBINNAMESIZE];

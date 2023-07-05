@@ -50,11 +50,14 @@ if(theSample.Contains("Parking")) isMC = kFALSE;
 
 std::vector<TString> selBinNames;
 selBinNames.push_back("test");
+selBinNames.push_back("testOOT");
 selBinNames.push_back("SR");
 selBinNames.push_back("OOT");
 
-TFile *f = TFile::Open("roots/"+theSample+"_tup.root", "recreate");
+
+TFile *f;
 analyzer S;
+if (S.doTree()) f = new TFile("roots/"+theSample+"_tup.root", "recreate");
 S.Init(chain, isMC);
 S.setConfig();
 for (int i =0; i<selBinNames.size(); i++){

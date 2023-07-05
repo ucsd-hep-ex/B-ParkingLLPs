@@ -19,7 +19,7 @@ void analyzer_config::setConfig(){ // loggit
   CscSize = 0;                     // loggit
 
   CscEta = 1.9;                    // loggit
-  DtEta = 1.9;                    // loggit
+  DtEta = 1.9;                     // loggit
 
   dr_LeadMu_DtCluster = 0.8;       // loggit
   dr_LeadMu_CscCluster = 0.8;      // loggit
@@ -31,7 +31,8 @@ void analyzer_config::setConfig(){ // loggit
  
   DtMB1Veto = 1;                   // loggit
 
-  dPhiCut_LeadMu_CscCluster = 1.9;  //loggit
+  dPhiCut_LeadMu_CscCluster = 1.9; //loggit
+  dPhiCut_LeadMu_DtCluster = 1.9;  //loggit
 
   cscClusterTimeLow = -5.;         // loggit
   cscClusterTimeHigh = 12.5;       // loggit
