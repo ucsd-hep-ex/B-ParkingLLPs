@@ -1,6 +1,6 @@
 #path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"
 #invertID
-aversion=OOT-id #FullSel-B4DPhi #OOT-dPhi #LooseRegion
+aversion=BkgEst-DPhi-CSC-reBinClstrSize-4Regions #FullSel-B4DPhi #OOT-dPhi #LooseRegion
 path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/"
 
 mkdir -p plotDump/${aversion}
@@ -8,6 +8,7 @@ cp ${path}/setup.C plotDump/${aversion}
 
 regions=(\
  "test" \
+ "testOOT" \
  "SR"  \
  "OOT" \
 )

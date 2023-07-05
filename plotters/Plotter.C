@@ -46,6 +46,7 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion){
   variables.clear();
   variables.push_back("cscRechitClusterDPhiLeadMuon");
   variables.push_back("cscRechitClusterSize");
+  variables.push_back("cscRechitClusterSize_v");
   variables.push_back("cscRechitClusterTime");
   variables.push_back("cscRechitClusterEta");
   variables.push_back("cscRechitClusterPhi");

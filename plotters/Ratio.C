@@ -15,7 +15,7 @@
 #include <stdlib.h>     /* getenv */
 
 
-void Ratio(bool dolog, TString inpath1, TString inpath2, TString var){
+void Ratio(bool dolog, TString inpath1, TString inpath2, TString var, TString aversion){
 
  TFile* f1 = TFile::Open(inpath1);
  TFile* f2 = TFile::Open(inpath2);
@@ -118,7 +118,7 @@ void Ratio(bool dolog, TString inpath1, TString inpath2, TString var){
  h_r->GetYaxis()->SetRangeUser(0.0,2.0);
  h_r->Draw("ep");
 
- if(dolog) canvas->SaveAs("plotDump/"+name1+"-"+name2+"-"+var+"-ratio_log.pdf");
- else canvas->SaveAs("plotDump/"+name1+"-"+name2+"-"+var+"-ratio.pdf"); 
+ if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+name1+"-"+name2+"-"+var+"-ratio_log.pdf");
+ else canvas->SaveAs("plotDump/"+aversion+"/"+name1+"-"+name2+"-"+var+"-ratio.pdf"); 
 }
 
