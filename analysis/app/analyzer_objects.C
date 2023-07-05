@@ -607,12 +607,21 @@ bool analyzer_objects::askDoesPassClusterEta_csc(int index){
   if( fabs(cscRechitClusterEta[index]) < CscEta) return true; 
   else return false;
 }
-
 bool analyzer_objects::askDoesPassID_csc(int index){
-  if ((cscRechitClusterNStation10[index] > 1 && fabs(cscRechitClusterEta[index])<1.9) || 
+  if ((cscRechitClusterNStation10[index] > 1 && fabs(cscRechitClusterEta[index])<1.8) || 
       (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==4 && fabs(cscRechitClusterEta[index])<1.8) || 
-      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==3 && fabs(cscRechitClusterEta[index])<1.5) || 
+      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==3 && fabs(cscRechitClusterEta[index])<1.6) || 
       (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==2 && fabs(cscRechitClusterEta[index])<1.7) || 
-      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==1 && fabs(cscRechitClusterEta[index])<1.0) )  return true; 
+      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==1 && fabs(cscRechitClusterEta[index])<1.1) )  return true; 
   else return false;
 }
+
+// These should be the old version before Aram Optimized. __CHECKME
+//bool analyzer_objects::askDoesPassID_csc(int index){
+//  if ((cscRechitClusterNStation10[index] > 1 && fabs(cscRechitClusterEta[index])<1.9) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==4 && fabs(cscRechitClusterEta[index])<1.8) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==3 && fabs(cscRechitClusterEta[index])<1.5) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==2 && fabs(cscRechitClusterEta[index])<1.7) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==1 && fabs(cscRechitClusterEta[index])<1.0) )  return true; 
+//  else return false;
+//}
