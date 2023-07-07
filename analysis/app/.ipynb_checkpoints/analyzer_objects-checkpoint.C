@@ -187,7 +187,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT){           
                 askDoesPassMB1Veto_dt(j)     &&                                                                                 // loggit
                 askDoesPassRPCTimeCut_dt(j)  &&                                                                                 // loggit
                 //askDoesPassClusterEta_dt(j)  &&                                                                               // loggit
-                askDoesPassMB1Adjacent_dt(j) //&&                                                                                 // loggit
+                askDoesPassMB1Adjacent_dt(j)// &&                                                                                 // loggit
                 //askDoesPassID_dt(j)                                                                                             // loggit
             ) ids.push_back(j);                                                                                                 // loggit
         }                                                                                                                       // loggit
@@ -558,11 +558,11 @@ bool analyzer_objects::askDoesPassID_csc(int index){
 
 bool analyzer_objects::askDoesPassID_dt(int index){                                                                                       // loggit
     if (                                                                                                                                  // loggit
-        (dtRechitClusterNStation10[index] > 1 &&                                                fabs(dtRechitClusterEta[index])<1.8) ||   // loggit
-        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==1 && fabs(dtRechitClusterEta[index])<1.8) ||   // loggit
-        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==2 && fabs(dtRechitClusterEta[index])<1.6) ||   // loggit
-        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==3 && fabs(dtRechitClusterEta[index])<1.7) ||   // loggit
-        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==4 && fabs(dtRechitClusterEta[index])<1.1) )    // loggit
+        (dtRechitClusterNStation10[index] > 1 &&                                                fabs(dtRechitClusterEta[index])<1.1) ||   // loggit
+        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==1 && fabs(dtRechitClusterEta[index])<0.9) ||   // loggit
+        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==2 && fabs(dtRechitClusterEta[index])<0.8) ||   // loggit
+        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==3 && fabs(dtRechitClusterEta[index])<0.7) ||   // loggit
+        (dtRechitClusterNStation10[index]== 1 && fabs(dtRechitClusterAvgStation10[index])==4 && fabs(dtRechitClusterEta[index])<0.6) )    // loggit
         return true;                                                                                                                      // loggit
     else return false;                                                                                                                    // loggit
 }

@@ -14,8 +14,8 @@ class analyzer_config : public analyzer_base{
   static const int SELBINNAMESIZE  = 3;
   //static const Bool_t b_cutFlow = kFALSE;
   static const Bool_t b_cutFlow = kTRUE;
-  static const Bool_t b_doTree = kFALSE;
-  //static const Bool_t b_doTree = kTRUE;
+ // static const Bool_t b_doTree = kFALSE;
+  static const Bool_t b_doTree = kTRUE;
 
   Float_t muPt;
   Float_t muEta;
