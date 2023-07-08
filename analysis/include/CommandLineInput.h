@@ -1,9 +1,9 @@
 #ifndef CommandLineInput_H
 #define CommandLineInput_H
-//C++ INCLUDES
+// C++ INCLUDES
 #include <iostream>
 #include <string>
 
-std::string ParseCommandLine( int argc, char* argv[], std::string opt );
+std::string ParseCommandLine(int argc, char *argv[], std::string opt);
 
 #endif
