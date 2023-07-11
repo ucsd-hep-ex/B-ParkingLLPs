@@ -1,14 +1,11 @@
-// Macro guard for analyzer_base.h file to prevent double inclusion
-#ifndef analyzer_base_h 
-#define analyzer_base_h 
+#ifndef analyzer_base_h
+#define analyzer_base_h
 
-// Inclusions of ROOT library files
-#include <TChain.h> // ROOT class to handle a collection of ROOT files as if they were a single large file
-#include <TFile.h> // ROOT class to handle and analyze data stored in ROOT files
-#include <TROOT.h> // The main interface to the ROOT system
-#include <map> // Standard C++ library for map data structure
+#include <TChain.h>
+#include <TFile.h>
+#include <TROOT.h>
+#include <map>
 
-// Define constants for maximum sizes of various objects
 #define N_MAX_LEPTONS 100
 #define N_MAX_TRACKS 2000
 #define N_MAX_JETS 100
@@ -16,52 +13,53 @@
 #define N_MAX_CSCRECHITS 5000
 #define N_MAX_DTRECHITS 20000
 #define NTriggersMAX 1201 // Number of trigger in the .dat file
+// #define N_CSC_CUT 20
+// #define JET_PT_CUT 10
+// #define MUON_PT_CUT 20
 #define N_MAX_GPARTICLES 5000
 #define MAX_MuonHLTFilters 100
 
-// The analyzer_base class definition
 class analyzer_base {
 public:
-  TChain *fChain; //! Pointer to the analyzed TTree or TChain
-  Int_t fCurrent; //! Current Tree number in a TChain
+  TChain *fChain; //! pointer to the analyzed TTree or TChain
+  Int_t fCurrent; //! current Tree number in a TChain
 
-  // Global variables
-  Bool_t isMC = kFALSE; // Flag to check if the data is Monte Carlo
-  int counter = 0; // General counter
-  int counter2 = 0; // Second general counter
-  std::vector<TFile *> f_out; // Vector of output ROOT files
-  std::vector<std::vector<int>> DtClusterPassSel_all; // Vector of vectors storing passing selections of DT Clusters
-  std::vector<std::vector<int>> CscClusterPassSel_all; // Vector of vectors storing passing selections of CSC Clusters
-  std::vector<int> muon_list; // List of muons
-  std::vector<int> DtCluster_list; // List of DT clusters
-  std::vector<int> CscCluster_list; // List of CSC clusters
+  // global variables here
+  Bool_t isMC = kFALSE;
+  int counter = 0;
+  int counter2 = 0;
+  std::vector<TFile *> f_out;
+  std::vector<std::vector<int>> DtClusterPassSel_all;
+  std::vector<std::vector<int>> CscClusterPassSel_all;
+  std::vector<int> muon_list;
+  std::vector<int> DtCluster_list;
+  std::vector<int> CscCluster_list;
 
-  // Selection flags
-  bool passGoodMuon = false; // Flag indicating if there's a good muon
+  bool passGoodMuon = false;
   // CSCs
-  bool PassClusterSize_csc = false; // Flag indicating CSC cluster size
-  bool PassOverlapMuon_csc = false; // Flag indicating overlapping muon CSC
-  bool OverlapGenLLP_csc = false; // Flag indicating overlapping LLP CSC
-  bool PassME1112Veto_csc = false; // Flag indicating veto pass of ME1112 CSC
-  bool PassMB1Veto_csc = false; // Flag indicating veto pass of MB1 CSC
-  bool PassRB1Veto_csc = false; // Flag indicating veto pass of RB1 CSC
-  bool PassMuonVeto_csc = false; // Flag indicating veto pass of Muon CSC
-  bool PassClusterTime_csc = false; // Flag indicating cluster time of CSC
-  bool PassClusterTimeSpread_csc = false; // Flag indicating cluster time spread of CSC
-  bool PassClusterEta_csc = false; // Flag indicating cluster eta of CSC
-  bool PassID_csc = false; // Flag indicating pass of CSC ID
+  bool PassClusterSize_csc = false;
+  bool PassOverlapMuon_csc = false;
+  bool OverlapGenLLP_csc = false;
+  bool PassME1112Veto_csc = false;
+  bool PassMB1Veto_csc = false;
+  bool PassRB1Veto_csc = false;
+  bool PassMuonVeto_csc = false;
+  bool PassClusterTime_csc = false;
+  bool PassClusterTimeSpread_csc = false;
+  bool PassClusterEta_csc = false;
+  bool PassID_csc = false;
   // DTs
-  bool PassClusterSize_dt = false; // Flag indicating DT cluster size
-  bool PassOverlapMuon_dt = false; // Flag indicating overlapping muon DT
-  bool OverlapGenMuon_dt = false; // Flag indicating overlapping GenMuon DT
-  bool PassRPCMatching_dt = false; // Flag indicating RPC matching DT
-  bool PassMuonVeto_dt = false; // Flag indicating veto pass of Muon DT
-  bool PassMB1Veto_dt = false; // Flag indicating veto pass of MB1 DT
-  bool PassRPCTimeCut_dt = false; // Flag indicating RPC time cut DT
-  bool PassMB1Adjacent_dt = false; // Flag indicating adjacent MB1 DT
+  bool PassClusterSize_dt = false;
+  bool PassOverlapMuon_dt = false;
+  bool OverlapGenMuon_dt = false;
+  bool PassRPCMatching_dt = false;
+  bool PassMuonVeto_dt = false;
+  bool PassMB1Veto_dt = false;
+  bool PassRPCTimeCut_dt = false;
+  bool PassMB1Adjacent_dt = false;
 
-  std::map<TString, float> cutFlow; // Map to store cut flow information, with TString as key and float as value
-  std::vector<TString> cutFlowKeys; // Vector to store the keys for the cutFlow map
+  std::map<TString, float> cutFlow;
+  std::vector<TString> cutFlowKeys;
 
   // Declaration of leaf types
   UInt_t runNum;
