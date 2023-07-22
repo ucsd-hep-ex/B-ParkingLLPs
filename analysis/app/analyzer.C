@@ -93,13 +93,6 @@ void analyzer::Loop(TFile *f) {
     nb = fChain->GetEntry(jentry);
     nbytes += nb;
 
-    // fill miniTree
-    if (b_doTree) {
-      f->cd();
-      clearTree();
-      setTree();
-      Tree->Fill();
-    }
     // object lists
     muon_list = muonPassSel(muPt, muEta);
     std::vector<std::vector<int>> dummy;
@@ -115,6 +108,14 @@ void analyzer::Loop(TFile *f) {
     dummy.push_back(DtClusterPassSel_OOT(doesPassHLT()));
     DtClusterPassSel_all = dummy;
 
+    // fill miniTree
+    if (b_doTree) {
+      f->cd();
+      clearTree();
+      setTree();
+      Tree->Fill();
+    }
+      
     // continue doing the cutflow
     if (doesPassHLT() && b_cutFlow) {
       cutFlow["HLT"] += 1;
