@@ -66,7 +66,7 @@ void analyzer::Loop(TFile *f) {
         Long64_t ientry = LoadTree(jentry);
         if (ientry < 0)
             break;
-        if (jentry % 1000000 == 0)
+        if (jentry % 10000 == 0)
             std::cout << "Event: " << jentry << " -of- " << nentries << std::endl;
         nb = fChain->GetEntry(jentry);
         nbytes += nb;

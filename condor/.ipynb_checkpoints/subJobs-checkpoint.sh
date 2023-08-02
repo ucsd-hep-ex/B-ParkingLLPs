@@ -11,7 +11,7 @@ path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/"
 # )
 
 samples=( \
-"Backgroundxs" \
+"Background" \
 "PhiToPi0Pi0_mPhi0p3_ctau300" \
 "PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
 )

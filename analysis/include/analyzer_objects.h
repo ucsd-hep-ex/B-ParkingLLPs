@@ -14,6 +14,9 @@ public:
     double DeltaPhi(double phi1, double phi2);
 
     // Functions to check various conditions for Dt clusters
+
+    bool askDoesTest_dt(int index);
+
     bool askDoesPassClusterSize_dt(int index);
     bool askDoesPassOverlapMuon_dt(int index);
     bool askDoesOverlapGenMuon_dt(int index);
@@ -23,6 +26,7 @@ public:
     bool askDoesPassRPCTimeCut_dt(int index);
     bool askDoesPassMB1Adjacent_dt(int index);
     bool askDoesPassClusterEta_dt(int index);
+    bool askDoesPassMaxStation_dt(int index);
 
     // Functions to check various conditions for Csc clusters
     bool askDoesPassClusterSize_csc(int index);

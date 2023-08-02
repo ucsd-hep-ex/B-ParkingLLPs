@@ -15,7 +15,7 @@ public:
 
     // Boolean flags for configuration options
     static const Bool_t b_cutFlow = kTRUE;  // Enable/disable cut flow analysis
-    //static const Bool_t b_doTree = kTRUE;  // Enable/disable tree analysis
+    // static const Bool_t b_doTree = kTRUE;  // Enable/disable tree analysis
     static const Bool_t b_doTree = kFALSE;  // Enable/disable tree analysis
 
     // Variables for analysis configuration

@@ -9,7 +9,7 @@
 #include "CommandLineInput.h"
 #include <TStopwatch.h>
 
-const TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
+const TString sampleName = "PhiToPiPlusPiMinus_mPhi0p3_ctau300";
 
 // Function to initialize the sample
 void initializeSample(TString& s_Sample, TString& s_Path, TString& Sample, TString& theSample) {
@@ -20,7 +20,7 @@ void initializeSample(TString& s_Sample, TString& s_Path, TString& Sample, TStri
         theSample = s_Sample;
     } else {
         // Default path for the sample on the CMS computing cluster at Fermilab.
-        TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+        TString inpath = "/eos/uscms/store/user/ahayrape/BigNtupler/";
         Sample = inpath + sampleName + ".root";
         theSample = sampleName;
     }
