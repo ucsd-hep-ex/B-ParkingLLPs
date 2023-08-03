@@ -76,7 +76,7 @@ void analyzer_histograms::InitHistos() {
         h_dtRechitClusterPhi[i] = InitTH1F("h_dtRechitClusterPhi", "h_dtRechitClusterPhi", 40, -3.5, 3.5);
         h_dtRechitClusterEta[i] = InitTH1F("h_dtRechitClusterEta", "h_dtRechitClusterEta", 40, -5., 5);
         h_dtRechitClusterDPhiLeadMuon[i] = InitTH1F("h_dtRechitClusterDPhiLeadMuon", "h_dtRechitClusterDPhiLeadMuon", 30, 0, 4);
-        h_dtRechitCluster_match_RPCBx_dPhi0p5[i] = InitTH1F("h_dtRechitCluster_match_RPCBx_dPhi0p5", "h_dtRechitCluster_match_RPCBx_dPhi0p5", 20, -10, 10);
+        h_dtRechitCluster_match_RPCBx_dPhi0p5[i] = InitTH1F("h_dtRechitCluster_match_RPCBx_dPhi0p5", "h_dtRechitCluster_match_RPCBx_dPhi0p5", 21, -10, 10);
         h_dtRechitCluster_match_RPCTime_dR0p4[i] = InitTH1F("h_dtRechitCluster_match_RPCTime_dR0p4", "h_dtRechitCluster_match_RPCTime_dR0p4", 200, -100, 100);
         h_dtRechitCluster_match_RPCTimeSpread_dR0p4[i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_dR0p4", "h_dtRechitCluster_match_RPCTimeSpread_dR0p4", 200, -100, 100);
         h_dtRechitCluster_match_RPChits_dR0p4[i] = InitTH1F("h_dtRechitCluster_match_RPChits_dR0p4", "h_dtRechitCluster_match_RPChits_dR0p4", 200, -100, 100);

@@ -42,6 +42,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_) {
     fChain->SetBranchAddress("Flag2_all", &Flag2_all, &b_Flag2_all);
     fChain->SetBranchAddress("metEENoise", &metEENoise, &b_metEENoise);
     fChain->SetBranchAddress("metPhiEENoise", &metPhiEENoise, &b_metPhiEENoise);
+    
     fChain->SetBranchAddress("gLLP_eta", &gLLP_eta, &b_gLLP_eta);
     fChain->SetBranchAddress("gLLP_phi", &gLLP_phi, &b_gLLP_phi);
     fChain->SetBranchAddress("gLLP_csc", &gLLP_csc, &b_gLLP_csc);
@@ -54,6 +55,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_) {
     fChain->SetBranchAddress("gLLP_decay_vertex_x", &gLLP_decay_vertex_x, &b_gLLP_decay_vertex_x);
     fChain->SetBranchAddress("gLLP_decay_vertex_y", &gLLP_decay_vertex_y, &b_gLLP_decay_vertex_y);
     fChain->SetBranchAddress("gLLP_decay_vertex_z", &gLLP_decay_vertex_z, &b_gLLP_decay_vertex_z);
+    
     fChain->SetBranchAddress("nGenParticles", &nGenParticles, &b_nGenParticles);
     fChain->SetBranchAddress("gParticleE", &gParticleE, &b_gParticleE);
     fChain->SetBranchAddress("gParticlePt", &gParticlePt, &b_gParticlePt);
@@ -62,6 +64,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_) {
     fChain->SetBranchAddress("gParticleId", &gParticleId, &b_gParticleId);
     fChain->SetBranchAddress("gParticleMotherId", &gParticleMotherId, &b_gParticleMotherId);
     fChain->SetBranchAddress("gParticleMotherIndex", &gParticleMotherIndex, &b_gParticleMotherIndex);
+    
     fChain->SetBranchAddress("nLeptons", &nLeptons, &b_nLeptons);
     fChain->SetBranchAddress("lepE", lepE, &b_lepE);
     fChain->SetBranchAddress("lepPt", lepPt, &b_lepPt);
@@ -77,17 +80,20 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_) {
     fChain->SetBranchAddress("lepSF", lepSF, &b_lepSF);
     fChain->SetBranchAddress("lepLooseId", lepLooseId, &b_lepLooseId);
     fChain->SetBranchAddress("lepTightId", lepTightId, &b_lepTightId);
+    
     // fChain->SetBranchAddress("nJets", &nJets, &b_nJets);
     // fChain->SetBranchAddress("jetE", jetE, &b_jetE);
     // fChain->SetBranchAddress("jetPt", jetPt, &b_jetPt);
     // fChain->SetBranchAddress("jetEta", jetEta, &b_jetEta);
     // fChain->SetBranchAddress("jetPhi", jetPhi, &b_jetPhi);
     // fChain->SetBranchAddress("jetTightPassId", jetTightPassId, &b_jetTightPassId);
+    
     fChain->SetBranchAddress("HLTDecision", HLTDecision, &b_HLTDecision);
     fChain->SetBranchAddress("nCscRechits", &nCscRechits, &b_nCscRechits);
     fChain->SetBranchAddress("nCscRings", &nCscRings, &b_nCscRings);
     // fChain->SetBranchAddress("nDTRechits", &nDTRechits, &b_nDTRechits);
     fChain->SetBranchAddress("nDtRings", &nDtRings, &b_nDtRings);
+    
     fChain->SetBranchAddress("nCscRechitClusters", &nCscRechitClusters, &b_nCscRechitClusters);
     fChain->SetBranchAddress("cscRechitClusterX", cscRechitClusterX, &b_cscRechitClusterX);
     fChain->SetBranchAddress("cscRechitClusterY", cscRechitClusterY, &b_cscRechitClusterY);
@@ -149,6 +155,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_) {
     fChain->SetBranchAddress("cscRechitClusterGenMuonVetoPt_dR0p8", cscRechitClusterGenMuonVetoPt_dR0p8, &b_cscRechitClusterGenMuonVetoPt_dR0p8);
     fChain->SetBranchAddress("cscRechitClusterMuonVetoPt", cscRechitClusterGenMuonVetoPt, &b_cscRechitClusterGenMuonVetoPt);
     fChain->SetBranchAddress("cscRechitClusterMetEENoise_dPhi", cscRechitClusterMetEENoise_dPhi, &b_cscRechitClusterMetEENoise_dPhi);
+    
     fChain->SetBranchAddress("nDtRechitClusters", &nDtRechitClusters, &b_nDtRechitClusters);
     fChain->SetBranchAddress("dtRechitClusterMaxDPhi", dtRechitClusterMaxDPhi, &b_dtRechitClusterMaxDPhi);
     fChain->SetBranchAddress("dtRechitClusterMaxDPhi_index", dtRechitClusterMaxDPhi_index, &b_dtRechitClusterMaxDPhi_index);
@@ -232,6 +239,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_) {
     fChain->SetBranchAddress("dtRechitCluster_match_RPCTime_dR0p4", dtRechitCluster_match_RPCTime_dR0p4, &b_dtRechitCluster_match_RPCTime_dR0p4);
     fChain->SetBranchAddress("dtRechitCluster_match_RPCTimeSpread_dR0p4", dtRechitCluster_match_RPCTimeSpread_dR0p4, &b_dtRechitCluster_match_RPCTimeSpread_dR0p4);
     fChain->SetBranchAddress("dtRechitCluster_match_RPChits_dR0p4", dtRechitCluster_match_RPChits_dR0p4, &b_dtRechitCluster_match_RPChits_dR0p4);
+    fChain->SetBranchAddress("dtRechitCluster_match_RPCBx_dPhi0p5", dtRechitCluster_match_RPCBx_dPhi0p5, &b_dtRechitCluster_match_RPCBx_dPhi0p5);
     fChain->SetBranchAddress("dtRechitCluster_match_RPCTime_sameStation_dR0p4", dtRechitCluster_match_RPCTime_sameStation_dR0p4, &b_dtRechitCluster_match_RPCTime_sameStation_dR0p4);
     fChain->SetBranchAddress("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4", dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4, &b_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4);
     fChain->SetBranchAddress("dtRechitCluster_match_RPChits_sameStation_dR0p4", dtRechitCluster_match_RPChits_sameStation_dR0p4, &b_dtRechitCluster_match_RPChits_sameStation_dR0p4);
