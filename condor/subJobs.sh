@@ -11,11 +11,13 @@ path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/"
 # )
 
 samples=( \
-"Backgroundxs" \
+"Background" \
 "PhiToPi0Pi0_mPhi0p3_ctau300" \
 "PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
+"PhiToPi0Pi0_mPhi1p0_ctau1000" \
+"PhiToPiPlusPiMinus_mPhi1p0_ctau1000" \
+"PhiToPiPlusPiMinus_mPhi1p0_ctau300" \
 )
-
 
 #compile analyzer
 pushd ../analysis/
