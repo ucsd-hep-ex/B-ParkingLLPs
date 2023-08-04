@@ -15,7 +15,7 @@ public:
 
     // Functions to check various conditions for Dt clusters
 
-    bool askDoesTest_dt(int index);
+    bool askDoesPassNominal_dt(int index);
 
     bool askDoesPassClusterSize_dt(int index);
     bool askDoesPassOverlapMuon_dt(int index);
