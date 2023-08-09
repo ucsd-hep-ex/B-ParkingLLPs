@@ -11,7 +11,9 @@ path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/"
 # )
 
 samples=( \
-"Background" \
+#"Background" \ #incomplete set
+#"Background_new" \ #too big
+"ParkingBPH4_2018A" \
 "PhiToPi0Pi0_mPhi0p3_ctau300" \
 "PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
 "PhiToPi0Pi0_mPhi1p0_ctau1000" \

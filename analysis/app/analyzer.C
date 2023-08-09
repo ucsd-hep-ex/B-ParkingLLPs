@@ -43,6 +43,7 @@ void analyzer::Loop(TFile *f) {
         "DtPassMB1Veto", 
         "DtPassRPCTimeCut", 
         "DtPassMB1Adjacent", 
+        "DtMaxStation",
         "nCscRechitClusters > 0",
         "CscClusterSize >= 0", 
         "CscPassOverlapLeadMuon", 
@@ -63,6 +64,8 @@ void analyzer::Loop(TFile *f) {
     }
 
     for (Long64_t jentry = 0; jentry < nentries; jentry++) {
+    // for (Long64_t jentry = 0; jentry < 2; jentry++) {
+
         Long64_t ientry = LoadTree(jentry);
         if (ientry < 0)
             break;
@@ -78,12 +81,16 @@ void analyzer::Loop(TFile *f) {
         dummy.push_back(CscClusterPassSel_testOOT(doesPassHLT()));
         dummy.push_back(CscClusterPassSel_SR(doesPassHLT()));
         dummy.push_back(CscClusterPassSel_OOT(doesPassHLT()));
+        dummy.push_back(CscClusterPassSel_SR2(doesPassHLT()));
+        dummy.push_back(CscClusterPassSel_OOT2(doesPassHLT()));
         CscClusterPassSel_all = dummy;
         dummy.clear();
         dummy.push_back(DtClusterPassSel_test(doesPassHLT()));
         dummy.push_back(DtClusterPassSel_testOOT(doesPassHLT()));
         dummy.push_back(DtClusterPassSel_SR(doesPassHLT()));
         dummy.push_back(DtClusterPassSel_OOT(doesPassHLT()));
+        dummy.push_back(DtClusterPassSel_SR2(doesPassHLT()));
+        dummy.push_back(DtClusterPassSel_OOT2(doesPassHLT()));
         DtClusterPassSel_all = dummy;
 
         // fill miniTree
@@ -106,6 +113,8 @@ void analyzer::Loop(TFile *f) {
         FillHistos(1);
         FillHistos(2);
         FillHistos(3);
+        FillHistos(4);
+        FillHistos(5);
     } // end jentries
 
     // Write miniTree
@@ -132,4 +141,6 @@ void analyzer::Loop(TFile *f) {
     WriteHistos(1);
     WriteHistos(2);
     WriteHistos(3);
+    WriteHistos(4);
+    WriteHistos(5);
 }

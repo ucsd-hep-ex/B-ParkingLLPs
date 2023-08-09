@@ -34,6 +34,8 @@ void initializeBinNames(std::vector<TString>& selBinNames) {
     selBinNames.push_back("testOOT");
     selBinNames.push_back("SR");
     selBinNames.push_back("OOT");
+    selBinNames.push_back("SR2");
+    selBinNames.push_back("OOT2");
 }
 
 int main(int argc, char* argv[]) {

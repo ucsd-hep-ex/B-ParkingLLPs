@@ -11,7 +11,7 @@ public:
     void setConfig();
 
     // Number of selected bin names
-    static const int SELBINNAMESIZE = 4;
+    static const int SELBINNAMESIZE = 6;
 
     // Boolean flags for configuration options
     static const Bool_t b_cutFlow = kTRUE;  // Enable/disable cut flow analysis

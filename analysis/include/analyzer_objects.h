@@ -27,6 +27,8 @@ public:
     bool askDoesPassMB1Adjacent_dt(int index);
     bool askDoesPassClusterEta_dt(int index);
     bool askDoesPassMaxStation_dt(int index);
+    bool askDoesPassMaxStation3_dt(int index);
+    bool askDoesPassMaxStation4_dt(int index);
 
     // Functions to check various conditions for Csc clusters
     bool askDoesPassClusterSize_csc(int index);
@@ -51,12 +53,16 @@ public:
     std::vector<int> DtClusterPassSel_testOOT(bool passHLT);
     std::vector<int> DtClusterPassSel_SR(bool passHLT);
     std::vector<int> DtClusterPassSel_OOT(bool passHLT);
+    std::vector<int> DtClusterPassSel_SR2(bool passHLT);
+    std::vector<int> DtClusterPassSel_OOT2(bool passHLT);
 
     // Get the indices of Csc clusters passing the selection criteria for different bins
     std::vector<int> CscClusterPassSel_test(bool passHLT);
     std::vector<int> CscClusterPassSel_testOOT(bool passHLT);
     std::vector<int> CscClusterPassSel_SR(bool passHLT);
     std::vector<int> CscClusterPassSel_OOT(bool passHLT);
+    std::vector<int> CscClusterPassSel_SR2(bool passHLT);
+    std::vector<int> CscClusterPassSel_OOT2(bool passHLT);
 
     // Perform the cut flow analysis for Dt clusters
     void DtClusterPassSel_CutFlow();
