@@ -11,7 +11,7 @@ class analyzer_config : public analyzer_base{
   virtual ~analyzer_config();
   void     setConfig();
   
-  static const int SELBINNAMESIZE  = 4;
+  static const int SELBINNAMESIZE  = 6;
   //static const Bool_t b_cutFlow = kFALSE;
   static const Bool_t b_cutFlow = kTRUE;
   static const Bool_t b_doTree = kFALSE;
