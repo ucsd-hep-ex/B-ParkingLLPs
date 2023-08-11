@@ -1,6 +1,6 @@
 #path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"
 #invertID
-aversion=v5 #FullSel-B4DPhi #OOT-dPhi #LooseRegion
+aversion=v6 #FullSel-B4DPhi #OOT-dPhi #LooseRegion
 path="/uscms/home/aaportel/nobackup/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/"
 
 mkdir -p plotDump/${aversion}
