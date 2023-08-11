@@ -5,7 +5,7 @@ inpath2="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/c
 #inpath1="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/ParkingBPH4_2018Atest_plots.root"
 #inpath2="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/ParkingBPH4_2018ASR_plots.root"
 
-var=h_cscRechitClusterSize_v
+var=h_dtRechitClusterSize
 
 dolog=true
 
