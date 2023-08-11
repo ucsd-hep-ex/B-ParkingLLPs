@@ -9,22 +9,42 @@
 #include "CommandLineInput.h"
 #include <TStopwatch.h>
 
-const TString sampleName = "PhiToPiPlusPiMinus_mPhi0p3_ctau300";
 
-// Function to initialize the sample
-void initializeSample(TString& s_Sample, TString& s_Path, TString& Sample, TString& theSample) {
-    // If a specific sample name is provided as a command-line argument, use that.
-    // Otherwise, use the default sample name and path.
-    if (s_Sample != "") {
-        Sample = s_Path + s_Sample + ".root";
-        theSample = s_Sample;
-    } else {
-        // Default path for the sample on the CMS computing cluster at Fermilab.
-        TString inpath = "/eos/uscms/store/user/ahayrape/BigNtupler/";
-        Sample = inpath + sampleName + ".root";
-        theSample = sampleName;
-    }
-    std::cout << Sample << std::endl;
+int main(int argc, char* argv[]){
+//start stopwatch
+TStopwatch sw;
+sw.Start();
+
+TString s_Sample = ParseCommandLine( argc, argv, "--Sample=" );
+TString s_Path   = ParseCommandLine( argc, argv, "--Path=" );
+Bool_t isMC = kTRUE;
+
+TChain* chain = new TChain("MuonSystem");
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1/ParkingBPH4_2018A/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_6/BToKPhi_MuonGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+//TString inpath = "/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/llp_analyzer/";
+//-- what Tony and Aram use
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ahayrape/BigNtupler/";
+
+//Fill Sample file Chain
+//TString sampleName = "ParkingBPH4_2018A";
+TString sampleName = "BToKPhi_MuonGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
+//TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
+//TString sampleName = "MuonSystem_Tree";
+//-- what Tony and Aram use
+//TString sampleName = "PhiToPi0Pi0_mPhi0p3_ctau300";
+
+
+TString Sample;
+TString theSample;
+if(s_Sample != "") {
+  Sample = s_Path+s_Sample+".root";
+  theSample = s_Sample;
+}
+else {
+  Sample = inpath+sampleName+".root";
+  theSample = sampleName;
 }
 
 // Function to initialize the bin names

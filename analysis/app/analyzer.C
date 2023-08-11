@@ -66,47 +66,48 @@ void analyzer::Loop(TFile *f) {
     for (Long64_t jentry = 0; jentry < nentries; jentry++) {
     // for (Long64_t jentry = 0; jentry < 2; jentry++) {
 
-        Long64_t ientry = LoadTree(jentry);
-        if (ientry < 0)
-            break;
-        if (jentry % 10000 == 0)
-            std::cout << "Event: " << jentry << " -of- " << nentries << std::endl;
-        nb = fChain->GetEntry(jentry);
-        nbytes += nb;
 
-        // object lists
-        muon_list = muonPassSel(muPt, muEta);
-        std::vector<std::vector<int>> dummy;
-        dummy.push_back(CscClusterPassSel_test(doesPassHLT()));
-        dummy.push_back(CscClusterPassSel_testOOT(doesPassHLT()));
-        dummy.push_back(CscClusterPassSel_SR(doesPassHLT()));
-        dummy.push_back(CscClusterPassSel_OOT(doesPassHLT()));
-        dummy.push_back(CscClusterPassSel_SR2(doesPassHLT()));
-        dummy.push_back(CscClusterPassSel_OOT2(doesPassHLT()));
-        CscClusterPassSel_all = dummy;
-        dummy.clear();
-        dummy.push_back(DtClusterPassSel_test(doesPassHLT()));
-        dummy.push_back(DtClusterPassSel_testOOT(doesPassHLT()));
-        dummy.push_back(DtClusterPassSel_SR(doesPassHLT()));
-        dummy.push_back(DtClusterPassSel_OOT(doesPassHLT()));
-        dummy.push_back(DtClusterPassSel_SR2(doesPassHLT()));
-        dummy.push_back(DtClusterPassSel_OOT2(doesPassHLT()));
-        DtClusterPassSel_all = dummy;
+      //Make Event Weight
+      Float_t event_weight = 1.0;
+      if(isMC) event_weight = 1.0;
+      if(jentry==0) std::cout<<"event_weight: "<<event_weight<<std::endl;
 
-        // fill miniTree
-        if (b_doTree) {
-            f->cd();
-            clearTree();
-            setTree();
-            Tree->Fill();
-        }
-      
-        // continue doing the cutflow
-        if (doesPassHLT() && b_cutFlow) {
-            cutFlow["HLT"] += 1;
-            DtClusterPassSel_CutFlow();
-            CscClusterPassSel_CutFlow();
-        }
+
+      //fill miniTree 
+      if (b_doTree){
+        f->cd();
+        clearTree();
+        setTree();
+        Tree->Fill();
+      } 
+      // object lists
+      muon_list       =  muonPassSel(muPt, muEta);
+      std::vector<std::vector<int>> dummy; 
+      dummy.push_back( CscClusterPassSel_test(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_testOOT(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_SR(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_OOT(doesPassHLT()) );
+      CscClusterPassSel_all = dummy;
+      dummy.clear();
+      dummy.push_back( DtClusterPassSel_test(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_testOOT(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_SR(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_OOT(doesPassHLT()) );
+      DtClusterPassSel_all = dummy;
+
+      // continue doing the cutflow
+      if(doesPassHLT() && b_cutFlow) {
+      cutFlow["HLT"] +=1;
+      DtClusterPassSel_CutFlow (event_weight);
+      CscClusterPassSel_CutFlow(event_weight);
+      }
+
+      //Fill the histograms by event
+      FillHistos(0, event_weight);
+      FillHistos(1, event_weight);
+      FillHistos(2, event_weight);
+      FillHistos(3, event_weight);
+
 
         // Fill the histograms by event
         FillHistos(0);
