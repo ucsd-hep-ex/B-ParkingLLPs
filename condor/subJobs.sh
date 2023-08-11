@@ -1,11 +1,24 @@
 #!/bin/bash
 
 doSubmit=true
-path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1"
+# path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1"
+path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/"
 
-samples=(  \
-"BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
+# samples=(  \
+# "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
+# "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
+# "ParkingBPH4_2018A" \
+# )
+
+samples=( \
+#"Background" \ #incomplete set
+#"Background_new" \ #too big
 "ParkingBPH4_2018A" \
+"PhiToPi0Pi0_mPhi0p3_ctau300" \
+"PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
+"PhiToPi0Pi0_mPhi1p0_ctau1000" \
+"PhiToPiPlusPiMinus_mPhi1p0_ctau1000" \
+"PhiToPiPlusPiMinus_mPhi1p0_ctau300" \
 )
 
 #compile analyzer
