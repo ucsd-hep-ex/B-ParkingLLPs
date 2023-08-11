@@ -85,14 +85,18 @@ void analyzer::Loop(TFile *f)
       std::vector<std::vector<int>> dummy; 
       dummy.push_back( CscClusterPassSel_test(doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_testOOT(doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_SR(doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_OOT(doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_SR  (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_OOT (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_SR2 (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_OOT2(doesPassHLT()) );
       CscClusterPassSel_all = dummy;
       dummy.clear();
       dummy.push_back( DtClusterPassSel_test(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_testOOT(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_SR(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_OOT(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_SR2(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_OOT2(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
 
       // continue doing the cutflow
@@ -107,6 +111,8 @@ void analyzer::Loop(TFile *f)
       FillHistos(1, event_weight);
       FillHistos(2, event_weight);
       FillHistos(3, event_weight);
+      FillHistos(4, event_weight);
+      FillHistos(5, event_weight);
 
    }//end jentries
    //Write miniTree
@@ -131,6 +137,8 @@ void analyzer::Loop(TFile *f)
    WriteHistos(1);
    WriteHistos(2);
    WriteHistos(3);
+   WriteHistos(4);
+   WriteHistos(5);
    
 }
 
