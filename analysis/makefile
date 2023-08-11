@@ -1,4 +1,4 @@
-ROOTFLAGS = $(shell root-config --cflags --libs)
+ROOTFLAGS=`root-config --cflags --libs` 
 CXXDEPFLAGS = -MMD -MP -I$(shell pwd)/include
 
 APPDIR = $(shell pwd)/app

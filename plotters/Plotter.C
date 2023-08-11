@@ -19,7 +19,7 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion){
 
   //region="OOT";
   //TString inpath = "/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"; 
-  TString signalName = "PhiToPi0Pi0_mPhi0p3_ctau300";
+  TString signalName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
   TString bkgName = "ParkingBPH4_2018A";
 
   TString sigpath = inpath+signalName+region+"_plots.root";

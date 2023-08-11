@@ -1,4 +1,5 @@
 #ifndef analyzer_objects_h
+#define analyzer_objects_h
 
 #include "analyzer_config.h"
 

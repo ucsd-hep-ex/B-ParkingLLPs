@@ -1,13 +1,17 @@
-#include "TMath.h"
 #include "analyzer_objects.h"
-#include <iostream>
 #include <math.h>
+#include "TMath.h"
+#include <iostream>
 
 //----------------------------analyzer_objects
-analyzer_objects::analyzer_objects() {}
+analyzer_objects::analyzer_objects()
+{
+}
 
 //----------------------~analyzer_objects
-analyzer_objects::~analyzer_objects() {}
+analyzer_objects::~analyzer_objects()
+{
+}
 
 std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut){
   std::vector<int> ids;
@@ -45,117 +49,8 @@ std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut
 }
 
 
-//========================================================= Begin Region Definitions 
-//--------------------------------------------------------- Begin Test-OOT
-std::vector<int> analyzer_objects::CscClusterPassSel_testOOT(bool passHLT) { 
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nCscRechitClusters; j++) {
-            if ( 
-                   askDoesPassOverlapMuon_csc(j) 
-                && askDoesPassME1112Veto_csc(j) 
-                && askDoesPassMB1Veto_csc(j) 
-                && askDoesPassRB1Veto_csc(j) 
-                && askDoesPassMuonVeto_csc(j) 
-                && !askDoesPassClusterTime_csc(j) 
-                && askDoesPassClusterTimeSpread_csc(j) 
-                && askDoesPassID_csc(j) 
-                && !askDoesPassdPhiLeadMuon_csc(j) 
-                && askDoesPassClusterEta_csc(j)
-            )   
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
 
-std::vector<int> analyzer_objects::DtClusterPassSel_testOOT(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nDtRechitClusters; j++) {
-            if (
-                   askDoesPassNominal_dt(j)
 
-                && !askDoesPassRPCTimeCut_dt(j) 
-                && !askDoesPassMaxStation_dt(j)
-            )  
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
-//--------------------------------------------------------- End Test-OOT
-//--------------------------------------------------------- Begin Test
-std::vector<int> analyzer_objects::CscClusterPassSel_test(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nCscRechitClusters; j++) {
-            if (
-                   askDoesPassOverlapMuon_csc(j) 
-                && askDoesPassME1112Veto_csc(j) 
-                && askDoesPassMB1Veto_csc(j) 
-                && askDoesPassRB1Veto_csc(j) 
-                && askDoesPassMuonVeto_csc(j) 
-                && askDoesPassClusterTime_csc(j) 
-                && askDoesPassClusterTimeSpread_csc(j) 
-                && askDoesPassID_csc(j) 
-                && !askDoesPassdPhiLeadMuon_csc(j) 
-                && askDoesPassClusterEta_csc(j)
-            ) 
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
-
-std::vector<int> analyzer_objects::DtClusterPassSel_test(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nDtRechitClusters; j++) {
-            if (
-                   askDoesPassNominal_dt(j)
-
-                && askDoesPassRPCTimeCut_dt(j) 
-                && !askDoesPassMaxStation_dt(j)
-            ) 
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
-//--------------------------------------------------------- End Test
-//--------------------------------------------------------- Begin OOT
-std::vector<int> analyzer_objects::CscClusterPassSel_OOT(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nCscRechitClusters; j++) {
-            if (
-                   askDoesPassOverlapMuon_csc(j) 
-                && askDoesPassME1112Veto_csc(j) 
-                && askDoesPassMB1Veto_csc(j) 
-                && askDoesPassRB1Veto_csc(j) 
-                && askDoesPassMuonVeto_csc(j) 
-                && !askDoesPassClusterTime_csc(j) 
-                && askDoesPassClusterTimeSpread_csc(j) 
-                && askDoesPassdPhiLeadMuon_csc(j) 
-                && askDoesPassClusterEta_csc(j) 
-                && askDoesPassID_csc(j)
-            ) 
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
 
 //--------- Region Definitions
 
@@ -344,126 +239,23 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT){  // loggit
 }                                                                      // loggit
 ////////////////////////////////////////////////////
 
-std::vector<int> analyzer_objects::DtClusterPassSel_OOT2(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nDtRechitClusters; j++) {
-            if (
-                   askDoesPassNominal_dt(j)
 
-                && !askDoesPassRPCTimeCut_dt(j) 
-                && askDoesPassMaxStation4_dt(j)
-            )     
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
-//--------------------------------------------------------- End OOT2
 
-//--------------------------------------------------------- Begin SR
-std::vector<int> analyzer_objects::CscClusterPassSel_SR(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nCscRechitClusters; j++) {
-            if (
-                   askDoesPassClusterSize_csc(j) 
-                && askDoesPassOverlapMuon_csc(j) 
-                && askDoesPassME1112Veto_csc(j) 
-                && askDoesPassMB1Veto_csc(j) 
-                && askDoesPassRB1Veto_csc(j) 
-                && askDoesPassMuonVeto_csc(j) 
-                && askDoesPassClusterTime_csc(j) 
-                && askDoesPassClusterTimeSpread_csc(j) 
-                && askDoesPassdPhiLeadMuon_csc(j) 
-                && askDoesPassClusterEta_csc(j) 
-                && askDoesPassID_csc(j)
-                // && askDoesOverlapGenLLP_csc(j)
-                ){     
-                    ids.push_back(j);
-                    counter++;
-            }
-        }
-    }
-    return ids;
-}
 
-std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nDtRechitClusters; j++) {
-            if (
-                   askDoesPassNominal_dt(j)
 
-                && askDoesPassRPCTimeCut_dt(j) 
-                && askDoesPassMaxStation3_dt(j)
-            )   
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
-//--------------------------------------------------------- End SR
 
-//--------------------------------------------------------- Begin SR2
-std::vector<int> analyzer_objects::CscClusterPassSel_SR2(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nCscRechitClusters; j++) {
-            if (
-                   askDoesPassClusterSize_csc(j) 
-                && askDoesPassOverlapMuon_csc(j) 
-                && askDoesPassME1112Veto_csc(j) 
-                && askDoesPassMB1Veto_csc(j) 
-                && askDoesPassRB1Veto_csc(j) 
-                && askDoesPassMuonVeto_csc(j) 
-                && askDoesPassClusterTime_csc(j) 
-                && askDoesPassClusterTimeSpread_csc(j) 
-                && askDoesPassdPhiLeadMuon_csc(j) 
-                && askDoesPassClusterEta_csc(j) 
-                && askDoesPassID_csc(j)
-                // && askDoesOverlapGenLLP_csc(j)
-                ){     
-                    ids.push_back(j);
-                    counter++;
-            }
-        }
-    }
-    return ids;
-}
 
-std::vector<int> analyzer_objects::DtClusterPassSel_SR2(bool passHLT) {
-    std::vector<int> ids;
-    if (!passHLT)
-        return ids;
-    else {
-        for (int j = 0; j < nDtRechitClusters; j++) {
-            if (
-                   askDoesPassNominal_dt(j)
 
-                && askDoesPassRPCTimeCut_dt(j) 
-                && askDoesPassMaxStation4_dt(j)
-            )   
-                ids.push_back(j);
-        }
-    }
-    return ids;
-}
-//--------------------------------------------------------- End SR2
-//========================================================= Ends Region Definitions
+
+
+
+
+
+
 
 
 // ----CutFlow Table stuff
 void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
-
   double dR_mu;
   double dR_LLP;
   bool PassAll         = false;
@@ -475,7 +267,6 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
   bool PassMB1Veto     = false;
   bool PassRPCTimeCut  = false;
   bool PassMB1Adjacent = false;
-  bool PassMaxStation  = false;
   if(isMC){
     for (int j = 0; j <nDtRechitClusters; j++){
       if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], dtRechitClusterEta[j], dtRechitClusterPhi[j]);
@@ -497,10 +288,6 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
                     PassRPCTimeCut = true;
                     if(dtRechitCluster_match_MB1hits_cosmics_plus[j] <=8&& dtRechitCluster_match_MB1hits_cosmics_minus[j]<=8){
                       PassMB1Adjacent = true;
-                        if(dtRechitClusterMaxStation[j] >= 3){
-                          PassMaxStation = true;
-                        }
-                        
                     }  
                   }
                 }
@@ -531,9 +318,6 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
                   PassRPCTimeCut = true;
                   if(dtRechitCluster_match_MB1hits_cosmics_plus[j] <=8&& dtRechitCluster_match_MB1hits_cosmics_minus[j]<=8){
                     PassMB1Adjacent = true;
-                      if(dtRechitClusterMaxStation[j] >= 3){
-                        PassMaxStation = true;
-                      }
                   }  
                 }
               }
@@ -673,159 +457,171 @@ void analyzer_objects::CscClusterPassSel_CutFlow(Float_t ew){
     if(PassClusterEta)        cutFlow["CscPassClusterEta"] +=ew;
     if(PassID)                cutFlow["CscPassID"] +=ew;
 }
-//========================================================= End Cutflow Stuff
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-//========================================================= Begin Geometric functions
-//--------------------------------------------------------- dR
-double analyzer_objects::dR(double eta1, double phi1, double eta2, double phi2) {
-    double deltaeta = abs(eta1 - eta2);
-    double deltaphi = DeltaPhi(phi1, phi2);
-    return sqrt(deltaeta * deltaeta + deltaphi * deltaphi);
+//----------------------------dR
+double analyzer_objects::dR(double eta1, double phi1, double eta2, double phi2)
+{
+  double deltaeta = abs(eta1 - eta2);
+  double deltaphi = DeltaPhi(phi1, phi2);
+  double deltar = sqrt(deltaeta*deltaeta + deltaphi*deltaphi);
+  return deltar;
 }
 
-//--------------------------------------------------------- DeltaPhi
-// Gives the (minimum) separation in phi between the specified phi values
-// Must return a positive value
-double analyzer_objects::DeltaPhi(double phi1, double phi2){
-    double pi = TMath::Pi();
-    double dphi = fabs(phi1 - phi2);
-    return (dphi > pi) ? (2.0 * pi - dphi) : dphi;
+//-------------------------DeltaPhi
+double analyzer_objects::DeltaPhi(double phi1, double phi2)
+//Gives the (minimum) separation in phi between the specified phi values
+//Must return a positive value
+{
+  double pi = TMath::Pi();
+  double dphi = fabs(phi1-phi2);
+  if(dphi>pi)
+    dphi = 2.0*pi - dphi;
+  return dphi;
 }
-//========================================================= End Geometric functions
+//------------------------Selection booleans
+/// --------------DTs
+bool analyzer_objects::askDoesPassOverlapMuon_dt(int index){
+  double dR_mu; 
+  if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], dtRechitClusterEta[index], dtRechitClusterPhi[index]);
+  else dR_mu = 0.0;
 
-//========================================================= Begin Selection booleans
-
-bool analyzer_objects::askDoesPassNominal_dt(int index) {
-    return askDoesPassClusterSize_dt(index) 
-        && askDoesPassOverlapMuon_dt(index) 
-        && askDoesPassRPCMatching_dt(index) 
-        && askDoesPassMuonVeto_dt(index)
-        && askDoesPassMB1Veto_dt(index)
-        && askDoesPassMB1Adjacent_dt(index);
-}
-
-
-//--------------------------------------------------------- Begin DTs
-bool analyzer_objects::askDoesPassOverlapMuon_dt(int index) {
-    double dR_mu = (muon_list.size() > 0) ? dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], dtRechitClusterEta[index], dtRechitClusterPhi[index]) : 0.0;
-    return (dR_mu > dr_LeadMu_DtCluster);
+  if ( dR_mu > dr_LeadMu_DtCluster) return true;
+  else return false; 
 }
 
-bool analyzer_objects::askDoesPassdPhiLeadMuon_dt(int index) {
-    double dPhi = (muon_list.size() > 0) ? DeltaPhi(lepPhi[muon_list[0]], dtRechitClusterPhi[index]) : -999.0;
-    return (dPhi > dPhiCut_LeadMu_DtCluster);
+bool analyzer_objects::askDoesPassdPhiLeadMuon_dt(int index){ 
+  double dPhi; 
+  if (muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], dtRechitClusterPhi[index]);
+  else dPhi = -999.;
+
+  if(dPhi > dPhiCut_LeadMu_DtCluster) return true; 
+  else return false;
+}
+bool analyzer_objects::askDoesPassClusterEta_dt(int index){
+  if( fabs(dtRechitClusterEta[index]) < DtEta) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassClusterEta_dt(int index) {
-    return (std::fabs(dtRechitClusterEta[index]) < DtEta);
+bool analyzer_objects::askDoesOverlapGenMuon_dt(int index){
+  double dR_LLP = dR(gLLP_eta, gLLP_phi, dtRechitClusterEta[index], dtRechitClusterPhi[index]);
+  if (isMC) {
+    if(dR_LLP < dr_GenMu_DtCluster)return true; 
+    else return false;
+  }
+  else return true;//if Data this cut does nothing
+}
+bool analyzer_objects::askDoesPassClusterSize_dt(int index){ 
+  if(dtRechitClusterSize[index] >= DtSize) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesOverlapGenMuon_dt(int index) {
-    if (!isMC) return true; // If Data, this cut does nothing
-    double dR_LLP = dR(gLLP_eta, gLLP_phi, dtRechitClusterEta[index], dtRechitClusterPhi[index]);
-    return (dR_LLP < dr_GenMu_DtCluster);
+bool analyzer_objects::askDoesPassRPCMatching_dt(int index){ 
+  if(dtRechitCluster_match_RPChits_dPhi0p5[index] > 0) return true; 
+  else return false;
+  }
+
+bool analyzer_objects::askDoesPassMuonVeto_dt(int index){ 
+  if(dtRechitClusterMuonVetoPt[index] < DtMuonVetoPt) return true;
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassClusterSize_dt(int index) {
-    return (dtRechitClusterSize[index] >= DtSize);
+bool analyzer_objects::askDoesPassMB1Veto_dt(int index){ 
+  if(dtRechitCluster_match_MB1hits_0p5[index] <= DtMB1Veto) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassRPCMatching_dt(int index) {
-    return (dtRechitCluster_match_RPChits_dPhi0p5[index] > 0);
+bool analyzer_objects::askDoesPassRPCTimeCut_dt(int index){ 
+  if(dtRechitCluster_match_RPCBx_dPhi0p5[index] == 0) return true;
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassMuonVeto_dt(int index) {
-    return (dtRechitClusterMuonVetoPt[index] < DtMuonVetoPt);
+bool analyzer_objects::askDoesPassMB1Adjacent_dt (int index){ 
+  if(dtRechitCluster_match_MB1hits_cosmics_plus[index]<=8 && dtRechitCluster_match_MB1hits_cosmics_minus[index]<=8) return true; 
+  else return false;
+}
+///////////////////////////////////////
+///------------CSCs
+bool analyzer_objects::askDoesPassClusterSize_csc(int index){ 
+  if(cscRechitClusterSize[index] >= CscSize) return true; 
+  else return false;
+}
+bool analyzer_objects::askDoesPassOverlapMuon_csc(int index){ 
+  double dR_mu; 
+  if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], cscRechitClusterEta[index], cscRechitClusterPhi[index]);
+  else dR_mu = 0.0;
+
+  if(dR_mu > dr_LeadMu_CscCluster) return true; 
+  else return false;
+}
+bool analyzer_objects::askDoesPassdPhiLeadMuon_csc(int index){ 
+  double dPhi; 
+  if (muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[index]);
+  else dPhi = -999.;
+
+  if(dPhi > dPhiCut_LeadMu_CscCluster) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassMB1Veto_dt(int index) {
-    return (dtRechitCluster_match_MB1hits_0p5[index] <= DtMB1Veto);
+bool analyzer_objects::askDoesOverlapGenLLP_csc(int index){
+  double dR_LLP = dR(gLLP_eta, gLLP_phi, cscRechitClusterEta[index], cscRechitClusterPhi[index]);
+  if (isMC) {
+    if(dR_LLP < dr_GenMu_CscCluster)return true; 
+    else return false;
+  }
+  else return true;//if Data this cut does nothing
 }
 
-bool analyzer_objects::askDoesPassRPCTimeCut_dt(int index) {
-    return (dtRechitCluster_match_RPCBx_dPhi0p5[index] == 0);
+bool analyzer_objects::askDoesPassME1112Veto_csc        (int index){
+  if (cscRechitClusterNRechitChamberPlus11[index] <=0 && cscRechitClusterNRechitChamberMinus11[index] <=0 &&
+      cscRechitClusterNRechitChamberPlus12[index] <=0 && cscRechitClusterNRechitChamberMinus12[index] <=0)  return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassMB1Adjacent_dt(int index) {
-    return (dtRechitCluster_match_MB1hits_cosmics_plus[index] <= 8 &&
-            dtRechitCluster_match_MB1hits_cosmics_minus[index] <= 8);
+bool analyzer_objects::askDoesPassMB1Veto_csc(int index){ 
+  if(cscRechitCluster_match_MB1Seg_0p4[index] == 0) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassMaxStation_dt(int index) {
-    return (dtRechitClusterMaxStation[index] >= 3);
+bool analyzer_objects::askDoesPassRB1Veto_csc(int index){ 
+  if(cscRechitCluster_match_RB1_0p4[index] == 0) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassMaxStation3_dt(int index) {
-    return (dtRechitClusterMaxStation[index] == 3);
+bool analyzer_objects::askDoesPassMuonVeto_csc(int index){ 
+  if(cscRechitClusterMuonVetoPt[index] < CscMuonVetoPt) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassMaxStation4_dt(int index) {
-    return (dtRechitClusterMaxStation[index] == 4);
+bool analyzer_objects::askDoesPassClusterTime_csc(int index){
+  if(cscRechitClusterTimeWeighted[index] >= cscClusterTimeLow && cscRechitClusterTimeWeighted[index] <= cscClusterTimeHigh) return true; 
+  else return false;
 }
 
-//--------------------------------------------------------- End DTs
-
-
-//--------------------------------------------------------- Begin CSCs
-bool analyzer_objects::askDoesPassClusterSize_csc(int index) {
-    return (cscRechitClusterSize[index] >= CscSize);
+bool analyzer_objects::askDoesPassClusterTimeSpread_csc(int index){
+  if( cscRechitClusterTimeSpreadWeightedAll[index] <= cscClusterTimeSpread) return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassOverlapMuon_csc(int index) {
-    double dR_mu = (muon_list.size() > 0) ? dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], cscRechitClusterEta[index], cscRechitClusterPhi[index]) : 0.0;
-    return (dR_mu > dr_LeadMu_CscCluster);
+bool analyzer_objects::askDoesPassClusterEta_csc(int index){
+  if( fabs(cscRechitClusterEta[index]) < CscEta) return true; 
+  else return false;
+}
+bool analyzer_objects::askDoesPassID_csc(int index){
+  if ((cscRechitClusterNStation10[index] > 1 && fabs(cscRechitClusterEta[index])<1.8) || 
+      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==4 && fabs(cscRechitClusterEta[index])<1.8) || 
+      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==3 && fabs(cscRechitClusterEta[index])<1.6) || 
+      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==2 && fabs(cscRechitClusterEta[index])<1.7) || 
+      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==1 && fabs(cscRechitClusterEta[index])<1.1) )  return true; 
+  else return false;
 }
 
-bool analyzer_objects::askDoesPassdPhiLeadMuon_csc(int index) {
-    double dPhi = (muon_list.size() > 0) ? DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[index]) : -999.0;
-    return (dPhi > dPhiCut_LeadMu_CscCluster);
-}
-
-bool analyzer_objects::askDoesOverlapGenLLP_csc(int index) {
-    if (!isMC) return true; // If Data, this cut does nothing
-    double dR_LLP = dR(gLLP_eta, gLLP_phi, cscRechitClusterEta[index], cscRechitClusterPhi[index]);
-    return (dR_LLP < dr_GenMu_CscCluster);
-}
-
-bool analyzer_objects::askDoesPassME1112Veto_csc(int index) {
-    return (cscRechitClusterNRechitChamberPlus11[index] <= 0 &&
-            cscRechitClusterNRechitChamberMinus11[index] <= 0 &&
-            cscRechitClusterNRechitChamberPlus12[index] <= 0 &&
-            cscRechitClusterNRechitChamberMinus12[index] <= 0);
-}
-
-bool analyzer_objects::askDoesPassMB1Veto_csc(int index) {
-    return (cscRechitCluster_match_MB1Seg_0p4[index] == 0);
-}
-
-bool analyzer_objects::askDoesPassRB1Veto_csc(int index) {
-    return (cscRechitCluster_match_RB1_0p4[index] == 0);
-}
-
-bool analyzer_objects::askDoesPassMuonVeto_csc(int index) {
-    return (cscRechitClusterMuonVetoPt[index] < CscMuonVetoPt);
-}
-
-bool analyzer_objects::askDoesPassClusterTime_csc(int index) {
-    return (cscRechitClusterTimeWeighted[index] >= cscClusterTimeLow &&
-            cscRechitClusterTimeWeighted[index] <= cscClusterTimeHigh);
-}
-
-bool analyzer_objects::askDoesPassClusterTimeSpread_csc(int index) {
-    return (cscRechitClusterTimeSpreadWeightedAll[index] <= cscClusterTimeSpread);
-}
-
-bool analyzer_objects::askDoesPassClusterEta_csc(int index) {
-    return (std::fabs(cscRechitClusterEta[index]) < CscEta);
-}
-
-bool analyzer_objects::askDoesPassID_csc(int index) {
-    return ((cscRechitClusterNStation10[index] > 1 && std::fabs(cscRechitClusterEta[index]) < 1.8) ||
-            (cscRechitClusterNStation10[index] == 1 && std::fabs(cscRechitClusterAvgStation10[index]) == 4 && std::fabs(cscRechitClusterEta[index]) < 1.8) ||
-            (cscRechitClusterNStation10[index] == 1 && std::fabs(cscRechitClusterAvgStation10[index]) == 3 && std::fabs(cscRechitClusterEta[index]) < 1.6) ||
-            (cscRechitClusterNStation10[index] == 1 && std::fabs(cscRechitClusterAvgStation10[index]) == 2 && std::fabs(cscRechitClusterEta[index]) < 1.7) ||
-            (cscRechitClusterNStation10[index] == 1 && std::fabs(cscRechitClusterAvgStation10[index]) == 1 && std::fabs(cscRechitClusterEta[index]) < 1.1));
-}
-//--------------------------------------------------------- End CSCs
-//========================================================= End Selection booleans
+// These should be the old version before Aram Optimized. __CHECKME
+//bool analyzer_objects::askDoesPassID_csc(int index){
+//  if ((cscRechitClusterNStation10[index] > 1 && fabs(cscRechitClusterEta[index])<1.9) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==4 && fabs(cscRechitClusterEta[index])<1.8) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==3 && fabs(cscRechitClusterEta[index])<1.5) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==2 && fabs(cscRechitClusterEta[index])<1.7) || 
+//      (cscRechitClusterNStation10[index]== 1 && fabs(cscRechitClusterAvgStation10[index])==1 && fabs(cscRechitClusterEta[index])<1.0) )  return true; 
+//  else return false;
+//}

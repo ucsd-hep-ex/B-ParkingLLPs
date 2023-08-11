@@ -1,9 +1,6 @@
 # job outputs
 condor/gitignore
 
-# notebook stuff
-*.ipynb_checkpoints
-
 # Prerequisites
 *.d
 

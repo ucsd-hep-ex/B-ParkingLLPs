@@ -29,11 +29,6 @@ void Ratio(bool dolog, TString inpath1, TString inpath2, TString var, TString av
  TH1F* h_1 = (TH1F*) f1->Get(var)->Clone("h_1");//name1+"-"+var);
  TH1F* h_2 = (TH1F*) f2->Get(var)->Clone("h_2");//name2+"-"+var);
 
- h_1->Rebin(10);
- h_2->Rebin(10);
-    
- h_1->Scale(1/h_1->Integral());
- h_2->Scale(1/h_2->Integral());
   // canvas and text attributes
  int canx = 1100;
  int cany = 1200;

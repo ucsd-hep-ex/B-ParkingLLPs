@@ -1,51 +1,29 @@
-// ANALYZER_HISTOGRAMS
-// This code defines the "analyzer_histograms" class, which is responsible for managing histograms used in the analysis.
-// If you want to add another histogram, follow these steps:
-//
-// 1. Go to analyzer_histograms.h and add hist in required place. (instructions there)
-//
-// 2. Implement the rest of the functions (InitHistos, FillHistos, WriteHistos, DeleteHistos)
-//
-// 3. Initialize the new histogram in the InitHistos() function.
-//    For example:
-//    h_newHistogram[i] = new TH1F("h_newHistogram", "h_newHistogram", 100, 0, 100);
-//
-// 4. Fill the histogram in the FillHistos() function based on the selected bin.
-//    For example:
-//    h_newHistogram[selbin]->Fill(value);
-//
-// 5. If necessary, write and delete the histogram in the corresponding functions.
-//    For example:
-//    void WriteHistos(int selbin) {
-//        h_newHistogram[selbin]->Write();
-//    }
-//
-//    void DeleteHistos(int selbin) {
-//        h_newHistogram[selbin]->Delete();
-//    }
-
-
 #include "analyzer_histograms.h"
 #include <iostream>
 
-// Constructor for analyzer_histograms class
-analyzer_histograms::analyzer_histograms() {}
-
-// Destructor for analyzer_histograms class
-analyzer_histograms::~analyzer_histograms() {}
-
-// Function to initialize a TH1F histogram
-TH1F *InitTH1F(TString name, TString title, int nbins, Float_t binLow, Float_t binHigh) {
-    TH1F *histoTH1F = new TH1F(name, title, nbins, binLow, binHigh);
-    histoTH1F->Sumw2();
-    return histoTH1F;
+//----------------------------analyzer_histograms
+analyzer_histograms::analyzer_histograms()
+{
 }
 
-// Function to initialize a TH1F histogram with custom binning
-TH1F *InitTH1F(TString name, TString title, int nbins, float bins[]) {
-    TH1F *histoTH1F = new TH1F(name, title, nbins, bins);
-    histoTH1F->Sumw2();
-    return histoTH1F;
+//----------------------~analyzer_histograms
+analyzer_histograms::~analyzer_histograms()
+{
+}
+
+TH1F* InitTH1F (TString name, TString title, int nbins, Float_t binLow, Float_t binHigh){
+
+  TH1F* histoTH1F = new TH1F( name , title , nbins , binLow , binHigh );
+  histoTH1F->Sumw2();
+
+  return histoTH1F;
+}
+TH1F* InitTH1F (TString name, TString title, int nbins, float bins[]){
+
+  TH1F* histoTH1F = new TH1F( name , title , nbins , bins );
+  histoTH1F->Sumw2();
+
+  return histoTH1F;
 }
 
 void analyzer_histograms::InitHistos(){
@@ -162,36 +140,35 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Write();
 }
 
-// Function to delete histograms for a specific selection bin
-void analyzer_histograms::DeleteHistos(int selbin) {
-    f_out[selbin]->cd();
-    h_nLeptons[selbin]->Delete();
-    h_cscRechitClusterDPhiLeadMuon[selbin]->Delete();
-    h_nCscRechits[selbin]->Delete();
-    h_cscRechitClusterSize[selbin]->Delete();
-    h_cscRechitClusterSize_v[selbin]->Delete();
-    h_cscRechitClusterEta[selbin]->Delete();
-    h_cscRechitClusterPhi[selbin]->Delete();
-    h_cscRechitClusterTime[selbin]->Delete();
-    h_cscRechitClusterTimeWeighted[selbin]->Delete();
-    h_cscRechitClusterTimeTotal[selbin]->Delete();
-    h_cscRechitClusterTimeSpread[selbin]->Delete();
-    h_cscRechitClusterTimeSpreadWeighted[selbin]->Delete();
-    h_cscRechitClusterTimeSpreadWeightedAll[selbin]->Delete();
-    h_dtRechitClusterDPhiLeadMuon[selbin]->Delete();
-    h_dtRechitCluster_match_RPCBx_dPhi0p5[selbin]->Delete();
-    h_nDTRechits[selbin]->Delete();
-    h_dtRechitClusterSize[selbin]->Delete();
-    h_dtRechitClusterEta[selbin]->Delete();
-    h_dtRechitClusterPhi[selbin]->Delete();
-    h_dtRechitCluster_match_RPCTime_dR0p4[selbin]->Delete();
-    h_dtRechitCluster_match_RPCTimeSpread_dR0p4[selbin]->Delete();
-    h_dtRechitCluster_match_RPChits_dR0p4[selbin]->Delete();
-    h_dtRechitCluster_match_RPCTime_dPhi0p5[selbin]->Delete();
-    h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5[selbin]->Delete();
-    h_dtRechitCluster_match_RPCTime_sameStation_dR0p4[selbin]->Delete();
-    h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[selbin]->Delete();
+void analyzer_histograms::DeleteHistos(int selbin){
+  f_out[selbin]->cd();
+  h_nLeptons[selbin]->Delete();
+
+  h_cscRechitClusterDPhiLeadMuon           [selbin]->Delete();
+  h_nCscRechits                            [selbin]->Delete();
+  h_cscRechitClusterSize                   [selbin]->Delete();
+  h_cscRechitClusterSize_v                 [selbin]->Delete();
+  h_cscRechitClusterSize_v2                [selbin]->Delete();
+  h_cscRechitClusterEta                    [selbin]->Delete();
+  h_cscRechitClusterPhi                    [selbin]->Delete();
+  h_cscRechitClusterTime                   [selbin]->Delete();
+  h_cscRechitClusterTimeWeighted           [selbin]->Delete();
+  h_cscRechitClusterTimeTotal              [selbin]->Delete();
+  h_cscRechitClusterTimeSpread             [selbin]->Delete();
+  h_cscRechitClusterTimeSpreadWeighted     [selbin]->Delete();
+  h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Delete();
+
+  h_dtRechitClusterDPhiLeadMuon                            [selbin]->Delete();
+  h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Delete();
+  h_nDTRechits                                             [selbin]->Delete();
+  h_dtRechitClusterSize                                    [selbin]->Delete();
+  h_dtRechitClusterEta                                     [selbin]->Delete();
+  h_dtRechitClusterPhi                                     [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Delete();
+  h_dtRechitCluster_match_RPChits_dR0p4                    [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTime_dPhi0p5                  [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Delete();
+  h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Delete();
 }
-
-
-
