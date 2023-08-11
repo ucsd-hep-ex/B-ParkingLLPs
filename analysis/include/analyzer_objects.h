@@ -49,8 +49,8 @@ class analyzer_objects : public analyzer_config{
   std::vector<int> CscClusterPassSel_SR       (bool passHLT);
   std::vector<int> CscClusterPassSel_OOT      (bool passHLT);
 
-  void DtClusterPassSel_CutFlow ();
-  void CscClusterPassSel_CutFlow();
+  void DtClusterPassSel_CutFlow (Float_t ew);
+  void CscClusterPassSel_CutFlow(Float_t ew);
 };
 
 #endif

@@ -15,8 +15,8 @@ void analyzer_config::setConfig(){ // loggit
   muPt = 7.;                       // loggit
   muEta = 1.5;                     // loggit
 
-  DtSize = 50;                     // loggit
-  CscSize = 0;                     // loggit
+  DtSize  = 0.0; //100;                   // loggit
+  CscSize = 0.0; //130;                   // loggit
 
   CscEta = 1.9;                    // loggit
   DtEta = 1.9;                     // loggit

@@ -25,7 +25,7 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    //global variables here
-   Bool_t isMC = kFALSE;
+   Bool_t isMC;
    int counter  = 0;
    int counter2 = 0;
    std::vector<TFile*> f_out;

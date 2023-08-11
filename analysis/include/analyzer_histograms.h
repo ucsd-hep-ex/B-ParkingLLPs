@@ -20,6 +20,7 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize                   [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_v                 [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterSize_v2                [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterPhi                    [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterEta                    [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTime                   [SELBINNAMESIZE];
@@ -45,7 +46,7 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [SELBINNAMESIZE];
   
   void InitHistos();
-  void FillHistos( int selbin );
+  void FillHistos( int selbin, Float_t ew);
   void WriteHistos( int selbin );
   void DeleteHistos( int selbin );
 

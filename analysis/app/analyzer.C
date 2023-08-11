@@ -67,6 +67,12 @@ void analyzer::Loop(TFile *f)
       if (jentry %1000000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
 
+      //Make Event Weight
+      Float_t event_weight = 1.0;
+      if(isMC) event_weight = 1.0;
+      if(jentry==0) std::cout<<"event_weight: "<<event_weight<<std::endl;
+
+
       //fill miniTree 
       if (b_doTree){
         f->cd();
@@ -92,15 +98,15 @@ void analyzer::Loop(TFile *f)
       // continue doing the cutflow
       if(doesPassHLT() && b_cutFlow) {
       cutFlow["HLT"] +=1;
-      DtClusterPassSel_CutFlow ();
-      CscClusterPassSel_CutFlow();
+      DtClusterPassSel_CutFlow (event_weight);
+      CscClusterPassSel_CutFlow(event_weight);
       }
 
       //Fill the histograms by event
-      FillHistos(0);
-      FillHistos(1);
-      FillHistos(2);
-      FillHistos(3);
+      FillHistos(0, event_weight);
+      FillHistos(1, event_weight);
+      FillHistos(2, event_weight);
+      FillHistos(3, event_weight);
 
    }//end jentries
    //Write miniTree
