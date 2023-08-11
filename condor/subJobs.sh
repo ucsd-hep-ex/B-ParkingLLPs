@@ -1,14 +1,11 @@
 #!/bin/bash
 
 doSubmit=true
-path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_6"
+path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1"
 
 samples=(  \
-"BToKPhi_MuonGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000" \
-"BToKPhi_MuonGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
-"BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000" \
-"BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
-"ParkingBPH1_2018A" \
+"BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
+"ParkingBPH4_2018A" \
 )
 
 #compile analyzer

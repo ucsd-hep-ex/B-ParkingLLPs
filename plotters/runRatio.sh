@@ -1,4 +1,4 @@
-aversion=BkgEst-ID-CSC-FINAL
+aversion=BkgEst-DPhi-CSC-reBinClstrSize-4Regions
 inpath1="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/ParkingBPH4_2018AtestOOT_plots.root"
 inpath2="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/ParkingBPH4_2018AOOT_plots.root"
 
