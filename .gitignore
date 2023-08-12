@@ -1,5 +1,6 @@
 # job outputs
 condor/gitignore
+plotters/plotDump
 
 # notebook stuff
 *.ipynb_checkpoints
