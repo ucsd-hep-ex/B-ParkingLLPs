@@ -1,5 +1,10 @@
 # job outputs
 condor/gitignore
+plotDump/
+
+#checkpoints
+**/.ipynb_checkpoints/
+
 
 # Prerequisites
 *.d
