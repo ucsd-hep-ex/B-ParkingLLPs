@@ -33,7 +33,12 @@ void analyzer_histograms::InitHistos(){
     float x_bins[n_b] = {50,60,70,80,89,100,110,120,130,140,150,160,170,180,190,200,225,260,300};
     float x_bins2[n_b2] = {130,140,150,160,170,180,190,200,225,260,300};
     f_out[i]->cd();
-    h_nLeptons                             [i]             = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
+    
+    h_nLeptons  [i] = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
+    h_gLLP_ctau [i] = InitTH1F("h_gLLP_ctau", "h_gLLP_ctau", 100, 0, 1000);
+
+
+      
     h_nCscRechits                          [i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
     h_cscRechitClusterSize                 [i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 250, 50, 300);
     h_cscRechitClusterSize_v               [i] = InitTH1F("h_cscRechitClusterSize_v", "h_cscRechitClusterSize_v", n_b-1, x_bins);
@@ -62,13 +67,16 @@ void analyzer_histograms::InitHistos(){
     h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5          [i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5", "h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5",  200, -100, 100);
     h_dtRechitCluster_match_RPCTime_sameStation_dR0p4      [i] = InitTH1F("h_dtRechitCluster_match_RPCTime_sameStation_dR0p4", "h_dtRechitCluster_match_RPCTime_sameStation_dR0p4", 200, -100, 100);
     h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4", "h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4", 200, -100, 100);
+
   }
 }
 
 void analyzer_histograms::FillHistos(int selbin, Float_t ew){
   f_out[selbin]->cd();
   h_nLeptons[selbin]->Fill(nLeptons, ew);
-  
+  h_gLLP_ctau[selbin]->Fill(gLLP_ctau, ew);
+
+    
   if(CscClusterPassSel_all[selbin].size()>0) h_nCscRechits[selbin]->Fill(nCscRechits, ew);
   for(int i = 0; i < CscClusterPassSel_all[selbin].size(); i++){
     int c =  CscClusterPassSel_all[selbin][i];
@@ -110,6 +118,7 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
 void analyzer_histograms::WriteHistos(int selbin){
   f_out[selbin]->cd();
   h_nLeptons[selbin]->Write();
+  h_gLLP_ctau[selbin]->Write();
   
   h_cscRechitClusterDPhiLeadMuon           [selbin]->Write();
   h_nCscRechits                            [selbin]->Write();
@@ -143,6 +152,7 @@ void analyzer_histograms::WriteHistos(int selbin){
 void analyzer_histograms::DeleteHistos(int selbin){
   f_out[selbin]->cd();
   h_nLeptons[selbin]->Delete();
+  h_gLLP_ctau[selbin]->Delete();
 
   h_cscRechitClusterDPhiLeadMuon           [selbin]->Delete();
   h_nCscRechits                            [selbin]->Delete();

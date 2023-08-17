@@ -18,7 +18,14 @@ analyzer::~analyzer()
 {
 }
 
-void analyzer::Loop(TFile *f)
+Float_t event_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
+    Float_t numerator = (1.0f / tau1) * expf(-t / tau1);
+    Float_t denominator = (1.0f / tau0) * expf(-t / tau0);
+
+    return numerator / denominator;
+}
+
+void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau)
 {
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
@@ -64,12 +71,12 @@ void analyzer::Loop(TFile *f)
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
-      if (jentry %1000000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
+      if (jentry %10000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
 
       //Make Event Weight
       Float_t event_weight = 1.0;
-      if(isMC) event_weight = 1.0;
+      if(isMC) event_weight = event_reweighter(gLLP_ctau, from_ctau, to_ctau);
       if(jentry==0) std::cout<<"event_weight: "<<event_weight<<std::endl;
 
 

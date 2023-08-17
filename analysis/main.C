@@ -20,6 +20,21 @@ TString s_Sample = ParseCommandLine( argc, argv, "--Sample=" );
 TString s_Path   = ParseCommandLine( argc, argv, "--Path=" );
 Bool_t isMC = kTRUE;
 
+TString from_ctau_str = ParseCommandLine(argc, argv, "--from_ctau=");
+TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
+
+if ((from_ctau_str == "" && to_ctau_str != "") ||
+    (from_ctau_str != "" && to_ctau_str == "")) {
+  std::cerr << "Error: Both --from_ctau and --to_ctau must be specified together, or not at all.\n";
+  return 1; // Exit the program with an error code
+}
+
+Float_t from_ctau = 1000.0; // Default value
+Float_t to_ctau = 1000.0;   // Default value
+
+if (from_ctau_str != "") from_ctau = atof(from_ctau_str.Data());
+if (to_ctau_str != "") to_ctau = atof(to_ctau_str.Data());
+    
 TChain* chain = new TChain("MuonSystem");
 //TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1/ParkingBPH4_2018A/";
 TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_6/BToKPhi_MuonGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
@@ -70,7 +85,7 @@ for (int i =0; i<selBinNames.size(); i++){
   S.f_out.push_back( new TFile("roots/"+theSample+selBinNames[i]+"_plots.root", "RECREATE") ); 
 }
 S.InitHistos();
-S.Loop(f);
+S.Loop(f, from_ctau, to_ctau);
 for (int j = 0; j<selBinNames.size(); j++){
   std::cout<<"Closing "<<selBinNames[j]<<"  histograms file"<<std::endl;
   S.f_out[j]->Close();
