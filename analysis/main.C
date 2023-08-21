@@ -59,11 +59,11 @@ TString from_ctau_str = theSample(pos, theSample.Length() - pos);
 from_ctau_str.ReplaceAll("_ctau", "");
 
 // Convert the string to a float
-Float_t from_ctau = atof(from_ctau_str.Data())/10;
+Float_t from_ctau = atof(from_ctau_str.Data())/10.;
 Float_t to_ctau = from_ctau;
 
 TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
-if (to_ctau_str != "") to_ctau = atof(to_ctau_str.Data())/10; // Override to_ctau if argument provided
+if (to_ctau_str != "") to_ctau = atof(to_ctau_str.Data())/10.; // Override to_ctau if argument provided
 
 
 std::cout<<"from: "<<from_ctau<<" cm"<<std::endl;
