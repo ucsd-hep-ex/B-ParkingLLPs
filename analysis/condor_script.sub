@@ -1,8 +1,0 @@
-universe              = vanilla
-    executable            = /path/to/hadd
-    arguments             = "/eos/uscms//store/user/aaportel//combined380.root "/eos/uscms//store/user/ddiaz/B-Parking/V1p19_6/ParkingBPH4_2018A/ParkingBPH4_2018A_0000377.root""
-    output                = /eos/uscms//store/user/aaportel//$(Cluster)_$(Process).out
-    error                 = /eos/uscms//store/user/aaportel//$(Cluster)_$(Process).err
-    log                   = /eos/uscms//store/user/aaportel//$(Cluster)_$(Process).log
-    request_cpus          = 1
-    queue
