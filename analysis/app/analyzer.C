@@ -18,11 +18,30 @@ analyzer::~analyzer()
 {
 }
 
-Float_t event_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
+Float_t ctau_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
     Float_t numerator = (1.0f / tau1) * expf(-t / tau1);
     Float_t denominator = (1.0f / tau0) * expf(-t / tau0);
 
     return numerator / denominator;
+}
+
+Float_t genFilterEff(TString sample) {
+
+    Float_t GenFilterEff;
+    
+    if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000"){
+        GenFilterEff = 0.2133676092544987;
+    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300"){
+        GenFilterEff = 0.2913132061492869;
+    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300"){
+        GenFilterEff = 0.2919021657580153;
+    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000"){
+        GenFilterEff = 0.2140541025727333;
+    }else{
+        GenFilterEff = 1.0;
+    }
+
+    return GenFilterEff;
 }
 
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample)
@@ -83,15 +102,24 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
-      if(isMC) event_weight = event_reweighter(gLLP_ctau, from_ctau, to_ctau)*
-                              pileupWeight;
+      Float_t sigma = 1182000000000.0; //FIX THIS
+      Float_t Lumi = 1.0; //CHANGE THIS
+      Float_t genMuonFilterEff = 0.00514;
+       
+      if(isMC) event_weight = sigma*
+                              Lumi*
+                              ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
+                              pileupWeight*
+                              genFilterEff(theSample)*
+                              genMuonFilterEff;
+       
       if(isMC && muon_list.size()>0) event_weight=event_weight*lepSF[muon_list[0]];
       if(muon_list.size()>0 && found) {
         std::cout<<"event_weight: "<<event_weight<<
                    "  found: "     <<found<<
                    "  event: "     <<jentry<<
                    "  NMuons: "    <<muon_list.size()<<
-                   "  w_ctau: "    <<event_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
+                   "  w_ctau: "    <<ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
                    "  PUweight: "  <<pileupWeight<<
                    "  lepSF: "     <<lepSF[muon_list[0]]<<
                    std::endl; 
