@@ -25,13 +25,14 @@ Float_t event_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
     return numerator / denominator;
 }
 
-void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau)
+void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample)
 {
+   std::cout<<theSample<<std::endl;
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 10000000;
+   //Long64_t nentries = 1000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -68,16 +69,32 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau)
    cutFlow.insert(std::pair<TString, float> ("CscPassID", 0));                 cutFlowKeys.push_back("CscPassID");
 
 
+   bool found = true;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
       if (jentry %10000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
 
-      //Make Event Weight
+      //Make MuonList
+      muon_list       =  muonPassSel(muPt, muEta);
+
+      //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
-      if(isMC) event_weight = event_reweighter(gLLP_ctau, from_ctau, to_ctau);
-      if(jentry==0) std::cout<<"event_weight: "<<event_weight<<std::endl;
+      if(isMC) event_weight = event_reweighter(gLLP_ctau, from_ctau, to_ctau)*
+                              pileupWeight;
+      if(isMC && muon_list.size()>0) event_weight=event_weight*lepSF[muon_list[0]];
+      if(muon_list.size()>0 && found) {
+        std::cout<<"event_weight: "<<event_weight<<
+                   "  found: "     <<found<<
+                   "  event: "     <<jentry<<
+                   "  NMuons: "    <<muon_list.size()<<
+                   "  w_ctau: "    <<event_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
+                   "  PUweight: "  <<pileupWeight<<
+                   "  lepSF: "     <<lepSF[muon_list[0]]<<
+                   std::endl; 
+        found = false;
+      }
 
 
       //fill miniTree 
@@ -88,7 +105,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau)
         Tree->Fill();
       } 
       // object lists
-      muon_list       =  muonPassSel(muPt, muEta);
       std::vector<std::vector<int>> dummy; 
       dummy.push_back( CscClusterPassSel_test(doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_testOOT(doesPassHLT()) );
