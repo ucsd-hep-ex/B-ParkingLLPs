@@ -69,6 +69,7 @@ public :
    Float_t         rho;
    UInt_t          npv;
    Bool_t          Flag2_all;
+   Float_t         pileupWeight;
    Float_t         metEENoise;
    Float_t         metPhiEENoise;
    Float_t         gLLP_eta;
@@ -293,6 +294,7 @@ public :
    TBranch        *b_rho;   //!
    TBranch        *b_npv;   //!
    TBranch        *b_Flag2_all;   //!
+   TBranch        *b_pileupWeight;   //!
    TBranch        *b_metEENoise;   //!
    TBranch        *b_metPhiEENoise;   //!
    TBranch        *b_gLLP_eta;   //!

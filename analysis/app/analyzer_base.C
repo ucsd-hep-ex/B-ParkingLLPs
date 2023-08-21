@@ -44,6 +44,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    fChain->SetBranchAddress("rho", &rho, &b_rho);
    fChain->SetBranchAddress("npv", &npv, &b_npv);
    fChain->SetBranchAddress("Flag2_all", &Flag2_all, &b_Flag2_all);
+   fChain->SetBranchAddress("pileupWeight", &pileupWeight, &b_pileupWeight);
    fChain->SetBranchAddress("metEENoise", &metEENoise, &b_metEENoise);
    fChain->SetBranchAddress("metPhiEENoise", &metPhiEENoise, &b_metPhiEENoise);
    fChain->SetBranchAddress("gLLP_eta", &gLLP_eta, &b_gLLP_eta);

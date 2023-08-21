@@ -85,7 +85,7 @@ for (int i =0; i<selBinNames.size(); i++){
   S.f_out.push_back( new TFile("roots/"+theSample+selBinNames[i]+"_plots.root", "RECREATE") ); 
 }
 S.InitHistos();
-S.Loop(f, from_ctau, to_ctau);
+S.Loop(f, from_ctau, to_ctau, theSample);
 for (int j = 0; j<selBinNames.size(); j++){
   std::cout<<"Closing "<<selBinNames[j]<<"  histograms file"<<std::endl;
   S.f_out[j]->Close();

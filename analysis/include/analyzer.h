@@ -27,7 +27,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    //virtual Long64_t LoadTree(Long64_t entry);
    //virtual void     Init(TTree *tree);
-   virtual void     Loop(TFile *f, Float_t from_ctau, Float_t to_ctau);
+   virtual void     Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample);
    //virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    bool doesPassHLT(); 
