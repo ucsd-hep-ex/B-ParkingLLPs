@@ -5,6 +5,7 @@
 #include <TChain.h>
 #include "TH1F.h"
 #include "TH2F.h"
+#include <TRegexp.h>
 #include <fstream>
 #include "CommandLineInput.h"
 
@@ -19,21 +20,6 @@ sw.Start();
 TString s_Sample = ParseCommandLine( argc, argv, "--Sample=" );
 TString s_Path   = ParseCommandLine( argc, argv, "--Path=" );
 Bool_t isMC = kTRUE;
-
-TString from_ctau_str = ParseCommandLine(argc, argv, "--from_ctau=");
-TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
-
-if ((from_ctau_str == "" && to_ctau_str != "") ||
-    (from_ctau_str != "" && to_ctau_str == "")) {
-  std::cerr << "Error: Both --from_ctau and --to_ctau must be specified together, or not at all.\n";
-  return 1; // Exit the program with an error code
-}
-
-Float_t from_ctau = 1000.0; // Default value
-Float_t to_ctau = 1000.0;   // Default value
-
-if (from_ctau_str != "") from_ctau = atof(from_ctau_str.Data());
-if (to_ctau_str != "") to_ctau = atof(to_ctau_str.Data());
     
 TChain* chain = new TChain("MuonSystem");
 //TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1/ParkingBPH4_2018A/";
@@ -62,6 +48,29 @@ else {
   Sample = inpath+sampleName+".root";
   theSample = sampleName;
 }
+
+// Find the position of "_ctau" in the sample name
+Ssiz_t pos = theSample.Index("_ctau");
+
+// Extract the substring starting from the position of "_ctau" till the end
+TString from_ctau_str = theSample(pos, theSample.Length() - pos);
+
+// Remove the "_ctau" prefix
+from_ctau_str.ReplaceAll("_ctau", "");
+
+// Convert the string to a float
+Float_t from_ctau = atof(from_ctau_str.Data())/10;
+Float_t to_ctau = from_ctau;
+
+TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
+if (to_ctau_str != "") to_ctau = atof(to_ctau_str.Data())/10; // Override to_ctau if argument provided
+
+
+std::cout<<"from: "<<from_ctau<<" cm"<<std::endl;
+    
+std::cout<<"to: "<<to_ctau<<" cm"<<std::endl;
+
+    
 std::cout<<Sample<<std::endl;
 chain->Add(Sample);
 

@@ -352,6 +352,7 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
   bool PassMB1Veto     = false;
   bool PassRPCTimeCut  = false;
   bool PassMB1Adjacent = false;
+  bool PassMaxStation  = false;
   if(isMC){
     for (int j = 0; j <nDtRechitClusters; j++){
       if (muon_list.size()>0) dR_mu = dR(lepEta[muon_list[0]], lepPhi[muon_list[0]], dtRechitClusterEta[j], dtRechitClusterPhi[j]);
@@ -373,6 +374,9 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
                     PassRPCTimeCut = true;
                     if(dtRechitCluster_match_MB1hits_cosmics_plus[j] <=8&& dtRechitCluster_match_MB1hits_cosmics_minus[j]<=8){
                       PassMB1Adjacent = true;
+                      if(dtRechitClusterMaxStation[j] >= 3){
+                        PassMaxStation  = true;
+                      }
                     }  
                   }
                 }
@@ -403,6 +407,9 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
                   PassRPCTimeCut = true;
                   if(dtRechitCluster_match_MB1hits_cosmics_plus[j] <=8&& dtRechitCluster_match_MB1hits_cosmics_minus[j]<=8){
                     PassMB1Adjacent = true;
+                    if(dtRechitClusterMaxStation[j] >= 3){
+                      PassMaxStation  = true;
+                    }
                   }  
                 }
               }
@@ -421,6 +428,8 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
   if(PassMB1Veto)           cutFlow["DtPassMB1Veto"] +=ew;
   if(PassRPCTimeCut)        cutFlow["DtPassRPCTimeCut"] +=ew;
   if(PassMB1Adjacent)       cutFlow["DtPassMB1Adjacent"] +=ew;
+  if(PassMaxStation)        cutFlow["DtPassMaxStation"] +=ew;
+
 }
 
 void analyzer_objects::CscClusterPassSel_CutFlow(Float_t ew){
