@@ -26,7 +26,7 @@ public :
 
    //global variables here
    Bool_t isMC;
-   int counter  = 0;
+   Float_t counter  = 0;
    int counter2 = 0;
    std::vector<TFile*> f_out;
    std::vector<std::vector<int>> DtClusterPassSel_all;
