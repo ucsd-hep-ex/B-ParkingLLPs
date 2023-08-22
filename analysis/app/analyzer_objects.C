@@ -13,7 +13,7 @@ analyzer_objects::~analyzer_objects()
 {
 }
 
-std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut){
+std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut, Float_t ew){
   std::vector<int> ids;
   bool MuonExists  = false;
   bool MuonPassPt  = false;
@@ -39,11 +39,11 @@ std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut
       }
     }
   }
-  if(MuonExists )       cutFlow["Muon Exists"] +=1;
-  if(MuonPassPt )       cutFlow["MuonPt > 7 GeV"] +=1;
-  if(MuonPassEta)       cutFlow["abs(MuonEta) < 1.5"] +=1;
-  if(MuonPassHLTFilter) cutFlow["MuonHLTRequirement"] +=1;
-  if(MuonPassQuality)   cutFlow["MuonQuality"] +=1;
+  if(MuonExists )       cutFlow["Muon Exists"] +=ew;
+  if(MuonPassPt )       cutFlow["MuonPt > 7 GeV"] +=ew;
+  if(MuonPassEta)       cutFlow["abs(MuonEta) < 1.5"] +=ew;
+  if(MuonPassHLTFilter) cutFlow["MuonHLTRequirement"] +=ew;
+  if(MuonPassQuality)   cutFlow["MuonQuality"] +=ew;
   return ids;
 
 }

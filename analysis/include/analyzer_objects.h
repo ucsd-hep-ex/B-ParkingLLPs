@@ -44,7 +44,7 @@ class analyzer_objects : public analyzer_config{
 
   bool askDoesPassNominal_dt(int index);
 
-  std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut);
+  std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut, Float_t ew);
   std::vector<int> DtClusterPassSel_test      (bool passHLT);
   std::vector<int> DtClusterPassSel_testOOT   (bool passHLT);
   std::vector<int> DtClusterPassSel_SR        (bool passHLT);
