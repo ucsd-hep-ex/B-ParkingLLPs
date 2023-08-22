@@ -97,8 +97,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       if (jentry %10000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
 
-      //Make MuonList
-      muon_list       =  muonPassSel(muPt, muEta);
 
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
@@ -126,7 +124,10 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         found = false;
       }
 
+      //Make MuonList
+      muon_list       =  muonPassSel(muPt, muEta, event_weight);
 
+       
       //fill miniTree 
       if (b_doTree){
         f->cd();
