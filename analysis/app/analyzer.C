@@ -143,16 +143,12 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( CscClusterPassSel_testOOT(doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_SR  (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_OOT (doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_SR2 (doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_OOT2(doesPassHLT()) );
       CscClusterPassSel_all = dummy;
       dummy.clear();
       dummy.push_back( DtClusterPassSel_test(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_testOOT(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_SR(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_OOT(doesPassHLT()) );
-      dummy.push_back( DtClusterPassSel_SR2(doesPassHLT()) );
-      dummy.push_back( DtClusterPassSel_OOT2(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
 
       if(b_cutFlow) cutFlow["No cuts"] += event_weight;
@@ -171,8 +167,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       FillHistos(1, event_weight);
       FillHistos(2, event_weight);
       FillHistos(3, event_weight);
-      FillHistos(4, event_weight);
-      FillHistos(5, event_weight);
 
    }//end jentries
    //Write miniTree
@@ -198,9 +192,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    WriteHistos(0);
    WriteHistos(1);
    WriteHistos(2);
-   WriteHistos(3);
-   WriteHistos(4);
-   WriteHistos(5);
-   
+   WriteHistos(3);   
 }
 
