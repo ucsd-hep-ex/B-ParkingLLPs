@@ -1,7 +1,7 @@
 #!/bin/bash
 
 doSubmit=true
-path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_6"
+path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_7"
 
 samples=(  \
 "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \

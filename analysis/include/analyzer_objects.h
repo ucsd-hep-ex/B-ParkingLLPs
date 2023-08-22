@@ -44,20 +44,18 @@ class analyzer_objects : public analyzer_config{
 
   bool askDoesPassNominal_dt(int index);
 
-  std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut, Float_t ew);
+  std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut);
+  void muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Float_t ew);
+
   std::vector<int> DtClusterPassSel_test      (bool passHLT);
   std::vector<int> DtClusterPassSel_testOOT   (bool passHLT);
   std::vector<int> DtClusterPassSel_SR        (bool passHLT);
   std::vector<int> DtClusterPassSel_OOT       (bool passHLT);
-  std::vector<int> DtClusterPassSel_SR2       (bool passHLT);
-  std::vector<int> DtClusterPassSel_OOT2      (bool passHLT);
 
   std::vector<int> CscClusterPassSel_test     (bool passHLT);
   std::vector<int> CscClusterPassSel_testOOT  (bool passHLT);
   std::vector<int> CscClusterPassSel_SR       (bool passHLT);
   std::vector<int> CscClusterPassSel_OOT      (bool passHLT);
-  std::vector<int> CscClusterPassSel_SR2      (bool passHLT);
-  std::vector<int> CscClusterPassSel_OOT2     (bool passHLT);
 
   void DtClusterPassSel_CutFlow (Float_t ew);
   void CscClusterPassSel_CutFlow(Float_t ew);

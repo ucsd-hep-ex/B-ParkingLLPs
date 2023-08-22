@@ -50,13 +50,13 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
    if (fChain == 0) return;
-   Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 1000;
+   // Long64_t nentries = fChain->GetEntriesFast();
+   Long64_t nentries = 1000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
    //set up cutFlow entries
-   cutFlow.insert(std::pair<TString, float> ("No cuts", nentries));            cutFlowKeys.push_back("No cuts");
+   cutFlow.insert(std::pair<TString, float> ("No cuts", 0));                   cutFlowKeys.push_back("No cuts");
    cutFlow.insert(std::pair<TString, float> ("Muon Exists", 0));               cutFlowKeys.push_back("Muon Exists");
    cutFlow.insert(std::pair<TString, float> ("MuonPt > 7 GeV", 0));            cutFlowKeys.push_back("MuonPt > 7 GeV");
    cutFlow.insert(std::pair<TString, float> ("abs(MuonEta) < 1.5", 0));        cutFlowKeys.push_back("abs(MuonEta) < 1.5");
@@ -97,7 +97,9 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       if (jentry %10000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
 
-
+      //Make MuonList
+      muon_list       =  muonPassSel(muPt, muEta);
+       
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
       Float_t sigma = 1182000000000.0; //FIX THIS
@@ -112,6 +114,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                               genMuonFilterEff;
        
       if(isMC && muon_list.size()>0) event_weight=event_weight*lepSF[muon_list[0]];
+       
       if(muon_list.size()>0 && found) {
         std::cout<<"event_weight: "<<event_weight<<
                    "  found: "     <<found<<
@@ -124,8 +127,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         found = false;
       }
 
-      //Make MuonList
-      muon_list       =  muonPassSel(muPt, muEta, event_weight);
+
 
        
       //fill miniTree 
@@ -141,21 +143,21 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( CscClusterPassSel_testOOT(doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_SR  (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_OOT (doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_SR2 (doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_OOT2(doesPassHLT()) );
       CscClusterPassSel_all = dummy;
       dummy.clear();
       dummy.push_back( DtClusterPassSel_test(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_testOOT(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_SR(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_OOT(doesPassHLT()) );
-      dummy.push_back( DtClusterPassSel_SR2(doesPassHLT()) );
-      dummy.push_back( DtClusterPassSel_OOT2(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
 
+      if(b_cutFlow) cutFlow["No cuts"] += event_weight;
+       
       // continue doing the cutflow
       if(doesPassHLT() && b_cutFlow) {
-      cutFlow["HLT"] +=1;
+      cutFlow["HLT"] += event_weight;
+
+      muonPassSel_cutflow(muPt, muEta, event_weight);
       DtClusterPassSel_CutFlow (event_weight);
       CscClusterPassSel_CutFlow(event_weight);
       }
@@ -165,8 +167,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       FillHistos(1, event_weight);
       FillHistos(2, event_weight);
       FillHistos(3, event_weight);
-      FillHistos(4, event_weight);
-      FillHistos(5, event_weight);
 
    }//end jentries
    //Write miniTree
@@ -177,6 +177,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    }
    //print cutFlow table
    if(b_cutFlow){
+     // cutFlow["No Cuts"] = counter;
+
      int width = 30;
      for (int c = 0; c<cutFlowKeys.size(); c++) {
       std::cout << '\t'<<setw(width)<<left<< cutFlowKeys[c] <<","<< '\t'<<setw(width)<<left<< cutFlow[cutFlowKeys[c]]
@@ -190,9 +192,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    WriteHistos(0);
    WriteHistos(1);
    WriteHistos(2);
-   WriteHistos(3);
-   WriteHistos(4);
-   WriteHistos(5);
-   
+   WriteHistos(3);   
 }
 
