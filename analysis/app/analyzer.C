@@ -31,8 +31,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
    if (fChain == 0) return;
-   Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 1000;
+   //Long64_t nentries = fChain->GetEntriesFast();
+   Long64_t nentries = 1000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -84,8 +84,12 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
       if(isMC) event_weight = event_reweighter(gLLP_ctau, from_ctau, to_ctau)*
-                              pileupWeight;
-      if(isMC && muon_list.size()>0) event_weight=event_weight*lepSF[muon_list[0]];
+                              pileupWeight
+                              
+     //adding the triggerSF
+     if(isMC && muon_list.size()>0) event_weight=event_weight*lepSF[muon_list[0]];
+
+      // Just print 
       if(muon_list.size()>0 && found) {
         std::cout<<"event_weight: "<<event_weight<<
                    "  found: "     <<found<<
