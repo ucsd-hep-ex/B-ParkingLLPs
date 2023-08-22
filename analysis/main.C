@@ -63,8 +63,12 @@ Float_t from_ctau = atof(from_ctau_str.Data())/10.;
 Float_t to_ctau = from_ctau;
 
 TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
-if (to_ctau_str != "") to_ctau = atof(to_ctau_str.Data())/10.; // Override to_ctau if argument provided
-
+if (to_ctau_str != "") {
+    to_ctau = atof(to_ctau_str.Data())/10.; // Override to_ctau if argument provided
+}
+else {
+    to_ctau_str = from_ctau_str;
+}
 
 std::cout<<"from: "<<from_ctau<<" cm"<<std::endl;
     
@@ -87,11 +91,11 @@ selBinNames.push_back("OOT2");
 
 TFile *f;
 analyzer S;
-if (S.doTree()) f = new TFile("roots/"+theSample+"_tup.root", "recreate");
+if (S.doTree()) f = new TFile("roots/"+theSample+"to"+to_ctau_str+"_tup.root", "recreate");
 S.Init(chain, isMC);
 S.setConfig();
 for (int i =0; i<selBinNames.size(); i++){
-  S.f_out.push_back( new TFile("roots/"+theSample+selBinNames[i]+"_plots.root", "RECREATE") ); 
+  S.f_out.push_back( new TFile("roots/"+theSample+"to"+to_ctau_str+selBinNames[i]+"_plots.root", "RECREATE") ); 
 }
 S.InitHistos();
 S.Loop(f, from_ctau, to_ctau, theSample);
