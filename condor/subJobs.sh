@@ -5,7 +5,16 @@ path="root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_7"
 
 samples=(  \
 "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
-"ParkingBPH4_2018A" \
+"BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000" \
+"BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau300" \
+"BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
+"BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000" \
+"BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau300" \
+#"ParkingBPH1_2018A" \
+#"ParkingBPH2_2018A" \
+#"ParkingBPH3_2018A" \
+#"ParkingBPH4_2018A" \
+#"BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
 )
 
 #compile analyzer

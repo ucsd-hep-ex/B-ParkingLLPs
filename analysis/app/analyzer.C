@@ -28,7 +28,6 @@ Float_t ctau_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
 Float_t genFilterEff(TString sample) {
 
     Float_t GenFilterEff;
-    
     if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000"){
         GenFilterEff = 0.2133676092544987;
     }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300"){
@@ -44,14 +43,14 @@ Float_t genFilterEff(TString sample) {
     return GenFilterEff;
 }
 
-void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample)
+void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
    std::cout<<theSample<<std::endl;
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
    if (fChain == 0) return;
-   // Long64_t nentries = fChain->GetEntriesFast();
-   Long64_t nentries = 1000;
+   Long64_t nentries = fChain->GetEntriesFast();
+   //Long64_t nentries = 1000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -102,27 +101,26 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
        
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
-      Float_t sigma = 1182000000000.0; //FIX THIS
-      Float_t Lumi = 1.0; //CHANGE THIS
-      Float_t genMuonFilterEff = 0.00514;
-       
-      if(isMC) event_weight = sigma*
-                              Lumi*
-                              ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
+     
+      if(isMC) event_weight = ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
                               pileupWeight*
                               genFilterEff(theSample)*
-                              genMuonFilterEff;
+                              genMuonFilterEff*
+                              (1./NEvents);
        
       if(isMC && muon_list.size()>0) event_weight=event_weight*lepSF[muon_list[0]];
-       
+      // Just print 
       if(muon_list.size()>0 && found) {
-        std::cout<<"event_weight: "<<event_weight<<
-                   "  found: "     <<found<<
-                   "  event: "     <<jentry<<
-                   "  NMuons: "    <<muon_list.size()<<
-                   "  w_ctau: "    <<ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
-                   "  PUweight: "  <<pileupWeight<<
-                   "  lepSF: "     <<lepSF[muon_list[0]]<<
+        std::cout<<"sample: "        <<theSample<<
+                   "  event_weight: "<<event_weight<<
+                   "  event: "       <<jentry<<
+                   "  NMuons: "      <<muon_list.size()<<
+                   "  w_ctau: "      <<ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
+                   "  PUweight: "    <<pileupWeight<<
+                   "  lepSF: "       <<lepSF[muon_list[0]]<<
+                   "  genFilterEff: "<<genFilterEff(theSample)<<
+                   "  genMuonFilterEff: "<<genMuonFilterEff<<
+                   "  NEvents-total: "<<NEvents<<
                    std::endl; 
         found = false;
       }
