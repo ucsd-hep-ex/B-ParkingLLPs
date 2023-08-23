@@ -12,6 +12,8 @@ analyzer_config::~analyzer_config()
 
 void analyzer_config::setConfig(){ // loggit
 
+  genMuonFilterEff = 0.00514; // loggit
+
   muPt = 7.;                       // loggit
   muEta = 1.5;                     // loggit
 

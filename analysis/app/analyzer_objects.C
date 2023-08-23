@@ -85,11 +85,12 @@ std::vector<int> analyzer_objects::DtClusterPassSel_testOOT(bool passHLT){     /
         askDoesPassClusterSize_dt(j) &&                              // loggit
         askDoesPassOverlapMuon_dt(j) &&                              // loggit
         askDoesPassRPCMatching_dt(j) &&                              // loggit
-        askDoesPassRPCTimeCut_dt(j)  &&                              // loggit
+        !askDoesPassRPCTimeCut_dt(j)  &&                              // loggit
         askDoesPassMB1Adjacent_dt(j) &&                              // loggit 
         askDoesPassMB1Veto_dt(j)     &&                              // loggit
         askDoesPassMuonVeto_dt(j)    &&                              // loggit
-        askDoesPassClusterEta_dt(j)  //&&                              // loggit
+        askDoesPassClusterEta_dt(j)  &&                              // loggit
+        !askDoesPassMaxStation4_dt(j)  //&&                              // loggit
         //askDoesOverlapGenMuon_dt(j)  &&                              // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
@@ -135,7 +136,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_test(bool passHLT){     // l
         askDoesPassMB1Adjacent_dt(j) &&                              // loggit 
         askDoesPassMB1Veto_dt(j)     &&                              // loggit
         askDoesPassMuonVeto_dt(j)    &&                              // loggit
-        askDoesPassClusterEta_dt(j)  //&&                                // loggit
+        askDoesPassClusterEta_dt(j)  &&                                // loggit
+        !askDoesPassMaxStation4_dt(j)  //&&                                // loggit
         //askDoesOverlapGenMuon_dt(j)  &&                              // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
@@ -182,6 +184,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggi
         askDoesPassMB1Veto_dt(j)     &&                                 // loggit
         !askDoesPassRPCTimeCut_dt(j) &&                                 // loggit
         askDoesPassClusterEta_dt(j)  &&                                 // loggit
+        askDoesPassMaxStation4_dt(j)  &&                                 // loggit
         askDoesPassMB1Adjacent_dt(j)   ) ids.push_back(j);              // loggit
     }                                                                   // loggit
   }
@@ -269,7 +272,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT) {
                    askDoesPassNominal_dt(j)
 
                 && askDoesPassRPCTimeCut_dt(j) 
-                && askDoesPassMaxStation3_dt(j)
+                && askDoesPassMaxStation4_dt(j)
             )   
                 ids.push_back(j);
         }
