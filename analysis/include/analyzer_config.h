@@ -17,6 +17,8 @@ class analyzer_config : public analyzer_base{
   static const Bool_t b_doTree = kFALSE;
   //static const Bool_t b_doTree = kTRUE;
 
+  Float_t genMuonFilterEff;
+
   Float_t muPt;
   Float_t muEta;
 
