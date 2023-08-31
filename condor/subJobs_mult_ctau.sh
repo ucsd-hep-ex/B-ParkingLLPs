@@ -34,7 +34,7 @@ grep -h "loggit" ../../../analysis/app/* >> ${setUp}
 
 # write base for submit file
 printf "universe = vanilla\n" > submitfile
-printf "Executable = ../../runJobs.sh\n" >> submitfile
+printf "Executable = ../../runJobs_mult_ctau.sh\n" >> submitfile
 printf "Should_Transfer_Files = YES \n" >> submitfile
 printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
 printf "Transfer_Input_Files = RunAnalyzer.exe\n" >> submitfile
@@ -47,12 +47,19 @@ printf "Error  = logs/runanalyzer_\$(Cluster)_\$(Process).stderr\n" >> submitfil
 printf "Log    = logs/runanalyzer_\$(Cluster)_\$(Process).log\n" >> submitfile
 printf "\n" >> submitfile
 
+ctau_values=(1 3    5    7    10 \
+               30   50   70   100 \
+               300  500  700  1000 \
+               3000 5000 7000 10000)
 
 for sample in ${samples[@]}
 do
-  printf "Arguments = $path/$sample/ $sample \n" >> submitfile
-  printf "Queue\n" >> submitfile
-  printf "\n" >> submitfile
+  for ctau in ${ctau_values[@]}
+  do
+    printf "Arguments = --Path=$path/$sample/ --Sample=$sample --to_ctau=$ctau \n" >> submitfile
+    printf "Queue\n" >> submitfile
+    printf "\n" >> submitfile
+  done
 done
 
 if [ ${doSubmit} = true ]

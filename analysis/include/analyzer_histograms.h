@@ -36,6 +36,8 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_dtRechitCluster_match_RPCBx_dPhi0p5                    [SELBINNAMESIZE];
   TH1F* h_nDTRechits                                             [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize                                    [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterSize_v                                  [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterSize_v2                                 [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterPhi                                     [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterEta                                     [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPCTime_dR0p4                    [SELBINNAMESIZE];
