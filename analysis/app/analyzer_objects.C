@@ -72,18 +72,9 @@ std::vector<int> analyzer_objects::CscClusterPassSel_testOOT(bool passHLT){    /
   else{
     for (int j = 0; j <nCscRechitClusters; j++){                       // loggit
       if(                                                              // loggit
-        askDoesPassClusterSize_csc(j)       &&                        // loggit 
-        askDoesPassOverlapMuon_csc(j)        &&                        // loggit
-        askDoesPassME1112Veto_csc(j)         &&                        // loggit
-        askDoesPassMB1Veto_csc(j)            &&                        // loggit
-        askDoesPassRB1Veto_csc(j)            &&                        // loggit
-        askDoesPassMuonVeto_csc(j)           &&                        // loggit
-        !askDoesPassClusterTime_csc(j)       &&                        // loggit
-        askDoesPassClusterTimeSpread_csc(j)  &&                        // loggit
-        askDoesPassID_csc(j)                 &&                        // loggit
-        !askDoesPassdPhiLeadMuon_csc(j)      &&                       // loggit
-        askDoesPassClusterEta_csc(j)         //&&                      // loggit
-        //askDoesOverlapGenLLP_csc(j)          &&                      // loggit
+                   askDoesPassNominal_csc(j)                             // loggit
+                && !askDoesPassClusterTime_csc(j)                        // loggit
+                && !askDoesPassdPhiLeadMuon_csc(j)                       // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   } 
@@ -97,7 +88,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_testOOT(bool passHLT){     /
     for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
       if(   askDoesPassNominal_dt(j)                                   // loggit
          && !askDoesPassRPCTimeCut_dt(j)                               // loggit
-         && !askDoesPassMaxStation3_dt(j)                              // loggit
+         && !askDoesPassMaxStation_dt(j)                              // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   }                                                                    // loggit
@@ -111,18 +102,9 @@ std::vector<int> analyzer_objects::CscClusterPassSel_test(bool passHLT){    // l
   else{
     for (int j = 0; j <nCscRechitClusters; j++){                       // loggit
       if(                                                              // loggit
-        askDoesPassClusterSize_csc(j)       &&                         // loggit 
-        askDoesPassOverlapMuon_csc(j)        &&                        // loggit
-        askDoesPassME1112Veto_csc(j)         &&                        // loggit
-        askDoesPassMB1Veto_csc(j)            &&                        // loggit
-        askDoesPassRB1Veto_csc(j)            &&                        // loggit
-        askDoesPassMuonVeto_csc(j)           &&                        // loggit
-        askDoesPassClusterTime_csc(j)        &&                        // loggit
-        askDoesPassClusterTimeSpread_csc(j)  &&                        // loggit
-        askDoesPassID_csc(j)                 &&                        // loggit
-        !askDoesPassdPhiLeadMuon_csc(j)       &&                       // loggit
-        askDoesPassClusterEta_csc(j)         //&&                      // loggit
-        //askDoesOverlapGenLLP_csc(j)          &&                      // loggit
+                   askDoesPassNominal_csc(j)                             // loggit
+                && askDoesPassClusterTime_csc(j)                        // loggit
+                && !askDoesPassdPhiLeadMuon_csc(j)                       // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   } 
@@ -136,7 +118,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_test(bool passHLT){// loggit
     for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
       if(askDoesPassNominal_dt(j)                                      // loggit
       && askDoesPassRPCTimeCut_dt(j)                                   // loggit 
-      && !askDoesPassMaxStation3_dt(j)                                 // loggit
+      && !askDoesPassMaxStation_dt(j)                                 // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   }                                                                    // loggit
@@ -150,18 +132,9 @@ std::vector<int> analyzer_objects::CscClusterPassSel_OOT(bool passHLT){ // loggi
   else{                                                                          
     for (int j = 0; j <nCscRechitClusters; j++){                        // loggit
       if(                                                               // loggit
-        askDoesPassClusterSize_csc(j)        &&                         // loggit
-        askDoesPassOverlapMuon_csc(j)        &&                         // loggit
-        askDoesPassME1112Veto_csc(j)         &&                         // loggit
-        askDoesPassMB1Veto_csc(j)            &&                         // loggit
-        askDoesPassRB1Veto_csc(j)            &&                         // loggit
-        askDoesPassMuonVeto_csc(j)           &&                         // loggit
-        !askDoesPassClusterTime_csc(j)       &&                         // loggit
-        askDoesPassClusterTimeSpread_csc(j)  &&                         // loggit
-        askDoesPassdPhiLeadMuon_csc(j)       &&                         // loggit
-        askDoesPassClusterEta_csc(j)         &&                         // loggit
-        //askDoesOverlapGenLLP_csc(j)          &&                         // loggit
-        askDoesPassID_csc(j)                   
+                   askDoesPassNominal_csc(j)                             // loggit
+                && !askDoesPassClusterTime_csc(j)                        // loggit
+                && askDoesPassdPhiLeadMuon_csc(j)                       // loggit      
         ) ids.push_back(j);      // loggit
     }                                                                   // loggit
   }                                                                              
@@ -175,7 +148,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggi
     for (int j = 0; j <nDtRechitClusters; j++){                         // loggit
       if(   askDoesPassNominal_dt(j)                                    // loggit
          && !askDoesPassRPCTimeCut_dt(j)                                // loggit
-         && askDoesPassMaxStation3_dt(j)                                // loggit
+         && askDoesPassMaxStation_dt(j)                                // loggit
            ) ids.push_back(j);                                          // loggit
     }                                                                   // loggit
   }                                                                     // loggit
@@ -191,18 +164,10 @@ std::vector<int> analyzer_objects::CscClusterPassSel_SR(bool passHLT) { // loggi
     else {                                                              // loggit
         for (int j = 0; j < nCscRechitClusters; j++) {                  // loggit
             if (                                                        // loggit
-                   askDoesPassClusterSize_csc(j)                        // loggit
-                && askDoesPassOverlapMuon_csc(j)                        // loggit
-                && askDoesPassME1112Veto_csc(j)                         // loggit
-                && askDoesPassMB1Veto_csc(j)                            // loggit
-                && askDoesPassRB1Veto_csc(j)                            // loggit
-                && askDoesPassMuonVeto_csc(j)                           // loggit
-                && askDoesPassClusterTime_csc(j)                        // loggit 
-                && askDoesPassClusterTimeSpread_csc(j)                  // loggit
+                   askDoesPassNominal_csc(j)                             // loggit
+                && askDoesPassClusterTime_csc(j)                        // loggit
                 && askDoesPassdPhiLeadMuon_csc(j)                       // loggit
-                && askDoesPassClusterEta_csc(j)                         // loggit
-                && askDoesPassID_csc(j)                                 // loggit
-                // && askDoesOverlapGenLLP_csc(j)                       // loggit
+                
                 ){                                                      // loggit
                     ids.push_back(j);                                   // loggit
             }                                                           // loggit
@@ -219,7 +184,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT) { // loggit
         for (int j = 0; j < nDtRechitClusters; j++) {                  // loggit
             if (askDoesPassNominal_dt(j)                               // loggit
                 && askDoesPassRPCTimeCut_dt(j)                         // loggit
-                && askDoesPassMaxStation3_dt(j)                        // loggit
+                && askDoesPassMaxStation_dt(j)                        // loggit
             )                                                          // loggit
                 ids.push_back(j);                                      // loggit
         }                                                              // loggit
@@ -480,6 +445,22 @@ bool analyzer_objects::askDoesPassNominal_dt(int index) {
         && askDoesPassMB1Veto_dt(index)
         && askDoesPassMB1Adjacent_dt(index);
 }
+
+bool analyzer_objects::askDoesPassNominal_csc(int index) {
+    return askDoesPassClusterSize_csc(index)                        
+        && askDoesPassOverlapMuon_csc(index)                        
+        && askDoesPassME1112Veto_csc(index)                         
+        && askDoesPassMB1Veto_csc(index)                            
+        && askDoesPassRB1Veto_csc(index)                            
+        && askDoesPassMuonVeto_csc(index)                           
+        && askDoesPassClusterTimeSpread_csc(index)                  
+        && askDoesPassClusterEta_csc(index)                         
+        && askDoesPassID_csc(index);                                
+        // && askDoesPassClusterTime_csc(j)                     
+        // && askDoesPassdPhiLeadMuon_csc(j)                    
+}
+
+
 /// --------------DTs
 bool analyzer_objects::askDoesPassOverlapMuon_dt(int index){
   double dR_mu; 

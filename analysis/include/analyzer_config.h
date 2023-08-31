@@ -12,10 +12,10 @@ class analyzer_config : public analyzer_base{
   void     setConfig();
   
   static const int SELBINNAMESIZE  = 4;
-  //static const Bool_t b_cutFlow = kFALSE;
-  static const Bool_t b_cutFlow = kFALSE;
-  static const Bool_t b_doTree = kFALSE;
-  //static const Bool_t b_doTree = kTRUE;
+  static const Bool_t b_cutFlow = kTRUE;
+  // static const Bool_t b_cutFlow = kFALSE;
+  // static const Bool_t b_doTree = kFALSE;
+  static const Bool_t b_doTree = kTRUE;
 
   Float_t genMuonFilterEff;
 

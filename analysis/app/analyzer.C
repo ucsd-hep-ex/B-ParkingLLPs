@@ -50,7 +50,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 1000;
+   // Long64_t nentries = 1000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -126,7 +126,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         found = false;
       }
 
-
+      eventW = event_weight;
 
        
       //fill miniTree 

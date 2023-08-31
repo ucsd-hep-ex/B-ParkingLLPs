@@ -18,9 +18,11 @@ class analyzer_tree : public analyzer_objects{
 
   //----vectors to be filled in miniTree
   std::vector<int>   t_Event;
+  std::vector<Float_t>   t_eventW;
 
   //----link vectors to branches
   TBranch* bEvent       = Tree->Branch("Event", &t_Event); 
+  TBranch* beventW      = Tree->Branch("eventW", &t_eventW); 
 
 
 };
