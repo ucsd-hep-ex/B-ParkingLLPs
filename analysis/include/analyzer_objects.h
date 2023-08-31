@@ -30,6 +30,7 @@ class analyzer_objects : public analyzer_config{
   bool askDoesPassME1112Veto_csc        (int index);
   bool askDoesPassMB1Veto_csc           (int index);
   bool askDoesPassRB1Veto_csc           (int index);
+  bool askDoesPassRE12Veto_csc          (int index);
   bool askDoesPassMuonVeto_csc          (int index);
   bool askDoesPassClusterTime_csc       (int index);
   bool askDoesPassClusterTimeSpread_csc (int index);

@@ -56,6 +56,8 @@ void analyzer_histograms::InitHistos(){
 
     h_nDTRechits                                           [i] = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
     h_dtRechitClusterSize                                  [i] = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  250, 50, 300);
+    h_dtRechitClusterSize_v                                [i] = InitTH1F("h_dtRechitClusterSize_v",  "h_dtRechitClusterSize_v", n_b-1, x_bins);
+    h_dtRechitClusterSize_v2                               [i] = InitTH1F("h_dtRechitClusterSize_v2", "h_dtRechitClusterSize_v2", n_b2-1, x_bins2);
     h_dtRechitClusterPhi                                   [i] = InitTH1F("h_dtRechitClusterPhi",  "h_dtRechitClusterPhi",  40, -3.5, 3.5);
     h_dtRechitClusterEta                                   [i] = InitTH1F("h_dtRechitClusterEta",  "h_dtRechitClusterEta",  40, -5., 5);
     h_dtRechitClusterDPhiLeadMuon                          [i] = InitTH1F("h_dtRechitClusterDPhiLeadMuon",  "h_dtRechitClusterDPhiLeadMuon",  30, 0, 4);
@@ -102,9 +104,11 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], dtRechitClusterPhi[d]);
     h_dtRechitClusterDPhiLeadMuon                            [selbin]->Fill(dPhi, ew);  
     h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Fill(dtRechitCluster_match_RPCBx_dPhi0p5                  [d], ew);  
-    h_dtRechitClusterSize                                    [selbin]->Fill(cscRechitClusterSize                                 [d], ew);
-    h_dtRechitClusterEta                                     [selbin]->Fill(cscRechitClusterEta                                  [d], ew);
-    h_dtRechitClusterPhi                                     [selbin]->Fill(cscRechitClusterPhi                                  [d], ew);
+    h_dtRechitClusterSize                                    [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
+    h_dtRechitClusterSize_v                                  [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
+    h_dtRechitClusterSize_v2                                 [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
+    h_dtRechitClusterEta                                     [selbin]->Fill(dtRechitClusterEta                                   [d], ew);
+    h_dtRechitClusterPhi                                     [selbin]->Fill(dtRechitClusterPhi                                   [d], ew);
     h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPCTime_dR0p4                  [d], ew);
     h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dR0p4            [d], ew);
     h_dtRechitCluster_match_RPChits_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPChits_dR0p4                  [d], ew);
@@ -138,6 +142,8 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Write();
   h_nDTRechits                                             [selbin]->Write();
   h_dtRechitClusterSize                                    [selbin]->Write();
+  h_dtRechitClusterSize_v                                  [selbin]->Write();
+  h_dtRechitClusterSize_v2                                 [selbin]->Write();
   h_dtRechitClusterEta                                     [selbin]->Write();
   h_dtRechitClusterPhi                                     [selbin]->Write();
   h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Write();
@@ -172,6 +178,8 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Delete();
   h_nDTRechits                                             [selbin]->Delete();
   h_dtRechitClusterSize                                    [selbin]->Delete();
+  h_dtRechitClusterSize_v                                  [selbin]->Delete();
+  h_dtRechitClusterSize_v2                                 [selbin]->Delete();
   h_dtRechitClusterEta                                     [selbin]->Delete();
   h_dtRechitClusterPhi                                     [selbin]->Delete();
   h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Delete();

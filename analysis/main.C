@@ -19,6 +19,7 @@ sw.Start();
 
 TString s_Sample = ParseCommandLine( argc, argv, "--Sample=" );
 TString s_Path   = ParseCommandLine( argc, argv, "--Path=" );
+TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
 Bool_t isMC = kTRUE;
     
 TChain* chain = new TChain("MuonSystem");
@@ -54,14 +55,15 @@ from_ctau_str.ReplaceAll("_ctau", "");
 Float_t from_ctau = atof(from_ctau_str.Data())/10.;
 Float_t to_ctau = from_ctau;
 
-TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
 if (to_ctau_str != "") {
     to_ctau = atof(to_ctau_str.Data())/10.; // Override to_ctau if argument provided
+    to_ctau_str = "to"+to_ctau_str;
 }
 else {
-    to_ctau_str = from_ctau_str;
+    to_ctau_str = "to"+from_ctau_str;
 }
 
+std::cout<<"to_ctau_str:  "<< to_ctau_str<<std::endl;
 std::cout<<"from: "<<from_ctau<<" cm"<<std::endl;
     
 std::cout<<"to: "<<to_ctau<<" cm"<<std::endl;
@@ -86,11 +88,11 @@ f0->Close();
 
 TFile *f;
 analyzer S;
-if (S.doTree()) f = new TFile("roots/"+theSample+"to"+to_ctau_str+"_tup.root", "recreate");
+if (S.doTree()) f = new TFile("roots/"+theSample+to_ctau_str+"_tup.root", "recreate");
 S.Init(chain, isMC);
 S.setConfig();
 for (int i =0; i<selBinNames.size(); i++){
-  S.f_out.push_back( new TFile("roots/"+theSample+"to"+to_ctau_str+selBinNames[i]+"_plots.root", "RECREATE") ); 
+  S.f_out.push_back( new TFile("roots/"+theSample+to_ctau_str+"_"+selBinNames[i]+"_plots.root", "RECREATE") ); 
 }
 S.InitHistos();
 S.Loop(f, from_ctau, to_ctau, theSample, NEvents);
