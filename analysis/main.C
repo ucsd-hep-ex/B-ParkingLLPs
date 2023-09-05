@@ -79,7 +79,9 @@ selBinNames.push_back("test");
 selBinNames.push_back("testOOT");
 selBinNames.push_back("SR");
 selBinNames.push_back("OOT");
+selBinNames.push_back("nominal");
 
+    
 // grab NEvents
 TFile* f0 = TFile::Open(Sample);
 Float_t NEvents = ((TH1F*)f0->Get("NEvents"))->GetBinContent(1);

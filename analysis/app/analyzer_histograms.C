@@ -69,7 +69,7 @@ void analyzer_histograms::InitHistos(){
     h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5          [i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5", "h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5",  200, -100, 100);
     h_dtRechitCluster_match_RPCTime_sameStation_dR0p4      [i] = InitTH1F("h_dtRechitCluster_match_RPCTime_sameStation_dR0p4", "h_dtRechitCluster_match_RPCTime_sameStation_dR0p4", 200, -100, 100);
     h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[i] = InitTH1F("h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4", "h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4", 200, -100, 100);
-
+    h_dtRechitClusterMaxStation                            [i] = InitTH1F("h_dtRechitClusterMaxStation", "h_dtRechitClusterMaxStation", 30, 0, 5);
   }
 }
 
@@ -116,6 +116,7 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dPhi0p5          [d], ew);
     h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Fill(dtRechitCluster_match_RPCTime_sameStation_dR0p4      [d], ew);
     h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[d], ew);
+    h_dtRechitClusterMaxStation                              [selbin]->Fill(dtRechitClusterMaxStation                            [d], ew);
   }
 }
 
@@ -153,6 +154,7 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Write();
   h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Write();
   h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Write();
+  h_dtRechitClusterMaxStation                              [selbin]->Write();
 }
 
 void analyzer_histograms::DeleteHistos(int selbin){
@@ -189,4 +191,6 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Delete();
   h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Delete();
   h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Delete();
+  h_dtRechitClusterMaxStation                              [selbin]->Delete();
+
 }

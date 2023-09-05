@@ -44,6 +44,7 @@ class analyzer_objects : public analyzer_config{
   bool askDoesPassMaxStation4_dt(int index);
 
   bool askDoesPassNominal_dt(int index);
+  bool askDoesPassNominal_csc(int index);
 
   std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut);
   void muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Float_t ew);
@@ -57,6 +58,9 @@ class analyzer_objects : public analyzer_config{
   std::vector<int> CscClusterPassSel_testOOT  (bool passHLT);
   std::vector<int> CscClusterPassSel_SR       (bool passHLT);
   std::vector<int> CscClusterPassSel_OOT      (bool passHLT);
+
+  std::vector<int> DtClusterPassSel_nominal       (bool passHLT);
+  std::vector<int> CscClusterPassSel_nominal       (bool passHLT);
 
   void DtClusterPassSel_CutFlow (Float_t ew);
   void CscClusterPassSel_CutFlow(Float_t ew);
