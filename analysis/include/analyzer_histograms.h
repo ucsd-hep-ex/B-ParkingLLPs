@@ -47,7 +47,8 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [SELBINNAMESIZE];
-  
+  TH1F* h_dtRechitClusterMaxStation                              [SELBINNAMESIZE];
+
   void InitHistos();
   void FillHistos( int selbin, Float_t ew);
   void WriteHistos( int selbin );

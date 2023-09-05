@@ -192,6 +192,40 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT) { // loggit
     return ids;                                                        // loggit
 }                                                                      // loggit
 //--------------------------------------------------------- End SR
+
+
+//--------------------------------------------------------- Begin nominal    // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_nominal(bool passHLT) { // loggit
+    std::vector<int> ids;                                               // loggit
+    if (!passHLT)                                                       // loggit
+        return ids;                                                     // loggit
+    else {                                                              // loggit
+        for (int j = 0; j < nCscRechitClusters; j++) {                  // loggit
+            if (                                                        // loggit
+                   askDoesPassNominal_csc(j)                             // loggit
+                ){                                                      // loggit
+                    ids.push_back(j);                                   // loggit
+            }                                                           // loggit
+        }                                                               // loggit
+    }                                                                   // loggit
+    return ids;                                                         // loggit
+}                                                                       // loggit
+
+std::vector<int> analyzer_objects::DtClusterPassSel_nominal(bool passHLT) { // loggit
+    std::vector<int> ids;                                              // loggit
+    if (!passHLT)                                                      // loggit
+        return ids;                                                    // loggit
+    else {                                                             // loggit
+        for (int j = 0; j < nDtRechitClusters; j++) {                  // loggit
+            if (
+                askDoesPassNominal_dt(j)                               // loggit
+            )                                                          // loggit
+                ids.push_back(j);                                      // loggit
+        }                                                              // loggit
+    }                                                                  // loggit
+    return ids;                                                        // loggit
+}                                                                      // loggit
+//--------------------------------------------------------- End nominal
 //========================================================= Ends Region Definitions
 
 // ----CutFlow Table stuff
