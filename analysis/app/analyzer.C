@@ -155,16 +155,18 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       DtClusterPassSel_all = dummy;
 
       if(b_cutFlow) cutFlow["No cuts"] += event_weight;
-       
-      // continue doing the cutflow
-      if(doesPassHLT() && b_cutFlow) {
-      cutFlow["HLT"] += event_weight;
 
       muonPassSel_cutflow(muPt, muEta, event_weight);
+       
+      // continue doing the cutflow
+      if(doesPassHLT() && b_cutFlow && muon_list.size() > 0) { 
+      cutFlow["HLT"] += event_weight;
+
+      
       DtClusterPassSel_CutFlow (event_weight);
       CscClusterPassSel_CutFlow(event_weight);
       }
-
+       
       //Fill the histograms by event
       FillHistos(0, event_weight);
       FillHistos(1, event_weight);
