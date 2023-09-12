@@ -67,32 +67,33 @@ void analyzer_objects::muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Fl
 
 //-------- Test-OOT Selections     Fail OOT region                     // loggit
 std::vector<int> analyzer_objects::CscClusterPassSel_testOOT(bool passHLT){    // loggit
-  std::vector<int> ids;                                                // loggit
-  if(!passHLT) return ids;
-  else{
-    for (int j = 0; j <nCscRechitClusters; j++){                       // loggit
-      if(                                                              // loggit
-                   askDoesPassNominal_csc(j)                             // loggit
+    std::vector<int> ids;                                                // loggit
+    if(!passHLT) return ids;
+    else{
+        for (int j = 0; j <nCscRechitClusters; j++){                       // loggit
+            if(                                                              // loggit
+                    askDoesPassNominal_csc(j)                             // loggit
                 && !askDoesPassClusterTime_csc(j)                        // loggit
                 && !askDoesPassdPhiLeadMuon_csc(j)                       // loggit
-        ) ids.push_back(j);                                            // loggit
-    }                                                                  // loggit
-  } 
-  return ids;                                                          // loggit
+            ) ids.push_back(j);                                            // loggit
+        }                                                                  // loggit
+    } 
+    return ids;                                                          // loggit
 }                                                                      // loggit
 
 std::vector<int> analyzer_objects::DtClusterPassSel_testOOT(bool passHLT){     // loggit
-  std::vector<int> ids;                                                // loggit
-  if(!passHLT) return ids;                                             // loggit
-  else{                                                                // loggit
-    for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
-      if(   askDoesPassNominal_dt(j)                                   // loggit
-         && !askDoesPassRPCTimeCut_dt(j)                               // loggit
-         && !askDoesPassMaxStation_dt(j)                              // loggit
-        ) ids.push_back(j);                                            // loggit
-    }                                                                  // loggit
-  }                                                                    // loggit
-  return ids;                                                          // loggit
+    std::vector<int> ids;                                                // loggit
+    if(!passHLT) return ids;                                             // loggit
+    else{                                                                // loggit
+        for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
+            if(   
+                    askDoesPassNominal_dt(j)                                   // loggit
+                && !askDoesPassRPCTimeCut_dt(j)                               // loggit
+                && !askDoesPassMaxStation_dt(j)                              // loggit
+            ) ids.push_back(j);                                            // loggit
+        }                                                                  // loggit
+    }                                                                    // loggit
+    return ids;                                                          // loggit
 }                                                                      // loggit
 
 //-------- Test Selections   Fail in time region                       // loggit
@@ -116,7 +117,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_test(bool passHLT){// loggit
   if(!passHLT) return ids;                                             // loggit
   else{                                                                // loggit
     for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
-      if(askDoesPassNominal_dt(j)                                      // loggit
+      if(
+         askDoesPassNominal_dt(j)                                      // loggit
       && askDoesPassRPCTimeCut_dt(j)                                   // loggit 
       && !askDoesPassMaxStation_dt(j)                                 // loggit
         ) ids.push_back(j);                                            // loggit
@@ -146,7 +148,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggi
   if(!passHLT) return ids;                                              // loggit
   else{                                                                 // loggit
     for (int j = 0; j <nDtRechitClusters; j++){                         // loggit
-      if(   askDoesPassNominal_dt(j)                                    // loggit
+      if(   
+            askDoesPassNominal_dt(j)                                    // loggit
          && !askDoesPassRPCTimeCut_dt(j)                                // loggit
          && askDoesPassMaxStation_dt(j)                                // loggit
            ) ids.push_back(j);                                          // loggit
@@ -182,7 +185,12 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT) { // loggit
         return ids;                                                    // loggit
     else {                                                             // loggit
         for (int j = 0; j < nDtRechitClusters; j++) {                  // loggit
-            if (askDoesPassNominal_dt(j)                               // loggit
+
+            // std::cout << "askDoesPassRPCTimeCut_dt(j): " << askDoesPassRPCTimeCut_dt(j) << std::endl;
+            // std::cout << "dtRechitCluster_match_RPCBx_dPhi0p5[j]: " << dtRechitCluster_match_RPCBx_dPhi0p5[j] << std::endl;
+            
+            if (   
+                   askDoesPassNominal_dt(j)                               // loggit
                 && askDoesPassRPCTimeCut_dt(j)                         // loggit
                 && askDoesPassMaxStation_dt(j)                        // loggit
             )                                                          // loggit

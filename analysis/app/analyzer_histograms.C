@@ -97,7 +97,7 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     h_cscRechitClusterTimeSpreadWeighted     [selbin]->Fill(cscRechitClusterTimeSpreadWeighted   [c], ew);
     h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Fill(cscRechitClusterTimeSpreadWeightedAll[c], ew);
   }
-    if(DtClusterPassSel_all[selbin].size()>0) h_nDTRechits[selbin]->Fill(nDTRechits, ew);
+  if(DtClusterPassSel_all[selbin].size()>0) h_nDTRechits[selbin]->Fill(nDTRechits, ew);
   for(int i = 0; i < DtClusterPassSel_all[selbin].size(); i++){
     int d = DtClusterPassSel_all[selbin][i];
     double dPhi = -999;
