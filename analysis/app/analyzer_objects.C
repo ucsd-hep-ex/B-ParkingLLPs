@@ -97,7 +97,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_testOOT(bool passHLT){     /
     for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
       if(   askDoesPassNominal_dt(j)                                   // loggit
          && !askDoesPassRPCTimeCut_dt(j)                               // loggit
-         && !askDoesPassMaxStation3_dt(j)                              // loggit
+         && !askDoesPassMaxStation_dt(j)                              // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   }                                                                    // loggit
@@ -136,7 +136,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_test(bool passHLT){// loggit
     for (int j = 0; j <nDtRechitClusters; j++){                        // loggit
       if(askDoesPassNominal_dt(j)                                      // loggit
       && askDoesPassRPCTimeCut_dt(j)                                   // loggit 
-      && !askDoesPassMaxStation3_dt(j)                                 // loggit
+      && !askDoesPassMaxStation_dt(j)                                 // loggit
         ) ids.push_back(j);                                            // loggit
     }                                                                  // loggit
   }                                                                    // loggit
@@ -175,7 +175,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggi
     for (int j = 0; j <nDtRechitClusters; j++){                         // loggit
       if(   askDoesPassNominal_dt(j)                                    // loggit
          && !askDoesPassRPCTimeCut_dt(j)                                // loggit
-         && askDoesPassMaxStation3_dt(j)                                // loggit
+         && askDoesPassMaxStation_dt(j)                                // loggit
            ) ids.push_back(j);                                          // loggit
     }                                                                   // loggit
   }                                                                     // loggit
@@ -219,7 +219,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT) { // loggit
         for (int j = 0; j < nDtRechitClusters; j++) {                  // loggit
             if (askDoesPassNominal_dt(j)                               // loggit
                 && askDoesPassRPCTimeCut_dt(j)                         // loggit
-                && askDoesPassMaxStation3_dt(j)                        // loggit
+                && askDoesPassMaxStation_dt(j)                        // loggit
             )                                                          // loggit
                 ids.push_back(j);                                      // loggit
         }                                                              // loggit
