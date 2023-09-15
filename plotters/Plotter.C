@@ -19,8 +19,8 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion){
 
   //region="OOT";
   //TString inpath = "/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"; 
-  TString signalName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
-  TString bkgName = "ParkingBPH4_2018A";
+  TString signalName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300to300_";
+  TString bkgName = "ParkingBPH1_2018Ato_";
 
   TString sigpath = inpath+signalName+region+"_plots.root";
   TString bkgpath = inpath+bkgName+region+"_plots.root";
@@ -44,22 +44,22 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion){
 
   std::vector<TString> variables;
   variables.clear();
-  variables.push_back("cscRechitClusterDPhiLeadMuon");
-  variables.push_back("cscRechitClusterSize");
+//  variables.push_back("cscRechitClusterDPhiLeadMuon");
+//  variables.push_back("cscRechitClusterSize");
   variables.push_back("cscRechitClusterSize_v");
-  variables.push_back("cscRechitClusterTime");
-  variables.push_back("cscRechitClusterEta");
-  variables.push_back("cscRechitClusterPhi");
-  variables.push_back("cscRechitClusterTimeTotal");
-  variables.push_back("cscRechitClusterTimeWeighted");
-  variables.push_back("cscRechitClusterTimeSpread");
-  variables.push_back("cscRechitClusterTimeSpreadWeighted");
-  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
-  //variables.push_back("nLeptons");
-  //variables.push_back("nCscRechits");
-  variables.push_back("dtRechitClusterDPhiLeadMuon");
-  variables.push_back("dtRechitClusterEta");
-  variables.push_back("dtRechitClusterSize");
+//  variables.push_back("cscRechitClusterTime");
+//  variables.push_back("cscRechitClusterEta");
+//  variables.push_back("cscRechitClusterPhi");
+//  variables.push_back("cscRechitClusterTimeTotal");
+//  variables.push_back("cscRechitClusterTimeWeighted");
+//  variables.push_back("cscRechitClusterTimeSpread");
+//  variables.push_back("cscRechitClusterTimeSpreadWeighted");
+//  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
+//  //variables.push_back("nLeptons");
+//  //variables.push_back("nCscRechits");
+//  variables.push_back("dtRechitClusterDPhiLeadMuon");
+//  variables.push_back("dtRechitClusterEta");
+//  variables.push_back("dtRechitClusterSize");
   //variables.push_back("dtRechitClusterPhi");
   //variables.push_back("dtRechitCluster_match_RPCBx_dPhi0p5");
   //variables.push_back("cscRechitClusterTime");
