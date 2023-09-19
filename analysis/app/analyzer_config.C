@@ -17,6 +17,8 @@ void analyzer_config::setConfig(){ // loggit
   muPt = 7.;                       // loggit
   muEta = 1.5;                     // loggit
 
+  //Size cuts for histo definition
+  //objects.C uses >=50 selection
   DtSize  = 0.0; //100;                   // loggit
   CscSize = 0.0; //130;                   // loggit
 
