@@ -1,6 +1,7 @@
 # job outputs
 condor/gitignore
 plotDump/
+analysis/roots/
 
 #checkpoints
 **/.ipynb_checkpoints/
