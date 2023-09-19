@@ -19,10 +19,14 @@ class analyzer_tree : public analyzer_objects{
   //----vectors to be filled in miniTree
   std::vector<int>   t_Event;
   std::vector<Float_t>   t_eventW;
+  std::vector<Float_t>   t_cscRechitClusterSize;
+  std::vector<Float_t>   t_dtRechitClusterSize;
 
   //----link vectors to branches
-  TBranch* bEvent       = Tree->Branch("Event", &t_Event); 
-  TBranch* beventW      = Tree->Branch("eventW", &t_eventW); 
+  TBranch* b_Event       = Tree->Branch("Event", &t_Event); 
+  TBranch* b_eventW      = Tree->Branch("eventW", &t_eventW); 
+  TBranch* b_cscRechitClusterSize = Tree->Branch("cscRechitClusterSize", &t_cscRechitClusterSize); 
+  TBranch* b_dtRechitClusterSize = Tree->Branch("dtRechitClusterSize", &t_dtRechitClusterSize); 
 
 
 };
