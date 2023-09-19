@@ -35,8 +35,8 @@ public :
    std::vector<std::vector<int>> DtClusterPassSel_all;
    std::vector<std::vector<int>> CscClusterPassSel_all;
    std::vector<int> muon_list;
-   std::vector<int> DtCluster_list;
-   std::vector<int> CscCluster_list;
+   std::vector<int> tup_DtCluster_list;
+   std::vector<int> tup_CscCluster_list;
 
    bool passGoodMuon = false;
    //CSCs

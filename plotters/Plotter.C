@@ -15,12 +15,21 @@
 #include <stdlib.h>     /* getenv */
 
 
-void Plotter(TString region, bool dolog, TString inpath, TString aversion){
+void Plotter(TString region, bool dolog, TString inpath, TString aversion, TString signalName){
 
-  //region="OOT";
-  //TString inpath = "/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/roots/"; 
-  TString signalName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
-  TString bkgName = "ParkingBPH4_2018A";
+  //BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300to300_Fail_plots.root
+  Ssiz_t pos1   = signalName.Index("PhiT");
+  Ssiz_t pos2   = signalName.Last('_');
+  Ssiz_t pos3   = signalName.Index("_ctau");
+  Ssiz_t pos_ct = signalName.Index("to");
+  Ssiz_t pos_m  = signalName.Index("mPhi");
+
+  TString dl      = signalName(pos_ct+2,pos2-(pos_ct+2) );
+  TString mass    = signalName(pos_m+4,pos3-(pos_m+4));
+  mass.ReplaceAll("p", ".");
+  TString sigName = signalName(pos1,pos2);
+  std::cout<<"Short Name: "<<sigName<<std::endl;
+  TString bkgName = "ParkingBPH4_2018Ato_";
 
   TString sigpath = inpath+signalName+region+"_plots.root";
   TString bkgpath = inpath+bkgName+region+"_plots.root";
@@ -45,21 +54,22 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion){
   std::vector<TString> variables;
   variables.clear();
   variables.push_back("cscRechitClusterDPhiLeadMuon");
-  variables.push_back("cscRechitClusterSize");
-  variables.push_back("cscRechitClusterSize_v");
-  variables.push_back("cscRechitClusterTime");
-  variables.push_back("cscRechitClusterEta");
-  variables.push_back("cscRechitClusterPhi");
-  variables.push_back("cscRechitClusterTimeTotal");
-  variables.push_back("cscRechitClusterTimeWeighted");
-  variables.push_back("cscRechitClusterTimeSpread");
-  variables.push_back("cscRechitClusterTimeSpreadWeighted");
-  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
-  //variables.push_back("nLeptons");
-  //variables.push_back("nCscRechits");
-  variables.push_back("dtRechitClusterDPhiLeadMuon");
-  variables.push_back("dtRechitClusterEta");
-  variables.push_back("dtRechitClusterSize");
+  variables.push_back("dtRechitClusterMaxStation");
+//  variables.push_back("cscRechitClusterSize");
+//  variables.push_back("cscRechitClusterSize_v");
+//  variables.push_back("cscRechitClusterTime");
+//  variables.push_back("cscRechitClusterEta");
+//  variables.push_back("cscRechitClusterPhi");
+//  variables.push_back("cscRechitClusterTimeTotal");
+//  variables.push_back("cscRechitClusterTimeWeighted");
+//  variables.push_back("cscRechitClusterTimeSpread");
+//  variables.push_back("cscRechitClusterTimeSpreadWeighted");
+//  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
+//  //variables.push_back("nLeptons");
+//  //variables.push_back("nCscRechits");
+//  variables.push_back("dtRechitClusterDPhiLeadMuon");
+//  variables.push_back("dtRechitClusterEta");
+//  variables.push_back("dtRechitClusterSize");
   //variables.push_back("dtRechitClusterPhi");
   //variables.push_back("dtRechitCluster_match_RPCBx_dPhi0p5");
   //variables.push_back("cscRechitClusterTime");
@@ -85,7 +95,7 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion){
     h_bkg = (TH1F*)bkgFile->Get("h_"+variables[i])->Clone("h_bkg");
   }
     std::cout<<"MaxSignal: "<<h_sig->GetMaximum()<<"    Maxbkg: "<<h_bkg->GetMaximum()<<std::endl;
-
+    std::cout<<"Normalize to unity"<<std::endl;
     if (h_sig->GetEntries()>0) h_sig->Scale(1./h_sig->Integral());
     if (h_bkg->GetEntries()>0) h_bkg->Scale(1./h_bkg->Integral());
     std::cout<<"MaxSignal_: "<<h_sig->GetMaximum()<<"    Maxbkg_: "<<h_bkg->GetMaximum()<<std::endl;
@@ -116,13 +126,14 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion){
     h_sig->SetLineWidth(2);
     h_bkg->SetLineWidth(2);
 
-    leg->AddEntry(h_sig, "#Phi#rightarrow#pi^{0}#pi^{0}    m_{#Phi}=0.3GeV, c#tau_{#Phi}=300mm","l");
+    if (sigName.Contains("PhiToPiPlusPiMinus")) leg->AddEntry(h_sig, "#Phi#rightarrow#pi^{+}#pi^{-}    m_{#Phi}="+mass+"GeV, c#tau_{#Phi}="+dl+"mm","l");
+    else                                        leg->AddEntry(h_sig, "#Phi#rightarrow#pi^{0}#pi^{0}    m_{#Phi}="+mass+"GeV, c#tau_{#Phi}="+dl+"mm","l");
     leg->AddEntry(h_bkg, "Background","l");
     leg->Draw("sames");
     gPad->Update();
     gPad->RedrawAxis();
 
-    if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+"_log.pdf");
-    else canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+".pdf");
+    if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+sigName+variables[i]+"_"+region+"_log.pdf");
+    else canvas->SaveAs("plotDump/"+aversion+"/"+sigName+variables[i]+"_"+region+".pdf");
   } 
 }

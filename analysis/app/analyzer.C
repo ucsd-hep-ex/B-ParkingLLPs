@@ -50,7 +50,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   // Long64_t nentries = 1000;
+   //Long64_t nentries = 1000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -138,21 +138,25 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       } 
       // object lists
       std::vector<std::vector<int>> dummy; 
-      dummy.push_back( CscClusterPassSel_test(doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_testOOT(doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_SR  (doesPassHLT()) );
-      dummy.push_back( CscClusterPassSel_OOT (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_Fail    (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_FailOOT (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_Pass    (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_PassOOT (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_nominal (doesPassHLT()) );
 
       CscClusterPassSel_all = dummy;
       dummy.clear();
-      dummy.push_back( DtClusterPassSel_test(doesPassHLT()) );
-      dummy.push_back( DtClusterPassSel_testOOT(doesPassHLT()) );
-      dummy.push_back( DtClusterPassSel_SR(doesPassHLT()) );
-      dummy.push_back( DtClusterPassSel_OOT(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_Fail   (doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_FailOOT(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_Pass   (doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_PassOOT(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_nominal(doesPassHLT()) );
-
       DtClusterPassSel_all = dummy;
+
+      tup_DtCluster_list.clear();
+      tup_DtCluster_list = DtClusterPassSel_nominal(doesPassHLT());
+      tup_CscCluster_list.clear();
+      tup_CscCluster_list = CscClusterPassSel_nominal(doesPassHLT());
 
       if(b_cutFlow) cutFlow["No cuts"] += event_weight;
 

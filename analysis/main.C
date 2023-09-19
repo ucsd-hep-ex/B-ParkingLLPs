@@ -75,10 +75,10 @@ chain->Add(Sample);
 if(theSample.Contains("Parking")) isMC = kFALSE;
 
 std::vector<TString> selBinNames;
-selBinNames.push_back("test");
-selBinNames.push_back("testOOT");
-selBinNames.push_back("SR");
-selBinNames.push_back("OOT");
+selBinNames.push_back("Fail");
+selBinNames.push_back("FailOOT");
+selBinNames.push_back("Pass");
+selBinNames.push_back("PassOOT");
 selBinNames.push_back("nominal");
 
     
