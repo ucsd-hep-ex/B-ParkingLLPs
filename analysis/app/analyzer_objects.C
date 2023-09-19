@@ -66,7 +66,7 @@ void analyzer_objects::muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Fl
 //--------- Region Definitions
 
 //-------- Test-OOT Selections     Fail OOT region                     // loggit
-std::vector<int> analyzer_objects::CscClusterPassSel_testOOT(bool passHLT){    // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_FailOOT(bool passHLT){    // loggit
   std::vector<int> ids;                                                // loggit
   if(!passHLT) return ids;
   else{
@@ -81,7 +81,7 @@ std::vector<int> analyzer_objects::CscClusterPassSel_testOOT(bool passHLT){    /
   return ids;                                                          // loggit
 }                                                                      // loggit
 
-std::vector<int> analyzer_objects::DtClusterPassSel_testOOT(bool passHLT){     // loggit
+std::vector<int> analyzer_objects::DtClusterPassSel_FailOOT(bool passHLT){     // loggit
   std::vector<int> ids;                                                // loggit
   if(!passHLT) return ids;                                             // loggit
   else{                                                                // loggit
@@ -96,7 +96,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_testOOT(bool passHLT){     /
 }                                                                      // loggit
 
 //-------- Test Selections   Fail in time region                       // loggit
-std::vector<int> analyzer_objects::CscClusterPassSel_test(bool passHLT){    // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_Fail(bool passHLT){    // loggit
   std::vector<int> ids;                                                // loggit
   if(!passHLT) return ids;
   else{
@@ -111,7 +111,7 @@ std::vector<int> analyzer_objects::CscClusterPassSel_test(bool passHLT){    // l
   return ids;                                                          // loggit
 }                                                                      // loggit
 
-std::vector<int> analyzer_objects::DtClusterPassSel_test(bool passHLT){// loggit
+std::vector<int> analyzer_objects::DtClusterPassSel_Fail(bool passHLT){// loggit
   std::vector<int> ids;                                                // loggit
   if(!passHLT) return ids;                                             // loggit
   else{                                                                // loggit
@@ -126,7 +126,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_test(bool passHLT){// loggit
 }                                                                      // loggit
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //--------------------- Out of Time Region       Pass OOT region        // loggit
-std::vector<int> analyzer_objects::CscClusterPassSel_OOT(bool passHLT){ // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_PassOOT(bool passHLT){ // loggit
   std::vector<int> ids;                                                 // loggit
   if(!passHLT) return ids;                                                       
   else{                                                                          
@@ -141,7 +141,7 @@ std::vector<int> analyzer_objects::CscClusterPassSel_OOT(bool passHLT){ // loggi
   return ids;                                                           // loggit
 }                                                                       // loggit
                                                                                  
-std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggit
+std::vector<int> analyzer_objects::DtClusterPassSel_PassOOT(bool passHLT){  // loggit
   std::vector<int> ids;                                                 // loggit
   if(!passHLT) return ids;                                              // loggit
   else{                                                                 // loggit
@@ -157,7 +157,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_OOT(bool passHLT){  // loggi
 ////////////////////////////////////////////////////
 
 //--------------------------------------------------------- Begin SR    // loggit
-std::vector<int> analyzer_objects::CscClusterPassSel_SR(bool passHLT) { // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_Pass(bool passHLT) { // loggit
     std::vector<int> ids;                                               // loggit
     if (!passHLT)                                                       // loggit
         return ids;                                                     // loggit
@@ -176,7 +176,7 @@ std::vector<int> analyzer_objects::CscClusterPassSel_SR(bool passHLT) { // loggi
     return ids;                                                         // loggit
 }                                                                       // loggit
 
-std::vector<int> analyzer_objects::DtClusterPassSel_SR(bool passHLT) { // loggit
+std::vector<int> analyzer_objects::DtClusterPassSel_Pass(bool passHLT) { // loggit
     std::vector<int> ids;                                              // loggit
     if (!passHLT)                                                      // loggit
         return ids;                                                    // loggit
