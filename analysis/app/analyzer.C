@@ -127,10 +127,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                    std::endl; 
         found = false;
       }
-
+      //saving in the global variable 
       eventW = event_weight;
-      eventW=1.0;
-      event_weight = 1.0;
        
       //fill miniTree 
       if (b_doTree){
