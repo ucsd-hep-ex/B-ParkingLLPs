@@ -19,7 +19,7 @@ std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut
   for (int j = 0; j<nLeptons; j++){
     if(abs(lepPdgId[j]) != 13) continue;
     if(lepPt[j] > muPtCut){
-      if(lepEta[j] < fabs(muEtaCut)){ 
+      if(fabs(lepEta[j]) < muEtaCut){ 
         if(lepMuon_passHLTFilter[j]){
          if(lepMuonQuality[j] >= pow(2,25)){
            ids.push_back(j);
