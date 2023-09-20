@@ -43,7 +43,7 @@ void analyzer_objects::muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Fl
     MuonExists = true;
     if(lepPt[j] > muPtCut){
       MuonPassPt = true;
-      if(lepEta[j] < fabs(muEtaCut)){ 
+      if(fabs(lepEta[j]) < muEtaCut){ 
         MuonPassEta = true;
         if(lepMuon_passHLTFilter[j]){
          MuonPassHLTFilter = true;
@@ -86,7 +86,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_FailOOT(bool passHLT){      
     for (int j = 0; j <nDtRechitClusters; j++){                                         // loggit
       if(   askDoesPassNominal_dt(j)                                                    // loggit
          && !askDoesPassRPCTimeCut_dt(j)                                                // loggit
-         && !askDoesPassMaxStation_dt(j)                                                // loggit
+         && !askDoesPassdPhiLeadMuon_dt(j)                                              // loggit
+         //&& !askDoesPassMaxStation_dt(j)                                              // loggit
         ) ids.push_back(j);                                                             // loggit
     }                                                                                   // loggit
   }                                                                                     // loggit
@@ -114,7 +115,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_Fail(bool passHLT){         
     for (int j = 0; j <nDtRechitClusters; j++){                                         // loggit
       if(   askDoesPassNominal_dt(j)                                                    // loggit
          && askDoesPassRPCTimeCut_dt(j)                                                 // loggit 
-         && !askDoesPassMaxStation_dt(j)                                                // loggit
+         && !askDoesPassdPhiLeadMuon_dt(j)                                              // loggit 
+         //&& !askDoesPassMaxStation_dt(j)                                              // loggit
         ) ids.push_back(j);                                                             // loggit
     }                                                                                   // loggit
   }                                                                                     // loggit
@@ -142,7 +144,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_PassOOT(bool passHLT){      
     for (int j = 0; j <nDtRechitClusters; j++){                                         // loggit
       if(   askDoesPassNominal_dt(j)                                                    // loggit
          && !askDoesPassRPCTimeCut_dt(j)                                                // loggit
-         && askDoesPassMaxStation_dt(j)                                                 // loggit
+         && askDoesPassdPhiLeadMuon_dt(j)                                               // loggit
+         //&& askDoesPassMaxStation_dt(j)                                               // loggit
         ) ids.push_back(j);                                                             // loggit
     }                                                                                   // loggit
   }                                                                                     // loggit
@@ -172,7 +175,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_Pass(bool passHLT) {        
         for (int j = 0; j < nDtRechitClusters; j++) {                                  // loggit
             if (   askDoesPassNominal_dt(j)                                            // loggit
                 && askDoesPassRPCTimeCut_dt(j)                                         // loggit
-                && askDoesPassMaxStation_dt(j)                                         // loggit
+                && askDoesPassdPhiLeadMuon_dt(j)                                       // loggit
+                //&& askDoesPassMaxStation_dt(j)                                       // loggit
             ) ids.push_back(j);                                                        // loggit
         }                                                                              // loggit
     }                                                                                  // loggit

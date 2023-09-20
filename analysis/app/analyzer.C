@@ -45,6 +45,7 @@ Float_t genFilterEff(TString sample) {
 
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
+   const float SIGMA = (1/0.4)*5.72E11;
    std::cout<<theSample<<std::endl;
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
@@ -103,7 +104,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
      
-      if(isMC) event_weight = ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
+      if(isMC) event_weight = SIGMA*
+                              ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
                               pileupWeight*
                               genFilterEff(theSample)*
                               genMuonFilterEff*
@@ -125,9 +127,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                    std::endl; 
         found = false;
       }
-
+      //saving in the global variable 
       eventW = event_weight;
-
        
       //fill miniTree 
       if (b_doTree){

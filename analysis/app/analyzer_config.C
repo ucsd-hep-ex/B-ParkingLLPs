@@ -19,8 +19,8 @@ void analyzer_config::setConfig(){ // loggit
 
   //Size cuts for histo definition
   //objects.C uses >=50 selection
-  DtSize  = 0.0; //100;                   // loggit
-  CscSize = 0.0; //130;                   // loggit
+  DtSize  = 100;                   // loggit
+  CscSize = 130;                   // loggit
 
   CscEta = 1.9;                    // loggit
   DtEta = 1.9;                     // loggit
@@ -36,7 +36,7 @@ void analyzer_config::setConfig(){ // loggit
   DtMB1Veto = 1;                   // loggit
 
   dPhiCut_LeadMu_CscCluster = 1.9; //loggit
-  dPhiCut_LeadMu_DtCluster = 1.9;  //loggit
+  dPhiCut_LeadMu_DtCluster = 1.75;  //loggit
 
   cscClusterTimeLow = -5.;         // loggit
   cscClusterTimeHigh = 12.5;       // loggit
