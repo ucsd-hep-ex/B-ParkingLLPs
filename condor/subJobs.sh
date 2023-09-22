@@ -1,6 +1,6 @@
 #!/bin/bash
 
-doSubmit=false
+doSubmit=true
 listdir=${CMSSW_BASE}/src/B-ParkingLLPs/lists
 path="root://cmsxrootd.fnal.gov/"
 #path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/V1p19_7"
@@ -41,7 +41,7 @@ do
   cd $listName 
   # write base for submit file
   printf "universe = vanilla\n" > submitfile
-  printf "Executable = ../../runJobs.sh\n" >> submitfile
+  printf "Executable = ${CMSSW_BASE}/src/B-ParkingLLPs/condor/runJobs.sh\n" >> submitfile
   printf "Should_Transfer_Files = YES \n" >> submitfile
   printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
   printf "Transfer_Input_Files = ../RunAnalyzer.exe\n" >> submitfile
@@ -65,7 +65,7 @@ do
   #Now loop over individual entries
   for sample in ${samples[@]}
   do
-  echo "sample: $sample"
+  #echo "sample: $sample"
   # Remove leading and trailing whitespace (if any)
   sample="${sample#"${sample%%[![:space:]]*}"}"
   sample="${sample%"${sample##*[![:space:]]}"}"
