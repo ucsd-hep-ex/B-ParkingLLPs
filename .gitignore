@@ -2,10 +2,10 @@
 condor/gitignore
 plotDump/
 analysis/roots/
+.list
 
 #checkpoints
 **/.ipynb_checkpoints/
-
 
 # Prerequisites
 *.d
