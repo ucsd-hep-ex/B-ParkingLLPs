@@ -13,9 +13,11 @@ class analyzer_histograms : public analyzer_tree{
            analyzer_histograms();
   virtual ~analyzer_histograms();
 
+  TH2F * n_events_CSC[SELBINNAMESIZE];
+  TH2F * n_events_DT[SELBINNAMESIZE];
+
   TH1F* h_nLeptons                      [SELBINNAMESIZE];
   TH1F* h_gLLP_ctau                      [SELBINNAMESIZE];
-
 
   TH1F* h_cscRechitClusterDPhiLeadMuon           [SELBINNAMESIZE];
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];

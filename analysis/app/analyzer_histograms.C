@@ -37,8 +37,9 @@ void analyzer_histograms::InitHistos(){
     h_nLeptons  [i] = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
     h_gLLP_ctau [i] = InitTH1F("h_gLLP_ctau", "h_gLLP_ctau", 100, 0, 1000);
 
+    n_events_CSC[i] = new TH2F("NeventsCSC", "NeventsCSC", 25, 1.2, 3.7, 25, 80, 330);
+    n_events_DT [i] = new TH2F("NeventsDT" , "NeventsDT" , 25, 1.2, 3.7, 25, 80, 330);
 
-      
     h_nCscRechits                          [i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
     h_cscRechitClusterSize                 [i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 250, 50, 300);
     h_cscRechitClusterSize_FailPass        [i] = InitTH1F("h_cscRechitClusterSize_FailPass", "h_cscRechitClusterSizeFailPass", 2, -0.5, 1.5);
@@ -165,6 +166,10 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Write();
   h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Write();
   h_dtRechitClusterMaxStation                              [selbin]->Write();
+
+  n_events_CSC[selbin]->Write();
+  n_events_DT [selbin]->Write();
+
 }
 
 void analyzer_histograms::DeleteHistos(int selbin){
@@ -205,4 +210,6 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Delete();
   h_dtRechitClusterMaxStation                              [selbin]->Delete();
 
+  n_events_CSC[selbin]->Delete();
+  n_events_DT [selbin]->Delete();
 }

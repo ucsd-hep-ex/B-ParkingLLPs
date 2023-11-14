@@ -92,6 +92,16 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
 
    bool found = true;
+   // TH2F * n_events_CSC_A = new TH2F("NeventsCSC_A", "NeventsCSC_A", 25, 1.2, 3.7, 25, 80, 330);
+   // TH2F * n_events_CSC_B = new TH2F("NeventsCSC_B", "NeventsCSC_B", 25, 1.2, 3.7, 25, 80, 330);
+   // TH2F * n_events_CSC_C = new TH2F("NeventsCSC_C", "NeventsCSC_C", 25, 1.2, 3.7, 25, 80, 330);
+   // TH2F * n_events_CSC_D = new TH2F("NeventsCSC_C", "NeventsCSC_D", 25, 1.2, 3.7, 25, 80, 330);
+
+   // TH2F * n_events_DT_A = new TH2F("NeventsDT_A", "NeventsDT_A", 25, 1.2, 3.7, 25, 80, 330);
+   // TH2F * n_events_DT_B = new TH2F("NeventsDT_B", "NeventsDT_B", 25, 1.2, 3.7, 25, 80, 330);
+   // TH2F * n_events_DT_C = new TH2F("NeventsDT_C", "NeventsDT_C", 25, 1.2, 3.7, 25, 80, 330);
+   // TH2F * n_events_DT_D = new TH2F("NeventsDT_C", "NeventsDT_D", 25, 1.2, 3.7, 25, 80, 330);
+
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
@@ -124,21 +134,25 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                    "  genFilterEff: "<<genFilterEff(theSample)<<
                    "  genMuonFilterEff: "<<genMuonFilterEff<<
                    "  NEvents-total: "<<NEvents<<
-                   std::endl; 
+        std::endl; 
         found = false;
       }
       //saving in the global variable 
       eventW = event_weight;
-       
+      
+      int cls_cut_min = 80;
+      float dphi_cut_min = 1.2;
+      
+
       //fill miniTree 
       if (b_doTree){
         f->cd();
         clearTree();
         setTree();
         Tree->Fill();
-      } 
+      }
       // object lists
-      std::vector<std::vector<int>> dummy; 
+      std::vector<std::vector<int>> dummy;
       dummy.push_back( CscClusterPassSel_Fail    (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_FailOOT (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_Pass    (doesPassHLT()) );
@@ -154,6 +168,63 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( DtClusterPassSel_nominal(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
 
+      cls_cut_min = 80;
+      dphi_cut_min = 1.2;
+      if (muon_list.size() != 0) {
+      for (int i = 0; i < 25; i++) { // dphi cuts
+          for (int j = 0; j < 25; j++) { // cluster cuts
+                int   cls_cut  = cls_cut_min  * (1 + j*10);
+                float dphi_cut = dphi_cut_min * (1 + i*0.1);
+                bool pass = false;
+                // cout<<cls_cut<<endl;
+                // cout<<dphi_cut<<endl;
+                for (int k = 0; k < CscClusterPassSel_nominal(doesPassHLT()).size(); k++) {
+                    if (pass) break;
+                    float dphi = DeltaPhi(cscRechitClusterEta[CscClusterPassSel_nominal(doesPassHLT())[k]], lepPhi[muon_list[0]]);
+                    if      (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
+                        n_events_CSC[0]->SetBinContent(i+1, j+1, n_events_CSC[0]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                    else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
+                        n_events_CSC[1]->SetBinContent(i+1, j+1, n_events_CSC[1]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                    else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
+                        n_events_CSC[2]->SetBinContent(i+1, j+1, n_events_CSC[2]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                    else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
+                        n_events_CSC[3]->SetBinContent(i+1, j+1, n_events_CSC[3]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                }
+                pass = false;
+                // cout<<cls_cut<<endl;
+                // cout<<dphi_cut<<endl;
+                for (int k = 0; k < DtClusterPassSel_nominal(doesPassHLT()).size(); k++) {
+                    if (pass) break;
+                    float dphi = DeltaPhi(dtRechitClusterEta[DtClusterPassSel_nominal(doesPassHLT())[k]], lepPhi[muon_list[0]]);
+                    if      (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
+                        n_events_DT[0]->SetBinContent(i+1, j+1, n_events_DT[0]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                    else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
+                        n_events_DT[1]->SetBinContent(i+1, j+1, n_events_DT[1]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                    else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
+                        n_events_DT[2]->SetBinContent(i+1, j+1, n_events_DT[2]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                    else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
+                        n_events_DT[3]->SetBinContent(i+1, j+1, n_events_DT[3]->GetBinContent(i+1, j+1) + eventW);
+                        pass = true;
+                    }
+                }
+          }
+      }
+      }
+
       tup_DtCluster_list.clear();
       tup_DtCluster_list = DtClusterPassSel_nominal(doesPassHLT());
       tup_CscCluster_list.clear();
@@ -166,7 +237,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       // continue doing the cutflow
       if(doesPassHLT() && b_cutFlow && muon_list.size() > 0) { 
       cutFlow["HLT"] += event_weight;
-
       
       DtClusterPassSel_CutFlow (event_weight);
       CscClusterPassSel_CutFlow(event_weight);
@@ -182,6 +252,17 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
    }//end jentries
    //Write miniTree
+   /*
+   n_events_CSC_A->Write();
+   n_events_CSC_B->Write();
+   n_events_CSC_C->Write();
+   n_events_CSC_D->Write();
+
+   n_events_DT_A->Write();
+   n_events_DT_B->Write();
+   n_events_DT_C->Write();
+   n_events_DT_D->Write();
+   */
    if (b_doTree){
      f->cd();
      Tree->CloneTree()->Write();
@@ -201,6 +282,19 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    std::cout<<"Make Tree?: "<<b_doTree<<std::endl;
    std::cout<<"Counter: "<<counter<<std::endl;
    std::cout<<"Counter2: "<<counter2<<std::endl;
+
+   /*
+   n_events_CSC_A->Write();
+   n_events_CSC_B->Write();
+   n_events_CSC_C->Write();
+   n_events_CSC_D->Write();
+
+   n_events_DT_A->Write();
+   n_events_DT_B->Write();
+   n_events_DT_C->Write();
+   n_events_DT_D->Write();
+   */
+
    WriteHistos(0);
    WriteHistos(1);
    WriteHistos(2);
