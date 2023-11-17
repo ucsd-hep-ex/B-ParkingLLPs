@@ -47,6 +47,8 @@ class analyzer_config : public analyzer_base{
   int HLTIndexLow;
   int HLTIndexHigh;
 
+  bool doScan;
+
   Bool_t doCutFlow();
   Bool_t doTree();
 };

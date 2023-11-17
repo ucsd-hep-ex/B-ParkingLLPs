@@ -12,7 +12,9 @@ analyzer_config::~analyzer_config()
 
 void analyzer_config::setConfig(){ // loggit
 
-  genMuonFilterEff = 0.00514; // loggit
+  doScan = true;                    //loggit
+
+  genMuonFilterEff = 0.00514;      // loggit
 
   muPt = 7.;                       // loggit
   muEta = 1.5;                     // loggit
@@ -36,7 +38,7 @@ void analyzer_config::setConfig(){ // loggit
   DtMB1Veto = 1;                   // loggit
 
   dPhiCut_LeadMu_CscCluster = 1.9; //loggit
-  dPhiCut_LeadMu_DtCluster = 1.75;  //loggit
+  dPhiCut_LeadMu_DtCluster = 1.9;//1.75;  //loggit
 
   cscClusterTimeLow = -5.;         // loggit
   cscClusterTimeHigh = 12.5;       // loggit
