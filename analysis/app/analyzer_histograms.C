@@ -40,7 +40,7 @@ void analyzer_histograms::InitHistos(){
 
       
     h_nCscRechits                          [i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
-    h_cscRechitClusterSize                 [i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 250, 50, 300);
+    h_cscRechitClusterSize                 [i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 450, 50, 500);
     h_cscRechitClusterSize_FailPass        [i] = InitTH1F("h_cscRechitClusterSize_FailPass", "h_cscRechitClusterSizeFailPass", 2, -0.5, 1.5);
     h_cscRechitClusterSize_v               [i] = InitTH1F("h_cscRechitClusterSize_v", "h_cscRechitClusterSize_v", n_b-1, x_bins);
     h_cscRechitClusterSize_v2              [i] = InitTH1F("h_cscRechitClusterSize_v2", "h_cscRechitClusterSize_v2", n_b2-1, x_bins2);
@@ -56,7 +56,7 @@ void analyzer_histograms::InitHistos(){
 
 
     h_nDTRechits                                           [i] = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
-    h_dtRechitClusterSize                                  [i] = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  250, 50, 300);
+    h_dtRechitClusterSize                                  [i] = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  450, 50, 500);
     h_dtRechitClusterSize_FailPass                         [i] = InitTH1F("h_dtRechitClusterSize_FailPass",  "h_dtRechitClusterSize_FailPass",  2, -0.5, 1.5);
     h_dtRechitClusterSize_v                                [i] = InitTH1F("h_dtRechitClusterSize_v",  "h_dtRechitClusterSize_v", n_b-1, x_bins);
     h_dtRechitClusterSize_v2                               [i] = InitTH1F("h_dtRechitClusterSize_v2", "h_dtRechitClusterSize_v2", n_b2-1, x_bins2);
