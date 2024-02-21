@@ -10,11 +10,6 @@ samples=(  \
  "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
  "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000" \
  "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau300" \
-#"ParkingBPH1_2018A" \
-#"ParkingBPH2_2018A" \
-#"ParkingBPH3_2018A" \
-#"ParkingBPH4_2018A" \
-#"BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
 )
 
 #compile analyzer
@@ -47,7 +42,8 @@ printf "Error  = logs/runanalyzer_\$(Cluster)_\$(Process).stderr\n" >> submitfil
 printf "Log    = logs/runanalyzer_\$(Cluster)_\$(Process).log\n" >> submitfile
 printf "\n" >> submitfile
 
-ctau_values=(1 3    5    7    10 \
+ctau_values=(1\ 
+               3    5    7    10 \
                30   50   70   100 \
                300  500  700  1000 \
                3000 5000 7000 10000)
