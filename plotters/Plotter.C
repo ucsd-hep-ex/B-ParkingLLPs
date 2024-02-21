@@ -29,7 +29,7 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
   mass.ReplaceAll("p", ".");
   TString sigName = signalName(pos1,pos2);
   std::cout<<"Short Name: "<<sigName<<std::endl;
-  TString bkgName = "ParkingBPH4_2018Ato_";
+  TString bkgName = "Parking_2018A_";
 
   TString sigpath = inpath+signalName+region+"_plots.root";
   TString bkgpath = inpath+bkgName+region+"_plots.root";
@@ -53,8 +53,8 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
 
   std::vector<TString> variables;
   variables.clear();
-  variables.push_back("cscRechitClusterDPhiLeadMuon");
-  variables.push_back("dtRechitClusterMaxStation");
+//  variables.push_back("cscRechitClusterDPhiLeadMuon");
+//  variables.push_back("dtRechitClusterMaxStation");
 //  variables.push_back("cscRechitClusterSize");
 //  variables.push_back("cscRechitClusterSize_v");
 //  variables.push_back("cscRechitClusterTime");
@@ -67,6 +67,8 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
 //  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
 //  //variables.push_back("nLeptons");
 //  //variables.push_back("nCscRechits");
+  variables.push_back("cscRechitClusterMuonVetoPt");
+  variables.push_back("dtRechitClusterMuonVetoPt");
 //  variables.push_back("dtRechitClusterDPhiLeadMuon");
 //  variables.push_back("dtRechitClusterEta");
 //  variables.push_back("dtRechitClusterSize");
