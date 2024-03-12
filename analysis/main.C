@@ -23,12 +23,15 @@ TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
 Bool_t isMC = kTRUE;
     
 TChain* chain = new TChain("MuonSystem");
-//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_1/ParkingBPH4_2018A/";
-TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_7/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/group/lpclonglived/B-ParkingLLPs/V1p19_7/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
+
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_7/ParkingBPH1_2018A/";
+//TString inpath = "root://cmsxrootd.fnal.gov//store/user/ddiaz/B-Parking/V1p19_7/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300/";
 
 //Fill Sample file Chain
-//TString sampleName = "ParkingBPH4_2018A";
 TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
+//TString sampleName = "ParkingBPH1_2018A_0000000";
+//TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300";
 
 
 TString Sample;

@@ -1,4 +1,4 @@
-versionName=test
+versionName=invertID #DPhi2p8Both #WP3   #MuonVetoPtStudy   #OPT  #ABCD-BothDPhi-tightDPhi
 base_dir=${CMSSW_BASE}/src/B-ParkingLLPs/condor/gitignore
 
 Regions=(\
@@ -6,11 +6,53 @@ Regions=(\
  FailOOT_plots\
  Pass_plots\
  PassOOT_plots\
+ nominal_plots\
 )
 
 Samples=(\
  ParkingBPH1_2018A\
+ ParkingBPH2_2018A\
+ ParkingBPH3_2018A\
+ ParkingBPH4_2018A\
+ ParkingBPH5_2018A\
+ ParkingBPH6_2018A\
+ ParkingBPH1_2018B\
+ ParkingBPH2_2018B\
+ ParkingBPH3_2018B\
+ ParkingBPH4_2018B\
+ ParkingBPH5_2018B\
+ ParkingBPH6_2018B\
+ ParkingBPH1_2018C\
+ ParkingBPH2_2018C\
+ ParkingBPH3_2018C\
+ ParkingBPH4_2018C\
+ ParkingBPH5_2018C\
+ ParkingBPH1_2018D\
+ ParkingBPH2_2018D\
+ ParkingBPH3_2018D\
+ ParkingBPH4_2018D\
+ ParkingBPH5_2018D\
 )
+ #ParkingBPH1_2018A\
+ #ParkingBPH2_2018A\
+ #ParkingBPH3_2018A\
+ #ParkingBPH4_2018A\
+ #ParkingBPH5_2018A\
+ #ParkingBPH6_2018A\
+ #ParkingBPH1_2018B\
+ #ParkingBPH2_2018B\
+ #ParkingBPH3_2018B\
+ #ParkingBPH4_2018B\
+ #ParkingBPH5_2018B\
+ #ParkingBPH6_2018B\
+ #ParkingBPH1_2018C\
+ #ParkingBPH2_2018C\
+ #ParkingBPH3_2018C\
+ #ParkingBPH4_2018C\
+ #ParkingBPH5_2018C\
+ #ParkingBPH1_2018D\
+ #ParkingBPH2_2018D\
+ #ParkingBPH3_2018D\
 
 print_array_elements(){
   local array_name="$1"
@@ -59,16 +101,18 @@ hadder(){
   else
     printf "\n ${base_dir}/$versionName/${sample_name}/${sample_name}_${region_name}-hadd${iter2}.root\\" >>tmp.sh
   fi
-
+  
+  bash tmp.sh
   echo $file_names
   echo $sample_name
   echo $region_name
-  rm -f tmp.sh
+  #rm -f tmp.sh
 }
 
 
 for sample in ${Samples[@]}
 do
+  rm -rf ${base_dir}/${versionName}/${sample}/hadded
   mkdir -p ${base_dir}/${versionName}/${sample}/hadded
   for region in ${Regions[@]}
   do
@@ -81,5 +125,6 @@ do
     #Print for debugging 
     #print_array_elements "$listName"
     hadder "$listName" "$sample" "$region"
+    unset "$listName"
   done
 done
