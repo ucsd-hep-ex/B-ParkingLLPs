@@ -152,7 +152,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    fChain->SetBranchAddress("cscRechitClusterJetVetoPt", cscRechitClusterJetVetoPt, &b_cscRechitClusterJetVetoPt);
    fChain->SetBranchAddress("cscRechitClusterMuonVetoPt", cscRechitClusterMuonVetoPt, &b_cscRechitClusterMuonVetoPt);
    fChain->SetBranchAddress("cscRechitClusterGenMuonVetoPt_dR0p8", cscRechitClusterGenMuonVetoPt_dR0p8, &b_cscRechitClusterGenMuonVetoPt_dR0p8);
-   fChain->SetBranchAddress("cscRechitClusterMuonVetoPt", cscRechitClusterGenMuonVetoPt, &b_cscRechitClusterGenMuonVetoPt);
+   fChain->SetBranchAddress("cscRechitClusterGenMuonVetoPt", cscRechitClusterGenMuonVetoPt, &b_cscRechitClusterGenMuonVetoPt);
    fChain->SetBranchAddress("cscRechitClusterMetEENoise_dPhi", cscRechitClusterMetEENoise_dPhi, &b_cscRechitClusterMetEENoise_dPhi);
    fChain->SetBranchAddress("nDtRechitClusters", &nDtRechitClusters, &b_nDtRechitClusters);
    fChain->SetBranchAddress("dtRechitClusterMaxDPhi", dtRechitClusterMaxDPhi, &b_dtRechitClusterMaxDPhi);
