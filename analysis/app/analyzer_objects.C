@@ -86,8 +86,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_FailOOT(bool passHLT){      
     for (int j = 0; j <nDtRechitClusters; j++){                                         // loggit
       if(   askDoesPassNominal_dt(j)                                                    // loggit
          && !askDoesPassRPCTimeCut_dt(j)                                                // loggit
-         //&& !askDoesPassdPhiLeadMuon_dt(j)                                              // loggit
-         && !askDoesPassMaxStation_dt(j)                                              // loggit
+         && !askDoesPassdPhiLeadMuon_dt(j)                                              // loggit
         ) ids.push_back(j);                                                             // loggit
     }                                                                                   // loggit
   }                                                                                     // loggit
@@ -115,8 +114,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_Fail(bool passHLT){         
     for (int j = 0; j <nDtRechitClusters; j++){                                         // loggit
       if(   askDoesPassNominal_dt(j)                                                    // loggit
          && askDoesPassRPCTimeCut_dt(j)                                                 // loggit 
-         //&& !askDoesPassdPhiLeadMuon_dt(j)                                              // loggit 
-         && !askDoesPassMaxStation_dt(j)                                              // loggit
+         && !askDoesPassdPhiLeadMuon_dt(j)                                              // loggit 
+         //&& !askDoesPassMaxStation_dt(j)                                              // loggit
         ) ids.push_back(j);                                                             // loggit
     }                                                                                   // loggit
   }                                                                                     // loggit
@@ -144,8 +143,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_PassOOT(bool passHLT){      
     for (int j = 0; j <nDtRechitClusters; j++){                                         // loggit
       if(   askDoesPassNominal_dt(j)                                                    // loggit
          && !askDoesPassRPCTimeCut_dt(j)                                                // loggit
-         //&& askDoesPassdPhiLeadMuon_dt(j)                                               // loggit
-         && askDoesPassMaxStation_dt(j)                                               // loggit
+         && askDoesPassdPhiLeadMuon_dt(j)                                               // loggit
+         //&& askDoesPassMaxStation_dt(j)                                               // loggit
         ) ids.push_back(j);                                                             // loggit
     }                                                                                   // loggit
   }                                                                                     // loggit
@@ -175,8 +174,8 @@ std::vector<int> analyzer_objects::DtClusterPassSel_Pass(bool passHLT) {        
         for (int j = 0; j < nDtRechitClusters; j++) {                                  // loggit
             if (   askDoesPassNominal_dt(j)                                            // loggit
                 && askDoesPassRPCTimeCut_dt(j)                                         // loggit
-                //&& askDoesPassdPhiLeadMuon_dt(j)                                       // loggit
-                && askDoesPassMaxStation_dt(j)                                       // loggit
+                && askDoesPassdPhiLeadMuon_dt(j)                                       // loggit
+                //&& askDoesPassMaxStation_dt(j)                                       // loggit
             ) ids.push_back(j);                                                        // loggit
         }                                                                              // loggit
     }                                                                                  // loggit
@@ -470,8 +469,6 @@ bool analyzer_objects::askDoesPassNominal_csc(int index) {
         && askDoesPassClusterTimeSpread_csc(index)                  
         && askDoesPassClusterEta_csc(index)                         
         && askDoesPassID_csc(index);                                
-        // && askDoesPassClusterTime_csc(j)                     
-        // && askDoesPassdPhiLeadMuon_csc(j)                    
 }
 
 
