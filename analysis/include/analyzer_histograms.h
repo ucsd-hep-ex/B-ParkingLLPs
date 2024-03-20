@@ -21,6 +21,7 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize                   [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_FailPass          [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterSize_FailPass_uw          [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_v                 [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_v2                [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterPhi                    [SELBINNAMESIZE];
@@ -39,6 +40,7 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_nDTRechits                                             [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize                                    [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize_FailPass                           [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterSize_FailPass_uw                        [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize_v                                  [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize_v2                                 [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterPhi                                     [SELBINNAMESIZE];

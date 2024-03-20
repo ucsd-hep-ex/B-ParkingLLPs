@@ -42,6 +42,7 @@ void analyzer_histograms::InitHistos(){
     h_nCscRechits                          [i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
     h_cscRechitClusterSize                 [i] = InitTH1F("h_cscRechitClusterSize", "h_cscRechitClusterSize", 450, 50, 500);
     h_cscRechitClusterSize_FailPass        [i] = InitTH1F("h_cscRechitClusterSize_FailPass", "h_cscRechitClusterSizeFailPass", 2, -0.5, 1.5);
+    h_cscRechitClusterSize_FailPass_uw     [i] = InitTH1F("h_cscRechitClusterSize_FailPass_uw", "h_cscRechitClusterSizeFailPass_uw", 2, -0.5, 1.5);
     h_cscRechitClusterSize_v               [i] = InitTH1F("h_cscRechitClusterSize_v", "h_cscRechitClusterSize_v", n_b-1, x_bins);
     h_cscRechitClusterSize_v2              [i] = InitTH1F("h_cscRechitClusterSize_v2", "h_cscRechitClusterSize_v2", n_b2-1, x_bins2);
     h_cscRechitClusterPhi                  [i] = InitTH1F("h_cscRechitClusterPhi", "h_cscRechitClusterPhi", 40, -3.5, 3.5);
@@ -59,6 +60,7 @@ void analyzer_histograms::InitHistos(){
     h_nDTRechits                                           [i] = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
     h_dtRechitClusterSize                                  [i] = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  450, 50, 500);
     h_dtRechitClusterSize_FailPass                         [i] = InitTH1F("h_dtRechitClusterSize_FailPass",  "h_dtRechitClusterSize_FailPass",  2, -0.5, 1.5);
+    h_dtRechitClusterSize_FailPass_uw                      [i] = InitTH1F("h_dtRechitClusterSize_FailPass_uw",  "h_dtRechitClusterSize_FailPass_uw",  2, -0.5, 1.5);
     h_dtRechitClusterSize_v                                [i] = InitTH1F("h_dtRechitClusterSize_v",  "h_dtRechitClusterSize_v", n_b-1, x_bins);
     h_dtRechitClusterSize_v2                               [i] = InitTH1F("h_dtRechitClusterSize_v2", "h_dtRechitClusterSize_v2", n_b2-1, x_bins2);
     h_dtRechitClusterPhi                                   [i] = InitTH1F("h_dtRechitClusterPhi",  "h_dtRechitClusterPhi",  40, -3.5, 3.5);
@@ -93,6 +95,8 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     //special case for ABCD method, we only care about NPass(bin 1) and NFail (bin 0)
     if(cscRechitClusterSize[c]<CscSize) h_cscRechitClusterSize_FailPass[selbin]->Fill(0., ew);
     else                                h_cscRechitClusterSize_FailPass[selbin]->Fill(1., ew);
+    if(cscRechitClusterSize[c]<CscSize) h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.0);
+    else                                h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.0);
     h_cscRechitClusterSize_v                 [selbin]->Fill(cscRechitClusterSize                 [c], ew);
     h_cscRechitClusterSize_v2                [selbin]->Fill(cscRechitClusterSize                 [c], ew);
     h_cscRechitClusterEta                    [selbin]->Fill(cscRechitClusterEta                  [c], ew);
@@ -116,6 +120,8 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     //special case for ABCD method, we only care about NPass(bin 1) and NFail (bin 0)
     if(dtRechitClusterSize[d]<DtSize)   h_dtRechitClusterSize_FailPass[selbin]->Fill(0., ew);
     else                                h_dtRechitClusterSize_FailPass[selbin]->Fill(1., ew);
+    if(dtRechitClusterSize[d]<DtSize)   h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.0);
+    else                                h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.0);
     h_dtRechitClusterSize_v                                  [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
     h_dtRechitClusterSize_v2                                 [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
     h_dtRechitClusterEta                                     [selbin]->Fill(dtRechitClusterEta                                   [d], ew);
@@ -141,6 +147,7 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_nCscRechits                            [selbin]->Write();
   h_cscRechitClusterSize                   [selbin]->Write();
   h_cscRechitClusterSize_FailPass          [selbin]->Write();
+  h_cscRechitClusterSize_FailPass_uw       [selbin]->Write();
   h_cscRechitClusterSize_v                 [selbin]->Write();
   h_cscRechitClusterSize_v2                [selbin]->Write();
   h_cscRechitClusterEta                    [selbin]->Write();
@@ -158,6 +165,7 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_nDTRechits                                             [selbin]->Write();
   h_dtRechitClusterSize                                    [selbin]->Write();
   h_dtRechitClusterSize_FailPass                           [selbin]->Write();
+  h_dtRechitClusterSize_FailPass_uw                        [selbin]->Write();
   h_dtRechitClusterSize_v                                  [selbin]->Write();
   h_dtRechitClusterSize_v2                                 [selbin]->Write();
   h_dtRechitClusterEta                                     [selbin]->Write();
@@ -182,6 +190,7 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_nCscRechits                            [selbin]->Delete();
   h_cscRechitClusterSize                   [selbin]->Delete();
   h_cscRechitClusterSize_FailPass          [selbin]->Delete();
+  h_cscRechitClusterSize_FailPass_uw       [selbin]->Delete();
   h_cscRechitClusterSize_v                 [selbin]->Delete();
   h_cscRechitClusterSize_v2                [selbin]->Delete();
   h_cscRechitClusterEta                    [selbin]->Delete();
@@ -199,6 +208,7 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_nDTRechits                                             [selbin]->Delete();
   h_dtRechitClusterSize                                    [selbin]->Delete();
   h_dtRechitClusterSize_FailPass                           [selbin]->Delete();
+  h_dtRechitClusterSize_FailPass_uw                        [selbin]->Delete();
   h_dtRechitClusterSize_v                                  [selbin]->Delete();
   h_dtRechitClusterSize_v2                                 [selbin]->Delete();
   h_dtRechitClusterEta                                     [selbin]->Delete();
