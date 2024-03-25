@@ -88,7 +88,7 @@ void Acceptance::Loop(int argc, char* argv[])
 
     TH1F* h_dr_cscLLP = new TH1F("h_dr_cscLLP",  "h_dr_cscLLP", 100, 0, 1);
     TH1F* h_dr_dtLLP  = new TH1F("h_dr_dtLLP" ,  "h_dr_dtLLP" , 100, 0, 1);
-    TH1F* h_gLLP_ctau = new TH1F("h_gLLP_ctau",  "h_gLLP_ctau", 100, 0, 1000);
+
 
     Long64_t nbytes = 0, nb = 0;
     float acc_denom = 0, acc_num_csc = 0, acc_num_dt = 0;
@@ -104,6 +104,11 @@ void Acceptance::Loop(int argc, char* argv[])
     Double_t acceptance_vs_ctau_csc    [n_ctau] = {};
     TH1F * ctau_hist     = new TH1F("ctau_hist"    , "ctau_hist"    , 30, 0, 100);
     TH1F * ctau_rew_hist = new TH1F("ctau_rew_hist", "ctau_rew_hist", 30, 0, 100);
+
+    TH1F* h_gLLP_ctau = new TH1F("h_gLLP_ctau",  "h_gLLP_ctau", 100, 0, 1000);
+    TH1F* h_gLLP_ctau_300 = new TH1F("h_gLLP_ctau_300",  "h_gLLP_ctau_300", 100, 0, 1000);
+    TH1F* h_gLLP_ctau_1000 = new TH1F("h_gLLP_ctau_1000",  "h_gLLP_ctau_1000", 100, 0, 1000);
+
     // std::cout<<ctau_reweighter(gLLP_ctau, ctau_mean, ctau)<<std::endl;
     
     for (int ct = 0; ct < n_ctau; ct++) {
@@ -125,6 +130,9 @@ void Acceptance::Loop(int argc, char* argv[])
 
         int length = sizeof(HLTDecision) / sizeof(HLTDecision[0]);
         int ctau_mean = extractIntegers(argv[1]) / 10;
+        h_gLLP_ctau ->Fill(gLLP_ctau);
+        h_gLLP_ctau_300 ->Fill(gLLP_ctau, ctau_reweighter(gLLP_ctau, ctau_mean, 30.));
+        h_gLLP_ctau_1000 ->Fill(gLLP_ctau, ctau_reweighter(gLLP_ctau, ctau_mean, 100.));
         std::cout<<gLLP_ctau<<", "<<ctau_mean<<", "<<ctau_reweighter(gLLP_ctau, ctau_mean*10, 100)<<std::endl;
         
         ctau_hist     -> Fill(gLLP_ctau);
@@ -216,6 +224,33 @@ void Acceptance::Loop(int argc, char* argv[])
     c1->SaveAs("example.png");
     c1->Close();
     */
+    TCanvas* c3 = new TCanvas( "c3", "c3", 2119, 33, 1500, 1000 );
+    c3->SetLogy();
+    //c2->SetLogx();
+    h_gLLP_ctau->SetLineColor(kRed);
+    h_gLLP_ctau_300->SetLineColor(kBlack);
+    h_gLLP_ctau_1000->SetLineColor(kBlue);
+
+    h_gLLP_ctau->Scale(1./h_gLLP_ctau->Integral(0,-1));
+    h_gLLP_ctau_300->Scale(1./h_gLLP_ctau_300->Integral(0,-1));
+    h_gLLP_ctau_1000->Scale(1./h_gLLP_ctau_1000->Integral(0,-1));
+ 
+    h_gLLP_ctau->Draw("hist");
+    h_gLLP_ctau_300->Draw("hist same");
+    h_gLLP_ctau_1000->Draw("hist same");
+
+    TString s_gLLP_ctau = Form("%s: Orig Mean = %.2f", h_gLLP_ctau->GetName(), h_gLLP_ctau->GetMean());
+    TString s_gLLP_ctau_300  = Form("%s: ReW30 Mean = %.2f", h_gLLP_ctau_300->GetName(), h_gLLP_ctau_300->GetMean());
+    TString s_gLLP_ctau_1000 = Form("%s: ReW100 Mean = %.2f", h_gLLP_ctau_1000->GetName(), h_gLLP_ctau_1000->GetMean());
+
+    TLegend * l3 = new TLegend(0.65, 0.7, 0.9, 0.9);
+    l3->AddEntry(h_gLLP_ctau,s_gLLP_ctau );
+    l3->AddEntry(h_gLLP_ctau_300, s_gLLP_ctau_300);
+    l3->AddEntry(h_gLLP_ctau_1000, s_gLLP_ctau_1000);
+    l3->Draw("SAME");
+
+    c3->SaveAs("reweight.png");
+    c3->Close();
 }
 
 //----------------------------dR
