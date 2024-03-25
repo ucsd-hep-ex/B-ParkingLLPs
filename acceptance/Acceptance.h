@@ -15,6 +15,7 @@
 
 #define N_MAX_GEN 200
 #define N_MAX_Cluster 200
+
 // Header file for the classes stored in the TTree if any.
 
 class Acceptance {
@@ -24,6 +25,27 @@ public :
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
    // Declaration of leaf types
+   Int_t           nCscRechitClusters;
+   Float_t         cscRechitClusterPhi[N_MAX_Cluster];   //[nCscRechitClusters]
+   Float_t         cscRechitClusterEta[N_MAX_Cluster];   //[nCscRechitClusters]
+   Int_t           nDtRechitClusters;
+   Float_t         dtRechitClusterPhi[N_MAX_Cluster];   //[nDtRechitClusters]
+   Float_t         dtRechitClusterEta[N_MAX_Cluster];   //[nDtRechitClusters]
+   Float_t         gLLP_eta;
+   Float_t         gLLP_phi;
+   Float_t         gLLP_csc;
+   Float_t         gLLP_dt;
+   Float_t         gLLP_beta;
+   Float_t         gLLP_e;
+   Float_t         gLLP_pt;
+   Float_t         gLLP_ctau;
+   Float_t         gLLP_decay_vertex_r;
+   Float_t         gLLP_decay_vertex_x;
+   Float_t         gLLP_decay_vertex_y;
+   Float_t         gLLP_decay_vertex_z;
+   Bool_t          HLTDecision[1201];
+
+   /*
    UInt_t          runNum;
    UInt_t          MC_condition;
    UInt_t          lumiSec;
@@ -78,7 +100,6 @@ public :
    Int_t           nDtRechits;
    Int_t           nCscRings;
    Int_t           nDtRings;
-   Int_t           nCscRechitClusters;
    Float_t         cscRechitClusterX[N_MAX_Cluster];   //[nCscRechitClusters]
    Float_t         cscRechitClusterY[N_MAX_Cluster];   //[nCscRechitClusters]
    Float_t         cscRechitClusterZ[N_MAX_Cluster];   //[nCscRechitClusters]
@@ -89,8 +110,6 @@ public :
    Float_t         cscRechitClusterTimeSpreadWeighted[N_MAX_Cluster];   //[nCscRechitClusters]
    Float_t         cscRechitClusterTimeSpreadWeightedAll[N_MAX_Cluster];   //[nCscRechitClusters]
    Float_t         cscRechitClusterGenMuonDeltaR[N_MAX_Cluster];   //[nCscRechitClusters]
-   Float_t         cscRechitClusterPhi[N_MAX_Cluster];   //[nCscRechitClusters]
-   Float_t         cscRechitClusterEta[N_MAX_Cluster];   //[nCscRechitClusters]
    Int_t           cscRechitClusterSize[N_MAX_Cluster];   //[nCscRechitClusters]
    Float_t         cscRechitClusterMe11Ratio[N_MAX_Cluster];   //[nCscRechitClusters]
    Float_t         cscRechitClusterMe12Ratio[N_MAX_Cluster];   //[nCscRechitClusters]
@@ -248,8 +267,29 @@ public :
    Float_t         dtRechitClusterGenMuonVetoPt_dR0p8[N_MAX_Cluster];   //[nDtRechitClusters]
    Float_t         dtRechitClusterMuonVetoPt[N_MAX_Cluster];   //[nDtRechitClusters]
    Float_t         dtRechitClusterMetEENoise_dPhi[N_MAX_Cluster];   //[nDtRechitClusters]
-
+   */
+   TBranch        *b_nDtRings;   //!
+   TBranch        *b_nCscRechitClusters;   //!
+   TBranch        *b_cscRechitClusterPhi;   //!
+   TBranch        *b_cscRechitClusterEta;   //!
+   TBranch        *b_nDtRechitClusters;   //!
+   TBranch        *b_dtRechitClusterPhi;   //!
+   TBranch        *b_dtRechitClusterEta;   //!
+   TBranch        *b_gLLP_eta;   //!
+   TBranch        *b_gLLP_phi;   //!
+   TBranch        *b_gLLP_csc;   //!
+   TBranch        *b_gLLP_dt;   //!
+   TBranch        *b_gLLP_beta;   //!
+   TBranch        *b_gLLP_e;   //!
+   TBranch        *b_gLLP_pt;   //!
+   TBranch        *b_gLLP_ctau;   //!
+   TBranch        *b_gLLP_decay_vertex_r;   //!
+   TBranch        *b_gLLP_decay_vertex_x;   //!
+   TBranch        *b_gLLP_decay_vertex_y;   //!
+   TBranch        *b_gLLP_decay_vertex_z;   //!
+   TBranch        *b_HLTDecision;   //!
    // List of branches
+   /*
    TBranch        *b_runNum;   //!
    TBranch        *b_MC_condition;   //!
    TBranch        *b_lumiSec;   //!
@@ -264,18 +304,6 @@ public :
    TBranch        *b_Flag2_all;   //!
    TBranch        *b_metEENoise;   //!
    TBranch        *b_metPhiEENoise;   //!
-   TBranch        *b_gLLP_eta;   //!
-   TBranch        *b_gLLP_phi;   //!
-   TBranch        *b_gLLP_csc;   //!
-   TBranch        *b_gLLP_dt;   //!
-   TBranch        *b_gLLP_beta;   //!
-   TBranch        *b_gLLP_e;   //!
-   TBranch        *b_gLLP_pt;   //!
-   TBranch        *b_gLLP_ctau;   //!
-   TBranch        *b_gLLP_decay_vertex_r;   //!
-   TBranch        *b_gLLP_decay_vertex_x;   //!
-   TBranch        *b_gLLP_decay_vertex_y;   //!
-   TBranch        *b_gLLP_decay_vertex_z;   //!
    TBranch        *b_nGenParticles;   //!
    TBranch        *b_gParticleE;   //!
    TBranch        *b_gParticlePt;   //!
@@ -299,12 +327,9 @@ public :
    TBranch        *b_lepSF;   //!
    TBranch        *b_lepLooseId;   //!
    TBranch        *b_lepTightId;   //!
-   TBranch        *b_HLTDecision;   //!
    TBranch        *b_nCscRechits;   //!
    TBranch        *b_nDtRechits;   //!
    TBranch        *b_nCscRings;   //!
-   TBranch        *b_nDtRings;   //!
-   TBranch        *b_nCscRechitClusters;   //!
    TBranch        *b_cscRechitClusterX;   //!
    TBranch        *b_cscRechitClusterY;   //!
    TBranch        *b_cscRechitClusterZ;   //!
@@ -474,6 +499,7 @@ public :
    TBranch        *b_dtRechitClusterGenMuonVetoPt_dR0p8;   //!
    TBranch        *b_dtRechitClusterMuonVetoPt;   //!
    TBranch        *b_dtRechitClusterMetEENoise_dPhi;   //!
+   */
 
    Acceptance(TTree *tree=0);
    virtual ~Acceptance();
@@ -481,11 +507,14 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   virtual void     Loop();
+   virtual void     Loop(int, char**);
    virtual Bool_t   Notify();
+   bool             doesPassHLT();
    virtual void     Show(Long64_t entry = -1);
    double dR(double eta1, double phi1, double eta2, double phi2);
    double DeltaPhi(double phi1, double phi2);
+   Double_t ctau_weight_rescale(Double_t ct, Double_t ctp, Double_t cti);
+   bool HLT_cuts();
 };
 
 #endif
@@ -546,8 +575,28 @@ void Acceptance::Init(TTree *tree)
    fChain = tree;
    fCurrent = -1;
    fChain->SetMakeClass(1);
+   fChain->SetBranchAddress("gLLP_eta", &gLLP_eta, &b_gLLP_eta);
+   fChain->SetBranchAddress("gLLP_phi", &gLLP_phi, &b_gLLP_phi);
+   fChain->SetBranchAddress("gLLP_csc", &gLLP_csc, &b_gLLP_csc);
+   fChain->SetBranchAddress("gLLP_dt", &gLLP_dt, &b_gLLP_dt);
+   fChain->SetBranchAddress("gLLP_beta", &gLLP_beta, &b_gLLP_beta);
+   fChain->SetBranchAddress("gLLP_e", &gLLP_e, &b_gLLP_e);
+   fChain->SetBranchAddress("gLLP_pt", &gLLP_pt, &b_gLLP_pt);
+   fChain->SetBranchAddress("gLLP_ctau", &gLLP_ctau, &b_gLLP_ctau);
+   fChain->SetBranchAddress("gLLP_decay_vertex_r", &gLLP_decay_vertex_r, &b_gLLP_decay_vertex_r);
+   fChain->SetBranchAddress("gLLP_decay_vertex_x", &gLLP_decay_vertex_x, &b_gLLP_decay_vertex_x);
+   fChain->SetBranchAddress("gLLP_decay_vertex_y", &gLLP_decay_vertex_y, &b_gLLP_decay_vertex_y);
+   fChain->SetBranchAddress("gLLP_decay_vertex_z", &gLLP_decay_vertex_z, &b_gLLP_decay_vertex_z);
+   fChain->SetBranchAddress("HLTDecision", HLTDecision, &b_HLTDecision);
+   fChain->SetBranchAddress("nCscRechitClusters", &nCscRechitClusters, &b_nCscRechitClusters);
+   fChain->SetBranchAddress("cscRechitClusterPhi", cscRechitClusterPhi, &b_cscRechitClusterPhi);
+   fChain->SetBranchAddress("cscRechitClusterEta", cscRechitClusterEta, &b_cscRechitClusterEta);
+   fChain->SetBranchAddress("nDtRechitClusters", &nDtRechitClusters, &b_nDtRechitClusters);
+   fChain->SetBranchAddress("dtRechitClusterPhi", dtRechitClusterPhi, &b_dtRechitClusterPhi);
+   fChain->SetBranchAddress("dtRechitClusterEta", dtRechitClusterEta, &b_dtRechitClusterEta);
 
-   fChain->SetBranchAddress("runNum", &runNum, &b_runNum);
+   /*
+   fChain->SetBranchAddress("runNun", &runNum, &b_runNum);
    fChain->SetBranchAddress("MC_condition", &MC_condition, &b_MC_condition);
    fChain->SetBranchAddress("lumiSec", &lumiSec, &b_lumiSec);
    fChain->SetBranchAddress("evtNum", &evtNum, &b_evtNum);
@@ -601,7 +650,6 @@ void Acceptance::Init(TTree *tree)
    fChain->SetBranchAddress("nDtRechits", &nDtRechits, &b_nDtRechits);
    fChain->SetBranchAddress("nCscRings", &nCscRings, &b_nCscRings);
    fChain->SetBranchAddress("nDtRings", &nDtRings, &b_nDtRings);
-   fChain->SetBranchAddress("nCscRechitClusters", &nCscRechitClusters, &b_nCscRechitClusters);
    fChain->SetBranchAddress("cscRechitClusterX", cscRechitClusterX, &b_cscRechitClusterX);
    fChain->SetBranchAddress("cscRechitClusterY", cscRechitClusterY, &b_cscRechitClusterY);
    fChain->SetBranchAddress("cscRechitClusterZ", cscRechitClusterZ, &b_cscRechitClusterZ);
@@ -771,6 +819,7 @@ void Acceptance::Init(TTree *tree)
    fChain->SetBranchAddress("dtRechitClusterGenMuonVetoPt_dR0p8", dtRechitClusterGenMuonVetoPt_dR0p8, &b_dtRechitClusterGenMuonVetoPt_dR0p8);
    fChain->SetBranchAddress("dtRechitClusterMuonVetoPt", dtRechitClusterMuonVetoPt, &b_dtRechitClusterMuonVetoPt);
    fChain->SetBranchAddress("dtRechitClusterMetEENoise_dPhi", dtRechitClusterMetEENoise_dPhi, &b_dtRechitClusterMetEENoise_dPhi);
+   */
    Notify();
 }
 
