@@ -5,8 +5,8 @@
 // found on file: /uscms/home/ahayrape/nobackup/BToPhiK_Analysis/New_signal/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300.root
 //////////////////////////////////////////////////////////
 
-#ifndef Acceptance_h
-#define Acceptance_h
+#ifndef Multi_Acceptance_h
+#define Multi_Acceptance_h
 
 #include <TROOT.h>
 #include <TChain.h>
@@ -18,7 +18,7 @@
 
 // Header file for the classes stored in the TTree if any.
 
-class Acceptance {
+class Multi_Acceptance {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
@@ -44,21 +44,6 @@ public :
    Float_t         gLLP_decay_vertex_y;
    Float_t         gLLP_decay_vertex_z;
    Bool_t          HLTDecision[1201];
-   Int_t           nLeptons;
-   Float_t         lepE[29];   //[nLeptons]
-   Float_t         lepPt[29];   //[nLeptons]
-   UInt_t          lepMuonType[29];   //[nLeptons]
-   UInt_t          lepMuonQuality[29];   //[nLeptons]
-   Bool_t          lepMuon_passHLTFilter[29][100];   //[nLeptons]
-   Float_t         lepEta[29];   //[nLeptons]
-   Float_t         lepPhi[29];   //[nLeptons]
-   Int_t           lepPdgId[29];   //[nLeptons]
-   Float_t         lepDZ[29];   //[nLeptons]
-   Float_t         lepDXY[29];   //[nLeptons]
-   Float_t         lepDXYErr[29];   //[nLeptons]
-   Float_t         lepSF[29];   //[nLeptons]
-   Bool_t          lepLooseId[29];   //[nLeptons]
-   Bool_t          lepTightId[29];   //[nLeptons]
 
    /*
    UInt_t          runNum;
@@ -95,6 +80,21 @@ public :
    Int_t           gParticleId[N_MAX_GEN];   //[nGenParticles]
    Int_t           gParticleMotherId[N_MAX_GEN];   //[nGenParticles]
    Int_t           gParticleMotherIndex[N_MAX_GEN];   //[nGenParticles]
+   Int_t           nLeptons;
+   Float_t         lepE[29];   //[nLeptons]
+   Float_t         lepPt[29];   //[nLeptons]
+   UInt_t          lepMuonType[29];   //[nLeptons]
+   UInt_t          lepMuonQuality[29];   //[nLeptons]
+   Bool_t          lepMuon_passHLTFilter[29][100];   //[nLeptons]
+   Float_t         lepEta[29];   //[nLeptons]
+   Float_t         lepPhi[29];   //[nLeptons]
+   Int_t           lepPdgId[29];   //[nLeptons]
+   Float_t         lepDZ[29];   //[nLeptons]
+   Float_t         lepDXY[29];   //[nLeptons]
+   Float_t         lepDXYErr[29];   //[nLeptons]
+   Float_t         lepSF[29];   //[nLeptons]
+   Bool_t          lepLooseId[29];   //[nLeptons]
+   Bool_t          lepTightId[29];   //[nLeptons]
    Bool_t          HLTDecision[1201];
    Int_t           nCscRechits;
    Int_t           nDtRechits;
@@ -288,22 +288,6 @@ public :
    TBranch        *b_gLLP_decay_vertex_y;   //!
    TBranch        *b_gLLP_decay_vertex_z;   //!
    TBranch        *b_HLTDecision;   //!
-   TBranch        *b_nLeptons;   //!
-   TBranch        *b_lepE;   //!
-   TBranch        *b_lepPt;   //!
-   TBranch        *b_lepMuonType;   //!
-   TBranch        *b_lepMuonQuality;   //!
-   TBranch        *b_lepMuon_passHLTFilter;   //!
-   TBranch        *b_lepEta;   //!
-   TBranch        *b_lepPhi;   //!
-   TBranch        *b_lepPdgId;   //!
-   TBranch        *b_lepDZ;   //!
-   TBranch        *b_lepDXY;   //!
-   TBranch        *b_lepDXYErr;   //!
-   TBranch        *b_lepSF;   //!
-   TBranch        *b_lepLooseId;   //!
-   TBranch        *b_lepTightId;   //!
-
    // List of branches
    /*
    TBranch        *b_runNum;   //!
@@ -328,6 +312,21 @@ public :
    TBranch        *b_gParticleId;   //!
    TBranch        *b_gParticleMotherId;   //!
    TBranch        *b_gParticleMotherIndex;   //!
+   TBranch        *b_nLeptons;   //!
+   TBranch        *b_lepE;   //!
+   TBranch        *b_lepPt;   //!
+   TBranch        *b_lepMuonType;   //!
+   TBranch        *b_lepMuonQuality;   //!
+   TBranch        *b_lepMuon_passHLTFilter;   //!
+   TBranch        *b_lepEta;   //!
+   TBranch        *b_lepPhi;   //!
+   TBranch        *b_lepPdgId;   //!
+   TBranch        *b_lepDZ;   //!
+   TBranch        *b_lepDXY;   //!
+   TBranch        *b_lepDXYErr;   //!
+   TBranch        *b_lepSF;   //!
+   TBranch        *b_lepLooseId;   //!
+   TBranch        *b_lepTightId;   //!
    TBranch        *b_nCscRechits;   //!
    TBranch        *b_nDtRechits;   //!
    TBranch        *b_nCscRings;   //!
@@ -502,8 +501,8 @@ public :
    TBranch        *b_dtRechitClusterMetEENoise_dPhi;   //!
    */
 
-   Acceptance(TTree *tree=0);
-   virtual ~Acceptance();
+   Multi_Acceptance(TTree *tree=0);
+   virtual ~Multi_Acceptance();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -520,8 +519,8 @@ public :
 
 #endif
 
-#ifdef Acceptance_cxx
-Acceptance::Acceptance(TTree *tree) : fChain(0) 
+#ifdef Multi_Acceptance_cxx
+Multi_Acceptance::Multi_Acceptance(TTree *tree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
@@ -536,19 +535,19 @@ Acceptance::Acceptance(TTree *tree) : fChain(0)
    Init(tree);
 }
 
-Acceptance::~Acceptance()
+Multi_Acceptance::~Multi_Acceptance()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t Acceptance::GetEntry(Long64_t entry)
+Int_t Multi_Acceptance::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t Acceptance::LoadTree(Long64_t entry)
+Long64_t Multi_Acceptance::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -561,7 +560,7 @@ Long64_t Acceptance::LoadTree(Long64_t entry)
    return centry;
 }
 
-void Acceptance::Init(TTree *tree)
+void Multi_Acceptance::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -595,21 +594,6 @@ void Acceptance::Init(TTree *tree)
    fChain->SetBranchAddress("nDtRechitClusters", &nDtRechitClusters, &b_nDtRechitClusters);
    fChain->SetBranchAddress("dtRechitClusterPhi", dtRechitClusterPhi, &b_dtRechitClusterPhi);
    fChain->SetBranchAddress("dtRechitClusterEta", dtRechitClusterEta, &b_dtRechitClusterEta);
-   fChain->SetBranchAddress("nLeptons", &nLeptons, &b_nLeptons);
-   fChain->SetBranchAddress("lepE", lepE, &b_lepE);
-   fChain->SetBranchAddress("lepPt", lepPt, &b_lepPt);
-   fChain->SetBranchAddress("lepMuonType", lepMuonType, &b_lepMuonType);
-   fChain->SetBranchAddress("lepMuonQuality", lepMuonQuality, &b_lepMuonQuality);
-   fChain->SetBranchAddress("lepMuon_passHLTFilter", lepMuon_passHLTFilter, &b_lepMuon_passHLTFilter);
-   fChain->SetBranchAddress("lepEta", lepEta, &b_lepEta);
-   fChain->SetBranchAddress("lepPhi", lepPhi, &b_lepPhi);
-   fChain->SetBranchAddress("lepPdgId", lepPdgId, &b_lepPdgId);
-   fChain->SetBranchAddress("lepDZ", lepDZ, &b_lepDZ);
-   fChain->SetBranchAddress("lepDXY", lepDXY, &b_lepDXY);
-   fChain->SetBranchAddress("lepDXYErr", lepDXYErr, &b_lepDXYErr);
-   fChain->SetBranchAddress("lepSF", lepSF, &b_lepSF);
-   fChain->SetBranchAddress("lepLooseId", lepLooseId, &b_lepLooseId);
-   fChain->SetBranchAddress("lepTightId", lepTightId, &b_lepTightId);
 
    /*
    fChain->SetBranchAddress("runNun", &runNum, &b_runNum);
@@ -646,6 +630,21 @@ void Acceptance::Init(TTree *tree)
    fChain->SetBranchAddress("gParticleId", gParticleId, &b_gParticleId);
    fChain->SetBranchAddress("gParticleMotherId", gParticleMotherId, &b_gParticleMotherId);
    fChain->SetBranchAddress("gParticleMotherIndex", gParticleMotherIndex, &b_gParticleMotherIndex);
+   fChain->SetBranchAddress("nLeptons", &nLeptons, &b_nLeptons);
+   fChain->SetBranchAddress("lepE", lepE, &b_lepE);
+   fChain->SetBranchAddress("lepPt", lepPt, &b_lepPt);
+   fChain->SetBranchAddress("lepMuonType", lepMuonType, &b_lepMuonType);
+   fChain->SetBranchAddress("lepMuonQuality", lepMuonQuality, &b_lepMuonQuality);
+   fChain->SetBranchAddress("lepMuon_passHLTFilter", lepMuon_passHLTFilter, &b_lepMuon_passHLTFilter);
+   fChain->SetBranchAddress("lepEta", lepEta, &b_lepEta);
+   fChain->SetBranchAddress("lepPhi", lepPhi, &b_lepPhi);
+   fChain->SetBranchAddress("lepPdgId", lepPdgId, &b_lepPdgId);
+   fChain->SetBranchAddress("lepDZ", lepDZ, &b_lepDZ);
+   fChain->SetBranchAddress("lepDXY", lepDXY, &b_lepDXY);
+   fChain->SetBranchAddress("lepDXYErr", lepDXYErr, &b_lepDXYErr);
+   fChain->SetBranchAddress("lepSF", lepSF, &b_lepSF);
+   fChain->SetBranchAddress("lepLooseId", lepLooseId, &b_lepLooseId);
+   fChain->SetBranchAddress("lepTightId", lepTightId, &b_lepTightId);
    fChain->SetBranchAddress("HLTDecision", HLTDecision, &b_HLTDecision);
    fChain->SetBranchAddress("nCscRechits", &nCscRechits, &b_nCscRechits);
    fChain->SetBranchAddress("nDtRechits", &nDtRechits, &b_nDtRechits);
@@ -824,7 +823,7 @@ void Acceptance::Init(TTree *tree)
    Notify();
 }
 
-Bool_t Acceptance::Notify()
+Bool_t Multi_Acceptance::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -835,18 +834,18 @@ Bool_t Acceptance::Notify()
    return kTRUE;
 }
 
-void Acceptance::Show(Long64_t entry)
+void Multi_Acceptance::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t Acceptance::Cut(Long64_t entry)
+Int_t Multi_Acceptance::Cut(Long64_t entry)
 {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
 }
-#endif // #ifdef Acceptance_cxx
+#endif // #ifdef Multi_Acceptance_cxx
