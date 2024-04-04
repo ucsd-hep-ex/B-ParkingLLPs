@@ -1,4 +1,4 @@
-versionName=invertID #DPhi2p8Both #WP3   #MuonVetoPtStudy   #OPT  #ABCD-BothDPhi-tightDPhi
+versionName=WP5 #DPhi2p8Both #WP3   #MuonVetoPtStudy   #OPT  #ABCD-BothDPhi-tightDPhi
 base_dir=${CMSSW_BASE}/src/B-ParkingLLPs/condor/gitignore
 
 Regions=(\
