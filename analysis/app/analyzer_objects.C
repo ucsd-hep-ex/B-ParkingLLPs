@@ -449,7 +449,8 @@ bool analyzer_objects::askDoesPassNominal_dt(int index) {
         && askDoesPassRPCMatching_dt(index) 
         && askDoesPassMuonVeto_dt(index)
         && askDoesPassMB1Veto_dt(index)
-        && askDoesPassMB1Adjacent_dt(index);
+        && askDoesPassMB1Adjacent_dt(index)
+        && askDoesPassMaxStation_dt(index);
 }
 
 bool analyzer_objects::askDoesPassNominal_csc(int index) {
