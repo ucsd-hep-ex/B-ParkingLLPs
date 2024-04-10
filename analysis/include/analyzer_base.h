@@ -25,15 +25,18 @@ public :
    Int_t           fCurrent; //!current Tree number in a TChain
 
    //global variables here
-   Bool_t isMC = kFALSE;
-   int counter  = 0;
+   Bool_t isMC;
+   Float_t counter  = 0;
    int counter2 = 0;
+
+   Float_t eventW = -999;
+
    std::vector<TFile*> f_out;
    std::vector<std::vector<int>> DtClusterPassSel_all;
    std::vector<std::vector<int>> CscClusterPassSel_all;
    std::vector<int> muon_list;
-   std::vector<int> DtCluster_list;
-   std::vector<int> CscCluster_list;
+   std::vector<int> tup_DtCluster_list;
+   std::vector<int> tup_CscCluster_list;
 
    bool passGoodMuon = false;
    //CSCs
@@ -69,6 +72,7 @@ public :
    Float_t         rho;
    UInt_t          npv;
    Bool_t          Flag2_all;
+   Float_t         pileupWeight;
    Float_t         metEENoise;
    Float_t         metPhiEENoise;
    Float_t         gLLP_eta;
@@ -293,6 +297,7 @@ public :
    TBranch        *b_rho;   //!
    TBranch        *b_npv;   //!
    TBranch        *b_Flag2_all;   //!
+   TBranch        *b_pileupWeight;   //!
    TBranch        *b_metEENoise;   //!
    TBranch        *b_metPhiEENoise;   //!
    TBranch        *b_gLLP_eta;   //!

@@ -11,11 +11,13 @@ class analyzer_config : public analyzer_base{
   virtual ~analyzer_config();
   void     setConfig();
   
-  static const int SELBINNAMESIZE  = 3;
-  //static const Bool_t b_cutFlow = kFALSE;
+  static const int SELBINNAMESIZE  = 5;
   static const Bool_t b_cutFlow = kTRUE;
-  static const Bool_t b_doTree = kFALSE;
+  // static const Bool_t b_cutFlow = kFALSE;
+   static const Bool_t b_doTree = kFALSE;
   //static const Bool_t b_doTree = kTRUE;
+
+  Float_t genMuonFilterEff;
 
   Float_t muPt;
   Float_t muEta;
@@ -36,6 +38,7 @@ class analyzer_config : public analyzer_base{
   Int_t   DtMB1Veto;
   
   double dPhiCut_LeadMu_CscCluster;
+  double dPhiCut_LeadMu_DtCluster;
 
   Float_t cscClusterTimeLow;
   Float_t cscClusterTimeHigh;
@@ -43,6 +46,8 @@ class analyzer_config : public analyzer_base{
 
   int HLTIndexLow;
   int HLTIndexHigh;
+
+  bool doScan;
 
   Bool_t doCutFlow();
   Bool_t doTree();

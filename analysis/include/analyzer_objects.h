@@ -30,24 +30,40 @@ class analyzer_objects : public analyzer_config{
   bool askDoesPassME1112Veto_csc        (int index);
   bool askDoesPassMB1Veto_csc           (int index);
   bool askDoesPassRB1Veto_csc           (int index);
+  bool askDoesPassRE12Veto_csc          (int index);
   bool askDoesPassMuonVeto_csc          (int index);
   bool askDoesPassClusterTime_csc       (int index);
   bool askDoesPassClusterTimeSpread_csc (int index);
   bool askDoesPassClusterEta_csc        (int index);
   bool askDoesPassdPhiLeadMuon_csc      (int index);
+  bool askDoesPassdPhiLeadMuon_dt       (int index);
   bool askDoesPassID_csc                (int index);
 
+  bool askDoesPassMaxStation_dt(int index);
+  bool askDoesPassMaxStation3_dt(int index);
+  bool askDoesPassMaxStation4_dt(int index);
+
+  bool askDoesPassNominal_dt(int index);
+  bool askDoesPassNominal_csc(int index);
 
   std::vector<int> muonPassSel(Float_t muPtCut, Float_t muEtaCut);
-  std::vector<int> DtClusterPassSel      (bool passHLT);
-  std::vector<int> DtClusterPassSel_SR   (bool passHLT);
-  std::vector<int> DtClusterPassSel_OOT  (bool passHLT);
-  std::vector<int> CscClusterPassSel     (bool passHLT);
-  std::vector<int> CscClusterPassSel_SR  (bool passHLT);
-  std::vector<int> CscClusterPassSel_OOT (bool passHLT);
+  void muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Float_t ew);
 
-  void DtClusterPassSel_CutFlow ();
-  void CscClusterPassSel_CutFlow();
+  std::vector<int> DtClusterPassSel_Fail      (bool passHLT);
+  std::vector<int> DtClusterPassSel_FailOOT   (bool passHLT);
+  std::vector<int> DtClusterPassSel_Pass      (bool passHLT);
+  std::vector<int> DtClusterPassSel_PassOOT   (bool passHLT);
+
+  std::vector<int> CscClusterPassSel_Fail     (bool passHLT);
+  std::vector<int> CscClusterPassSel_FailOOT  (bool passHLT);
+  std::vector<int> CscClusterPassSel_Pass     (bool passHLT);
+  std::vector<int> CscClusterPassSel_PassOOT  (bool passHLT);
+
+  std::vector<int> DtClusterPassSel_nominal   (bool passHLT);
+  std::vector<int> CscClusterPassSel_nominal  (bool passHLT);
+
+  void DtClusterPassSel_CutFlow (Float_t ew);
+  void CscClusterPassSel_CutFlow(Float_t ew);
 };
 
 #endif

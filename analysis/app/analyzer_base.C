@@ -44,6 +44,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    fChain->SetBranchAddress("rho", &rho, &b_rho);
    fChain->SetBranchAddress("npv", &npv, &b_npv);
    fChain->SetBranchAddress("Flag2_all", &Flag2_all, &b_Flag2_all);
+   fChain->SetBranchAddress("pileupWeight", &pileupWeight, &b_pileupWeight);
    fChain->SetBranchAddress("metEENoise", &metEENoise, &b_metEENoise);
    fChain->SetBranchAddress("metPhiEENoise", &metPhiEENoise, &b_metPhiEENoise);
    fChain->SetBranchAddress("gLLP_eta", &gLLP_eta, &b_gLLP_eta);
@@ -151,7 +152,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    fChain->SetBranchAddress("cscRechitClusterJetVetoPt", cscRechitClusterJetVetoPt, &b_cscRechitClusterJetVetoPt);
    fChain->SetBranchAddress("cscRechitClusterMuonVetoPt", cscRechitClusterMuonVetoPt, &b_cscRechitClusterMuonVetoPt);
    fChain->SetBranchAddress("cscRechitClusterGenMuonVetoPt_dR0p8", cscRechitClusterGenMuonVetoPt_dR0p8, &b_cscRechitClusterGenMuonVetoPt_dR0p8);
-   fChain->SetBranchAddress("cscRechitClusterMuonVetoPt", cscRechitClusterGenMuonVetoPt, &b_cscRechitClusterGenMuonVetoPt);
+   fChain->SetBranchAddress("cscRechitClusterGenMuonVetoPt", cscRechitClusterGenMuonVetoPt, &b_cscRechitClusterGenMuonVetoPt);
    fChain->SetBranchAddress("cscRechitClusterMetEENoise_dPhi", cscRechitClusterMetEENoise_dPhi, &b_cscRechitClusterMetEENoise_dPhi);
    fChain->SetBranchAddress("nDtRechitClusters", &nDtRechitClusters, &b_nDtRechitClusters);
    fChain->SetBranchAddress("dtRechitClusterMaxDPhi", dtRechitClusterMaxDPhi, &b_dtRechitClusterMaxDPhi);
@@ -241,6 +242,7 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    fChain->SetBranchAddress("dtRechitCluster_match_RPChits_sameStation_dR0p4", dtRechitCluster_match_RPChits_sameStation_dR0p4, &b_dtRechitCluster_match_RPChits_sameStation_dR0p4);
    fChain->SetBranchAddress("dtRechitCluster_match_gLLP_deltaR", dtRechitCluster_match_gLLP_deltaR, &b_dtRechitCluster_match_gLLP_deltaR);
    fChain->SetBranchAddress("dtRechitCluster_match_RPChits_dPhi0p5", dtRechitCluster_match_RPChits_dPhi0p5, &b_dtRechitCluster_match_RPChits_dPhi0p5);
+   fChain->SetBranchAddress("dtRechitCluster_match_RPCBx_dPhi0p5", dtRechitCluster_match_RPCBx_dPhi0p5, &b_dtRechitCluster_match_RPCBx_dPhi0p5);
    fChain->SetBranchAddress("dtRechitCluster_match_RB1_0p4", dtRechitCluster_match_RB1_0p4, &b_dtRechitCluster_match_RB1_0p4);
    fChain->SetBranchAddress("dtRechitCluster_match_RB1_dPhi0p5", dtRechitCluster_match_RB1_dPhi0p5, &b_dtRechitCluster_match_RB1_dPhi0p5);
    fChain->SetBranchAddress("dtRechitCluster_match_MB1Seg_0p4", dtRechitCluster_match_MB1Seg_0p4, &b_dtRechitCluster_match_MB1Seg_0p4);
