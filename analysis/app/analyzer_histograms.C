@@ -84,57 +84,75 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
   h_nLeptons[selbin]->Fill(nLeptons, ew);
   h_gLLP_ctau[selbin]->Fill(gLLP_ctau, ew);
 
-    
-  if(CscClusterPassSel_all[selbin].size()>0) h_nCscRechits[selbin]->Fill(nCscRechits, ew);
-  for(int i = 0; i < CscClusterPassSel_all[selbin].size(); i++){
-    int c =  CscClusterPassSel_all[selbin][i];
-    double dPhi = -999;
-    if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[c]);
-    h_cscRechitClusterDPhiLeadMuon           [selbin]->Fill(dPhi, ew);  
-    h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c], ew);
+  if(CscClusterPassSel_all[selbin].size()>0){
+    h_nCscRechits[selbin]->Fill(nCscRechits, ew);
+    //if (selbin == 2)std::cout<<"NClusters: "<<CscClusterPassSel_all[selbin].size() <<std::endl;
+    bool passCSC = false;
+    for(int i = 0; i < CscClusterPassSel_all[selbin].size(); i++){
+      int c =  CscClusterPassSel_all[selbin][i];
+      double dPhi = -999;
+      if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[c]);
+      h_cscRechitClusterDPhiLeadMuon           [selbin]->Fill(dPhi, ew);  
+      h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c], ew);
+      if(cscRechitClusterSize[c]>CscSize)      passCSC = true;
+      h_cscRechitClusterSize_v                 [selbin]->Fill(cscRechitClusterSize                 [c], ew);
+      h_cscRechitClusterSize_v2                [selbin]->Fill(cscRechitClusterSize                 [c], ew);
+      h_cscRechitClusterEta                    [selbin]->Fill(cscRechitClusterEta                  [c], ew);
+      h_cscRechitClusterMuonVetoPt             [selbin]->Fill(cscRechitClusterMuonVetoPt           [c], ew);
+      h_cscRechitClusterPhi                    [selbin]->Fill(cscRechitClusterPhi                  [c], ew);
+      h_cscRechitClusterTime                   [selbin]->Fill(cscRechitClusterTime                 [c], ew);
+      h_cscRechitClusterTimeWeighted           [selbin]->Fill(cscRechitClusterTimeWeighted         [c], ew);
+      h_cscRechitClusterTimeTotal              [selbin]->Fill(cscRechitClusterTimeTotal            [c], ew);
+      h_cscRechitClusterTimeSpread             [selbin]->Fill(cscRechitClusterTimeSpread           [c], ew);
+      h_cscRechitClusterTimeSpreadWeighted     [selbin]->Fill(cscRechitClusterTimeSpreadWeighted   [c], ew);
+      h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Fill(cscRechitClusterTimeSpreadWeightedAll[c], ew);
+    }
     //special case for ABCD method, we only care about NPass(bin 1) and NFail (bin 0)
-    if(cscRechitClusterSize[c]<CscSize) h_cscRechitClusterSize_FailPass[selbin]->Fill(0., ew);
-    else                                h_cscRechitClusterSize_FailPass[selbin]->Fill(1., ew);
-    if(cscRechitClusterSize[c]<CscSize) h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.0);
-    else                                h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.0);
-    h_cscRechitClusterSize_v                 [selbin]->Fill(cscRechitClusterSize                 [c], ew);
-    h_cscRechitClusterSize_v2                [selbin]->Fill(cscRechitClusterSize                 [c], ew);
-    h_cscRechitClusterEta                    [selbin]->Fill(cscRechitClusterEta                  [c], ew);
-    h_cscRechitClusterMuonVetoPt             [selbin]->Fill(cscRechitClusterMuonVetoPt           [c], ew);
-    h_cscRechitClusterPhi                    [selbin]->Fill(cscRechitClusterPhi                  [c], ew);
-    h_cscRechitClusterTime                   [selbin]->Fill(cscRechitClusterTime                 [c], ew);
-    h_cscRechitClusterTimeWeighted           [selbin]->Fill(cscRechitClusterTimeWeighted         [c], ew);
-    h_cscRechitClusterTimeTotal              [selbin]->Fill(cscRechitClusterTimeTotal            [c], ew);
-    h_cscRechitClusterTimeSpread             [selbin]->Fill(cscRechitClusterTimeSpread           [c], ew);
-    h_cscRechitClusterTimeSpreadWeighted     [selbin]->Fill(cscRechitClusterTimeSpreadWeighted   [c], ew);
-    h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Fill(cscRechitClusterTimeSpreadWeightedAll[c], ew);
+    if (passCSC) {
+      //if (selbin ==2 ) std::cout <<"Fill pass"<<std::endl;
+      h_cscRechitClusterSize_FailPass[selbin]->Fill(1., ew);
+      h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.);
+    }
+    else      {
+      //if (selbin ==2 ) std::cout <<"Fill fail"<<std::endl;
+      h_cscRechitClusterSize_FailPass[selbin]->Fill(0., ew);
+      h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.);
+    }
   }
-    if(DtClusterPassSel_all[selbin].size()>0) h_nDTRechits[selbin]->Fill(nDTRechits, ew);
+  if(DtClusterPassSel_all[selbin].size()>0) {
+    h_nDTRechits[selbin]->Fill(nDTRechits, ew);
+    bool passDT = false;
     for(int i = 0; i < DtClusterPassSel_all[selbin].size(); i++){
-    int d = DtClusterPassSel_all[selbin][i];
-    double dPhi = -999;
-    if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], dtRechitClusterPhi[d]);
-    h_dtRechitClusterDPhiLeadMuon                            [selbin]->Fill(dPhi, ew);  
-    h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Fill(dtRechitCluster_match_RPCBx_dPhi0p5                  [d], ew);  
-    h_dtRechitClusterSize                                    [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
-    //special case for ABCD method, we only care about NPass(bin 1) and NFail (bin 0)
-    if(dtRechitClusterSize[d]<DtSize)   h_dtRechitClusterSize_FailPass[selbin]->Fill(0., ew);
-    else                                h_dtRechitClusterSize_FailPass[selbin]->Fill(1., ew);
-    if(dtRechitClusterSize[d]<DtSize)   h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.0);
-    else                                h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.0);
-    h_dtRechitClusterSize_v                                  [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
-    h_dtRechitClusterSize_v2                                 [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
-    h_dtRechitClusterEta                                     [selbin]->Fill(dtRechitClusterEta                                   [d], ew);
-    h_dtRechitClusterMuonVetoPt                              [selbin]->Fill(dtRechitClusterMuonVetoPt                            [d], ew);
-    h_dtRechitClusterPhi                                     [selbin]->Fill(dtRechitClusterPhi                                   [d], ew);
-    h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPCTime_dR0p4                  [d], ew);
-    h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dR0p4            [d], ew);
-    h_dtRechitCluster_match_RPChits_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPChits_dR0p4                  [d], ew);
-    h_dtRechitCluster_match_RPCTime_dPhi0p5                  [selbin]->Fill(dtRechitCluster_match_RPCTime_dPhi0p5                [d], ew);
-    h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dPhi0p5          [d], ew);
-    h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Fill(dtRechitCluster_match_RPCTime_sameStation_dR0p4      [d], ew);
-    h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[d], ew);
-    h_dtRechitClusterMaxStation                              [selbin]->Fill(dtRechitClusterMaxStation                            [d], ew);
+      int d = DtClusterPassSel_all[selbin][i];
+      double dPhi = -999;
+      if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], dtRechitClusterPhi[d]);
+      h_dtRechitClusterDPhiLeadMuon                            [selbin]->Fill(dPhi, ew);  
+      h_dtRechitCluster_match_RPCBx_dPhi0p5                    [selbin]->Fill(dtRechitCluster_match_RPCBx_dPhi0p5                  [d], ew);  
+      h_dtRechitClusterSize                                    [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
+      if(dtRechitClusterSize[d]>DtSize)                        passDT = true;
+      h_dtRechitClusterSize_v                                  [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
+      h_dtRechitClusterSize_v2                                 [selbin]->Fill(dtRechitClusterSize                                  [d], ew);
+      h_dtRechitClusterEta                                     [selbin]->Fill(dtRechitClusterEta                                   [d], ew);
+      h_dtRechitClusterMuonVetoPt                              [selbin]->Fill(dtRechitClusterMuonVetoPt                            [d], ew);
+      h_dtRechitClusterPhi                                     [selbin]->Fill(dtRechitClusterPhi                                   [d], ew);
+      h_dtRechitCluster_match_RPCTime_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPCTime_dR0p4                  [d], ew);
+      h_dtRechitCluster_match_RPCTimeSpread_dR0p4              [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dR0p4            [d], ew);
+      h_dtRechitCluster_match_RPChits_dR0p4                    [selbin]->Fill(dtRechitCluster_match_RPChits_dR0p4                  [d], ew);
+      h_dtRechitCluster_match_RPCTime_dPhi0p5                  [selbin]->Fill(dtRechitCluster_match_RPCTime_dPhi0p5                [d], ew);
+      h_dtRechitCluster_match_RPCTimeSpread_dPhi0p5            [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_dPhi0p5          [d], ew);
+      h_dtRechitCluster_match_RPCTime_sameStation_dR0p4        [selbin]->Fill(dtRechitCluster_match_RPCTime_sameStation_dR0p4      [d], ew);
+      h_dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4  [selbin]->Fill(dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4[d], ew);
+      h_dtRechitClusterMaxStation                              [selbin]->Fill(dtRechitClusterMaxStation                            [d], ew);
+    }
+      //special case for ABCD method, we only care about NPass(bin 1) and NFail (bin 0)
+      if (passDT) {
+        h_dtRechitClusterSize_FailPass[selbin]->Fill(1., ew);
+        h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.);
+      }
+      else      {
+        h_dtRechitClusterSize_FailPass[selbin]->Fill(0., ew);
+        h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.);
+      }
   }
 }
 

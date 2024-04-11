@@ -24,7 +24,7 @@ ls
 mkdir roots
 
 
-./RunAnalyzer.exe --Path=$1 --Sample=$2
+./RunAnalyzer.exe --Path=$1 --Sample=$2 --to_ctau=$3
 
 mv roots/*.root .
 ls

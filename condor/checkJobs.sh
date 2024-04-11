@@ -5,7 +5,7 @@ CREATE_RESUBMIT_FILE=false
 
 # Define the paths to the directories
 listDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/lists/V1p19_7"
-rootDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/DPhi2p8Both"
+rootDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/WP5"
 
 # Loop through each .list file in the first directory
 for listFile in "$listDir"/*.list; do
