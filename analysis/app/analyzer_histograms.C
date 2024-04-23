@@ -26,6 +26,14 @@ TH1F* InitTH1F (TString name, TString title, int nbins, float bins[]){
   return histoTH1F;
 }
 
+Double_t clusterSizeResponseFactor (TString muon_station) {
+    if (muon_station == "CSC") {
+        return 150 / 130;
+    } else if (muon_station == "DT") {
+        return 135 / 110;
+    }
+}
+
 void analyzer_histograms::InitHistos(){
   for (int i = 0; i< SELBINNAMESIZE; i++){
     unsigned n_b = 19;
@@ -91,6 +99,10 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     for(int i = 0; i < CscClusterPassSel_all[selbin].size(); i++){
       int c =  CscClusterPassSel_all[selbin][i];
       double dPhi = -999;
+
+      // Cluster size reweighting
+      cscRechitClusterSize[c] *= clusterSizeResponseFactor("CSC");
+      
       if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[c]);
       h_cscRechitClusterDPhiLeadMuon           [selbin]->Fill(dPhi, ew);  
       h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c], ew);

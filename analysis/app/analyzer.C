@@ -43,48 +43,6 @@ Float_t genFilterEff(TString sample) {
     return GenFilterEff;
 }
 
-Float_t cluster_size_correction(TString sample, TString muon_system) {
-
-    Float_t correction_factor;
-
-    /*if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000"){
-        if (muon_system == "CSC") {
-            correction_factor = 0.2133676092544987;
-        }
-        else if (muon_system == "DT") {
-            correction_factor = 0.2133676092544987;
-        }
-    }*/
-    if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300"){
-        if (muon_system == "CSC") {
-            correction_factor = 1.625000;
-        }
-        else if (muon_system == "DT") {
-            correction_factor = 1.866667;
-        }
-    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300"){
-        if (muon_system == "CSC") {
-            correction_factor = 1.357407;
-        }
-        else if (muon_system == "DT") {
-            correction_factor = 2.800000;
-        }
-    }
-    /*else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000"){
-        if (muon_system == "CSC") {
-            correction_factor = 0.2133676092544987;
-        }
-        else if (muon_system == "DT") {
-            correction_factor = 0.2133676092544987;
-        }
-    }*/
-    else{
-        correction_factor = 1.0;
-    }
-
-    return correction_factor;
-}
-
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
    // Cross-section in femtobarns. 0.4=fragmentation fraction
@@ -234,19 +192,19 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
               for (int k = 0; k < CscClusterPassSel_nominal(doesPassHLT()).size(); k++) {
                 if (pass) break;
                 float dphi = DeltaPhi(cscRechitClusterPhi[CscClusterPassSel_nominal(doesPassHLT())[k]], lepPhi[muon_list[0]]);
-                if      (cluster_size_correction(theSample, "CSC") * cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
+                if      (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
                     n_events_CSC_A->SetBinContent(i+1, j+1, n_events_CSC_A->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cluster_size_correction(theSample, "CSC") * cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
+                else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
                     n_events_CSC_B->SetBinContent(i+1, j+1, n_events_CSC_B->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cluster_size_correction(theSample, "CSC") * cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
+                else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
                     n_events_CSC_C->SetBinContent(i+1, j+1, n_events_CSC_C->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cluster_size_correction(theSample, "CSC") * cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
+                else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
                     n_events_CSC_D->SetBinContent(i+1, j+1, n_events_CSC_D->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
@@ -257,19 +215,19 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
               for (int k = 0; k < DtClusterPassSel_nominal(doesPassHLT()).size(); k++) {
                 if (pass) break;
                 float dphi = DeltaPhi(dtRechitClusterPhi[DtClusterPassSel_nominal(doesPassHLT())[k]], lepPhi[muon_list[0]]);
-                if      (cluster_size_correction(theSample, "DT") * dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
+                if      (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
                     n_events_DT_A->SetBinContent(i+1, j+1, n_events_DT_A->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cluster_size_correction(theSample, "DT") * dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
+                else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
                     n_events_DT_B->SetBinContent(i+1, j+1, n_events_DT_B->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cluster_size_correction(theSample, "DT") * dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
+                else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
                     n_events_DT_C->SetBinContent(i+1, j+1, n_events_DT_C->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cluster_size_correction(theSample, "DT") * dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
+                else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
                     n_events_DT_D->SetBinContent(i+1, j+1, n_events_DT_D->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
