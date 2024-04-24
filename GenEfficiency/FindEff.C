@@ -1,3 +1,9 @@
+/*
+// Use example
+// root -l -b -q 'FindEff.C("/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p3_ctau3000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p3_ctau3000.root", 3000)'
+// First argument the file name, second argument is the lifetime target for re-weighting
+*/
+
 #include <iostream>
 #include <algorithm>
 #include "TFile.h"
@@ -7,6 +13,22 @@
 
 bool earlyStop = false;
 int NStop = 100;
+
+TString ExtractFileName(const TString& fullPath) {
+    // Find the last '/' in the path
+    Ssiz_t lastSlashPos = fullPath.Last('/');
+
+    // Extract everything after the last '/'
+    TString fileNameWithExtension = fullPath(lastSlashPos + 1, fullPath.Length() - lastSlashPos - 1);
+
+    // Now, remove the ".root" extension; assuming it ends with ".root"
+    TString fileName = fileNameWithExtension;
+    if (fileName.EndsWith(".root")) {
+        fileName.Resize(fileName.Length() - 5); // Remove the last 5 characters (".root")
+    }
+
+    return fileName;
+}
 
 
 Float_t ctau_weight(Float_t t, Float_t tau0, Float_t tau1) {
@@ -72,7 +94,6 @@ float CalcEff(TString s_f_genOnly, float tau0, float tauPrime ){
         Den+=ew;
         if( PassFilter(gLLP_r_genOnly, gLLP_z_genOnly, gLLP_eta_genOnly) ) Num+=ew; 
     }
-    std::cout<<"Eff = "<<Num<<"/"<<Den<<" = "<<Num/Den<<std::endl;
 //    TCanvas *c = new TCanvas("c1", "c1", 800, 600);
 //    h_gLLP_ctau->Draw();
 //    c->SaveAs("ctau.png");
@@ -82,6 +103,8 @@ float CalcEff(TString s_f_genOnly, float tau0, float tauPrime ){
 //    TFile* f_out = new TFile("FindEff.root", "recreate");
 //    h_gLLP_ctau->Write();
 //    f_out->Close();
+    TString fileName = ExtractFileName(s_f_genOnly);
+    std::cout<<"Sample: "<<fileName<<"   ctauPrime: "<< tauPrime<<"  Eff = "<<Num<<"/"<<Den<<" = "<<Num/Den<<std::endl; 
     return Num/Den; 
 }
 
@@ -110,7 +133,6 @@ void FindEff(TString s_f_genOnly, float tauPrime){
 
   for (int i  = 0; i< ct.size(); i++ ){
     eff.push_back( CalcEff(s_f_genOnly, tau0, ct[i]) ); 
-    std::cout<<"ctau: "<< ct[i]<<"   Eff= "<<eff[i]<<"  Sample: "<<s_f_genOnly<<std::endl; 
   }
 
 //  TGraph *gr = new TGraph(nctau,ct,eff);
