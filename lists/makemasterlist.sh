@@ -4,7 +4,7 @@
 outdir="${CMSSW_BASE}/src/B-ParkingLLPs/lists"
 
 # read first layer of storage directory save output to temp file
-xrdfs root://cmseos.fnal.gov ls /eos/uscms/store/group/lpclonglived/B-ParkingLLPs/V1p19_8/ > templayer1.out
+xrdfs root://cmseos.fnal.gov ls /eos/uscms/store/group/lpclonglived/B-ParkingLLPs/V1p19_9/ > templayer1.out
 
 # initialize outfile as empty (overwrite if exists)
 echo "" > ${outdir}/allfiles.masterlist
@@ -33,8 +33,8 @@ sed -i '/D.root/d' ${outdir}/allfiles.masterlist
 #sed -i '/ctau300_/d' ${outdir}/allfiles.masterlist
 #sed -i '/ctau1000_/d' ${outdir}/allfiles.masterlist
 
-cp allfiles.masterlist tmp_allfiles.masterlist
-awk '{sub(/\.root$/, "", $0); print}' tmp_allfiles.masterlist > allfiles.masterlist
+#cp allfiles.masterlist tmp_allfiles.masterlist
+#awk '{sub(/\.root$/, "", $0); print}' tmp_allfiles.masterlist > allfiles.masterlist
 #save master list and remove junk files
 mv templayer1.out ${outdir}/dir.out
 rm -f templayer2.out
