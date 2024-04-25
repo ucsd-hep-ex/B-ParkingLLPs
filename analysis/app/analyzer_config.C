@@ -21,8 +21,8 @@ void analyzer_config::setConfig(){ // loggit
 
   //Size cuts for histo definition
   //objects.C uses >=50 selection
-  DtSize  = 110; //220; //220; //100;            // loggit
   CscSize = 220; //390; //180; //130;            // loggit
+  DtSize  = 110; //220; //220; //100;            // loggit
 
   CscEta = 1.9;                    // loggit
   DtEta = 1.9;                     // loggit

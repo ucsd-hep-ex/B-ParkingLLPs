@@ -5,7 +5,7 @@ CREATE_RESUBMIT_FILE=false
 NTVname="V1p19_9"
 # Define the paths to the directories
 listDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/lists/${NTVname}"
-rootDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/V1p19_9WP5" #DPhi2p8Both"   #WP3" #DPhi2p8Both"
+rootDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/V1p19_9WP11"  #V1p19_9WP5" #DPhi2p8Both"   #WP3" #DPhi2p8Both"
 
 # Define a blacklist of baseNames (or patterns) to skip
 # Script no supported for signal, so add those here

@@ -27,7 +27,7 @@ public :
    //global variables here
    Bool_t isMC;
    Float_t counter  = 0;
-   int counter2 = 0;
+   Float_t counter2 = 0;
 
    Float_t eventW = -999;
 
