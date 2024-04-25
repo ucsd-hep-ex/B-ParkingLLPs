@@ -28,18 +28,37 @@ Float_t ctau_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
 Float_t genFilterEff(TString sample) {
 
     Float_t GenFilterEff;
-    if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000"){
-        GenFilterEff = 0.2133676092544987;
-    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300"){
-        GenFilterEff = 0.2913132061492869;
-    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300"){
-        GenFilterEff = 0.2919021657580153;
-    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000"){
-        GenFilterEff = 0.2140541025727333;
-    }else{
-        GenFilterEff = 1.0;
-    }
+//    if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau3000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau3000"){
+//        GenFilterEff = 0.094442;
+//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau500"){
+//        GenFilterEff = 0.257718;
+//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau5000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau5000"){
+//        GenFilterEff = 0.0950152;
+//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau10000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau10000"){
+//        GenFilterEff = 0.0907816;
+//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000"){
+//        GenFilterEff = 0.252473;
+//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau10000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau10000"){
+//        GenFilterEff = 0.127579;
+//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau3000"){
+//        GenFilterEff = 0.239329;
+//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau10000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau10000"){
+//        GenFilterEff = 0.146031;
+//    }else{
+//        GenFilterEff = 1.0;
+//    }
 
+    if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000"){
+      GenFilterEff = 0.2133676092544987;
+    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300"){
+      GenFilterEff = 0.2913132061492869;
+    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300"){
+      GenFilterEff = 0.2919021657580153;
+    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000"){
+      GenFilterEff = 0.2140541025727333;
+    }else{
+      GenFilterEff = 1.0;
+    }
     return GenFilterEff;
 }
 
@@ -52,7 +71,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 10000;
+   //Long64_t nentries = 100;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -94,6 +113,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
    bool found = true;
    TFile *OPT_Histos;
+   TFile *f_Weights;
    TH2F * n_events_CSC_A;
    TH2F * n_events_CSC_B;
    TH2F * n_events_CSC_C;
@@ -103,6 +123,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    TH2F * n_events_DT_B;
    TH2F * n_events_DT_C;
    TH2F * n_events_DT_D;
+   //f_Weights = TFile::Open("roots/Weights.root","recreate");
+   //TH1F * h_Wctau = new TH1F("h_Wctau", "h_Wctau", 100, 0.,5.);
 
    if(doScan){
      OPT_Histos = TFile::Open("roots/OPT_Histos.root","RECREATE");
@@ -154,7 +176,10 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       }
       //saving in the global variable 
       eventW = event_weight;
-       
+      //counter+=ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
+      //counter2+=genFilterEff(theSample)*ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
+      //counter2+=0.0950152*ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
+      //h_Wctau->Fill(ctau_reweighter(gLLP_ctau, from_ctau, to_ctau));
       //fill miniTree 
       if (b_doTree){
         f->cd();
@@ -265,6 +290,11 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
 
    }//end jentries
+   //std::cout<<"h_WctauMean "<<h_Wctau->GetMean()<<std::endl;
+   //f_Weights->cd();
+   //h_Wctau->Write();
+   //f_Weights->Close();
+
    if(doScan){
      OPT_Histos->cd();
      n_events_CSC_A->Write();
@@ -295,8 +325,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    }
    std::cout<<"isMC?: "<<isMC<<std::endl;
    std::cout<<"Make Tree?: "<<b_doTree<<std::endl;
-   std::cout<<"Counter: "<<counter<<std::endl;
-   std::cout<<"Counter2: "<<counter2<<std::endl;
+   std::cout<<"Counter (Sum Wctau): "<<counter<<std::endl;
+   std::cout<<"Counter2 (Sum Wctau*LLPDecayEff): "<<counter2<<std::endl;
    WriteHistos(0);
    WriteHistos(1);
    WriteHistos(2);
