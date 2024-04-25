@@ -62,6 +62,14 @@ Float_t genFilterEff(TString sample) {
     return GenFilterEff;
 }
 
+Double_t clusterSizeResponseFactor (TString muon_station) {
+    if (muon_station == "CSC") {
+        return 220 / 275;
+    } else if (muon_station == "DT") {
+        return 110 / 136;
+    }
+}
+
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
    // Cross-section in femtobarns. 0.4=fragmentation fraction
@@ -125,6 +133,15 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    TH2F * n_events_DT_D;
    //f_Weights = TFile::Open("roots/Weights.root","recreate");
    //TH1F * h_Wctau = new TH1F("h_Wctau", "h_Wctau", 100, 0.,5.);
+
+   if (isMC) {
+       for (int k = 0; k < 200 /*cscRechitClusterSize.size()*/; k++) {
+           cscRechitClusterSize[k] *= clusterSizeResponseFactor("CSC");
+       }
+       for (int k = 0; k < 200 /*dtRechitClusterSize.size()*/; k++) {
+           dtRechitClusterSize[k] *= clusterSizeResponseFactor("DT");
+       }
+   }
 
    if(doScan){
      OPT_Histos = TFile::Open("roots/OPT_Histos.root","RECREATE");
@@ -330,8 +347,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    WriteHistos(0);
    WriteHistos(1);
    WriteHistos(2);
-   WriteHistos(3);   
-   WriteHistos(4);   
+   WriteHistos(3);
+   WriteHistos(4);
 
 }
 
