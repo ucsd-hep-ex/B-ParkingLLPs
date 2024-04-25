@@ -45,9 +45,9 @@ Float_t genFilterEff(TString sample) {
 
 Double_t clusterSizeResponseFactor (TString muon_station) {
     if (muon_station == "CSC") {
-        return 275 / 220;
+        return 220 / 275;
     } else if (muon_station == "DT") {
-        return 136 / 110;
+        return 110 / 136;
     }
 }
 
