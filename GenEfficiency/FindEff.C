@@ -71,11 +71,18 @@ float CalcEff(TString s_f_genOnly, float tau0, float tauPrime ){
     }
 
     // set your binning
-    //TH1F *h_gLLP_ctau  = new TH1F("h_gLLP_ctau" , "h_gLLP_ctau" , 100, 0, 500);
+    //TH1F *h_gParticleEta  = new TH1F("h_gParticleEta" , "h_gParticleEta" , 30,-12 , 12);
+    //TH1F *h_gParticleId  = new TH1F("h_gParticleId" , "h_gParticleId" , 50,0 , 50);
     
 
     // Set branch address
     float gLLP_r_genOnly, gLLP_z_genOnly, gLLP_eta_genOnly, gLLP_ctau_genOnly, ew;
+    //Does not contain the full GenParticles, no muons
+    //float gParticleId[100];
+    //float gParticleEta[100];
+    //float gParticlePt[100];
+    //int nGenParticles;
+
     float Num = 0.0;
     float Den = 0.0;
     
@@ -83,7 +90,13 @@ float CalcEff(TString s_f_genOnly, float tau0, float tauPrime ){
     tree_genOnly->SetBranchAddress("gLLP_decay_vertex_z", &gLLP_z_genOnly);
     tree_genOnly->SetBranchAddress("gLLP_eta", &gLLP_eta_genOnly);
     tree_genOnly->SetBranchAddress("gLLP_ctau", &gLLP_ctau_genOnly);
+    tree_genOnly->SetBranchAddress("gLLP_ctau", &gLLP_ctau_genOnly);
  
+ //   tree_genOnly->SetBranchAddress("gParticleId", &gParticleId);
+ //   tree_genOnly->SetBranchAddress("gParticleEta", &gParticleEta);
+ //   tree_genOnly->SetBranchAddress("gParticlePt", &gParticlePt);
+ //   tree_genOnly->SetBranchAddress("nGenParticles", &nGenParticles);
+
     Long64_t nEntries_genOnly; 
     if(earlyStop) nEntries_genOnly  = NStop;
     else          nEntries_genOnly  = tree_genOnly->GetEntries(); 
@@ -93,11 +106,18 @@ float CalcEff(TString s_f_genOnly, float tau0, float tauPrime ){
         ew = ctau_weight(gLLP_ctau_genOnly*10., tau0, tauPrime); 
         Den+=ew;
         if( PassFilter(gLLP_r_genOnly, gLLP_z_genOnly, gLLP_eta_genOnly) ) Num+=ew; 
+        //for (int j = 0; j<nGenParticles; j++){
+        //    h_gParticleId->Fill(abs(gParticleId[j]));
+        //    std::cout<<gParticleId[j]<<std::endl;
+        //    if (abs(gParticleId[j]) == 13) h_gParticleEta->Fill(gParticleEta[j]);
+        //}
     }
-//    TCanvas *c = new TCanvas("c1", "c1", 800, 600);
-//    h_gLLP_ctau->Draw();
-//    c->SaveAs("ctau.png");
-//    c->Close();
+    //TCanvas *c = new TCanvas("c1", "c1", 800, 600);
+    //h_gParticleEta->Draw();
+    //c->SaveAs("h_gParticleEta.png");
+    //h_gParticleId->Draw();
+    //c->SaveAs("h_gParticleId.png");
+    //c->Close();
     // Close the ROOT file
     f_genOnly->Close();
 //    TFile* f_out = new TFile("FindEff.root", "recreate");
@@ -119,13 +139,29 @@ void FindEff(TString s_f_genOnly, float tauPrime){
   
   // Convert TString to integer if necessary
   float tau0 = TString(s_ctau).Atof();
-  const int nctau = 1;
   std::vector<float> ct; //{1,10,100,1000,3000};
   std::vector<float> eff;
 
   //always include default ct
   ct.push_back(tau0);
   ct.push_back(tauPrime);
+  ct.push_back(1.);
+  ct.push_back(3.);
+  ct.push_back(5.);
+  ct.push_back(7.);
+  ct.push_back(10.);
+  ct.push_back(30.);
+  ct.push_back(50.);
+  ct.push_back(70.);
+  ct.push_back(100.);
+  ct.push_back(300.);
+  ct.push_back(500.);
+  ct.push_back(700.);
+  ct.push_back(1000.);
+  ct.push_back(3000.);
+  ct.push_back(5000.);
+  ct.push_back(7000.);
+  ct.push_back(10000.);
   
   sort(ct.begin(), ct.end());
   auto it = unique(ct.begin(), ct.end()); 

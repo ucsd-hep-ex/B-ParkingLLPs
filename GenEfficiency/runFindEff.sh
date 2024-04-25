@@ -8,7 +8,6 @@ fileName=(\
  "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau10000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau10000.root" \
  "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau3000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau3000.root" \
 )
- #"/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000.GenOnly/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000.GenOnly.root" \
 
 
 for name in ${fileName[@]}
