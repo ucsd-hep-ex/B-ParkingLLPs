@@ -10,6 +10,18 @@
 
 using namespace std;
 
+const std::map<int, double> DecayEff_M0p3 = { {1, 3.19287e-06}, {3, 0.00115684}, {5, 0.0048204}, {7, 0.0100535}, {10, 0.0195385}, {30, 0.0865576}, {50, 0.135586}, {70, 0.170079}, {100, 0.204531}, {300, 0.254481}, {500, 0.237463}, {700, 0.215004}, {1000, 0.185533}, {3000, 0.094442}, {5000, 0.0628719}, {7000, 0.0456011}, {10000, 0.0300701}, };
+
+const std::map<int, double> DecayEff_M0p5_low  = { {1, 3.77367e-06}, {3, 0.000629733}, {5, 0.00289072}, {7, 0.00647825}, {10, 0.0131938}, {30, 0.0614839}, {50, 0.0998057}, {70, 0.129796}, {100, 0.164053}, {300, 0.249964}, {500, 0.257718}, {700, 0.248426}, {1000, 0.228888}, {3000, 0.16045}, {5000, 0.141178}, {7000, 0.132671}, {10000, 0.126259}, };
+const std::map<int, double> DecayEff_M0p5_high = { {1, 3.32679e-08}, {3, 0.000327521}, {5, 0.00226438}, {7, 0.00549864}, {10, 0.0114807}, {30, 0.0572667}, {50, 0.0968001}, {70, 0.12804}, {100, 0.163598}, {300, 0.252375}, {500, 0.260743}, {700, 0.251347}, {1000, 0.230423}, {3000, 0.135273}, {5000, 0.0950152}, {7000, 0.0733655}, {10000, 0.0548025}, };
+
+const std::map<int, double> DecayEff_M1 = { {1, 3.43275e-10}, {3, 6.0315e-05}, {5, 0.000552854}, {7, 0.00144642}, {10, 0.00322973}, {30, 0.0247581}, {50, 0.0500272}, {70, 0.0725855}, {100, 0.101274}, {300, 0.207775}, {500, 0.247514}, {700, 0.261634}, {1000, 0.263282}, {3000, 0.194883}, {5000, 0.14726}, {7000, 0.117929}, {10000, 0.0907816}, };
+
+const std::map<int, double> DecayEff_M2_low  = { {1, 2.54035e-13}, {3, 2.08154e-06}, {5, 4.82268e-05}, {7, 0.0002002}, {10, 0.000650378}, {30, 0.00906239}, {50, 0.0218598}, {70, 0.0354108}, {100, 0.0548716}, {300, 0.146233}, {500, 0.196283}, {700, 0.225008}, {1000, 0.246836}, {2000, 0.252473}, {3000, 0.232328}, {5000, 0.190787}, {7000, 0.161788}, {10000, 0.135619}, };
+const std::map<int, double> DecayEff_M2_high = { {1, 5.36051e-17}, {3, 4.29226e-07}, {5, 3.50064e-05}, {7, 0.000232487}, {10, 0.000989261}, {30, 0.013645}, {50, 0.0280934}, {70, 0.0412442}, {100, 0.059097}, {300, 0.14649}, {500, 0.196192}, {700, 0.224438}, {1000, 0.245474}, {3000, 0.229871}, {5000, 0.189518}, {7000, 0.159104}, {10000, 0.127579}, };
+
+const std::map<int, double> DecayEff_M3_low = { {1, 7.72181e-22}, {3, 6.33557e-09}, {5, 1.93e-06}, {7, 2.07529e-05}, {10, 0.000122248}, {30, 0.00386146}, {50, 0.011704}, {70, 0.0212436}, {100, 0.0362698}, {300, 0.117752}, {500, 0.168509}, {700, 0.200698}, {1000, 0.228747}, {3000, 0.239329}, {5000, 0.20582}, {7000, 0.178628}, {10000, 0.151509}, };
+const std::map<int, double> DecayEff_M3_high = { {1, 6.38056e-24}, {3, 1.65837e-09}, {5, 1.27692e-06}, {7, 2.27757e-05}, {10, 0.000196286}, {30, 0.00585752}, {50, 0.0143705}, {70, 0.0240373}, {100, 0.0392737}, {300, 0.122177}, {500, 0.172873}, {700, 0.204767}, {1000, 0.232418}, {3000, 0.241803}, {5000, 0.207522}, {7000, 0.178299}, {10000, 0.146031}, };
 analyzer::analyzer() 
 {
 }
@@ -25,40 +37,26 @@ Float_t ctau_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
     return numerator / denominator;
 }
 
-Float_t genFilterEff(TString sample) {
+Float_t genFilterEff(TString sample, int to_ctau) {
 
     Float_t GenFilterEff;
-//    if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau3000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau3000"){
-//        GenFilterEff = 0.094442;
-//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau500"){
-//        GenFilterEff = 0.257718;
-//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau5000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau5000"){
-//        GenFilterEff = 0.0950152;
-//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau10000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau10000"){
-//        GenFilterEff = 0.0907816;
-//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000"){
-//        GenFilterEff = 0.252473;
-//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau10000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau10000"){
-//        GenFilterEff = 0.127579;
-//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau3000"){
-//        GenFilterEff = 0.239329;
-//    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau10000" || sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau10000"){
-//        GenFilterEff = 0.146031;
-//    }else{
-//        GenFilterEff = 1.0;
-//    }
+    std::map<int, double> theMap;   
 
-    if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000"){
-      GenFilterEff = 0.2133676092544987;
-    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300"){
-      GenFilterEff = 0.2913132061492869;
-    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300"){
-      GenFilterEff = 0.2919021657580153;
-    }else if(sample == "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000"){
-      GenFilterEff = 0.2140541025727333;
-    }else{
-      GenFilterEff = 1.0;
+    if(sample.Contains("mPhi0p3_ctau3000")) theMap = DecayEff_M0p3;
+    else if(sample.Contains("mPhi0p5_ctau500")) theMap = DecayEff_M0p5_low;
+    else if(sample.Contains("mPhi0p5_ctau5000")) theMap = DecayEff_M0p5_high;
+    else if(sample.Contains("mPhi1p0_ctau10000")) theMap = DecayEff_M1;
+    else if(sample.Contains("mPhi2p0_ctau2000")) theMap = DecayEff_M2_low;
+    else if(sample.Contains("mPhi2p0_ctau10000")) theMap = DecayEff_M2_high;
+    else if(sample.Contains("mPhi3p0_ctau3000")) theMap = DecayEff_M3_low;
+    else if(sample.Contains("mPhi3p0_ctau10000")) theMap = DecayEff_M3_high;
+    else{
+      return GenFilterEff = 1.0;
     }
+    auto it = theMap.find(to_ctau);
+    if (it != theMap.end()) GenFilterEff = theMap.at(to_ctau);
+    else GenFilterEff = 1.0;
+
     return GenFilterEff;
 }
 
@@ -72,6 +70,8 @@ Double_t clusterSizeResponseFactor (TString muon_station) {
 
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
+   int i_to_ctau = static_cast<int>(to_ctau*10.);    
+   std::cout<<i_to_ctau<<"  "<<genFilterEff(theSample,i_to_ctau)<<std::endl;
    // Cross-section in femtobarns. 0.4=fragmentation fraction
    const float SIGMA = (1/0.4)*5.72E11;
    std::cout<<theSample<<std::endl;
@@ -118,6 +118,14 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    cutFlow.insert(std::pair<TString, float> ("CscPassClusterEta", 0));         cutFlowKeys.push_back("CscPassClusterEta");
    cutFlow.insert(std::pair<TString, float> ("CscPassID", 0));                 cutFlowKeys.push_back("CscPassID");
 
+ //  if (isMC) {
+ //      for (int k = 0; k < 200; k++) {
+ //          cscRechitClusterSize[k] *= clusterSizeResponseFactor("CSC");
+ //      }
+ //      for (int k = 0; k < 200; k++) {
+ //          dtRechitClusterSize[k] *= clusterSizeResponseFactor("DT");
+ //      }
+ //  }
 
    bool found = true;
    TFile *OPT_Histos;
@@ -134,14 +142,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    //f_Weights = TFile::Open("roots/Weights.root","recreate");
    //TH1F * h_Wctau = new TH1F("h_Wctau", "h_Wctau", 100, 0.,5.);
 
-   if (isMC) {
-       for (int k = 0; k < 200 /*cscRechitClusterSize.size()*/; k++) {
-           cscRechitClusterSize[k] *= clusterSizeResponseFactor("CSC");
-       }
-       for (int k = 0; k < 200 /*dtRechitClusterSize.size()*/; k++) {
-           dtRechitClusterSize[k] *= clusterSizeResponseFactor("DT");
-       }
-   }
 
    if(doScan){
      OPT_Histos = TFile::Open("roots/OPT_Histos.root","RECREATE");
@@ -167,11 +167,10 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
        
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
-     
       if(isMC) event_weight = SIGMA*
                               ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
                               pileupWeight*
-                              genFilterEff(theSample)*
+                              genFilterEff(theSample, i_to_ctau)*
                               genMuonFilterEff*
                               (1./NEvents);
        
@@ -185,7 +184,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                    "  w_ctau: "      <<ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
                    "  PUweight: "    <<pileupWeight<<
                    "  lepSF: "       <<lepSF[muon_list[0]]<<
-                   "  genFilterEff: "<<genFilterEff(theSample)<<
+                   "  genFilterEff: "<<genFilterEff(theSample, to_ctau)<<
                    "  genMuonFilterEff: "<<genMuonFilterEff<<
                    "  NEvents-total: "<<NEvents<<
                    std::endl; 
