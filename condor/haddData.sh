@@ -1,4 +1,4 @@
-versionName=V1p19_9WP11 #WP5 #DPhi2p8Both #WP3  #MuonVetoPtStudy #OPT  #ABCD-BothDPhi-tightDPhi
+versionName=V1p19_9WP0_2 #WP5 #DPhi2p8Both #WP3  #MuonVetoPtStudy #OPT  #ABCD-BothDPhi-tightDPhi
 base_dir=${CMSSW_BASE}/src/B-ParkingLLPs/condor/gitignore
 
 Regions=(\
