@@ -1,14 +1,19 @@
 fileName=(\
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p3_ctau3000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p3_ctau3000.root" \
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau500/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau500.root" \
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau5000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau5000.root" \
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi1p0_ctau10000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi1p0_ctau10000.root" \
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau10000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau10000.root" \
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau2000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau2000.root" \
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau10000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau10000.root" \
- "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau3000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau3000.root" \
+ "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau300/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau300.root" \
 )
 
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p3_ctau3000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p3_ctau3000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau500/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau500.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau5000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi0p5_ctau5000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi1p0_ctau10000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi1p0_ctau10000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi1p0_GenOnly_ctau1000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi1p0_GenOnly_ctau1000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau10000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau10000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau2000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi2p0_ctau2000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau10000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau10000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau3000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_GenOnly_mPhi3p0_ctau3000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000/BToKPhi_MuonGenFilter_PhiToPi0Pi0_mPhi0p3_ctau1000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau1000.root" \
+# "/store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300/BToKPhi_MuonGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300.root" \
 
 for name in ${fileName[@]}
 do
