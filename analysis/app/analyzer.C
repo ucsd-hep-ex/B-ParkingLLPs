@@ -66,11 +66,13 @@ Float_t genFilterEff(TString sample, int to_ctau) {
 }
 
 Double_t clusterSizeResponseFactor (TString muon_station) {
+    float SF;
     if (muon_station == "CSC") {
-        return 220. / 275.;
+        SF =  220. / 275.;
     } else if (muon_station == "DT") {
-        return 110. / 136.;
+        SF = 110. / 136.;
     }
+    return SF;
 }
 
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
