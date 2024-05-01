@@ -127,7 +127,7 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
       h_cscRechitClusterSize_FailPass[selbin]->Fill(1., ew);
       h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.);
     }
-    else      {
+    else         {
       //if (selbin ==2 ) std::cout <<"Fill fail"<<std::endl;
       h_cscRechitClusterSize_FailPass[selbin]->Fill(0., ew);
       h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.);
@@ -163,7 +163,7 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
         h_dtRechitClusterSize_FailPass[selbin]->Fill(1., ew);
         h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.);
       }
-      else      {
+      else        {
         h_dtRechitClusterSize_FailPass[selbin]->Fill(0., ew);
         h_dtRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.);
       }
