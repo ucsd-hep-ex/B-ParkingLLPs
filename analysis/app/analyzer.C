@@ -209,6 +209,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         Tree->Fill();
       } 
       // object lists
+      //If this changes check indices used below for the PassSel_all vectors
       std::vector<std::vector<int>> dummy; 
       dummy.push_back( CscClusterPassSel_Fail    (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_FailOOT (doesPassHLT()) );
@@ -235,45 +236,45 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
               int   cls_cut  = cls_cut_min  +  j*10;
               float dphi_cut = dphi_cut_min +  i*0.1;
               bool pass = false;
-              for (int k = 0; k < CscClusterPassSel_nominal(doesPassHLT()).size(); k++) {
+              for (int k = 0; k < CscClusterPassSel_all[4].size(); k++) {
                 if (pass) break;
-                float dphi = DeltaPhi(cscRechitClusterPhi[CscClusterPassSel_nominal(doesPassHLT())[k]], lepPhi[muon_list[0]]);
-                if      (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
+                int csc = CscClusterPassSel_all[4][k];
+                float dphi = DeltaPhi(cscRechitClusterPhi[csc], lepPhi[muon_list[0]]);
+                if      (cscRechitClusterSize[csc] >= cls_cut && dphi >= dphi_cut) { // Region A
                     n_events_CSC_A->SetBinContent(i+1, j+1, n_events_CSC_A->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
+                else if (cscRechitClusterSize[csc] >= cls_cut && dphi < dphi_cut ) { // Region B
                     n_events_CSC_B->SetBinContent(i+1, j+1, n_events_CSC_B->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
+                else if (cscRechitClusterSize[csc] < cls_cut  && dphi >= dphi_cut) { // Region C
                     n_events_CSC_C->SetBinContent(i+1, j+1, n_events_CSC_C->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (cscRechitClusterSize[CscClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
+                else if (cscRechitClusterSize[csc] < cls_cut  && dphi < dphi_cut ) { // Region D
                     n_events_CSC_D->SetBinContent(i+1, j+1, n_events_CSC_D->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
               }
               pass = false;
-              // cout<<cls_cut<<endl;
-              // cout<<dphi_cut<<endl;
-              for (int k = 0; k < DtClusterPassSel_nominal(doesPassHLT()).size(); k++) {
+              for (int k = 0; k < DtClusterPassSel_all[4].size(); k++) {
+                int dt = DtClusterPassSel_all[4][k];
                 if (pass) break;
-                float dphi = DeltaPhi(dtRechitClusterPhi[DtClusterPassSel_nominal(doesPassHLT())[k]], lepPhi[muon_list[0]]);
-                if      (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi >= dphi_cut) { // Region A
+                float dphi = DeltaPhi(dtRechitClusterPhi[dt], lepPhi[muon_list[0]]);
+                if      (dtRechitClusterSize[dt] >= cls_cut && dphi >= dphi_cut) { // Region A
                     n_events_DT_A->SetBinContent(i+1, j+1, n_events_DT_A->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] >= cls_cut && dphi < dphi_cut ) { // Region B
+                else if (dtRechitClusterSize[dt] >= cls_cut && dphi < dphi_cut ) { // Region B
                     n_events_DT_B->SetBinContent(i+1, j+1, n_events_DT_B->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi >= dphi_cut) { // Region C
+                else if (dtRechitClusterSize[dt] < cls_cut  && dphi >= dphi_cut) { // Region C
                     n_events_DT_C->SetBinContent(i+1, j+1, n_events_DT_C->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
-                else if (dtRechitClusterSize[DtClusterPassSel_nominal(doesPassHLT())[k]] < cls_cut  && dphi < dphi_cut ) { // Region D
+                else if (dtRechitClusterSize[dt] < cls_cut  && dphi < dphi_cut ) { // Region D
                     n_events_DT_D->SetBinContent(i+1, j+1, n_events_DT_D->GetBinContent(i+1, j+1) + eventW);
                     pass = true;
                 }
@@ -285,9 +286,9 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
 
       tup_DtCluster_list.clear();
-      tup_DtCluster_list = DtClusterPassSel_nominal(doesPassHLT());
+      tup_DtCluster_list = DtClusterPassSel_all[4];
       tup_CscCluster_list.clear();
-      tup_CscCluster_list = CscClusterPassSel_nominal(doesPassHLT());
+      tup_CscCluster_list = CscClusterPassSel_all[4];
 
       if(b_cutFlow) cutFlow["No cuts"] += event_weight;
 
