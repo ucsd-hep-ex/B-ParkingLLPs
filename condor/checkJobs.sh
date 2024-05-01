@@ -5,7 +5,7 @@ CREATE_RESUBMIT_FILE=false
 NTVname="V1p19_9"
 # Define the paths to the directories
 listDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/lists/${NTVname}"
-rootDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/V1p19_9WP0_2"  #V1p19_9WP5" #DPhi2p8Both"   #WP3" #DPhi2p8Both"
+rootDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${version}" 
 
 # Define a blacklist of baseNames (or patterns) to skip
 # Script no supported for signal, so add those here
@@ -33,6 +33,7 @@ blacklist=(\
   "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau10000" \
   "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000" \
 )
+echo "version name: ${version}"
 echo checking in ${rootDir}
 # Loop through each .list file in the first directory
 for listFile in "$listDir"/*.list; do
