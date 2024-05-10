@@ -108,6 +108,8 @@ public :
    Float_t         lepDXY[N_MAX_LEPTONS];   //[nLeptons]
    Float_t         lepDXYErr[N_MAX_LEPTONS];   //[nLeptons]
    Float_t         lepSF[N_MAX_LEPTONS];   //[nLeptons]
+   //Float_t         lepSFup[N_MAX_LEPTONS];   //[nLeptons]
+   //Float_t         lepSFdn[N_MAX_LEPTONS];   //[nLeptons]
    Bool_t          lepLooseId[N_MAX_LEPTONS];   //[nLeptons]
    Bool_t          lepTightId[N_MAX_LEPTONS];   //[nLeptons]
    Int_t           nJets;
@@ -333,6 +335,8 @@ public :
    TBranch        *b_lepDXY;   //!
    TBranch        *b_lepDXYErr;   //!
    TBranch        *b_lepSF;   //!
+   //TBranch        *b_lepSFup;   //!
+   //TBranch        *b_lepSFdn;   //!
    TBranch        *b_lepLooseId;   //!
    TBranch        *b_lepTightId;   //!
    TBranch        *b_nJets;   //!

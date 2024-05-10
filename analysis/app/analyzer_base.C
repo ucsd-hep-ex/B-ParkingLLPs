@@ -80,6 +80,8 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    fChain->SetBranchAddress("lepDXY", lepDXY, &b_lepDXY);
    fChain->SetBranchAddress("lepDXYErr", lepDXYErr, &b_lepDXYErr);
    fChain->SetBranchAddress("lepSF", lepSF, &b_lepSF);
+   //fChain->SetBranchAddress("lepSFup", lepSFup, &b_lepSFup);
+   //fChain->SetBranchAddress("lepSFdn", lepSFdn, &b_lepSFdn);
    fChain->SetBranchAddress("lepLooseId", lepLooseId, &b_lepLooseId);
    fChain->SetBranchAddress("lepTightId", lepTightId, &b_lepTightId);
 //   fChain->SetBranchAddress("nJets", &nJets, &b_nJets);
