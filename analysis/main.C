@@ -23,11 +23,11 @@ TString to_ctau_str = ParseCommandLine(argc, argv, "--to_ctau=");
 Bool_t isMC = kTRUE;
     
 TChain* chain = new TChain("MuonSystem");
-TString inpath = "root://cmsxrootd.fnal.gov//store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau3000/";
+TString inpath = "root://cmsxrootd.fnal.gov//store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300/";
 //TString inpath = "root://cmsxrootd.fnal.gov//store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau5000/";
 
 //Fill Sample file Chain
-TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau3000";
+TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300";
 //TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau5000";
 
 
