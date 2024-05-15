@@ -69,6 +69,26 @@ void read() {
     //initialize an array to store the difference between binNumber
     //float abs_bin_diff[100];
 
+
+    int binNum_300 = h_gLLP_ctau_300->GetNbinsX();
+    std::cout << "content of ctau_300's bins" << endl;
+    for(int i= 1; i < binNum_300; i++)
+    {
+        std::cout << i <<" "<<h_gLLP_ctau_300->GetBinContent(i)<< std::endl;
+
+    }
+    int binNum_1000 = h_gLLP_ctau_1000->GetNbinsX();
+    std::cout << "content of ctau_1000's bins" << endl;
+    for(int i= 1; i < binNum_1000; i++)
+    {
+        std::cout << i <<" "<<h_gLLP_ctau_1000->GetBinContent(i)<< std::endl;
+
+    }
+
+    //getting the difference between each binsif(h_gLLP_ctau_300->GetBinContent(i) !=0)
+    
+    //std::cout << h_gLLP_ctau_300->GetBinContent(i)<< std::endl;
+
      for (int i = 1; i <= 40; i++)
      {
         //getting the ratio of two decay length
