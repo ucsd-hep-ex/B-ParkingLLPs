@@ -5,19 +5,68 @@
 # 
 # output files are xxx/lists/<sample>.list
 # formatted as one file per line: /store/group/xxx.root
-listdir=/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/lists
+listdir=${CMSSW_BASE}/src/B-ParkingLLPs/lists
 
 makealist() {
- printf "Making %s\n" $1
- fullsamplename=$(grep -i "$2" ${listdir}/allfiles.masterlist)
- printf "%s\n"  ${fullsamplename} > ${listdir}/$1.list
- sed -i -e "s@/eos/uscms@@" ${listdir}/$1.list
- cp ${listdir}/$1.list tmp.list
- awk '{sub(/\.root$/, "", $0); print}' tmp.list > ${listdir}/$1.list
- rm tmp.list
+ if grep -q "$1" dir.out; then
+   printf "Making %s\n" $1
+   fullsamplename=$(grep -i "$2" ${listdir}/allfiles.masterlist)
+   printf "%s\n"  ${fullsamplename} > ${listdir}/$1.list
+   sed -i -e "s@/eos/uscms@@" ${listdir}/$1.list
+   cp ${listdir}/$1.list tmp.list
+   awk '{sub(/\.root$/, "", $0); print}' tmp.list > ${listdir}/$1.list
+   rm tmp.list
+ else
+   printf "Skipping %s, not found in dir.out\n" "$1"
+ fi
 }
 
 # Data
+#SingleEle
+makealist "SingleElectron_2016B"        "/SingleElectron_2016B_0"
+makealist "SingleElectron_2016B_v2"        "/SingleElectron_2016B_v2"
+makealist "SingleElectron_2016C"        "/SingleElectron_2016C_"
+makealist "SingleElectron_2016D"        "/SingleElectron_2016D_"
+makealist "SingleElectron_2016E"        "/SingleElectron_2016E_"
+makealist "SingleElectron_2016F"        "/SingleElectron_2016F_"
+makealist "SingleElectron_2016G"        "/SingleElectron_2016G_"
+makealist "SingleElectron_2016H"        "/SingleElectron_2016H_"
+
+makealist "SingleElectron_2017B"        "/SingleElectron_2017B_"
+makealist "SingleElectron_2017C"        "/SingleElectron_2017C_0"
+makealist "SingleElectron_2017C_v2"        "/SingleElectron_2017C_v2_"
+makealist "SingleElectron_2017D"        "/SingleElectron_2017D_"
+makealist "SingleElectron_2017E"        "/SingleElectron_2017E_"
+makealist "SingleElectron_2017F"        "/SingleElectron_2017F_"
+makealist "SingleElectron_2017G"        "/SingleElectron_2017G_"
+makealist "SingleElectron_2017H"        "/SingleElectron_2017H_"
+
+makealist "EGamma_2018A"        "/EGamma_2018A_"
+makealist "EGamma_2018B"        "/EGamma_2018B_"
+makealist "EGamma_2018C"        "/EGamma_2018C_"
+makealist "EGamma_2018D"        "/EGamma_2018D_"
+#SingleMu
+makealist "SingleMuon_2016B"        "/SingleMuon_2016B_"
+makealist "SingleMuon_2016C"        "/SingleMuon_2016C_"
+makealist "SingleMuon_2016D"        "/SingleMuon_2016D_"
+makealist "SingleMuon_2016E"        "/SingleMuon_2016E_"
+makealist "SingleMuon_2016F"        "/SingleMuon_2016F_"
+makealist "SingleMuon_2016G"        "/SingleMuon_2016G_"
+makealist "SingleMuon_2016H"        "/SingleMuon_2016H_"
+
+makealist "SingleMuon_2017B"        "/SingleMuon_2017B_"
+makealist "SingleMuon_2017C"        "/SingleMuon_2017C_"
+makealist "SingleMuon_2017D"        "/SingleMuon_2017D_"
+makealist "SingleMuon_2017E"        "/SingleMuon_2017E_"
+makealist "SingleMuon_2017F"        "/SingleMuon_2017F_"
+makealist "SingleMuon_2017G"        "/SingleMuon_2017G_"
+makealist "SingleMuon_2017H"        "/SingleMuon_2017H_"
+
+makealist "SingleMuon_2018A"        "/SingleMuon_2018A_"
+makealist "SingleMuon_2018B"        "/SingleMuon_2018B_"
+makealist "SingleMuon_2018C"        "/SingleMuon_2018C_"
+makealist "SingleMuon_2018D"        "/SingleMuon_2018D_"
+
 makealist "ParkingBPH1_2018A"        "/ParkingBPH1_2018A"
 makealist "ParkingBPH2_2018A"        "/ParkingBPH2_2018A"
 makealist "ParkingBPH3_2018A"        "/ParkingBPH3_2018A"
