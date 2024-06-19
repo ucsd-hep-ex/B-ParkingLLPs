@@ -1,3 +1,4 @@
+#include "GenEfficiency/GenEfficiencyFunctions.h"
 #define analyzer_cxx
 #include "analyzer.h"
 #include <TH2.h>
@@ -39,31 +40,12 @@ Float_t ctau_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
     return numerator / denominator;
 }
 
+#include "GenEfficiency/GenEfficiencyFunctions.h"
+
 Float_t genFilterEff(TString sample, int to_ctau) {
-
-    Float_t GenFilterEff;
-    std::map<int, double> theMap;   
-
-    if(sample.Contains("mPhi0p3_ctau300"))        theMap = DecayEff_M0p3_300; // GenFilterEff =0.258932;  
-    else if(sample.Contains("mPhi0p3_ctau1000"))  theMap = DecayEff_M0p3_1000;// GenFilterEff =0.186889;  
-    else if(sample.Contains("mPhi0p3_ctau3000"))  theMap = DecayEff_M0p3_3000;// GenFilterEff =0.094442;  
-    else if(sample.Contains("mPhi0p5_ctau500"))   theMap = DecayEff_M0p5_500; // GenFilterEff =0.257718;  
-    else if(sample.Contains("mPhi0p5_ctau5000"))  theMap = DecayEff_M0p5_5000;// GenFilterEff =0.0950152; 
-    else if(sample.Contains("mPhi1p0_ctau1000"))  theMap = DecayEff_M1_1000;  // GenFilterEff =0.25756;   
-    else if(sample.Contains("mPhi1p0_ctau10000")) theMap = DecayEff_M1_10000; // GenFilterEff =0.0907816; 
-    else if(sample.Contains("mPhi2p0_ctau2000"))  theMap = DecayEff_M2_2000;  // GenFilterEff =0.252473;  
-    else if(sample.Contains("mPhi2p0_ctau10000")) theMap = DecayEff_M2_10000; // GenFilterEff =0.127579;  
-    else if(sample.Contains("mPhi3p0_ctau3000"))  theMap = DecayEff_M3_3000;  // GenFilterEff =0.239329;  
-    else if(sample.Contains("mPhi3p0_ctau10000")) theMap = DecayEff_M3_10000; // GenFilterEff =0.146031;  
-    else{
-      return GenFilterEff = 1.0;
-    }
-    auto it = theMap.find(to_ctau);
-    if (it != theMap.end()) GenFilterEff = theMap.at(to_ctau);
-    else GenFilterEff = 1.0;
-
-    return GenFilterEff;
+    return newGenEfficiency(sample.Data(), to_ctau);
 }
+
 
 Double_t clusterSizeResponseFactor (TString muon_station) {
     float SF;
@@ -78,7 +60,7 @@ Double_t clusterSizeResponseFactor (TString muon_station) {
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
    int i_to_ctau = static_cast<int>(to_ctau*10.);    
-   std::cout<<i_to_ctau<<"  "<<genFilterEff(theSample,i_to_ctau)<<std::endl;
+   std::cout<<i_to_ctau<<"  "<<newGenEfficiency(theSample,i_to_ctau)<<std::endl;
    // Cross-section in femtobarns. 0.4=fragmentation fraction
    const float SIGMA = (1/0.4)*5.72E11;
    std::cout<<theSample<<std::endl;
@@ -169,7 +151,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       if(isMC) event_weight = SIGMA*
                               ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
                               pileupWeight*
-                              genFilterEff(theSample, i_to_ctau)*
+                              newGenEfficiency(theSample, i_to_ctau)*
                               genMuonFilterEff*
                               (1./NEvents);
        
@@ -185,7 +167,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                    "  w_ctau: "      <<ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
                    "  PUweight: "    <<pileupWeight<<
                    "  lepSF: "       <<lepSF[muon_list[0]]<<
-                   "  genFilterEff: "<<genFilterEff(theSample, to_ctau)<<
+                   "  newGenEfficiency: "<<newGenEfficiency(theSample, to_ctau)<<
                    "  genMuonFilterEff: "<<genMuonFilterEff<<
                    "  NEvents-total: "<<NEvents<<
                    std::endl; 
@@ -203,7 +185,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
           }
       }
       //counter+=ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
-      //counter2+=genFilterEff(theSample)*ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
+      //counter2+=newGenEfficiency(theSample)*ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
       //counter2+=0.0950152*ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
       //h_Wctau->Fill(ctau_reweighter(gLLP_ctau, from_ctau, to_ctau));
       //fill miniTree 
