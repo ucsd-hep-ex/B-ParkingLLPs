@@ -2,14 +2,17 @@
 
 # Flag to control the creation of resubmit files. Set to true to create, false to just report missing files.
 CREATE_RESUBMIT_FILE=false
-NTVname="V1p19_9"
+NTVname="FR" #"FR"  #"V1p19_9"
 # Define the paths to the directories
-listDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/lists/${NTVname}"
-rootDir="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${version}" 
+listDir="${CMSSW_BASE}/src/B-ParkingLLPs/lists/${NTVname}"
+rootDir="${CMSSW_BASE}/src/B-ParkingLLPs/condor/gitignore/${version}" 
 
 # Define a blacklist of baseNames (or patterns) to skip
 # Script no supported for signal, so add those here
 blacklist=(\
+  "EGamma_2018"\
+  "SingleMuon"\
+  "SingleElectron"\
   "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300" \
   "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau3000" \
   "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau500" \
@@ -45,7 +48,7 @@ for listFile in "$listDir"/*.list; do
     
     # Check against blacklist patterns
     for pattern in "${blacklist[@]}"; do
-        if [[ $baseName == $pattern ]]; then
+        if [[ $baseName == *$pattern* ]]; then
             echo "Skipping $baseName as it matches blacklist pattern $pattern."
             skip=true
             break
@@ -64,11 +67,15 @@ for listFile in "$listDir"/*.list; do
 
     # Read through each line in the list file
     while IFS= read -r line; do
-        index=$(echo "$line" | grep -oP '\d+(?=\.root)') # Adjust this regex based on the line format
-        formattedIndex=$(printf "%07d" "$index")
+        #index=$(echo "$line" | grep -oP '\d+(?=\.root)') # Adjust this regex based on the line format
+        index=$(echo "$line" | grep -oP '(?<=_)\d+$') # for FR
+        #formattedIndex=$(printf "%07d" "$index")
+        formattedIndex=$(printf "%07d" "$((10#$index))")
 
         # Construct the expected file name
         expectedFile="$rootDir/$baseName/${baseName}_${formattedIndex}to_nominal_plots.root"
+        ## for fakeRate
+        #expectedFile="$rootDir/$baseName/histos_${formattedIndex}.root"
 
         # Check if the expected file does not exist
         if [ ! -f "$expectedFile" ]; then
@@ -85,7 +92,7 @@ for listFile in "$listDir"/*.list; do
         # Write the common part of the resubmit file
         cat > "$resubmitFilePath" <<EOF
 universe = vanilla
-Executable = /uscms_data/d3/ddiaz/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/runJobs.sh
+Executable = ${CMSSW_BASE}/src/B-ParkingLLPs/condor/runJobs.sh
 Should_Transfer_Files = YES  
 WhenToTransferOutput = ON_EXIT
 Transfer_Input_Files = ../RunAnalyzer.exe
