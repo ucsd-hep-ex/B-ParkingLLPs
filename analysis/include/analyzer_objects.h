@@ -59,8 +59,15 @@ class analyzer_objects : public analyzer_config{
   std::vector<int> CscClusterPassSel_Pass     (bool passHLT);
   std::vector<int> CscClusterPassSel_PassOOT  (bool passHLT);
 
-  std::vector<int> DtClusterPassSel_nominal   (bool passHLT);
-  std::vector<int> CscClusterPassSel_nominal  (bool passHLT);
+  std::vector<int> DtClusterPassSel_nominal          (bool passHLT);
+  std::vector<int> CscClusterPassSel_nominal         (bool passHLT);
+  std::vector<int> DtClusterPassSel_nominalPlusTime  (bool passHLT);
+  std::vector<int> CscClusterPassSel_nominalPlusTime (bool passHLT);
+
+  std::vector<int> DtClusterPassSel_PassCS   (bool passHLT);
+  std::vector<int> DtClusterPassSel_FailCS   (bool passHLT);
+  std::vector<int> CscClusterPassSel_PassCS  (bool passHLT);
+  std::vector<int> CscClusterPassSel_FailCS  (bool passHLT);
 
   void DtClusterPassSel_CutFlow (Float_t ew);
   void CscClusterPassSel_CutFlow(Float_t ew);

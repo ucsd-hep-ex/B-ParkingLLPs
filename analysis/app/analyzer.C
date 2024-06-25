@@ -221,6 +221,9 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( CscClusterPassSel_Pass    (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_PassOOT (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_nominal (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_nominalPlusTime (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_PassCS (doesPassHLT()) );
+      dummy.push_back( CscClusterPassSel_FailCS (doesPassHLT()) );
 
       CscClusterPassSel_all = dummy;
       dummy.clear();
@@ -229,6 +232,9 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( DtClusterPassSel_Pass   (doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_PassOOT(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_nominal(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_nominalPlusTime(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_PassCS(doesPassHLT()) );
+      dummy.push_back( DtClusterPassSel_FailCS(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
       //Make JetList
       jet_list       =  jetPassSel(jetPtMin, jetCISV_Cut);
@@ -323,6 +329,9 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       FillHistos(2, event_weight);
       FillHistos(3, event_weight);
       FillHistos(4, event_weight);
+      FillHistos(5, event_weight);
+      FillHistos(6, event_weight);
+      FillHistos(7, event_weight);
 
 
    }//end jentries
@@ -368,6 +377,9 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    WriteHistos(2);
    WriteHistos(3);
    WriteHistos(4);
+   WriteHistos(5);
+   WriteHistos(6);
+   WriteHistos(7);
 
 }
 

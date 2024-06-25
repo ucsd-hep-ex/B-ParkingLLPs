@@ -35,11 +35,12 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize                   [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_FailPass          [SELBINNAMESIZE];
-  TH1F* h_cscRechitClusterSize_FailPass_uw          [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterSize_FailPass_uw       [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_v                 [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_v2                [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterPhi                    [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterEta                    [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterEtaZoom                [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterMuonVetoPt             [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTime                   [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeWeighted           [SELBINNAMESIZE];
@@ -48,6 +49,8 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_cscRechitClusterTimeSpreadWeighted     [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeSpreadWeightedAll  [SELBINNAMESIZE];
 
+  TH2F* h_cscRechitClusterPhivsEta    [SELBINNAMESIZE];
+  TH2F* h_cscRechitClusterDPhivsSize  [SELBINNAMESIZE];
 
   TH1F* h_dtRechitClusterDPhiLeadMuon                            [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterDPhiLeadMuon_fail                       [SELBINNAMESIZE];

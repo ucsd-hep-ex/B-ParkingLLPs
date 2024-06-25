@@ -142,6 +142,35 @@ std::vector<int> analyzer_objects::DtClusterPassSel_Fail(bool passHLT){         
   }                                                                                     // loggit
   return ids;                                                                           // loggit
 }                                                                                       // loggit
+//---------------- Begin Fail CS region                                                 // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_FailCS(bool passHLT){              // loggit
+  std::vector<int> ids;                                                                 // loggit
+  if(!passHLT) return ids;                                                              // loggit
+  else{                                                                                 // loggit
+    for (int j = 0; j <nCscRechitClusters; j++){                                        // loggit
+      if(   askDoesPassNominal_csc(j)                                                   // loggit
+         && askDoesPassClusterTime_csc(j)                                               // loggit
+         && askDoesPassdPhiLeadMuon_csc(j)                                              // loggit
+         && (cscRechitClusterSize[j] <= CscSize)                                        // loggit
+        ) ids.push_back(j);                                                             // loggit
+    }                                                                                   // loggit
+  }                                                                                     // loggit
+  return ids;                                                                           // loggit
+}                                                                                       // loggit
+std::vector<int> analyzer_objects::DtClusterPassSel_FailCS(bool passHLT){               // loggit
+  std::vector<int> ids;                                                                 // loggit
+  if(!passHLT) return ids;                                                              // loggit
+  else{                                                                                 // loggit
+    for (int j = 0; j <nDtRechitClusters; j++){                                         // loggit
+      if(   askDoesPassNominal_dt(j)                                                    // loggit
+         && askDoesPassRPCTimeCut_dt(j)                                                 // loggit 
+         && askDoesPassdPhiLeadMuon_dt(j)                                               // loggit 
+         && (dtRechitClusterSize[j] <= DtSize)                                          // loggit
+        ) ids.push_back(j);                                                             // loggit
+    }                                                                                   // loggit
+  }                                                                                     // loggit
+  return ids;                                                                           // loggit
+}                                                                                       // loggit
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //--------------------- Out of Time Region       Pass OOT region                        // loggit
 std::vector<int> analyzer_objects::CscClusterPassSel_PassOOT(bool passHLT){             // loggit
@@ -198,6 +227,35 @@ std::vector<int> analyzer_objects::DtClusterPassSel_Pass(bool passHLT) {        
     }                                                                                  // loggit
     return ids;                                                                        // loggit
 }                                                                                      // loggit
+//--------------------------------------------------------- Begin SR PassCS            // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_PassCS(bool passHLT) {            // loggit
+    std::vector<int> ids;                                                              // loggit
+    if (!passHLT) return ids;                                                          // loggit
+    else {                                                                             // loggit
+        for (int j = 0; j < nCscRechitClusters; j++) {                                 // loggit
+            if (   askDoesPassNominal_csc(j)                                           // loggit
+                && askDoesPassClusterTime_csc(j)                                       // loggit
+                && askDoesPassdPhiLeadMuon_csc(j)                                      // loggit                      
+                && (cscRechitClusterSize[j] > CscSize)                                 // loggit
+                ) ids.push_back(j);                                                    // loggit
+        }                                                                              // loggit
+    }                                                                                  // loggit
+    return ids;                                                                        // loggit
+}                                                                                      // loggit
+std::vector<int> analyzer_objects::DtClusterPassSel_PassCS(bool passHLT) {             // loggit
+    std::vector<int> ids;                                                              // loggit
+    if (!passHLT) return ids;                                                          // loggit
+    else {                                                                             // loggit
+        for (int j = 0; j < nDtRechitClusters; j++) {                                  // loggit
+            if (   askDoesPassNominal_dt(j)                                            // loggit
+                && askDoesPassRPCTimeCut_dt(j)                                         // loggit
+                && askDoesPassdPhiLeadMuon_dt(j)                                       // loggit
+                && (dtRechitClusterSize[j] > DtSize)                                  // loggit
+            ) ids.push_back(j);                                                        // loggit
+        }                                                                              // loggit
+    }                                                                                  // loggit
+    return ids;                                                                        // loggit
+}                                                                                      // loggit
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //--------------------------------------------------------- Begin nominal              // loggit
 std::vector<int> analyzer_objects::CscClusterPassSel_nominal(bool passHLT) {           // loggit
@@ -216,6 +274,31 @@ std::vector<int> analyzer_objects::DtClusterPassSel_nominal(bool passHLT) {     
     else {                                                                             // loggit
         for (int j = 0; j < nDtRechitClusters; j++) {                                  // loggit
             if (   askDoesPassNominal_dt(j)   ) ids.push_back(j);                      // loggit
+        }                                                                              // loggit
+    }                                                                                  // loggit
+    return ids;                                                                        // loggit
+}                                                                                      // loggit
+//--------------------------------------------------------- Begin nominalPlusTime      // loggit
+std::vector<int> analyzer_objects::CscClusterPassSel_nominalPlusTime(bool passHLT) {   // loggit
+    std::vector<int> ids;                                                              // loggit
+    if (!passHLT) return ids;                                                          // loggit
+    else {                                                                             // loggit
+        for (int j = 0; j < nCscRechitClusters; j++) {                                 // loggit
+            if (   askDoesPassNominal_csc(j)                                           // loggit
+                && askDoesPassClusterTime_csc(j)                                       // loggit
+               )  ids.push_back(j);                                                    // loggit
+        }                                                                              // loggit
+    }                                                                                  // loggit
+    return ids;                                                                        // loggit
+}                                                                                      // loggit
+std::vector<int> analyzer_objects::DtClusterPassSel_nominalPlusTime(bool passHLT) {    // loggit
+    std::vector<int> ids;                                                              // loggit
+    if (!passHLT) return ids;                                                          // loggit
+    else {                                                                             // loggit
+        for (int j = 0; j < nDtRechitClusters; j++) {                                  // loggit
+            if (   askDoesPassNominal_dt(j)                                            // loggit
+                && askDoesPassRPCTimeCut_dt(j)                                         // loggit
+               ) ids.push_back(j);                                                     // loggit
         }                                                                              // loggit
     }                                                                                  // loggit
     return ids;                                                                        // loggit
