@@ -16,8 +16,22 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_nLeptons                      [SELBINNAMESIZE];
   TH1F* h_gLLP_ctau                      [SELBINNAMESIZE];
 
+  TH1F* h_nJets                      [SELBINNAMESIZE];
+  TH1F* h_NoMDS_jetCISV              [SELBINNAMESIZE];
+  TH1F* h_NoMDS_jetPt                [SELBINNAMESIZE];
+  TH1F* h_NoMDS_jetEta               [SELBINNAMESIZE];
+  TH1F* h_NoMDS_jetDPhiLeadMuon      [SELBINNAMESIZE];
+  TH1F* h_NoMDS_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
+  
+  TH1F* h_NoMDS300_jetCISV              [SELBINNAMESIZE];
+  TH1F* h_NoMDS300_jetPt                [SELBINNAMESIZE];
+  TH1F* h_NoMDS300_jetEta               [SELBINNAMESIZE];
+  TH1F* h_NoMDS300_jetDPhiLeadMuon      [SELBINNAMESIZE];
+  TH1F* h_NoMDS300_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
 
   TH1F* h_cscRechitClusterDPhiLeadMuon           [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterDPhiLeadMuon_fail      [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterDPhiLeadMuon_pass      [SELBINNAMESIZE];
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize                   [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterSize_FailPass          [SELBINNAMESIZE];
@@ -36,6 +50,8 @@ class analyzer_histograms : public analyzer_tree{
 
 
   TH1F* h_dtRechitClusterDPhiLeadMuon                            [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterDPhiLeadMuon_fail                       [SELBINNAMESIZE];
+  TH1F* h_dtRechitClusterDPhiLeadMuon_pass                       [SELBINNAMESIZE];
   TH1F* h_dtRechitCluster_match_RPCBx_dPhi0p5                    [SELBINNAMESIZE];
   TH1F* h_nDTRechits                                             [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterSize                                    [SELBINNAMESIZE];

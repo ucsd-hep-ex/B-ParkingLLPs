@@ -12,6 +12,7 @@
 #define N_MAX_CSC 200
 #define N_MAX_CSCRECHITS 5000
 #define N_MAX_DTRECHITS 20000
+#define N_JETS 30
 #define NTriggersMAX 1201 // Number of trigger in the .dat file
 //#define N_CSC_CUT 20
 //#define JET_PT_CUT 10
@@ -34,6 +35,7 @@ public :
    std::vector<TFile*> f_out;
    std::vector<std::vector<int>> DtClusterPassSel_all;
    std::vector<std::vector<int>> CscClusterPassSel_all;
+   std::vector<int> jet_list;
    std::vector<int> muon_list;
    std::vector<int> tup_DtCluster_list;
    std::vector<int> tup_CscCluster_list;
@@ -65,6 +67,14 @@ public :
    std::vector<TString> cutFlowKeys;
 
    // Declaration of leaf types
+   Int_t           nJets;
+   Float_t         jetE[N_JETS];   //[nJets]
+   Float_t         jetPt[N_JETS];   //[nJets]
+   Float_t         jetEta[N_JETS];   //[nJets]
+   Float_t         jetPhi[N_JETS];   //[nJets]
+   Float_t         jetCISV[N_JETS];   //[nJets]
+   Bool_t          jetTightPassId[N_JETS];   //[nJets]
+
    UInt_t          runNum;
    UInt_t          MC_condition;
    UInt_t          lumiSec;
@@ -112,12 +122,6 @@ public :
    //Float_t         lepSFdn[N_MAX_LEPTONS];   //[nLeptons]
    Bool_t          lepLooseId[N_MAX_LEPTONS];   //[nLeptons]
    Bool_t          lepTightId[N_MAX_LEPTONS];   //[nLeptons]
-   Int_t           nJets;
-   Float_t         jetE[N_MAX_JETS];   //[nJets]
-   Float_t         jetPt[N_MAX_JETS];   //[nJets]
-   Float_t         jetEta[N_MAX_JETS];   //[nJets]
-   Float_t         jetPhi[N_MAX_JETS];   //[nJets]
-   Bool_t          jetTightPassId[N_MAX_JETS];   //[nJets]
    Bool_t          HLTDecision[NTriggersMAX];
    Int_t           nCscRechits;
    Int_t           nDTRechits;
@@ -292,6 +296,14 @@ public :
    Float_t         weight;
 
    // List of branches
+   TBranch        *b_nJets;   //!
+   TBranch        *b_jetE;   //!
+   TBranch        *b_jetPt;   //!
+   TBranch        *b_jetEta;   //!
+   TBranch        *b_jetPhi;   //!
+   TBranch        *b_jetCISV;   //!
+   TBranch        *b_jetTightPassId;   //!
+
    TBranch        *b_runNum;   //!
    TBranch        *b_MC_condition;   //!
    TBranch        *b_lumiSec;   //!
@@ -339,12 +351,6 @@ public :
    //TBranch        *b_lepSFdn;   //!
    TBranch        *b_lepLooseId;   //!
    TBranch        *b_lepTightId;   //!
-   TBranch        *b_nJets;   //!
-   TBranch        *b_jetE;   //!
-   TBranch        *b_jetPt;   //!
-   TBranch        *b_jetEta;   //!
-   TBranch        *b_jetPhi;   //!
-   TBranch        *b_jetTightPassId;   //!
    TBranch        *b_HLTDecision;   //!
    TBranch        *b_nCscRechits;   //!
    TBranch        *b_nDTRechits;   //!

@@ -19,6 +19,9 @@ class analyzer_config : public analyzer_base{
 
   Float_t genMuonFilterEff;
 
+  Float_t jetPtMin;
+  Float_t jetCISV_Cut;
+
   Float_t muPt;
   Float_t muEta;
 

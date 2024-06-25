@@ -37,6 +37,14 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    fCurrent = -1;
    fChain->SetMakeClass(1);
 
+   fChain->SetBranchAddress("nJets", &nJets, &b_nJets);
+   fChain->SetBranchAddress("jetE", jetE, &b_jetE);
+   fChain->SetBranchAddress("jetPt", jetPt, &b_jetPt);
+   fChain->SetBranchAddress("jetEta", jetEta, &b_jetEta);
+   fChain->SetBranchAddress("jetPhi", jetPhi, &b_jetPhi);
+   fChain->SetBranchAddress("jetCISV", jetCISV, &b_jetCISV);
+   fChain->SetBranchAddress("jetTightPassId", jetTightPassId, &b_jetTightPassId);
+
    fChain->SetBranchAddress("runNum", &runNum, &b_runNum);
    fChain->SetBranchAddress("MC_condition", &MC_condition, &b_MC_condition);
    fChain->SetBranchAddress("lumiSec", &lumiSec, &b_lumiSec);
@@ -84,12 +92,6 @@ void analyzer_base::Init(TChain *tree, Bool_t isMC_)
    //fChain->SetBranchAddress("lepSFdn", lepSFdn, &b_lepSFdn);
    fChain->SetBranchAddress("lepLooseId", lepLooseId, &b_lepLooseId);
    fChain->SetBranchAddress("lepTightId", lepTightId, &b_lepTightId);
-//   fChain->SetBranchAddress("nJets", &nJets, &b_nJets);
-//   fChain->SetBranchAddress("jetE", jetE, &b_jetE);
-//   fChain->SetBranchAddress("jetPt", jetPt, &b_jetPt);
-//   fChain->SetBranchAddress("jetEta", jetEta, &b_jetEta);
-//   fChain->SetBranchAddress("jetPhi", jetPhi, &b_jetPhi);
-//   fChain->SetBranchAddress("jetTightPassId", jetTightPassId, &b_jetTightPassId);
    fChain->SetBranchAddress("HLTDecision", HLTDecision, &b_HLTDecision);
    fChain->SetBranchAddress("nCscRechits", &nCscRechits, &b_nCscRechits);
    fChain->SetBranchAddress("nCscRings", &nCscRings, &b_nCscRings);

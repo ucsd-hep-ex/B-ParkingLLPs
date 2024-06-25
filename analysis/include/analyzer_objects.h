@@ -64,6 +64,7 @@ class analyzer_objects : public analyzer_config{
 
   void DtClusterPassSel_CutFlow (Float_t ew);
   void CscClusterPassSel_CutFlow(Float_t ew);
+  std::vector<int> jetPassSel(Float_t jetPtCut, Float_t CISVCut);
 };
 
 #endif

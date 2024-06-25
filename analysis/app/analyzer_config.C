@@ -15,14 +15,17 @@ void analyzer_config::setConfig(){ // loggit
   doScan = false;                    //loggit
 
   genMuonFilterEff = 0.00541267;      // loggit
+  
+  jetPtMin = 20.;                       // loggit
+  jetCISV_Cut = 0.460;                   // loggit
 
   muPt = 7.;                       // loggit
   muEta = 1.5;                     // loggit
 
   //Size cuts for histo definition
   //objects.C uses >=50 selection
-  CscSize = 310;              // loggit
-  DtSize  = 160;                    // loggit
+  CscSize = 310;                   // loggit
+  DtSize  = 190;                   // loggit
 
   CscEta = 1.9;                    // loggit
   DtEta = 1.9;                     // loggit
@@ -37,8 +40,8 @@ void analyzer_config::setConfig(){ // loggit
  
   DtMB1Veto = 1;                   // loggit
 
-  dPhiCut_LeadMu_CscCluster = 2.5;  //loggit
-  dPhiCut_LeadMu_DtCluster = 2.5;   //loggit
+  dPhiCut_LeadMu_CscCluster = 2.2;  //loggit
+  dPhiCut_LeadMu_DtCluster = 2.2;   //loggit
 
   cscClusterTimeLow = -5.;         // loggit
   cscClusterTimeHigh = 12.5;       // loggit

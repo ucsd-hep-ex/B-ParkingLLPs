@@ -31,6 +31,28 @@ std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut
   return ids;
 }
 
+std::vector<int> analyzer_objects::jetPassSel(Float_t jetPtCut, Float_t CISVCut){
+  std::vector<int> ids;
+  for(int j = 0; j < nJets; j++){
+    bool foundMatch = false;
+    bool passOverlapMu = true;
+    for(int m = 0; m <muon_list.size(); m++){
+      int mu = muon_list[m];
+      if (dR(jetEta[j], jetPhi[j], lepEta[mu], lepPhi[mu]) < 0.4) passOverlapMu = false;
+    }
+    for(int c; c < CscClusterPassSel_all[4].size(); c++){
+       int icsc = CscClusterPassSel_all[4][c];
+       if (dR(jetEta[j], jetPhi[j], cscRechitClusterEta[icsc], cscRechitClusterPhi[icsc]) < 0.4) foundMatch = true;
+    }
+    if (jetCISV[j] < CISVCut) continue;
+    if (fabs(jetEta[j]) > 1.9) continue;
+    if (foundMatch) continue;
+    if (!passOverlapMu) continue;
+    ids.push_back(j);
+  }
+  return ids;
+}
+
 void analyzer_objects::muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Float_t ew){
   bool MuonExists  = false;
   bool MuonPassPt  = false;
@@ -448,6 +470,7 @@ bool analyzer_objects::askDoesPassNominal_dt(int index) {
         && askDoesPassOverlapMuon_dt(index) 
         && askDoesPassRPCMatching_dt(index) 
         && askDoesPassMuonVeto_dt(index)
+        && askDoesPassClusterEta_dt(index)
         && askDoesPassMB1Veto_dt(index)
         && askDoesPassMB1Adjacent_dt(index)
         && askDoesPassMaxStation_dt(index);

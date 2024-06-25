@@ -86,7 +86,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 100;
+   //Long64_t nentries = 100000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -189,7 +189,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                    "  genMuonFilterEff: "<<genMuonFilterEff<<
                    "  NEvents-total: "<<NEvents<<
                    std::endl; 
-        std::cout<<"Pt:"<<lepPt[muon_list[0]]<<"  IPSig:"<<lepDXYErr[muon_list[0]]<<"  SF:"<<lepSF[muon_list[0]]<<"  SFup:"<<lepSFup[muon_list[0]]<<"  SFdn:"<<lepSFdn[muon_list[0]]<<std::endl;
+        //std::cout<<"Pt:"<<lepPt[muon_list[0]]<<"  IPSig:"<<lepDXYErr[muon_list[0]]<<"  SF:"<<lepSF[muon_list[0]]<<"  SFup:"<<lepSFup[muon_list[0]]<<"  SFdn:"<<lepSFdn[muon_list[0]]<<std::endl;
         found = false;
       }
       //saving in the global variable 
@@ -230,6 +230,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( DtClusterPassSel_PassOOT(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_nominal(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
+      //Make JetList
+      jet_list       =  jetPassSel(jetPtMin, jetCISV_Cut);
 
       if(doScan){
         int cls_cut_min = 80;
@@ -289,7 +291,14 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         }//if (muon_list.size() != 0)
       }//if(doScan)
 
-
+      if(CscClusterPassSel_all[3].size()>0){
+      bool passCheck=false;
+      for(int i=0; i<CscClusterPassSel_all[3].size(); i++){
+        if (cscRechitClusterSize[CscClusterPassSel_all[3][i]] >= CscSize) passCheck = true;
+      }
+      if (passCheck) std::cout<<"**********************"<<
+                           "  THERUN:"<< runNum<<"   Lumi:"<<lumiSec<<"  Event:"<<evtNum<<std::endl;
+      }
       tup_DtCluster_list.clear();
       tup_DtCluster_list = DtClusterPassSel_all[4];
       tup_CscCluster_list.clear();
