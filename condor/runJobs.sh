@@ -3,9 +3,11 @@
 export PATH=${PATH}:/cvmfs/cms.cern.ch/common
 export CMS_PATH=/cvmfs/cms.cern.ch
 
-export SCRAM_ARCH=slc7_amd64_gcc630
-scramv1 project CMSSW CMSSW_9_4_4
-cd CMSSW_9_4_4/src
+export X509_CERT_DIR=/cvmfs/grid.cern.ch/etc/grid-security/certificates/
+
+export SCRAM_ARCH=el9_amd64_gcc12
+scramv1 project CMSSW CMSSW_14_0_6_patch1
+cd CMSSW_14_0_6_patch1/src
 scramv1 build -j 10
 eval `scramv1 runtime -sh` # cmsenv
 cd ../../
