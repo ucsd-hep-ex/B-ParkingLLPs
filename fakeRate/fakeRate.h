@@ -426,9 +426,10 @@ public :
    virtual void     Loop();
    bool             isGoodMuon(int index);
    int              MuonPresent();
-   float            DrOverlapMuon(int index);
+   float            DrOverlapMuon(int index, TString type);
    bool             isGoodCSC(int index);
    bool             doesPassCSCID(int index);
+   bool             isGoodDT(int index);
 
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
