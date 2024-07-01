@@ -48,6 +48,11 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_cscRechitClusterTimeSpread             [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeSpreadWeighted     [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterTimeSpreadWeightedAll  [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterZ                      [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterNStation               [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterNStation10             [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterMaxStation             [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterJetVetoPt              [SELBINNAMESIZE];
 
   TH2F* h_cscRechitClusterPhivsEta    [SELBINNAMESIZE];
   TH2F* h_cscRechitClusterDPhivsSize  [SELBINNAMESIZE];

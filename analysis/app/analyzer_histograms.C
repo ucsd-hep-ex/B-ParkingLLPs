@@ -94,7 +94,7 @@ void analyzer_histograms::InitHistos(){
     h_nLeptons  [i] = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
     h_gLLP_ctau [i] = InitTH1F("h_gLLP_ctau", "h_gLLP_ctau", 100, 0, 1000);
 
-    h_cscRechitClusterDPhivsSize           [i] = InitTH2F("h_cscRechitClusterDPhievsSize", "h_cscRechitClusterDPhivsSize",650,50,700,40,0,4);
+    h_cscRechitClusterDPhivsSize           [i] = InitTH2F("h_cscRechitClusterDPhivsSize", "h_cscRechitClusterDPhivsSize",650,50,700,40,0,4);
     h_cscRechitClusterPhivsEta             [i] = InitTH2F("h_cscRechitClusterPhivsEta"  , "h_cscRechitClusterPhivsEta",80,-2.,2.,40,-3.5,3.5);
 
     h_nCscRechits                          [i] = InitTH1F("nCscRechits", "nCscRechits", 300, 0, 300);
@@ -117,6 +117,11 @@ void analyzer_histograms::InitHistos(){
     h_cscRechitClusterTimeSpreadWeighted   [i] = InitTH1F("h_cscRechitClusterTimeSpreadWeighted",     "h_cscRechitClusterTimeSpreadWeighted",   200, 0, 200);
     h_cscRechitClusterTimeSpreadWeightedAll[i] = InitTH1F("h_cscRechitClusterTimeSpreadWeightedAll", "h_cscRechitClusterTimeSpreadWeightedAll", 200, 0, 200);
 
+    h_cscRechitClusterZ                    [i] = InitTH1F("h_cscRechitClusterZ", "h_cscRechitClusterZ", 600, -1500., 1500.);
+    h_cscRechitClusterNStation             [i] = InitTH1F("h_cscRechitClusterNStation", "h_cscRechitClusterNStation", 600, -1500., 1500.);
+    h_cscRechitClusterNStation10           [i] = InitTH1F("h_cscRechitClusterNStation10", "h_cscRechitClusterNStation10", 10, 0., 10.);
+    h_cscRechitClusterMaxStation           [i] = InitTH1F("h_cscRechitClusterMaxStation", "h_cscRechitClusterMaxStation", 20, -10., 10.);
+    h_cscRechitClusterJetVetoPt            [i] = InitTH1F("h_cscRechitClusterJetVetoPt", "h_cscRechitClusterJetVetoPt", 500, 0., 500.);
 
     h_nDTRechits                                           [i] = InitTH1F("h_nDTRechits",  "h_nDTRechits",  300, 0, 300);
     h_dtRechitClusterSize                                  [i] = InitTH1F("h_dtRechitClusterSize",  "h_dtRechitClusterSize",  450, 50, 500);
@@ -188,7 +193,14 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
       if(selbin==2 && cscRechitClusterSize[c]>CscSize) {
         std::cout<<"**********************"<<"  THERUN2:"<< runNum<<"   Lumi:"<<lumiSec<<"  Event:"<<evtNum
                  <<"  ClusterSize:"<<cscRechitClusterSize[c]<<"  ClusterEta:"<<cscRechitClusterEta[c]
-                 <<"  ClusterPhi:"<<cscRechitClusterPhi[c]<<"  dPhi:"<<dPhi<<std::endl;
+                 <<"  ClusterPhi:"<<cscRechitClusterPhi[c]<<"  dPhi:"<<dPhi
+                 <<"  ClusterZ:"<<cscRechitClusterZ[i]<<"  MaxStation:"<<cscRechitClusterMaxStation[i];
+         for (int p; p<nLeptons;p++){
+           if( dR(cscRechitClusterEta[c],cscRechitClusterPhi[c],lepEta[p],lepPhi[p]) < 0.4){
+             std::cout<<"  lepPhi:"<<lepPhi[p]<<"  lepEta:"<<lepEta[p];
+           } 
+         }
+         std::cout<<std::endl;
       }
       if(passCSC)                              h_cscRechitClusterDPhiLeadMuon_pass[selbin]->Fill(dPhi, ew);  
       if(!passCSC)                             h_cscRechitClusterDPhiLeadMuon_fail[selbin]->Fill(dPhi, ew);  
@@ -204,6 +216,11 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
       h_cscRechitClusterTimeSpread             [selbin]->Fill(cscRechitClusterTimeSpread           [c], ew);
       h_cscRechitClusterTimeSpreadWeighted     [selbin]->Fill(cscRechitClusterTimeSpreadWeighted   [c], ew);
       h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Fill(cscRechitClusterTimeSpreadWeightedAll[c], ew);
+      h_cscRechitClusterZ                      [selbin]->Fill(cscRechitClusterZ                    [c], ew);
+      h_cscRechitClusterNStation               [selbin]->Fill(cscRechitClusterNStation             [c], ew);
+      h_cscRechitClusterNStation10             [selbin]->Fill(cscRechitClusterNStation10           [c], ew);
+      h_cscRechitClusterMaxStation             [selbin]->Fill(cscRechitClusterMaxStation           [c], ew);
+      h_cscRechitClusterJetVetoPt              [selbin]->Fill(cscRechitClusterJetVetoPt            [c], ew);
     }
     //special case for ABCD method, we only care about NPass(bin 1) and NFail (bin 0)
     if (passCSC) {
@@ -294,6 +311,12 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_cscRechitClusterTimeSpread             [selbin]->Write();
   h_cscRechitClusterTimeSpreadWeighted     [selbin]->Write();
   h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Write();
+ 
+  h_cscRechitClusterZ                      [selbin]->Write();
+  h_cscRechitClusterNStation               [selbin]->Write();
+  h_cscRechitClusterNStation10             [selbin]->Write();
+  h_cscRechitClusterMaxStation             [selbin]->Write();
+  h_cscRechitClusterJetVetoPt              [selbin]->Write();
 
   h_dtRechitClusterDPhiLeadMuon                            [selbin]->Write();
   h_dtRechitClusterDPhiLeadMuon_pass                       [selbin]->Write();
@@ -357,6 +380,12 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_cscRechitClusterTimeSpread             [selbin]->Delete();
   h_cscRechitClusterTimeSpreadWeighted     [selbin]->Delete();
   h_cscRechitClusterTimeSpreadWeightedAll  [selbin]->Delete();
+
+  h_cscRechitClusterZ                      [selbin]->Delete();
+  h_cscRechitClusterNStation               [selbin]->Delete();
+  h_cscRechitClusterNStation10             [selbin]->Delete();
+  h_cscRechitClusterMaxStation             [selbin]->Delete();
+  h_cscRechitClusterJetVetoPt              [selbin]->Delete();
 
   h_dtRechitClusterDPhiLeadMuon                            [selbin]->Delete();
   h_dtRechitClusterDPhiLeadMuon_pass                       [selbin]->Delete();
