@@ -4,7 +4,7 @@
 outdir="${CMSSW_BASE}/src/B-ParkingLLPs/lists"
 
 # read first layer of storage directory save output to temp file
-xrdfs root://cmseos.fnal.gov ls /eos/uscms/store/group/lpclonglived/B-ParkingLLPs/V1p17_7/ > templayer1.out
+xrdfs root://cmseos.fnal.gov ls /eos/uscms/store/group/lpclonglived/B-ParkingLLPs/V1p19_14/ > templayer1.out
 #xrdfs root://cmseos.fnal.gov ls /eos/uscms/store/user/ahayrape/B-Parking_Output/v1p19_12/ > templayer1.out
 
 # initialize outfile as empty (overwrite if exists)
