@@ -44,12 +44,12 @@ std::vector<TString> sampleName;
 //sampleName.push_back("SingleMuon_2016G/SingleMuon_2016G");
 //sampleName.push_back("SingleMuon_2016H/SingleMuon_2016H");
 sampleName.push_back("SingleElectron_2016B_v2/SingleElectron_2016B_v2");
-sampleName.push_back("SingleElectron_2016C/SingleElectron_2016C");
-sampleName.push_back("SingleElectron_2016D/SingleElectron_2016D");
-sampleName.push_back("SingleElectron_2016E/SingleElectron_2016E");
-sampleName.push_back("SingleElectron_2016F/SingleElectron_2016F");
-sampleName.push_back("SingleElectron_2016G/SingleElectron_2016G");
-sampleName.push_back("SingleElectron_2016H/SingleElectron_2016H");
+//sampleName.push_back("SingleElectron_2016C/SingleElectron_2016C");
+//sampleName.push_back("SingleElectron_2016D/SingleElectron_2016D");
+//sampleName.push_back("SingleElectron_2016E/SingleElectron_2016E");
+//sampleName.push_back("SingleElectron_2016F/SingleElectron_2016F");
+//sampleName.push_back("SingleElectron_2016G/SingleElectron_2016G");
+//sampleName.push_back("SingleElectron_2016H/SingleElectron_2016H");
 
 
 std::vector<TString> Sample;
