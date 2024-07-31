@@ -202,10 +202,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
               dtRechitClusterSize[k] *= clusterSizeResponseFactor("DT");
           }
       }
-      //counter+=ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
-      //counter2+=genFilterEff(theSample)*ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
-      //counter2+=0.0950152*ctau_reweighter(gLLP_ctau, from_ctau, to_ctau); 
-      //h_Wctau->Fill(ctau_reweighter(gLLP_ctau, from_ctau, to_ctau));
+
       //fill miniTree 
       if (b_doTree){
         f->cd();
@@ -237,6 +234,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( DtClusterPassSel_FailCS(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
       //Make JetList
+      //if (CscClusterPassSel_all[4].size()<1) continue;
+      //std::cout<<"********* ClusterSize: "<<CscClusterPassSel_all[4].size()<<std::endl;
       jet_list       =  jetPassSel(jetPtMin, jetCISV_Cut);
 
       if(doScan){
