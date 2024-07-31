@@ -7,11 +7,22 @@ Regions=(\
  Pass_plots\
  PassOOT_plots\
  nominal_plots\
+ nominalPlusTime_plots\
+ PassCS_plots\
+ FailCS_plots\
 )
+# "_"\
+# Fail_plots\
+# FailOOT_plots\
+# Pass_plots\
+# PassOOT_plots\
+# nominal_plots\
+#)
 
 for reg in ${Regions[@]}
 do
   printf "hadd ${base_dir}/${versionName}/Parking_2018_${reg}.root\\" >tmp.sh
+#  printf "hadd ${base_dir}/${versionName}/Parking_2018A_${reg}.root\\" >tmp.sh
   printf "\n ${base_dir}/${versionName}/ParkingBPH1_2018A/hadded/ParkingBPH1_2018A_${reg}.root\\" >>tmp.sh
   printf "\n ${base_dir}/${versionName}/ParkingBPH2_2018A/hadded/ParkingBPH2_2018A_${reg}.root\\" >>tmp.sh
   printf "\n ${base_dir}/${versionName}/ParkingBPH3_2018A/hadded/ParkingBPH3_2018A_${reg}.root\\" >>tmp.sh

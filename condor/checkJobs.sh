@@ -10,6 +10,22 @@ rootDir="${CMSSW_BASE}/src/B-ParkingLLPs/condor/gitignore/${version}"
 # Define a blacklist of baseNames (or patterns) to skip
 # Script no supported for signal, so add those here
 blacklist=(\
+  "ParkingBPH1_2018B"\
+  "ParkingBPH2_2018B"\
+  "ParkingBPH3_2018B"\
+  "ParkingBPH4_2018B"\
+  "ParkingBPH5_2018B"\
+  "ParkingBPH6_2018B"\
+  "ParkingBPH1_2018C"\
+  "ParkingBPH2_2018C"\
+  "ParkingBPH3_2018C"\
+  "ParkingBPH4_2018C"\
+  "ParkingBPH5_2018C"\
+  "ParkingBPH1_2018D"\
+  "ParkingBPH2_2018D"\
+  "ParkingBPH3_2018D"\
+  "ParkingBPH4_2018D"\
+  "ParkingBPH5_2018D"\
   "EGamma_2018"\
   "SingleMuon"\
   "SingleElectron"\

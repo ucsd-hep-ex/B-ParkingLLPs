@@ -7,15 +7,21 @@ Regions=(\
  Pass_plots\
  PassOOT_plots\
  nominal_plots\
+ nominalPlusTime_plots\
+ PassCS_plots\
+ FailCS_plots\
 )
 
+# "_"\
+# Fail_plots\
+# FailOOT_plots\
+# Pass_plots\
+# PassOOT_plots\
+# nominal_plots\
+#)
+
+# ParkingBPH1_2018A\
 Samples=(\
- ParkingBPH1_2018A\
- ParkingBPH2_2018A\
- ParkingBPH3_2018A\
- ParkingBPH4_2018A\
- ParkingBPH5_2018A\
- ParkingBPH6_2018A\
  ParkingBPH1_2018B\
  ParkingBPH2_2018B\
  ParkingBPH3_2018B\
@@ -33,27 +39,42 @@ Samples=(\
  ParkingBPH4_2018D\
  ParkingBPH5_2018D\
 )
- #ParkingBPH1_2018A\
- #ParkingBPH2_2018A\
- #ParkingBPH3_2018A\
- #ParkingBPH4_2018A\
- #ParkingBPH5_2018A\
- #ParkingBPH6_2018A\
- #ParkingBPH1_2018B\
- #ParkingBPH2_2018B\
- #ParkingBPH3_2018B\
- #ParkingBPH4_2018B\
- #ParkingBPH5_2018B\
- #ParkingBPH6_2018B\
- #ParkingBPH1_2018C\
- #ParkingBPH2_2018C\
- #ParkingBPH3_2018C\
- #ParkingBPH4_2018C\
- #ParkingBPH5_2018C\
- #ParkingBPH1_2018D\
- #ParkingBPH2_2018D\
- #ParkingBPH3_2018D\
-
+# EGamma_2018B\
+# EGamma_2018C\
+# EGamma_2018D\
+# SingleMuon_2018A\
+# SingleMuon_2018B\
+# SingleMuon_2018C\
+# SingleMuon_2018D\
+# SingleMuon_2017B\
+# SingleMuon_2017C\
+# SingleMuon_2017D\
+# SingleMuon_2017E\
+# SingleMuon_2017F\
+# SingleMuon_2017G\
+# SingleMuon_2017H\
+# SingleElectron_2017B\
+# SingleElectron_2017C_v2\
+# SingleElectron_2017D\
+# SingleElectron_2017E\
+# SingleElectron_2017F\
+# SingleElectron_2017G\
+# SingleElectron_2017H\
+# SingleMuon_2016B\
+# SingleMuon_2016C\
+# SingleMuon_2016D\
+# SingleMuon_2016E\
+# SingleMuon_2016F\
+# SingleMuon_2016G\
+# SingleMuon_2016H\
+# SingleElectron_2016B_v2\
+# SingleElectron_2016C\
+# SingleElectron_2016D\
+# SingleElectron_2016E\
+# SingleElectron_2016F\
+# SingleElectron_2016G\
+# SingleElectron_2016H\
+#)
 print_array_elements(){
   local array_name="$1"
   echo ${array_name}
@@ -90,6 +111,7 @@ hadder(){
   printf "\n\n" >> tmp.sh
   printf "##--Now Merge the final file \n" >> tmp.sh
   printf "hadd ${base_dir}/$versionName/${sample_name}/hadded/${sample_name}_${region_name}.root\\" >> tmp.sh
+  #printf "hadd ${base_dir}/$versionName/${sample_name}/hadded/${sample_name}.root\\" >> tmp.sh
   iter2=0
   if [ $haddnr -gt 0 ]
   then
@@ -119,6 +141,7 @@ do
     listName="sample_list_$region"
     declare -a "$listName"
     for f in ${base_dir}/${versionName}/${sample}/*${region}*.root
+    #for f in ${base_dir}/${versionName}/${sample}/*histos*.root
     do
       eval "$listName+=(\"$f\")"
     done
