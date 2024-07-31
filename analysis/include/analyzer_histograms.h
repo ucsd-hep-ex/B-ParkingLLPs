@@ -23,6 +23,24 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_NoMDS_jetDPhiLeadMuon      [SELBINNAMESIZE];
   TH1F* h_NoMDS_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
   
+  TH1F* h_NoMDS50_100_jetCISV              [SELBINNAMESIZE];
+  TH1F* h_NoMDS50_100_jetPt                [SELBINNAMESIZE];
+  TH1F* h_NoMDS50_100_jetEta               [SELBINNAMESIZE];
+  TH1F* h_NoMDS50_100_jetDPhiLeadMuon      [SELBINNAMESIZE];
+  TH1F* h_NoMDS50_100_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
+  
+  TH1F* h_NoMDS100_200_jetCISV              [SELBINNAMESIZE];
+  TH1F* h_NoMDS100_200_jetPt                [SELBINNAMESIZE];
+  TH1F* h_NoMDS100_200_jetEta               [SELBINNAMESIZE];
+  TH1F* h_NoMDS100_200_jetDPhiLeadMuon      [SELBINNAMESIZE];
+  TH1F* h_NoMDS100_200_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
+  
+  TH1F* h_NoMDS200_300_jetCISV              [SELBINNAMESIZE];
+  TH1F* h_NoMDS200_300_jetPt                [SELBINNAMESIZE];
+  TH1F* h_NoMDS200_300_jetEta               [SELBINNAMESIZE];
+  TH1F* h_NoMDS200_300_jetDPhiLeadMuon      [SELBINNAMESIZE];
+  TH1F* h_NoMDS200_300_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
+  
   TH1F* h_NoMDS300_jetCISV              [SELBINNAMESIZE];
   TH1F* h_NoMDS300_jetPt                [SELBINNAMESIZE];
   TH1F* h_NoMDS300_jetEta               [SELBINNAMESIZE];

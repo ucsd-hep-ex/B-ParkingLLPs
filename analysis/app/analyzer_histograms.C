@@ -20,6 +20,56 @@ analyzer_histograms::~analyzer_histograms()
 //Bin 200-500  5/3.67576e+06: 1.36026e-06
 //Bin 500-1000  0/166103: 0
 
+Float_t FakeRate(Float_t Pt){
+  Float_t fr = 1.0;
+  if (Pt < 20.  || Pt >= 1000.) fr = 0.;
+  if (Pt >= 20.  && Pt < 30. ) fr = 3.35397e-06;
+  if (Pt >= 30.  && Pt < 40. ) fr = 4.21113e-06;
+  if (Pt >= 40.  && Pt < 50. ) fr = 5.05947e-06;
+  if (Pt >= 50.  && Pt < 60. ) fr = 6.15113e-06;
+  if (Pt >= 60.  && Pt < 75. ) fr = 6.81374e-06;
+  if (Pt >= 75.  && Pt < 200.) fr = 7.5532e-06;
+  if (Pt >= 200. && Pt < 500.) fr = 1.44188e-05;
+  if (Pt >= 500. && Pt < 1000.) fr = 1.80611e-05;
+  return fr;
+}
+Float_t FakeRate50_100(Float_t Pt){
+  Float_t fr = 1.0;
+  if (Pt < 20.  || Pt >= 1000.) fr = 0.;
+  if (Pt >= 20.  && Pt < 30. ) fr = 2.929e-06;
+  if (Pt >= 30.  && Pt < 40. ) fr = 3.65658e-06;
+  if (Pt >= 40.  && Pt < 50. ) fr = 4.36287e-06;
+  if (Pt >= 50.  && Pt < 60. ) fr = 4.8373e-06;
+  if (Pt >= 60.  && Pt < 75. ) fr = 5.29958e-06;
+  if (Pt >= 75.  && Pt < 200.) fr = 6.19168e-06;
+  if (Pt >= 200. && Pt < 500.) fr = 1.08821e-05;
+  if (Pt >= 500. && Pt < 1000.) fr = 1.80611e-05;
+  return fr;
+}
+Float_t FakeRate100_200(Float_t Pt){
+  Float_t fr = 1.0;
+  if (Pt < 20.  || Pt >= 500.) fr = 0.;
+  if (Pt >= 20.  && Pt < 30. ) fr = 3.72663e-07;
+  if (Pt >= 30.  && Pt < 40. ) fr = 4.50573e-07;
+  if (Pt >= 40.  && Pt < 50. ) fr = 5.13279e-07;
+  if (Pt >= 50.  && Pt < 60. ) fr = 1.07496e-06;
+  if (Pt >= 60.  && Pt < 75. ) fr = 1.2618e-06;
+  if (Pt >= 75.  && Pt < 200.) fr = 1.06977e-06;
+  if (Pt >= 200. && Pt < 500.) fr = 1.90437e-06;
+  return fr;
+}
+Float_t FakeRate200_300(Float_t Pt){
+  Float_t fr = 1.0;
+  if (Pt < 20.  || Pt >= 500.) fr = 0.;
+  if (Pt >= 20.  && Pt < 30. ) fr = 4.57657e-08;
+  if (Pt >= 30.  && Pt < 40. ) fr = 5.19892e-08;
+  if (Pt >= 40.  && Pt < 50. ) fr = 1.83314e-07;
+  if (Pt >= 50.  && Pt < 60. ) fr = 1.19439e-07;
+  if (Pt >= 60.  && Pt < 75. ) fr = 1.89271e-07;
+  if (Pt >= 75.  && Pt < 200.) fr = 2.59337e-07;
+  if (Pt >= 200. && Pt < 500.) fr = 1.36026e-06;
+  return fr;
+}
 Float_t FakeRate300(Float_t Pt){
   Float_t fr = 1.0;
   if (Pt < 20.  || Pt >= 500.) fr = 0.;
@@ -30,18 +80,6 @@ Float_t FakeRate300(Float_t Pt){
   if (Pt >= 60.  && Pt < 75. ) fr = 6.30902e-08;
   if (Pt >= 75.  && Pt < 200.) fr = 3.24172e-08;
   if (Pt >= 200. && Pt < 500.) fr = 2.72052e-07;
-  return fr;
-}
-Float_t FakeRate(Float_t Pt){
-  Float_t fr = 1.0;
-  if (Pt < 20.  || Pt >= 500.) fr = 0.;
-  if (Pt >= 20.  && Pt < 30. ) fr = 4.57657e-08;
-  if (Pt >= 30.  && Pt < 40. ) fr = 5.19892e-08;
-  if (Pt >= 40.  && Pt < 50. ) fr = 1.83314e-07;
-  if (Pt >= 50.  && Pt < 60. ) fr = 1.19439e-07;
-  if (Pt >= 60.  && Pt < 75. ) fr = 1.89271e-07;
-  if (Pt >= 75.  && Pt < 200.) fr = 2.59337e-07;
-  if (Pt >= 200. && Pt < 500.) fr = 1.36026e-06;
   return fr;
 }
 
@@ -84,6 +122,24 @@ void analyzer_histograms::InitHistos(){
     h_NoMDS_jetEta [i] = InitTH1F("h_NoMDS_jetEta",  "h_NoMDS_jetEta", 30, -5,5);
     h_NoMDS_jetDPhiLeadMuon [i] = InitTH1F("h_NoMDS_jetDPhiLeadMuon","h_NoMDS_jetDPhiLeadMuon", 30,0,4);
     h_NoMDS_jetDPhiLeadMuonFine [i] = InitTH1F("h_NoMDS_jetDPhiLeadMuonFine","h_NoMDS_jetDPhiLeadMuonFine", 40,0,4);
+
+    h_NoMDS50_100_jetCISV[i] = InitTH1F("h_NoMDS50_100_jetCISV", "h_NoMDS50_100_jetCISV", 30, 0, 1.5);
+    h_NoMDS50_100_jetPt  [i] = InitTH1F("h_NoMDS50_100_jetPt",   "h_NoMDS50_100_jetPt", nBins, jetPt_bins);
+    h_NoMDS50_100_jetEta [i] = InitTH1F("h_NoMDS50_100_jetEta",  "h_NoMDS50_100_jetEta", 30, -5,5);
+    h_NoMDS50_100_jetDPhiLeadMuon [i] = InitTH1F("h_NoMDS50_100_jetDPhiLeadMuon","h_NoMDS50_100_jetDPhiLeadMuon", 30,0,4);
+    h_NoMDS50_100_jetDPhiLeadMuonFine [i] = InitTH1F("h_NoMDS50_100_jetDPhiLeadMuonFine","h_NoMDS50_100_jetDPhiLeadMuonFine", 40,0,4);
+
+    h_NoMDS100_200_jetCISV[i] = InitTH1F("h_NoMDS100_200_jetCISV", "h_NoMDS100_200_jetCISV", 30, 0, 1.5);
+    h_NoMDS100_200_jetPt  [i] = InitTH1F("h_NoMDS100_200_jetPt",   "h_NoMDS100_200_jetPt", nBins, jetPt_bins);
+    h_NoMDS100_200_jetEta [i] = InitTH1F("h_NoMDS100_200_jetEta",  "h_NoMDS100_200_jetEta", 30, -5,5);
+    h_NoMDS100_200_jetDPhiLeadMuon [i] = InitTH1F("h_NoMDS100_200_jetDPhiLeadMuon","h_NoMDS100_200_jetDPhiLeadMuon", 30,0,4);
+    h_NoMDS100_200_jetDPhiLeadMuonFine [i] = InitTH1F("h_NoMDS100_200_jetDPhiLeadMuonFine","h_NoMDS100_200_jetDPhiLeadMuonFine", 40,0,4);
+
+    h_NoMDS200_300_jetCISV[i] = InitTH1F("h_NoMDS200_300_jetCISV", "h_NoMDS200_300_jetCISV", 30, 0, 1.5);
+    h_NoMDS200_300_jetPt  [i] = InitTH1F("h_NoMDS200_300_jetPt",   "h_NoMDS200_300_jetPt", nBins, jetPt_bins);
+    h_NoMDS200_300_jetEta [i] = InitTH1F("h_NoMDS200_300_jetEta",  "h_NoMDS200_300_jetEta", 30, -5,5);
+    h_NoMDS200_300_jetDPhiLeadMuon [i] = InitTH1F("h_NoMDS200_300_jetDPhiLeadMuon","h_NoMDS200_300_jetDPhiLeadMuon", 30,0,4);
+    h_NoMDS200_300_jetDPhiLeadMuonFine [i] = InitTH1F("h_NoMDS200_300_jetDPhiLeadMuonFine","h_NoMDS200_300_jetDPhiLeadMuonFine", 40,0,4);
 
     h_NoMDS300_jetCISV[i] = InitTH1F(             "h_NoMDS300_jetCISV",            "h_NoMDS300_jetCISV", 30, 0, 1.5);
     h_NoMDS300_jetPt  [i] = InitTH1F(             "h_NoMDS300_jetPt",              "h_NoMDS300_jetPt", nBins, jetPt_bins);
@@ -157,13 +213,34 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     int jet=jet_list[j];
     double dPhi_j = -999;
     if(muon_list.size()>0) dPhi_j = DeltaPhi(lepPhi[muon_list[0]], jetPhi[jet]);
-    Float_t FR= FakeRate(jetPt[jet]);
-    Float_t FR300= FakeRate300(jetPt[jet]);
+    Float_t FR       = FakeRate(jetPt[jet]);
+    Float_t FR50_100 = FakeRate50_100(jetPt[jet]);
+    Float_t FR100_200= FakeRate100_200(jetPt[jet]);
+    Float_t FR200_300= FakeRate200_300(jetPt[jet]);
+    Float_t FR300    = FakeRate300(jetPt[jet]);
     h_NoMDS_jetPt               [selbin]->Fill(jetPt[jet],ew*FR);
     h_NoMDS_jetCISV             [selbin]->Fill(jetCISV[jet],ew*FR);
     h_NoMDS_jetEta              [selbin]->Fill(jetEta[jet],ew*FR);
     h_NoMDS_jetDPhiLeadMuon     [selbin]->Fill(dPhi_j, ew*FR);
     h_NoMDS_jetDPhiLeadMuonFine [selbin]->Fill(dPhi_j, ew*FR);
+
+    h_NoMDS50_100_jetPt               [selbin]->Fill(jetPt[jet],ew*FR50_100);
+    h_NoMDS50_100_jetCISV             [selbin]->Fill(jetCISV[jet],ew*FR50_100);
+    h_NoMDS50_100_jetEta              [selbin]->Fill(jetEta[jet],ew*FR50_100);
+    h_NoMDS50_100_jetDPhiLeadMuon     [selbin]->Fill(dPhi_j, ew*FR50_100);
+    h_NoMDS50_100_jetDPhiLeadMuonFine [selbin]->Fill(dPhi_j, ew*FR50_100);
+
+    h_NoMDS100_200_jetPt               [selbin]->Fill(jetPt[jet],ew*FR100_200);
+    h_NoMDS100_200_jetCISV             [selbin]->Fill(jetCISV[jet],ew*FR100_200);
+    h_NoMDS100_200_jetEta              [selbin]->Fill(jetEta[jet],ew*FR100_200);
+    h_NoMDS100_200_jetDPhiLeadMuon     [selbin]->Fill(dPhi_j, ew*FR100_200);
+    h_NoMDS100_200_jetDPhiLeadMuonFine [selbin]->Fill(dPhi_j, ew*FR100_200);
+
+    h_NoMDS200_300_jetPt               [selbin]->Fill(jetPt[jet],ew*FR200_300);
+    h_NoMDS200_300_jetCISV             [selbin]->Fill(jetCISV[jet],ew*FR200_300);
+    h_NoMDS200_300_jetEta              [selbin]->Fill(jetEta[jet],ew*FR200_300);
+    h_NoMDS200_300_jetDPhiLeadMuon     [selbin]->Fill(dPhi_j, ew*FR200_300);
+    h_NoMDS200_300_jetDPhiLeadMuonFine [selbin]->Fill(dPhi_j, ew*FR200_300);
 
     h_NoMDS300_jetPt               [selbin]->Fill(jetPt[jet],ew*FR300);
     h_NoMDS300_jetCISV             [selbin]->Fill(jetCISV[jet],ew*FR300);
@@ -284,6 +361,24 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_NoMDS_jetDPhiLeadMuon[selbin]->Write();
   h_NoMDS_jetDPhiLeadMuonFine[selbin]->Write();
 
+  h_NoMDS50_100_jetCISV[selbin]->Write();
+  h_NoMDS50_100_jetPt[selbin]->Write();
+  h_NoMDS50_100_jetEta[selbin]->Write();
+  h_NoMDS50_100_jetDPhiLeadMuon[selbin]->Write();
+  h_NoMDS50_100_jetDPhiLeadMuonFine[selbin]->Write();
+
+  h_NoMDS100_200_jetCISV[selbin]->Write();
+  h_NoMDS100_200_jetPt[selbin]->Write();
+  h_NoMDS100_200_jetEta[selbin]->Write();
+  h_NoMDS100_200_jetDPhiLeadMuon[selbin]->Write();
+  h_NoMDS100_200_jetDPhiLeadMuonFine[selbin]->Write();
+
+  h_NoMDS200_300_jetCISV[selbin]->Write();
+  h_NoMDS200_300_jetPt[selbin]->Write();
+  h_NoMDS200_300_jetEta[selbin]->Write();
+  h_NoMDS200_300_jetDPhiLeadMuon[selbin]->Write();
+  h_NoMDS200_300_jetDPhiLeadMuonFine[selbin]->Write();
+
   h_NoMDS300_jetCISV[selbin]->Write();
   h_NoMDS300_jetPt[selbin]->Write();
   h_NoMDS300_jetEta[selbin]->Write();
@@ -352,6 +447,24 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_NoMDS_jetEta[selbin]->Delete();
   h_NoMDS_jetDPhiLeadMuon[selbin]->Delete();
   h_NoMDS_jetDPhiLeadMuonFine[selbin]->Delete();
+
+  h_NoMDS50_100_jetCISV[selbin]->Delete();
+  h_NoMDS50_100_jetPt[selbin]->Delete();
+  h_NoMDS50_100_jetEta[selbin]->Delete();
+  h_NoMDS50_100_jetDPhiLeadMuon[selbin]->Delete();
+  h_NoMDS50_100_jetDPhiLeadMuonFine[selbin]->Delete();
+
+  h_NoMDS100_200_jetCISV[selbin]->Delete();
+  h_NoMDS100_200_jetPt[selbin]->Delete();
+  h_NoMDS100_200_jetEta[selbin]->Delete();
+  h_NoMDS100_200_jetDPhiLeadMuon[selbin]->Delete();
+  h_NoMDS100_200_jetDPhiLeadMuonFine[selbin]->Delete();
+
+  h_NoMDS200_300_jetCISV[selbin]->Delete();
+  h_NoMDS200_300_jetPt[selbin]->Delete();
+  h_NoMDS200_300_jetEta[selbin]->Delete();
+  h_NoMDS200_300_jetDPhiLeadMuon[selbin]->Delete();
+  h_NoMDS200_300_jetDPhiLeadMuonFine[selbin]->Delete();
 
   h_NoMDS300_jetCISV[selbin]->Delete();
   h_NoMDS300_jetPt[selbin]->Delete();
