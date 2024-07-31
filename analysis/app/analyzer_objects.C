@@ -33,6 +33,7 @@ std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut
 
 std::vector<int> analyzer_objects::jetPassSel(Float_t jetPtCut, Float_t CISVCut){
   std::vector<int> ids;
+  //std::cout<<CscClusterPassSel_all[4].size()<<std::endl;
   for(int j = 0; j < nJets; j++){
     bool foundMatch = false;
     bool passOverlapMu = true;
@@ -568,6 +569,7 @@ bool analyzer_objects::askDoesPassNominal_csc(int index) {
         && askDoesPassMuonVeto_csc(index)                           
         && askDoesPassClusterTimeSpread_csc(index)                  
         && askDoesPassClusterEta_csc(index)                         
+        //&& askDoesPassJetVetoPt_csc(index)                         
         && askDoesPassID_csc(index);                                
 }
 
@@ -713,6 +715,11 @@ bool analyzer_objects::askDoesPassClusterTimeSpread_csc(int index){
 
 bool analyzer_objects::askDoesPassClusterEta_csc(int index){
   if( fabs(cscRechitClusterEta[index]) < CscEta) return true; 
+  else return false;
+}
+
+bool analyzer_objects::askDoesPassJetVetoPt_csc (int index){
+  if( cscRechitClusterJetVetoPt[index]  < 10.) return true; 
   else return false;
 }
 bool analyzer_objects::askDoesPassID_csc(int index){
