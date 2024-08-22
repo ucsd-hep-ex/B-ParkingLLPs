@@ -119,6 +119,8 @@ void analyzer_histograms::InitHistos(){
     h_nJets  [i] = InitTH1F("h_nJets", "h_nJets", 20, 0, 20);
     h_NoMDS_jetCISV[i] = InitTH1F("h_NoMDS_jetCISV", "h_NoMDS_jetCISV", 30, 0, 1.5);
     h_NoMDS_jetPt  [i] = InitTH1F("h_NoMDS_jetPt",   "h_NoMDS_jetPt", nBins, jetPt_bins);
+    h_NoMDS_jetPt_PassDPhi  [i] = InitTH1F("h_NoMDS_jetPt_PassDPhi",   "h_NoMDS_jetPt_PassDPhi", nBins, jetPt_bins);
+    h_NoMDS_jetPt_PassDPhi_inRegion  [i] = InitTH1F("h_NoMDS_jetPt_PassDPhi_inRegion",   "h_NoMDS_jetPt_PassDPhi_inRegion", nBins, jetPt_bins);
     h_NoMDS_jetEta [i] = InitTH1F("h_NoMDS_jetEta",  "h_NoMDS_jetEta", 30, -5,5);
     h_NoMDS_jetDPhiLeadMuon [i] = InitTH1F("h_NoMDS_jetDPhiLeadMuon","h_NoMDS_jetDPhiLeadMuon", 30,0,4);
     h_NoMDS_jetDPhiLeadMuonFine [i] = InitTH1F("h_NoMDS_jetDPhiLeadMuonFine","h_NoMDS_jetDPhiLeadMuonFine", 40,0,4);
@@ -146,6 +148,8 @@ void analyzer_histograms::InitHistos(){
     h_NoMDS300_jetEta [i] = InitTH1F(             "h_NoMDS300_jetEta",             "h_NoMDS300_jetEta", 30, -5,5);
     h_NoMDS300_jetDPhiLeadMuon [i] = InitTH1F(    "h_NoMDS300_jetDPhiLeadMuon",    "h_NoMDS300_jetDPhiLeadMuon", 30,0,4);
     h_NoMDS300_jetDPhiLeadMuonFine [i] = InitTH1F("h_NoMDS300_jetDPhiLeadMuonFine","h_NoMDS300_jetDPhiLeadMuonFine", 40,0,4);
+    h_NoMDS300_jetDPhiLeadMuonFine2 [i] = InitTH1F("h_NoMDS300_jetDPhiLeadMuonFine2","h_NoMDS300_jetDPhiLeadMuonFine2", 40,0,4);
+    h_NoMDS300_jetDPhiLeadMuonFine2_inRegion [i] = InitTH1F("h_NoMDS300_jetDPhiLeadMuonFine2_inRegion","h_NoMDS300_jetDPhiLeadMuonFine2_inRegion", 40,0,4);
 
     h_nLeptons  [i] = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
     h_gLLP_ctau [i] = InitTH1F("h_gLLP_ctau", "h_gLLP_ctau", 100, 0, 1000);
@@ -160,8 +164,8 @@ void analyzer_histograms::InitHistos(){
     h_cscRechitClusterSize_v               [i] = InitTH1F("h_cscRechitClusterSize_v", "h_cscRechitClusterSize_v", n_b-1, x_bins);
     h_cscRechitClusterSize_v2              [i] = InitTH1F("h_cscRechitClusterSize_v2", "h_cscRechitClusterSize_v2", n_b2-1, x_bins2);
     h_cscRechitClusterDPhiLeadMuon         [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon", "h_cscRechitClusterDPhiLeadMuon", 30, 0, 4);
-    h_cscRechitClusterDPhiLeadMuon_fail    [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon_fail", "h_cscRechitClusterDPhiLeadMuon_fail", 30, 0, 4);
-    h_cscRechitClusterDPhiLeadMuon_pass    [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon_pass", "h_cscRechitClusterDPhiLeadMuon_pass", 30, 0, 4);
+    h_cscRechitClusterDPhiLeadMuon_fail    [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon_fail", "h_cscRechitClusterDPhiLeadMuon_fail", 40, 0, 4);
+    h_cscRechitClusterDPhiLeadMuon_pass    [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon_pass", "h_cscRechitClusterDPhiLeadMuon_pass", 40, 0, 4);
     h_cscRechitClusterPhi                  [i] = InitTH1F("h_cscRechitClusterPhi", "h_cscRechitClusterPhi", 40, -3.5, 3.5);
     h_cscRechitClusterEta                  [i] = InitTH1F("h_cscRechitClusterEta", "h_cscRechitClusterEta", 40, -5., 5.);
     h_cscRechitClusterEtaZoom              [i] = InitTH1F("h_cscRechitClusterEtaZoom", "h_cscRechitClusterEtaZoom", 80, -2., 2.);
@@ -203,7 +207,7 @@ void analyzer_histograms::InitHistos(){
   }
 }
 
-void analyzer_histograms::FillHistos(int selbin, Float_t ew){
+void analyzer_histograms::FillHistos(int selbin, Float_t ew, const std::vector<int> &CscList){
   f_out[selbin]->cd();
   h_nLeptons[selbin]->Fill(nLeptons, ew);
   h_gLLP_ctau[selbin]->Fill(gLLP_ctau, ew);
@@ -247,19 +251,24 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
     h_NoMDS300_jetEta              [selbin]->Fill(jetEta[jet],ew*FR300);
     h_NoMDS300_jetDPhiLeadMuon     [selbin]->Fill(dPhi_j, ew*FR300);
     h_NoMDS300_jetDPhiLeadMuonFine [selbin]->Fill(dPhi_j, ew*FR300);
+    if(dPhi_j > dPhiCut_LeadMu_CscCluster){
+      h_NoMDS300_jetDPhiLeadMuonFine2 [selbin]->Fill(dPhi_j, ew*FR300);
+      h_NoMDS_jetPt_PassDPhi          [selbin]->Fill(jetPt[jet],ew);
+      if(CscList.size()>0){
+        h_NoMDS300_jetDPhiLeadMuonFine2_inRegion [selbin]->Fill(dPhi_j, ew*FR300);
+        h_NoMDS_jetPt_PassDPhi_inRegion          [selbin]->Fill(jetPt[jet]);//,ew);
+      }
+    }
   }
-
-  if(CscClusterPassSel_all[selbin].size()>0){
+  if(CscList.size()>0){
     h_nCscRechits[selbin]->Fill(nCscRechits, ew);
-    //if (selbin == 2)std::cout<<"NClusters: "<<CscClusterPassSel_all[selbin].size() <<std::endl;
     bool passCSC = false;
-    for(int i = 0; i < CscClusterPassSel_all[selbin].size(); i++){
-      int c =  CscClusterPassSel_all[selbin][i];
+    bool wasFilled_fail = false;
+    bool wasFilled_pass = false;
+    
+    for(int i = 0; i < CscList.size(); i++){
+      int c =  CscList[i];
       double dPhi = -999;
-
-      // Cluster size reweighting
-      // cscRechitClusterSize[c] *= clusterSizeResponseFactor("CSC");
-      
       if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[c]);
       h_cscRechitClusterPhivsEta               [selbin]->Fill(cscRechitClusterEta[c], cscRechitClusterPhi[c], ew);
       h_cscRechitClusterDPhivsSize             [selbin]->Fill(cscRechitClusterSize[c],                  dPhi, ew);
@@ -267,20 +276,14 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
       h_cscRechitClusterDPhiLeadMuon           [selbin]->Fill(dPhi, ew);  
       h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c], ew);
       if(cscRechitClusterSize[c]>CscSize)      passCSC = true;
-      if(selbin==2 && cscRechitClusterSize[c]>CscSize) {
-        std::cout<<"**********************"<<"  THERUN2:"<< runNum<<"   Lumi:"<<lumiSec<<"  Event:"<<evtNum
-                 <<"  ClusterSize:"<<cscRechitClusterSize[c]<<"  ClusterEta:"<<cscRechitClusterEta[c]
-                 <<"  ClusterPhi:"<<cscRechitClusterPhi[c]<<"  dPhi:"<<dPhi
-                 <<"  ClusterZ:"<<cscRechitClusterZ[i]<<"  MaxStation:"<<cscRechitClusterMaxStation[i];
-         for (int p; p<nLeptons;p++){
-           if( dR(cscRechitClusterEta[c],cscRechitClusterPhi[c],lepEta[p],lepPhi[p]) < 0.4){
-             std::cout<<"  lepPhi:"<<lepPhi[p]<<"  lepEta:"<<lepEta[p];
-           } 
-         }
-         std::cout<<std::endl;
+      if(passCSC          && !wasFilled_pass) {
+        h_cscRechitClusterDPhiLeadMuon_pass[selbin]->Fill(dPhi, ew); 
+        wasFilled_pass = true;
       }
-      if(passCSC)                              h_cscRechitClusterDPhiLeadMuon_pass[selbin]->Fill(dPhi, ew);  
-      if(!passCSC)                             h_cscRechitClusterDPhiLeadMuon_fail[selbin]->Fill(dPhi, ew);  
+      if(passCSC == false && !wasFilled_fail) {
+        h_cscRechitClusterDPhiLeadMuon_fail[selbin]->Fill(dPhi, ew); 
+        wasFilled_fail = true;
+      }
       h_cscRechitClusterSize_v                 [selbin]->Fill(cscRechitClusterSize                 [c], ew);
       h_cscRechitClusterSize_v2                [selbin]->Fill(cscRechitClusterSize                 [c], ew);
       h_cscRechitClusterEta                    [selbin]->Fill(cscRechitClusterEta                  [c], ew);
@@ -305,7 +308,6 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew){
       h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(1., 1.);
     }
     else         {
-      //if (selbin ==2 ) std::cout <<"Fill fail"<<std::endl;
       h_cscRechitClusterSize_FailPass[selbin]->Fill(0., ew);
       h_cscRechitClusterSize_FailPass_uw[selbin]->Fill(0., 1.);
     }
@@ -357,6 +359,8 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_nJets[selbin]->Write();
   h_NoMDS_jetCISV[selbin]->Write();
   h_NoMDS_jetPt[selbin]->Write();
+  h_NoMDS_jetPt_PassDPhi[selbin]->Write();
+  h_NoMDS_jetPt_PassDPhi_inRegion[selbin]->Write();
   h_NoMDS_jetEta[selbin]->Write();
   h_NoMDS_jetDPhiLeadMuon[selbin]->Write();
   h_NoMDS_jetDPhiLeadMuonFine[selbin]->Write();
@@ -384,6 +388,8 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_NoMDS300_jetEta[selbin]->Write();
   h_NoMDS300_jetDPhiLeadMuon[selbin]->Write();
   h_NoMDS300_jetDPhiLeadMuonFine[selbin]->Write();
+  h_NoMDS300_jetDPhiLeadMuonFine2[selbin]->Write();
+  h_NoMDS300_jetDPhiLeadMuonFine2_inRegion[selbin]->Write();
   
   h_cscRechitClusterPhivsEta               [selbin]->Write();
   h_cscRechitClusterDPhivsSize             [selbin]->Write();
@@ -444,6 +450,8 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_nJets[selbin]->Delete();
   h_NoMDS_jetCISV[selbin]->Delete();
   h_NoMDS_jetPt[selbin]->Delete();
+  h_NoMDS_jetPt_PassDPhi[selbin]->Delete();
+  h_NoMDS_jetPt_PassDPhi_inRegion[selbin]->Delete();
   h_NoMDS_jetEta[selbin]->Delete();
   h_NoMDS_jetDPhiLeadMuon[selbin]->Delete();
   h_NoMDS_jetDPhiLeadMuonFine[selbin]->Delete();
@@ -471,6 +479,8 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_NoMDS300_jetEta[selbin]->Delete();
   h_NoMDS300_jetDPhiLeadMuon[selbin]->Delete();
   h_NoMDS300_jetDPhiLeadMuonFine[selbin]->Delete();
+  h_NoMDS300_jetDPhiLeadMuonFine2[selbin]->Delete();
+  h_NoMDS300_jetDPhiLeadMuonFine2_inRegion[selbin]->Delete();
 
   h_cscRechitClusterPhivsEta               [selbin]->Delete();
   h_cscRechitClusterDPhivsSize             [selbin]->Delete();

@@ -19,6 +19,8 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_nJets                      [SELBINNAMESIZE];
   TH1F* h_NoMDS_jetCISV              [SELBINNAMESIZE];
   TH1F* h_NoMDS_jetPt                [SELBINNAMESIZE];
+  TH1F* h_NoMDS_jetPt_PassDPhi       [SELBINNAMESIZE];
+  TH1F* h_NoMDS_jetPt_PassDPhi_inRegion       [SELBINNAMESIZE];
   TH1F* h_NoMDS_jetEta               [SELBINNAMESIZE];
   TH1F* h_NoMDS_jetDPhiLeadMuon      [SELBINNAMESIZE];
   TH1F* h_NoMDS_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
@@ -46,6 +48,8 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_NoMDS300_jetEta               [SELBINNAMESIZE];
   TH1F* h_NoMDS300_jetDPhiLeadMuon      [SELBINNAMESIZE];
   TH1F* h_NoMDS300_jetDPhiLeadMuonFine  [SELBINNAMESIZE];
+  TH1F* h_NoMDS300_jetDPhiLeadMuonFine2  [SELBINNAMESIZE];
+  TH1F* h_NoMDS300_jetDPhiLeadMuonFine2_inRegion  [SELBINNAMESIZE];
 
   TH1F* h_cscRechitClusterDPhiLeadMuon           [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterDPhiLeadMuon_fail      [SELBINNAMESIZE];
@@ -74,7 +78,7 @@ class analyzer_histograms : public analyzer_tree{
 
   TH2F* h_cscRechitClusterPhivsEta    [SELBINNAMESIZE];
   TH2F* h_cscRechitClusterDPhivsSize  [SELBINNAMESIZE];
-
+  
   TH1F* h_dtRechitClusterDPhiLeadMuon                            [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterDPhiLeadMuon_fail                       [SELBINNAMESIZE];
   TH1F* h_dtRechitClusterDPhiLeadMuon_pass                       [SELBINNAMESIZE];
@@ -98,7 +102,7 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_dtRechitClusterMaxStation                              [SELBINNAMESIZE];
 
   void InitHistos();
-  void FillHistos( int selbin, Float_t ew);
+  void FillHistos( int selbin, Float_t ew, const std::vector<int> &v);
   void WriteHistos( int selbin );
   void DeleteHistos( int selbin );
 
