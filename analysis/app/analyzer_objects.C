@@ -45,7 +45,7 @@ std::vector<int> analyzer_objects::jetPassSel(Float_t jetPtCut, Float_t CISVCut)
        int icsc = CscClusterPassSel_all[4][c];
        if (dR(jetEta[j], jetPhi[j], cscRechitClusterEta[icsc], cscRechitClusterPhi[icsc]) < 0.4) foundMatch = true;
     }
-    if (jetCISV[j] < CISVCut) continue;
+    //if (jetCISV[j] < CISVCut) continue;
     if (fabs(jetEta[j]) > 1.9) continue;
     if (foundMatch) continue;
     if (!passOverlapMu) continue;
@@ -528,50 +528,31 @@ void analyzer_objects::CscClusterPassSel_CutFlow(Float_t ew){
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//----------------------------dR
-double analyzer_objects::dR(double eta1, double phi1, double eta2, double phi2)
-{
-  double deltaeta = abs(eta1 - eta2);
-  double deltaphi = DeltaPhi(phi1, phi2);
-  double deltar = sqrt(deltaeta*deltaeta + deltaphi*deltaphi);
-  return deltar;
-}
-
-//-------------------------DeltaPhi
-double analyzer_objects::DeltaPhi(double phi1, double phi2)
-//Gives the (minimum) separation in phi between the specified phi values
-//Must return a positive value
-{
-  double pi = TMath::Pi();
-  double dphi = fabs(phi1-phi2);
-  if(dphi>pi)
-    dphi = 2.0*pi - dphi;
-  return dphi;
-}
 //------------------------Selection booleans
-bool analyzer_objects::askDoesPassNominal_dt(int index) {
-    return askDoesPassClusterSize_dt(index) 
-        && askDoesPassOverlapMuon_dt(index) 
-        && askDoesPassRPCMatching_dt(index) 
-        && askDoesPassMuonVeto_dt(index)
-        && askDoesPassClusterEta_dt(index)
-        && askDoesPassMB1Veto_dt(index)
-        && askDoesPassMB1Adjacent_dt(index)
-        && askDoesPassMaxStation_dt(index);
-}
+bool analyzer_objects::askDoesPassNominal_dt(int index) {  // loggit
+    return askDoesPassClusterSize_dt(index)                // loggit
+        && askDoesPassOverlapMuon_dt(index)                // loggit
+        && askDoesPassRPCMatching_dt(index)                // loggit
+        && askDoesPassMuonVeto_dt(index)                   // loggit
+        && askDoesPassClusterEta_dt(index)                 // loggit
+        && askDoesPassMB1Veto_dt(index)                    // loggit 
+        && askDoesPassMB1Adjacent_dt(index)                // loggit
+        && askDoesPassMaxStation_dt(index);                // loggit
+}                                                          // loggit
 
-bool analyzer_objects::askDoesPassNominal_csc(int index) {
-    return askDoesPassClusterSize_csc(index)                        
-        && askDoesPassOverlapMuon_csc(index)                        
-        && askDoesPassME1112Veto_csc(index)                         
-        && askDoesPassMB1Veto_csc(index)                            
-        && askDoesPassRB1Veto_csc(index)                            
-        && askDoesPassMuonVeto_csc(index)                           
-        && askDoesPassClusterTimeSpread_csc(index)                  
-        && askDoesPassClusterEta_csc(index)                         
-        //&& askDoesPassJetVetoPt_csc(index)                         
-        && askDoesPassID_csc(index);                                
-}
+bool analyzer_objects::askDoesPassNominal_csc(int index) { // loggit
+    return askDoesPassClusterSize_csc(index)               // loggit
+        //&& askDoesPassMinDPhiLeadMuon_csc(index)           // loggit
+        && askDoesPassOverlapMuon_csc(index)               // loggit
+        && askDoesPassME1112Veto_csc(index)                // loggit
+        && askDoesPassMB1Veto_csc(index)                   // loggit
+        && askDoesPassRB1Veto_csc(index)                   // loggit
+        && askDoesPassMuonVeto_csc(index)                  // loggit
+        && askDoesPassClusterTimeSpread_csc(index)         // loggit
+        && askDoesPassClusterEta_csc(index)                // loggit
+        //&& askDoesPassJetVetoPt_csc(index)               // loggit 
+        && askDoesPassID_csc(index);                       // loggit
+}                                                          // loggit
 
 
 /// --------------DTs
@@ -657,6 +638,14 @@ bool analyzer_objects::askDoesPassOverlapMuon_csc(int index){
   else dR_mu = 0.0;
 
   if(dR_mu > dr_LeadMu_CscCluster) return true; 
+  else return false;
+}
+bool analyzer_objects::askDoesPassMinDPhiLeadMuon_csc(int index){
+  double dPhi; 
+  if (muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[index]);
+  else dPhi = -999.;
+
+  if(dPhi < 1.0) return true; 
   else return false;
 }
 bool analyzer_objects::askDoesPassdPhiLeadMuon_csc(int index){ 

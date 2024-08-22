@@ -10,10 +10,6 @@ class analyzer_objects : public analyzer_config{
            analyzer_objects();
   virtual ~analyzer_objects();
 
-  double dR(double eta1, double phi1, double eta2, double phi2);
-  double DeltaPhi(double phi1, double phi2);
-
- 
   bool askDoesPassClusterSize_dt (int index);
   bool askDoesPassOverlapMuon_dt (int index);
   bool askDoesOverlapGenMuon_dt  (int index);
@@ -23,6 +19,7 @@ class analyzer_objects : public analyzer_config{
   bool askDoesPassRPCTimeCut_dt  (int index);
   bool askDoesPassMB1Adjacent_dt (int index);
   bool askDoesPassClusterEta_dt  (int index);
+  bool askDoesPassdPhiLeadMuon_dt       (int index);
 
   bool askDoesPassJetVetoPt_csc         (int index);
   bool askDoesPassClusterSize_csc       (int index);
@@ -36,8 +33,8 @@ class analyzer_objects : public analyzer_config{
   bool askDoesPassClusterTime_csc       (int index);
   bool askDoesPassClusterTimeSpread_csc (int index);
   bool askDoesPassClusterEta_csc        (int index);
+  bool askDoesPassMinDPhiLeadMuon_csc   (int index);
   bool askDoesPassdPhiLeadMuon_csc      (int index);
-  bool askDoesPassdPhiLeadMuon_dt       (int index);
   bool askDoesPassID_csc                (int index);
 
   bool askDoesPassMaxStation_dt(int index);
