@@ -1,4 +1,8 @@
 #!/bin/bash
+################################################################
+#  Use this to check job completion when using the analyzer code
+################################################################
+
 
 # Flag to control the creation of resubmit files. Set to true to create, false to just report missing files.
 CREATE_RESUBMIT_FILE=false
@@ -10,22 +14,6 @@ rootDir="${CMSSW_BASE}/src/B-ParkingLLPs/condor/gitignore/${version}"
 # Define a blacklist of baseNames (or patterns) to skip
 # Script no supported for signal, so add those here
 blacklist=(\
-  "ParkingBPH1_2018B"\
-  "ParkingBPH2_2018B"\
-  "ParkingBPH3_2018B"\
-  "ParkingBPH4_2018B"\
-  "ParkingBPH5_2018B"\
-  "ParkingBPH6_2018B"\
-  "ParkingBPH1_2018C"\
-  "ParkingBPH2_2018C"\
-  "ParkingBPH3_2018C"\
-  "ParkingBPH4_2018C"\
-  "ParkingBPH5_2018C"\
-  "ParkingBPH1_2018D"\
-  "ParkingBPH2_2018D"\
-  "ParkingBPH3_2018D"\
-  "ParkingBPH4_2018D"\
-  "ParkingBPH5_2018D"\
   "EGamma_2018"\
   "SingleMuon"\
   "SingleElectron"\
@@ -83,15 +71,11 @@ for listFile in "$listDir"/*.list; do
 
     # Read through each line in the list file
     while IFS= read -r line; do
-        #index=$(echo "$line" | grep -oP '\d+(?=\.root)') # Adjust this regex based on the line format
         index=$(echo "$line" | grep -oP '(?<=_)\d+$') # for FR
-        #formattedIndex=$(printf "%07d" "$index")
         formattedIndex=$(printf "%07d" "$((10#$index))")
 
         # Construct the expected file name
         expectedFile="$rootDir/$baseName/${baseName}_${formattedIndex}to_nominal_plots.root"
-        ## for fakeRate
-        #expectedFile="$rootDir/$baseName/histos_${formattedIndex}.root"
 
         # Check if the expected file does not exist
         if [ ! -f "$expectedFile" ]; then
