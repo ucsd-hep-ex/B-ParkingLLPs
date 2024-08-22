@@ -430,6 +430,7 @@ public :
    bool             isGoodCSC(int index);
    bool             doesPassCSCID(int index);
    bool             isGoodDT(int index);
+   bool             doesPassDPhi(int index, double lower, double upper);
 
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);

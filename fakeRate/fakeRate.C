@@ -38,6 +38,7 @@ bool fakeRate::isGoodMuon(int index){
   return true;
 }
 
+//finds first muon object if present in lepton list
 int fakeRate::MuonPresent(){
   int MuIndex = -1;
   for(int i = 0; i<nLeptons; i++){
@@ -47,6 +48,18 @@ int fakeRate::MuonPresent(){
     }
   }
   return MuIndex;
+}
+
+bool fakeRate::doesPassDPhi(int index, double lower, double upper){
+  int muIndex = MuonPresent();
+  if (muIndex > -1){
+    double dphiJ = DeltaPhi(lepPhi[muIndex], jetPhi[index]);
+    if(dphiJ>lower && dphiJ<upper) 
+      return true;
+    else 
+      return false;
+  }
+  else return false;
 }
 
 bool fakeRate::doesPassCSCID(int index){
@@ -101,6 +114,7 @@ bool fakeRate::isGoodCSC(int index){
   if( fabs(cscRechitClusterEta[index]) >= 1.9) return false;
   //--ClusterID
   if (!doesPassCSCID(index)) return false;    
+  //if (doesPassCSCID(index)) return false;    //for VR
 
   //--if pass all vetos
   return true;
@@ -136,12 +150,10 @@ void fakeRate::Loop()
   int nYBins = sizeof(y_bins)/sizeof(float) -1;
   bool matchesFound[nYBins];
   float nFound[nYBins];
-  //for (int i = 0; i < nYBins; i++) {
-  //  matchFound[i] = false;
-  //}
 
   TH2F* h_Num = new TH2F("h_Num",  "h_Num",  nBins, x_bins, nYBins, y_bins);
   TH2F* h_Den = new TH2F("h_Den",  "h_Den",  nBins, x_bins, nYBins, y_bins);
+  
   TH2F* h_Eff = new TH2F("h_Eff",  "h_Eff",  nBins, x_bins, nYBins, y_bins);
 
    TH1F* h_nPass      = new TH1F("h_nPass","h_nPass", 4,0,3);
@@ -149,7 +161,9 @@ void fakeRate::Loop()
    TH1F* h_nJets   = new TH1F("h_nJets", "h_nJets", 20, 0, 20);
    TH1F* h_JetCISV = new TH1F("h_JetCISV", "h_JetCISV", 30, 0, 1.5);
    TH1F* h_dr_j_csc = new TH1F("h_dr_j_csc", "h_dr_j_csc", 50, 0, 15);
-   TH1F* h_j_PassBtag_pT         = new TH1F("h_j_PassBtag_pT",        "h_j_PassBtag_pT",          nBins, x_bins);
+   TH1F* h_j_PassBtag_pT         = new TH1F("h_j_PassBtag_pT",          "h_j_PassBtag_pT",          nBins, x_bins);
+   TH1F* h_j_PassBtag_pT_valBand = new TH1F("h_j_PassBtag_pT_valBand",  "h_j_PassBtag_pT_valBand",  nBins, x_bins);
+   TH1F* h_j_PassBtag_pT_SR      = new TH1F("h_j_PassBtag_pT_SR",       "h_j_PassBtag_pT_SR",       nBins, x_bins);
 
    TH1F* h_j_csc_Match_pT50_100  = new TH1F("h_j_csc_Match_pT50_100", "h_j_csc_Match_pT50_100",   nBins, x_bins);
    TH1F* h_j_csc_Match_pT        = new TH1F("h_j_csc_Match_pT",       "h_j_csc_Match_pT",      nBins, x_bins);
@@ -170,8 +184,8 @@ void fakeRate::Loop()
       if (ientry < 0) break;
       if(jentry%100000 ==0) std::cout<<"Processing "<<jentry<<"  of "<<nentries2<<std::endl; 
       nb = fChain->GetEntry(jentry);   nbytes += nb;
-      //if(jentry>500000) break;
-      if(met<30.) continue;
+      //if(jentry>5000) break;
+      //if(met<30.) continue;  //----------------Turned off for getting BP nJets
       // Jet loop
       h_nJets->Fill(nJets);
       double j_eta, j_pT, j_phi, dr_j_csc;
@@ -183,9 +197,7 @@ void fakeRate::Loop()
         //if(jetCISV[j] < 0.460) continue;  //loose
         //if(jetCISV[j] < 0.800) continue;  //medium
         //if(jetCISV[j] < 0.935) continue;  //tight
-
         if(jetPt[j] < 20.) continue;
-        //if (jentry < 10) std::cout<<jetPt[j]<<std::endl;
         j_eta = jetEta[j];
         j_phi = jetPhi[j];
         j_pT = jetPt[j];
@@ -209,7 +221,9 @@ void fakeRate::Loop()
           if (cscRechitClusterSize[c] >=50  && cscRechitClusterSize[c]<100) matchFound50_100 = true;
           for (int k = 0; k<nYBins; k++)
           {
-           if ( cscRechitClusterSize[c] >=y_bins[k] && cscRechitClusterSize[c]<y_bins[k+1] ) matchesFound[k] = true;
+           //if ( cscRechitClusterSize[c] >=y_bins[k] && cscRechitClusterSize[c]<y_bins[k+1] ) matchesFound[k] = true; //old method, not inclusive
+           //if ( cscRechitClusterSize[c] < y_bins[k] ) matchesFound[k] = true;  //--- Invert CS cut
+           if ( cscRechitClusterSize[c] >=y_bins[k] && jetCISV[j] >= 0.460) matchesFound[k] = true;
           }
          }
         }//end CSC loop
@@ -224,10 +238,10 @@ void fakeRate::Loop()
           found50_100=true;
         }
         for (int l =0; l<nYBins; l++){
-          if (matchesFound[l]) h_Num->Fill(j_pT,y_bins[l]+5.);
+          if (matchesFound[l])         h_Num        ->Fill(j_pT,y_bins[l]+5.);
         }
 
-      }
+      } //---jet loop
       if(found50_100)  n50_100++;
       for (int l =0; l<nYBins; l++){
         if (matchesFound[l]) nFound[l]++;
@@ -265,37 +279,5 @@ void fakeRate::Loop()
    h_Eff->Write();
    h_Num->Write();
    h_Den->Write();
-  // h_dr_j_csc->Write();
-
-  // h_nPass->Write();
-  // h_nPassTotal->Write();
-  // h_nPassEff->Write();
-
-  // h_j_csc_NoMatch_pT->Write();
-  // h_j_csc_NoMatch_eta->Write();
-  // h_j_PassBtag_eta->Write();
-
-  // h_j_csc_MatchEff_pT->Write();
-  // h_j_csc_MatchEff_pT50_100->Write();
-  // h_j_csc_MatchEff_pT100_200->Write();
-  // h_j_csc_MatchEff_pT200_300->Write();
-  // h_j_csc_MatchEff_pT300->Write();
-  // h_j_csc_Match_pT->Write();
-  // h_j_csc_Match_pT50_100->Write();
-  // h_j_csc_Match_pT100_200->Write();
-  // h_j_csc_Match_pT200_300->Write();
-  // h_j_csc_Match_pT300->Write();
-
-  // h_j_csc_MatchEff_eta->Write();
-  // h_j_csc_MatchEff_eta50_100->Write();
-  // h_j_csc_MatchEff_eta100_200->Write();
-  // h_j_csc_MatchEff_eta200_300->Write();
-  // h_j_csc_MatchEff_eta300->Write();
-  // h_j_csc_Match_eta->Write();
-  // h_j_csc_Match_eta50_100->Write();
-  // h_j_csc_Match_eta100_200->Write();
-  // h_j_csc_Match_eta200_300->Write();
-  // h_j_csc_Match_eta300->Write();
-
    outFile->Close();
 }
