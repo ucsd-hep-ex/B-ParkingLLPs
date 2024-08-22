@@ -3,16 +3,10 @@
 doSubmit=true
 listdir=${CMSSW_BASE}/src/B-ParkingLLPs/lists/V1p19_14
 #listdir=${CMSSW_BASE}/src/B-ParkingLLPs/lists/FR
-path="root://cmsxrootd.fnal.gov/"
+path="root://cmseos.fnal.gov/"
 #path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/V1p19_7"
 
 lists=(  \
- "ParkingBPH1_2018A" \
- "ParkingBPH2_2018A" \
- "ParkingBPH3_2018A" \
- "ParkingBPH4_2018A" \
- "ParkingBPH5_2018A" \
- "ParkingBPH6_2018A" \
 )
 
 #--High ctau List------

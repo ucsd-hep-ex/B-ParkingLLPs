@@ -27,6 +27,13 @@ mkdir roots
 
 
 ./RunAnalyzer.exe --Path=$1 --Sample=$2 --to_ctau=$3
-
+cd roots
+if [[ "$2" =~ _([0-9]+)$ ]]; then
+  index="${BASH_REMATCH[1]}"
+else
+  index=""
+fi
+mv Jets.root Jets_${index}.root
+cd .. 
 mv roots/*.root .
 ls
