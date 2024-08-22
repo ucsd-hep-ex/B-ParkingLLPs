@@ -74,7 +74,6 @@ printf "hadd ${base_dir}/${versionName}/SingleElectron.root\\" >tmp.sh
 printf "\n ${base_dir}/${versionName}/SingleElectron_2016.root\\" >>tmp.sh
 printf "\n ${base_dir}/${versionName}/SingleElectron_2017.root\\" >>tmp.sh
 printf "\n ${base_dir}/${versionName}/EGamma_2018.root\\" >>tmp.sh
-cat temp.sh
 bash tmp.sh
 rm tmp.sh
 
@@ -82,7 +81,6 @@ printf "hadd ${base_dir}/${versionName}/SingleMuon.root\\" >tmp.sh
 printf "\n ${base_dir}/${versionName}/SingleMuon_2016.root\\" >>tmp.sh
 printf "\n ${base_dir}/${versionName}/SingleMuon_2017.root\\" >>tmp.sh
 printf "\n ${base_dir}/${versionName}/SingleMuon_2018.root\\" >>tmp.sh
-cat temp.sh
 bash tmp.sh
 rm tmp.sh
 
