@@ -77,6 +77,10 @@ Double_t clusterSizeResponseFactor (TString muon_station) {
 
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
+
+   CscClusterPassSel_all.clear();
+   jet_list.clear();
+   muon_list.clear();
    int i_to_ctau = static_cast<int>(to_ctau*10.);    
    std::cout<<i_to_ctau<<"  "<<genFilterEff(theSample,i_to_ctau)<<std::endl;
    // Cross-section in femtobarns. 0.4=fragmentation fraction
@@ -86,7 +90,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 100000;
+   //Long64_t nentries = 1000000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -141,7 +145,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    //f_Weights = TFile::Open("roots/Weights.root","recreate");
    //TH1F * h_Wctau = new TH1F("h_Wctau", "h_Wctau", 100, 0.,5.);
 
-
    if(doScan){
      OPT_Histos = TFile::Open("roots/OPT_Histos.root","RECREATE");
      n_events_CSC_A = new TH2F("NeventsCSC_A", "NeventsCSC_A", 42, 1.2, 5.4, 42, 80, 500);
@@ -154,6 +157,20 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
      n_events_DT_C = new TH2F("NeventsDT_C", "NeventsDT_C", 42, 1.2, 5.4, 42, 80, 500);
      n_events_DT_D = new TH2F("NeventsDT_D", "NeventsDT_D", 42, 1.2, 5.4, 42, 80, 500);
    }
+   // to Track BJets for fakeRate stuff
+   TFile *f_Jets;
+   float j_bins[] = {0.,20.,30.,40.,50.,60.,75.,200.,500.,1000.};
+   int jBins = sizeof(j_bins)/sizeof(float) -1;
+   TH1F *h_Jets_PassDPhi = new TH1F("h_Jets_PassDPhi",      "h_Jets_PassDPhi",             jBins, j_bins);
+   TH1F *h_Jets_FailDPhi = new TH1F("h_Jets_FailDPhi",      "h_Jets_FailDPhi",             jBins, j_bins);
+   TH1F *h_Jets_nominalPlusTime = new TH1F("h_Jets_nominalPlusTime",        "h_Jets_nominalPlusTime",              jBins, j_bins);
+
+   TH1F *h_Jets_valBandPass    = new TH1F("h_Jets_valBandPass","h_Jets_valBandPass",       jBins, j_bins);
+   TH1F *h_Jets_valBandFail    = new TH1F("h_Jets_valBandFail","h_Jets_valBandFail",       jBins, j_bins);
+   TH1F *h_Jets_valBandPass_v1 = new TH1F("h_Jets_valBandPass_v1","h_Jets_valBandPass_v1", jBins, j_bins);
+   TH1F *h_Jets_valBandFail_v1 = new TH1F("h_Jets_valBandFail_v1","h_Jets_valBandFail_v1", jBins, j_bins);
+   TH1F *h_Jets_valBandPass_v2 = new TH1F("h_Jets_valBandPass_v2","h_Jets_valBandPass_v2", jBins, j_bins);
+   TH1F *h_Jets_valBandFail_v2 = new TH1F("h_Jets_valBandFail_v2","h_Jets_valBandFail_v2", jBins, j_bins);
 
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
@@ -213,6 +230,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       // object lists
       //If this changes check indices used below for the PassSel_all vectors
       std::vector<std::vector<int>> dummy; 
+      dummy.clear();
       dummy.push_back( CscClusterPassSel_Fail    (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_FailOOT (doesPassHLT()) );
       dummy.push_back( CscClusterPassSel_Pass    (doesPassHLT()) );
@@ -233,10 +251,28 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( DtClusterPassSel_PassCS(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_FailCS(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
-      //Make JetList
-      //if (CscClusterPassSel_all[4].size()<1) continue;
-      //std::cout<<"********* ClusterSize: "<<CscClusterPassSel_all[4].size()<<std::endl;
+
       jet_list       =  jetPassSel(jetPtMin, jetCISV_Cut);
+      //save number of Jets we have to check FR estimate.
+      double dPhi_j = -999.;
+      for (int jet_ = 0; jet_ < jet_list.size(); jet_ ++){
+         int j = jet_list[jet_];
+         if(muon_list.size()>0) dPhi_j = DeltaPhi(lepPhi[muon_list[0]], jetPhi[j]);
+         if (dPhi_j >= dPhiCut_LeadMu_CscCluster) h_Jets_PassDPhi->Fill( jetPt[j]);
+         if (dPhi_j <  dPhiCut_LeadMu_CscCluster) h_Jets_FailDPhi->Fill( jetPt[j]);
+         //---- Control Region Checks
+         //v0 band 0:2.2; cut at 1.5
+         if (dPhi_j >=1.5 && dPhi_j < 2.2)   h_Jets_valBandPass->Fill( jetPt[j]);
+         if (dPhi_j <1.5)                    h_Jets_valBandFail->Fill( jetPt[j]);
+         //v1 band 1.5:2.2; cut at 1.9
+         if (dPhi_j >=1.9 && dPhi_j < 2.2)   h_Jets_valBandPass_v1->Fill( jetPt[j]);
+         if (dPhi_j < 1.9 && dPhi_j > 1.5)   h_Jets_valBandFail_v1->Fill( jetPt[j]);
+         //v2 band 1:2.2; cut at 1.5
+         if (dPhi_j >=1.5 && dPhi_j < 2.2)   h_Jets_valBandPass_v2->Fill( jetPt[j]);
+         if (dPhi_j <1.5  && dPhi_j > 1.0)   h_Jets_valBandFail_v2->Fill( jetPt[j]);
+         //nominal+time
+         if (dPhi_j > dPhiCut_LeadMu_CscCluster && CscClusterPassSel_all[5].size()>0) h_Jets_nominalPlusTime->Fill( jetPt[j]);
+      }
 
       if(doScan){
         int cls_cut_min = 80;
@@ -296,14 +332,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         }//if (muon_list.size() != 0)
       }//if(doScan)
 
-      if(CscClusterPassSel_all[3].size()>0){
-      bool passCheck=false;
-      for(int i=0; i<CscClusterPassSel_all[3].size(); i++){
-        if (cscRechitClusterSize[CscClusterPassSel_all[3][i]] >= CscSize) passCheck = true;
-      }
-      if (passCheck) std::cout<<"**********************"<<
-                           "  THERUN:"<< runNum<<"   Lumi:"<<lumiSec<<"  Event:"<<evtNum<<std::endl;
-      }
       tup_DtCluster_list.clear();
       tup_DtCluster_list = DtClusterPassSel_all[4];
       tup_CscCluster_list.clear();
@@ -317,21 +345,20 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       if(doesPassHLT() && b_cutFlow && muon_list.size() > 0) { 
       cutFlow["HLT"] += event_weight;
 
-      
       DtClusterPassSel_CutFlow (event_weight);
       CscClusterPassSel_CutFlow(event_weight);
       }
        
       //Fill the histograms by event
-      FillHistos(0, event_weight);
-      FillHistos(1, event_weight);
-      FillHistos(2, event_weight);
-      FillHistos(3, event_weight);
-      FillHistos(4, event_weight);
-      FillHistos(5, event_weight);
-      FillHistos(6, event_weight);
-      FillHistos(7, event_weight);
-
+      FillHistos(0, event_weight, CscClusterPassSel_all[0]);
+      FillHistos(1, event_weight, CscClusterPassSel_all[1]);
+      FillHistos(2, event_weight, CscClusterPassSel_all[2]);
+      FillHistos(3, event_weight, CscClusterPassSel_all[3]);
+      FillHistos(4, event_weight, CscClusterPassSel_all[4]);
+      FillHistos(5, event_weight, CscClusterPassSel_all[5]);
+      FillHistos(6, event_weight, CscClusterPassSel_all[6]);
+      FillHistos(7, event_weight, CscClusterPassSel_all[7]);
+     
 
    }//end jentries
    //std::cout<<"h_WctauMean "<<h_Wctau->GetMean()<<std::endl;
@@ -351,6 +378,18 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
      n_events_DT_D ->Write();
      OPT_Histos->Close();
    }
+   f_Jets = TFile::Open("roots/Jets.root","recreate");
+   f_Jets->cd();
+   h_Jets_PassDPhi->Write();
+   h_Jets_FailDPhi->Write();
+   h_Jets_nominalPlusTime->Write();
+   h_Jets_valBandPass->Write();
+   h_Jets_valBandFail->Write();
+   h_Jets_valBandPass_v1->Write();
+   h_Jets_valBandFail_v1->Write();
+   h_Jets_valBandPass_v2->Write();
+   h_Jets_valBandFail_v2->Write();
+   f_Jets->Close();
    //Write miniTree
    if (b_doTree){
      f->cd();
@@ -369,8 +408,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    }
    std::cout<<"isMC?: "<<isMC<<std::endl;
    std::cout<<"Make Tree?: "<<b_doTree<<std::endl;
-   std::cout<<"Counter (Sum Wctau): "<<counter<<std::endl;
-   std::cout<<"Counter2 (Sum Wctau*LLPDecayEff): "<<counter2<<std::endl;
+   std::cout<<"Counter (nFail): "<<counter<<std::endl;
+   std::cout<<"Counter2 (nNominal): "<<counter2<<std::endl;
    WriteHistos(0);
    WriteHistos(1);
    WriteHistos(2);
