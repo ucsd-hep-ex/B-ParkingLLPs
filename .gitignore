@@ -4,6 +4,9 @@ plotDump/
 analysis/roots/
 .list
 
+#setup file
+condor/setup.sh
+
 #checkpoints
 **/.ipynb_checkpoints/
 
