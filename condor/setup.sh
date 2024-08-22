@@ -1,1 +1,1 @@
-export version="FRMeasureNoBReq"
+export version=<Name your jobVersion>
