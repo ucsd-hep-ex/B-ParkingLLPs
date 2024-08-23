@@ -40,6 +40,8 @@ void analyzer_config::setConfig(){ // loggit
  
   DtMB1Veto = 1;                   // loggit
 
+  dPhiMin_LeadMu_CscCluster = 1.0;  //loggit
+
   dPhiCut_LeadMu_CscCluster = 2.2;  //loggit
   dPhiCut_LeadMu_DtCluster = 2.2;   //loggit
 
@@ -49,7 +51,8 @@ void analyzer_config::setConfig(){ // loggit
 
   HLTIndexLow = 1157;              // loggit
   HLTIndexHigh = 1197;             // loggit
-
+  
+  theLumiJSON = "Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"; // loggit
 }                                  // loggit
 
 Bool_t analyzer_config::doCutFlow(){

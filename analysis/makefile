@@ -5,7 +5,8 @@ APPDIR = $(shell pwd)/app
 
 all: main
 
-main:  ${APPDIR}/analyzer_base.o\
+main:  ${APPDIR}/cJSON.o\
+       ${APPDIR}/analyzer_base.o\
        ${APPDIR}/analyzer_config.o\
        ${APPDIR}/analyzer_objects.o\
        ${APPDIR}/analyzer_tree.o\
@@ -15,8 +16,14 @@ main:  ${APPDIR}/analyzer_base.o\
        main.C 
 	g++ --std=c++11 $^ -o RunAnalyzer.exe ${ROOTFLAGS} ${CXXDEPFLAGS}
 
-%.o: %.C  
-	g++ --std=c++11 -c $^ -o $@ ${ROOTFLAGS} ${CXXDEPFLAGS} 
+# Compile rule for .c files
+${APPDIR}/%.o: ${APPDIR}/%.c
+	gcc -c $< -o $@ -I$(shell pwd)/include
+
+
+# Compile rule for .C files
+${APPDIR}/%.o: ${APPDIR}/%.C
+	g++ --std=c++11 -c $< -o $@ ${ROOTFLAGS} ${CXXDEPFLAGS}
 
 clean:
 	rm -f  *.{o,d,exe}

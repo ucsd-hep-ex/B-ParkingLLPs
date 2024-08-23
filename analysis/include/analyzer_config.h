@@ -40,6 +40,8 @@ class analyzer_config : public analyzer_base{
   Float_t CscMuonVetoPt;
   Int_t   DtMB1Veto;
   
+  double dPhiMin_LeadMu_CscCluster;
+  
   double dPhiCut_LeadMu_CscCluster;
   double dPhiCut_LeadMu_DtCluster;
 
@@ -49,6 +51,8 @@ class analyzer_config : public analyzer_base{
 
   int HLTIndexLow;
   int HLTIndexHigh;
+
+  TString theLumiJSON;
 
   bool doScan;
 

@@ -542,7 +542,7 @@ bool analyzer_objects::askDoesPassNominal_dt(int index) {  // loggit
 
 bool analyzer_objects::askDoesPassNominal_csc(int index) { // loggit
     return askDoesPassClusterSize_csc(index)               // loggit
-        //&& askDoesPassMinDPhiLeadMuon_csc(index)           // loggit
+        && askDoesPassMinDPhiLeadMuon_csc(index)           // loggit
         && askDoesPassOverlapMuon_csc(index)               // loggit
         && askDoesPassME1112Veto_csc(index)                // loggit
         && askDoesPassMB1Veto_csc(index)                   // loggit
@@ -645,7 +645,7 @@ bool analyzer_objects::askDoesPassMinDPhiLeadMuon_csc(int index){
   if (muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[index]);
   else dPhi = -999.;
 
-  if(dPhi < 1.0) return true; 
+  if(dPhi > dPhiMin_LeadMu_CscCluster) return true; 
   else return false;
 }
 bool analyzer_objects::askDoesPassdPhiLeadMuon_csc(int index){ 
