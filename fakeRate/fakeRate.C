@@ -129,8 +129,10 @@ TH1F* DivideHists(TH1F* hist1, TH1F* hist2, TString hname) {
     return result;
 }
 
-void fakeRate::Loop()
+void fakeRate::Loop(const TString &year)
 {
+   std::cout<<"Which year: "<<year<<std::endl;
+   loadLumiJSON(year);
    if (fChain == 0) return;
    std::cout << "Number of files in chain (from Loop): " << fChain->GetListOfFiles()->GetEntries() << std::endl; 
    Long64_t nentries = fChain->GetEntriesFast();
@@ -175,7 +177,6 @@ void fakeRate::Loop()
    int nTotal = 0;
    std::fill_n(nFound, nYBins, 0.0);
    bool found50_100;
-   //std::cout<<"In Loop"<<std::endl;
    Long64_t nbytes = 0, nb = 0;
    std::cout<< nentries2<<std::endl;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -184,6 +185,8 @@ void fakeRate::Loop()
       if (ientry < 0) break;
       if(jentry%100000 ==0) std::cout<<"Processing "<<jentry<<"  of "<<nentries2<<std::endl; 
       nb = fChain->GetEntry(jentry);   nbytes += nb;
+      //std::cout<<runNum<<"  "<<lumiSec<<std::endl;
+      if(!goodLumi(runNum,lumiSec)) continue;
       //if(jentry>5000) break;
       //if(met<30.) continue;  //----------------Turned off for getting BP nJets
       // Jet loop
@@ -194,7 +197,7 @@ void fakeRate::Loop()
         //only care for jets passing b-tagging req.
         //if(jetCISV[j] < 0.8484) continue; //original
         //from https://twiki.cern.ch/twiki/bin/view/CMS/BtagRecommendation80X
-        //if(jetCISV[j] < 0.460) continue;  //loose
+        if(jetCISV[j] < 0.460) continue;  //loose
         //if(jetCISV[j] < 0.800) continue;  //medium
         //if(jetCISV[j] < 0.935) continue;  //tight
         if(jetPt[j] < 20.) continue;
@@ -222,8 +225,10 @@ void fakeRate::Loop()
           for (int k = 0; k<nYBins; k++)
           {
            //if ( cscRechitClusterSize[c] >=y_bins[k] && cscRechitClusterSize[c]<y_bins[k+1] ) matchesFound[k] = true; //old method, not inclusive
-           //if ( cscRechitClusterSize[c] < y_bins[k] ) matchesFound[k] = true;  //--- Invert CS cut
-           if ( cscRechitClusterSize[c] >=y_bins[k] && jetCISV[j] >= 0.460) matchesFound[k] = true;
+           //if ( cscRechitClusterSize[c] < y_bins[k] && jetCISV[j] >= 0.460) matchesFound[k] = true;  //--- Invert CS cut, bTag
+           if ( cscRechitClusterSize[c] < y_bins[k]                       ) matchesFound[k] = true;  //--- Invert CS cut
+           //if ( cscRechitClusterSize[c] >=y_bins[k] && jetCISV[j] >= 0.460) matchesFound[k] = true;  //--bTag
+           //if ( cscRechitClusterSize[c] >=y_bins[k]                       ) matchesFound[k] = true;  //--nobTag
           }
          }
         }//end CSC loop

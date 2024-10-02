@@ -70,7 +70,14 @@ else {
     Sample.push_back(inpath+sampleName[l]+".root");
   }
 }
-
+TString year;
+if(Sample.size()>0){
+       if(Sample[0].Contains("2016")) year = "2016";
+  else if(Sample[0].Contains("2017")) year = "2017";
+  else if(Sample[0].Contains("2018")) year = "2018";
+  else year = "All";
+}
+else year = "All";
     
 //std::cout<<Sample<<std::endl;
 //chain->Add(Sample);
@@ -79,17 +86,12 @@ for (int k = 0; k< Sample.size(); k++){
 }
 
 std::cout << "Number of files in chain: " << chain->GetListOfFiles()->GetEntries() << std::endl;    
-// grab NEvents
-//TFile* f0 = TFile::Open(Sample);
-//Float_t NEvents = ((TH1F*)f0->Get("NEvents"))->GetBinContent(1);
-//std::cout<<NEvents<<std::endl;
-//f0->Close();
 
 //TFile *f;
 
 fakeRate S;
 S.Init(chain);
-S.Loop();
+S.Loop(year);
 
 
 std::cout<<"Done with Final Loop"<<std::endl;
