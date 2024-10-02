@@ -29,7 +29,8 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
   mass.ReplaceAll("p", ".");
   TString sigName = signalName(pos1,pos2);
   std::cout<<"Short Name: "<<sigName<<std::endl;
-  TString bkgName = "Parking_2018A_";
+  //TString bkgName = "Parking_2018A_";
+  TString bkgName = "ParkingBPH2_2018D_";
 
   TString sigpath = inpath+signalName+region+"_plots.root";
   TString bkgpath = inpath+bkgName+region+"_plots.root";
@@ -53,7 +54,7 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
 
   std::vector<TString> variables;
   variables.clear();
-//  variables.push_back("cscRechitClusterDPhiLeadMuon");
+  variables.push_back("cscRechitClusterDPhiLeadMuon");
 //  variables.push_back("dtRechitClusterMaxStation");
 //  variables.push_back("cscRechitClusterSize");
 //  variables.push_back("cscRechitClusterSize_v");
@@ -67,8 +68,8 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
 //  variables.push_back("cscRechitClusterTimeSpreadWeightedAll");
 //  //variables.push_back("nLeptons");
 //  //variables.push_back("nCscRechits");
-  variables.push_back("cscRechitClusterMuonVetoPt");
-  variables.push_back("dtRechitClusterMuonVetoPt");
+//  variables.push_back("cscRechitClusterMuonVetoPt");
+//  variables.push_back("dtRechitClusterMuonVetoPt");
 //  variables.push_back("dtRechitClusterDPhiLeadMuon");
 //  variables.push_back("dtRechitClusterEta");
 //  variables.push_back("dtRechitClusterSize");
@@ -115,7 +116,7 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
 
     h_sig->Draw("hist");
     h_bkg->Draw("hist sames");
-    if(dolog)  {h_sig->SetMaximum(ymax*(4)); h_sig->SetMinimum(0.001);}
+    if(dolog)  {h_sig->SetMaximum(ymax*(10)); h_sig->SetMinimum(0.001);}
     else       h_sig->SetMaximum(ymax*(1.2));
 
     h_sig->SetTitle("");    
@@ -137,5 +138,7 @@ void Plotter(TString region, bool dolog, TString inpath, TString aversion, TStri
 
     if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+sigName+variables[i]+"_"+region+"_log.pdf");
     else canvas->SaveAs("plotDump/"+aversion+"/"+sigName+variables[i]+"_"+region+".pdf");
+    if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+sigName+variables[i]+"_"+region+"_log.C");
+    else canvas->SaveAs("plotDump/"+aversion+"/"+sigName+variables[i]+"_"+region+".C");
   } 
 }

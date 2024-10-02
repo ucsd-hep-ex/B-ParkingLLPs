@@ -1,4 +1,4 @@
-aversion=unblindStg1 #DPhi-MS3-Limits #BkgEst-DPhi-CSC-reBinClstrSize-4Regions #FullSel-B4DPhi #OOT-dPhi #LooseRegion
+aversion=unblindStg2p1 #DPhi-MS3-Limits #BkgEst-DPhi-CSC-reBinClstrSize-4Regions #FullSel-B4DPhi #OOT-dPhi #LooseRegion
 path="${CMSSW_BASE}/src/B-ParkingLLPs/roots/${aversion}/"
 #path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/B-ParkingLLPs/condor/gitignore/${aversion}/"
 #path="/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_9_4_4/src/Stats/CMSSW_10_2_13/src/combine-llp/inputs_${aversion}/"
@@ -7,9 +7,11 @@ mkdir -p plotDump/${aversion}
 #cp ${path}/setup.C plotDump/${aversion}
 
 regions=(\
-"nominalPlusTime" \
 "PassCS" \
+"Pass" \
+"nominalPlusTime" \
 )
+#"nominalPlusTime" \
 #"PassOOT" \
 # "test" \
 # "testOOT" \
@@ -26,18 +28,14 @@ signal=(\
 #"BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000to1000_" \
 
 dologs=(\
- false \
  true  \
 )
 
 for region in ${regions[@]}
 do
- for s in ${signal[@]}
+ for dolog in ${dologs[@]}
  do
-   for dolog in ${dologs[@]}
-   do
-     root -l -b -q 'Plotter.C("'$region'", '$dolog', "'$path'", "'$aversion'", "'$s'")'
-   done
+   root -l -b -q 'PlotterMultiSig.C("'$region'", '$dolog', "'$path'", "'$aversion'", "'${signal[0]}'","'${signal[1]}'")'
  done
 done
 
