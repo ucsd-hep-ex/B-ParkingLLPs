@@ -78,15 +78,6 @@ Double_t clusterSizeResponseFactor (TString muon_station) {
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
    loadLumiJSON();
-   //std::cout<<"Check LumiParser"<<std::endl;
-   //std::cout<<316505<<"  "<<"42: "<< goodLumi(316505,42)<<std::endl;
-   //std::cout<<316505<<"  "<<"44: "<< goodLumi(316505,44)<<std::endl;
-   //std::cout<<316505<<"  "<<"100: "<< goodLumi(316505,100)<<std::endl;
-   //std::cout<<316505<<"  "<<"206: "<< goodLumi(316505,206)<<std::endl;
-   //std::cout<<316505<<"  "<<"207: "<< goodLumi(316505,207)<<std::endl;
-   //std::cout<<316505<<"  "<<"500: "<< goodLumi(316505,500)<<std::endl;
-   //std::cout<<316505<<"  "<<"922: "<< goodLumi(316505,922)<<std::endl;
-   //std::cout<<316505<<"  "<<"1366: "<< goodLumi(316505,1366)<<std::endl;
    CscClusterPassSel_all.clear();
    jet_list.clear();
    muon_list.clear();
@@ -98,8 +89,8 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    std::cout<<"In Loop"<<std::endl;
    fChain->GetListOfBranches();
    if (fChain == 0) return;
-   //Long64_t nentries = fChain->GetEntriesFast();
-   Long64_t nentries = 1000000;
+   Long64_t nentries = fChain->GetEntriesFast();
+   //Long64_t nentries = 1000000;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -187,8 +178,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       if (jentry %10000 == 0) std::cout<<"Event: "<<jentry<<" -of- "<<nentries<<std::endl;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
      
-      if(!goodLumi(runNum,lumiSec)) continue;
-      //std::cout<<"RunLumiEvent: "<<runNum<<" "<<lumiSec<<" "<<evtNum<<std::endl;
+      if(!isMC && !goodLumi(runNum,lumiSec)) continue;
 
       //Make MuonList
       muon_list       =  muonPassSel(muPt, muEta);
@@ -271,7 +261,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
          int j = jet_list[jet_];
          if(muon_list.size()>0) dPhi_j = DeltaPhi(lepPhi[muon_list[0]], jetPhi[j]);
          if (dPhi_j >= dPhiCut_LeadMu_CscCluster) h_Jets_PassDPhi->Fill( jetPt[j]);
-         if (dPhi_j <  dPhiCut_LeadMu_CscCluster) h_Jets_FailDPhi->Fill( jetPt[j]);
+         if (dPhi_j <  dPhiCut_LeadMu_CscCluster && dPhi_j > dPhiMin_LeadMu_CscCluster) h_Jets_FailDPhi->Fill( jetPt[j]);
          //---- Control Region Checks
          //v0 band 0:2.2; cut at 1.5
          if (dPhi_j >=1.5 && dPhi_j < 2.2)   h_Jets_valBandPass->Fill( jetPt[j]);

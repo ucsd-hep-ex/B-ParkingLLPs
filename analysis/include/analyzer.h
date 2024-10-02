@@ -17,7 +17,6 @@
 #include <TFile.h>
 #include "cJSON.h"
 #include <unordered_map>
-//#include <TBufferJSON.h>
 
 #include "analyzer_histograms.h"
 
@@ -47,7 +46,6 @@ private:
    };
    std::unordered_map<int, std::vector<LumiRange>> runLumiMap;
    bool isWithinRange(int lumi, int start, int end);
-   void trim(std::string& str);
 };
 
 #endif
@@ -90,7 +88,7 @@ bool analyzer::doesPassHLT(){
 void analyzer::loadLumiJSON() {
   std::ifstream file(theLumiJSON);
     if (!file.is_open()) {
-        std::cerr << "Failed to open file: " << theLumiJSON << std::endl;
+      std::cerr << "Failed to open file: " << theLumiJSON << std::endl;
     }
 
     // Read the entire file into a string
@@ -101,108 +99,31 @@ void analyzer::loadLumiJSON() {
     // Parse the JSON data
     cJSON* json = cJSON_Parse(data.c_str());
     if (json == nullptr) {
-        std::cerr << "Failed to parse JSON" << std::endl;
+      std::cerr << "Failed to parse JSON" << std::endl;
     }
 
     // Iterate over each key-value pair in the JSON object
     cJSON* runJson = nullptr;
     cJSON_ArrayForEach(runJson, json) {
-        int run = std::stoi(runJson->string);
-        if (!cJSON_IsArray(runJson)) {
-            continue;
+      int run = std::stoi(runJson->string);
+      if (!cJSON_IsArray(runJson)) {
+        continue;
+      }
+      // Parse each lumi range for this run
+      std::vector<LumiRange> ranges;
+      cJSON* range = nullptr;
+      cJSON_ArrayForEach(range, runJson) {
+        if (cJSON_IsArray(range) && cJSON_GetArraySize(range) == 2) {
+          int start = cJSON_GetArrayItem(range, 0)->valueint;
+          int end = cJSON_GetArrayItem(range, 1)->valueint;
+          ranges.push_back({start, end});
         }
-
-        // Parse each lumi range for this run
-        std::vector<LumiRange> ranges;
-        cJSON* range = nullptr;
-        cJSON_ArrayForEach(range, runJson) {
-            if (cJSON_IsArray(range) && cJSON_GetArraySize(range) == 2) {
-                int start = cJSON_GetArrayItem(range, 0)->valueint;
-                int end = cJSON_GetArrayItem(range, 1)->valueint;
-                ranges.push_back({start, end});
-            }
-        }
-
-        // Store the run and its lumi ranges in the map
-        runLumiMap[run] = ranges;
+      }
+      // Store the run and its lumi ranges in the map
+      runLumiMap[run] = ranges;
     }
-
     cJSON_Delete(json);
 }
-
-void analyzer::trim(std::string& str) {
-    const char* typeOfWhitespaces = " \t\n\r\f\v";
-    str.erase(str.find_last_not_of(typeOfWhitespaces) + 1);
-    str.erase(0, str.find_first_not_of(typeOfWhitespaces));
-}
-
-//void analyzer::loadLumiJSON() {
-//  std::ifstream file(theLumiJSON);
-//    if (!file.is_open()) {
-//        std::cerr << "Failed to open file: " << theLumiJSON << std::endl;
-//    }
-//
-//    // Read the entire file into a TString
-//    std::stringstream buffer;
-//    buffer << file.rdbuf();
-//    TString jsonStr(buffer.str().c_str());
-//
-//    // Convert the JSON string to a TObject using TBufferJSON
-//    std::string data = buffer.str();
-//    trim(data);
-//    data = data.substr(1, data.size() - 2);  // Remove curly braces
-//
-//    std::istringstream ss(data);
-//    std::string line;
-//    while (std::getline(ss, line, ',')) {
-//        std::cout<<"line before: "<<line<<std::endl;
-//        trim(line);
-//        if (line.empty()) continue;
-//        std::cout<<"line after: "<<line<<std::endl;
-//        size_t colonPos = line.find(':');
-//        if (colonPos == std::string::npos) continue;
-//
-//        std::string runStr = line.substr(0, colonPos);
-//        std::cout<<"RunStr: "<<runStr<<std::endl;
-//        runStr.erase(std::remove(runStr.begin(), runStr.end(), '"'), runStr.end());
-//        trim(runStr);
-//        std::cout<<"RunStr after: "<<runStr<<std::endl;
-//        int run = std::stoi(runStr);
-//
-//        std::string rangesStr = line.substr(colonPos + 1);
-//        std::cout<<"RangeStr: "<<rangesStr<<std::endl;
-//        trim(rangesStr);
-//        rangesStr = rangesStr.substr(1, rangesStr.size() - 2);  // Remove square brackets
-//        std::cout<<"RangeStr after: "<<rangesStr<<std::endl;
-//
-//        std::vector<LumiRange> ranges;
-//        std::istringstream rs(rangesStr);
-//        std::string range;
-//        while (std::getline(rs, range, ']')) {
-//            std::cout<<"getLine :"<<std::endl;
-//            trim(range);
-//            if (range.empty() || range[0] != '[') continue;
-//
-//            range = range.substr(1);  // Remove opening bracket
-//            size_t commaPos = range.find(',');
-//            std::cout<<range<<std::endl;
-//            std::cout<<range.substr(0, commaPos)<<std::endl;
-//            std::cout<<range.substr(commaPos + 1)<<std::endl;
-//            int start = std::stoi(range.substr(0, commaPos));
-//            int end = std::stoi(range.substr(commaPos + 1));
-//            std::cout<<"before pushback :"<<std::endl;
-//            ranges.push_back({start, end});
-//
-//            std::cout<<"after pushback :"<<std::endl;
-//            if (rs.peek() == ',') rs.ignore();  // Ignore comma
-//            std::cout<<"after peek :"<<std::endl;
-//        }
-//
-//        runLumiMap[run] = ranges;
-//    }
-//    std::cout<<"afterTrim"<<std::endl;
-//
-//}
 
 bool analyzer::isWithinRange(int lumi, int start, int end) {
   return lumi >= start && lumi <= end;
