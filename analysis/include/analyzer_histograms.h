@@ -52,6 +52,7 @@ class analyzer_histograms : public analyzer_tree{
   TH1F* h_NoMDS300_jetDPhiLeadMuonFine2_inRegion  [SELBINNAMESIZE];
 
   TH1F* h_cscRechitClusterDPhiLeadMuon           [SELBINNAMESIZE];
+  TH1F* h_cscRechitClusterDPhiLeadMuon_v2        [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterDPhiLeadMuon_fail      [SELBINNAMESIZE];
   TH1F* h_cscRechitClusterDPhiLeadMuon_pass      [SELBINNAMESIZE];
   TH1F* h_nCscRechits                            [SELBINNAMESIZE];

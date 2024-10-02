@@ -70,16 +70,17 @@ Float_t FakeRate200_300(Float_t Pt){
   if (Pt >= 200. && Pt < 500.) fr = 1.36026e-06;
   return fr;
 }
+
 Float_t FakeRate300(Float_t Pt){
   Float_t fr = 1.0;
   if (Pt < 20.  || Pt >= 500.) fr = 0.;
-  if (Pt >= 20.  && Pt < 30. ) fr = 6.53796e-09;
-  if (Pt >= 30.  && Pt < 40. ) fr = 5.19892e-08;
-  if (Pt >= 40.  && Pt < 50. ) fr = 0.;
-  if (Pt >= 50.  && Pt < 60. ) fr = 1.19439e-07;
-  if (Pt >= 60.  && Pt < 75. ) fr = 6.30902e-08;
-  if (Pt >= 75.  && Pt < 200.) fr = 3.24172e-08;
-  if (Pt >= 200. && Pt < 500.) fr = 2.72052e-07;
+  if (Pt >= 20.  && Pt < 30. ) fr = 9.70978e-09;
+  if (Pt >= 30.  && Pt < 40. ) fr = 3.45226e-08;
+  if (Pt >= 40.  && Pt < 50. ) fr = 3.99186e-08;
+  if (Pt >= 50.  && Pt < 60. ) fr = 6.25698e-08;
+  if (Pt >= 60.  && Pt < 75. ) fr = 7.00959e-08;
+  if (Pt >= 75.  && Pt < 200.) fr = 1.15568e-07;
+  if (Pt >= 200. && Pt < 500.) fr = 2.1248e-07;
   return fr;
 }
 
@@ -164,6 +165,7 @@ void analyzer_histograms::InitHistos(){
     h_cscRechitClusterSize_v               [i] = InitTH1F("h_cscRechitClusterSize_v", "h_cscRechitClusterSize_v", n_b-1, x_bins);
     h_cscRechitClusterSize_v2              [i] = InitTH1F("h_cscRechitClusterSize_v2", "h_cscRechitClusterSize_v2", n_b2-1, x_bins2);
     h_cscRechitClusterDPhiLeadMuon         [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon", "h_cscRechitClusterDPhiLeadMuon", 30, 0, 4);
+    h_cscRechitClusterDPhiLeadMuon_v2      [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon_v2", "h_cscRechitClusterDPhiLeadMuon_v2", 17, 1, 3.2);
     h_cscRechitClusterDPhiLeadMuon_fail    [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon_fail", "h_cscRechitClusterDPhiLeadMuon_fail", 40, 0, 4);
     h_cscRechitClusterDPhiLeadMuon_pass    [i] = InitTH1F("h_cscRechitClusterDPhiLeadMuon_pass", "h_cscRechitClusterDPhiLeadMuon_pass", 40, 0, 4);
     h_cscRechitClusterPhi                  [i] = InitTH1F("h_cscRechitClusterPhi", "h_cscRechitClusterPhi", 40, -3.5, 3.5);
@@ -274,6 +276,7 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew, const std::vector<i
       h_cscRechitClusterDPhivsSize             [selbin]->Fill(cscRechitClusterSize[c],                  dPhi, ew);
 
       h_cscRechitClusterDPhiLeadMuon           [selbin]->Fill(dPhi, ew);  
+      h_cscRechitClusterDPhiLeadMuon_v2        [selbin]->Fill(dPhi, ew);  
       h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c], ew);
       if(cscRechitClusterSize[c]>CscSize)      passCSC = true;
       if(passCSC          && !wasFilled_pass) {
@@ -394,6 +397,7 @@ void analyzer_histograms::WriteHistos(int selbin){
   h_cscRechitClusterPhivsEta               [selbin]->Write();
   h_cscRechitClusterDPhivsSize             [selbin]->Write();
   h_cscRechitClusterDPhiLeadMuon           [selbin]->Write();
+  h_cscRechitClusterDPhiLeadMuon_v2        [selbin]->Write();
   h_cscRechitClusterDPhiLeadMuon_pass      [selbin]->Write();
   h_cscRechitClusterDPhiLeadMuon_fail      [selbin]->Write();
   h_nCscRechits                            [selbin]->Write();
@@ -485,6 +489,7 @@ void analyzer_histograms::DeleteHistos(int selbin){
   h_cscRechitClusterPhivsEta               [selbin]->Delete();
   h_cscRechitClusterDPhivsSize             [selbin]->Delete();
   h_cscRechitClusterDPhiLeadMuon           [selbin]->Delete();
+  h_cscRechitClusterDPhiLeadMuon_v2        [selbin]->Delete();
   h_cscRechitClusterDPhiLeadMuon_pass      [selbin]->Delete();
   h_cscRechitClusterDPhiLeadMuon_fail      [selbin]->Delete();
   h_nCscRechits                            [selbin]->Delete();
