@@ -6,6 +6,14 @@ versionName=${version}
 base_dir=${CMSSW_BASE}/src/B-ParkingLLPs/condor/gitignore
 
 Regions=(\
+ Pass_plots\
+ Fail_plots\
+ FailOOT_plots\
+ PassOOT_plots\
+ nominal_plots\
+ nominalPlusTime_plots\
+ PassCS_plots\
+ FailCS_plots\
 )
 
 # "_"\

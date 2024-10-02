@@ -12,6 +12,42 @@ padding=7
 #path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/V1p19_7"
 
 lists=(  \
+ "EGamma_2018A" \
+ "EGamma_2018B" \
+ "EGamma_2018C" \
+ "EGamma_2018D" \
+ "SingleElectron_2016B_v2" \
+ "SingleElectron_2016C" \
+ "SingleElectron_2016D" \
+ "SingleElectron_2016E" \
+ "SingleElectron_2016F" \
+ "SingleElectron_2016G" \
+ "SingleElectron_2016H" \
+ "SingleElectron_2017B" \
+ "SingleElectron_2017C_v2" \
+ "SingleElectron_2017D" \
+ "SingleElectron_2017E" \
+ "SingleElectron_2017F" \
+ "SingleElectron_2017G" \
+ "SingleElectron_2017H" \
+ "SingleMuon_2016B" \
+ "SingleMuon_2016C" \
+ "SingleMuon_2016D" \
+ "SingleMuon_2016E" \
+ "SingleMuon_2016F" \
+ "SingleMuon_2016G" \
+ "SingleMuon_2016H" \
+ "SingleMuon_2017B" \
+ "SingleMuon_2017C" \
+ "SingleMuon_2017D" \
+ "SingleMuon_2017E" \
+ "SingleMuon_2017F" \
+ "SingleMuon_2017G" \
+ "SingleMuon_2017H" \
+ "SingleMuon_2018A" \
+ "SingleMuon_2018B" \
+ "SingleMuon_2018C" \
+ "SingleMuon_2018D" \
 )
 
 # "SingleElectron_2016B_v2" \
@@ -63,6 +99,7 @@ mkdir -p gitignore/$vName
 
 cd gitignore/$vName
 cp ../../../fakeRate/RunfakeRate.exe .
+cp ../../../fakeRate/*JSON*.txt .
 
 prep_and_submit(){
   local listName=$1
@@ -101,7 +138,7 @@ prep_and_submit(){
   printf "Executable = ${CMSSW_BASE}/src/B-ParkingLLPs/condor/runJobs_FR.sh\n" >> submitfile
   printf "Should_Transfer_Files = YES \n" >> submitfile
   printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
-  printf "Transfer_Input_Files = ../RunfakeRate.exe, lists.tgz\n" >> submitfile
+  printf "Transfer_Input_Files = ../RunfakeRate.exe, lists.tgz, ../Cert_271036-284044_13TeV_ReReco_07Aug2017_Collisions16_JSON.txt, ../Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt, ../Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt, ../All_JSON.txt \n" >> submitfile
   
   printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
   printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile

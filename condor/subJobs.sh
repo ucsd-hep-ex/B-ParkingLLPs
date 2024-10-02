@@ -7,6 +7,34 @@ path="root://cmseos.fnal.gov/"
 #path="root://cmsxrootd.fnal.gov//store/user/aaportel/B-Parking/V1p19_7"
 
 lists=(  \
+ "ParkingBPH1_2018A" \
+ "ParkingBPH2_2018A" \
+ "ParkingBPH3_2018A" \
+ "ParkingBPH4_2018A" \
+ "ParkingBPH5_2018A" \
+ "ParkingBPH6_2018A" \
+ "ParkingBPH1_2018B" \
+ "ParkingBPH2_2018B" \
+ "ParkingBPH3_2018B" \
+ "ParkingBPH4_2018B" \
+ "ParkingBPH5_2018B" \
+ "ParkingBPH6_2018B" \
+ "ParkingBPH1_2018C" \
+ "ParkingBPH2_2018C" \
+ "ParkingBPH3_2018C" \
+ "ParkingBPH4_2018C" \
+ "ParkingBPH5_2018C" \
+ "ParkingBPH1_2018D" \
+ "ParkingBPH2_2018D" \
+ "ParkingBPH3_2018D" \
+ "ParkingBPH4_2018D" \
+ "ParkingBPH5_2018D" \
+ "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300" \
+ "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500" \
+ "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau300" \
+ "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000" \
+ "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000" \
+ "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000" \
 )
 
 #--High ctau List------
@@ -100,6 +128,7 @@ mkdir -p gitignore/$vName
 
 cd gitignore/$vName
 cp ../../../analysis/RunAnalyzer.exe .
+cp ../../../analysis/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt .
 setUp="./setup.C"
 grep -h "loggit" ../../../analysis/app/* >> ${setUp}
 
@@ -120,7 +149,7 @@ prep_and_submit(){
   printf "Executable = ${CMSSW_BASE}/src/B-ParkingLLPs/condor/runJobs.sh\n" >> submitfile
   printf "Should_Transfer_Files = YES \n" >> submitfile
   printf "WhenToTransferOutput = ON_EXIT\n" >> submitfile
-  printf "Transfer_Input_Files = ../RunAnalyzer.exe\n" >> submitfile
+  printf "Transfer_Input_Files = ../RunAnalyzer.exe, ../Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt\n" >> submitfile
   
   printf "notify_user = $(whoami)@cern.ch\n" >> submitfile
   printf "x509userproxy = $X509_USER_PROXY\n" >> submitfile
