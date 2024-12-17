@@ -53,6 +53,7 @@ class analyzer_config : public analyzer_base{
   int HLTIndexHigh;
 
   TString theLumiJSON;
+  TString thelepIDJSON;
 
   bool doScan;
 

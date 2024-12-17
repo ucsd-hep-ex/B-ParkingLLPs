@@ -53,6 +53,7 @@ void analyzer_config::setConfig(){ // loggit
   HLTIndexHigh = 1197;             // loggit
   
   theLumiJSON = "Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt"; // loggit
+  thelepIDJSON = "RunABCD_SF_ID.json"; // loggit
 }                                  // loggit
 
 Bool_t analyzer_config::doCutFlow(){

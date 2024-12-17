@@ -24,13 +24,15 @@ const std::map<int, double> DecayEff_M2_10000 = { {1, 5.36051e-17}, {3, 4.29226e
 
 const std::map<int, double> DecayEff_M3_3000  = { {1, 7.72181e-22}, {3, 6.33557e-09}, {5, 1.93e-06}, {7, 2.07529e-05}, {10, 0.000122248}, {30, 0.00386146}, {50, 0.011704}, {70, 0.0212436}, {100, 0.0362698}, {300, 0.117752}, {500, 0.168509}, {700, 0.200698}, {1000, 0.228747}, {3000, 0.239329}, {5000, 0.20582}, {7000, 0.178628}, {10000, 0.151509}, };
 const std::map<int, double> DecayEff_M3_10000 = { {1, 6.38056e-24}, {3, 1.65837e-09}, {5, 1.27692e-06}, {7, 2.27757e-05}, {10, 0.000196286}, {30, 0.00585752}, {50, 0.0143705}, {70, 0.0240373}, {100, 0.0392737}, {300, 0.122177}, {500, 0.172873}, {700, 0.204767}, {1000, 0.232418}, {3000, 0.241803}, {5000, 0.207522}, {7000, 0.178299}, {10000, 0.146031}, };
-analyzer::analyzer() 
+analyzer::analyzer()
 {
+}
+analyzer::~analyzer() {
 }
 
-analyzer::~analyzer()
-{
-}
+//analyzer::~analyzer()
+//{
+//}
 
 Float_t ctau_reweighter(Float_t t, Float_t tau0, Float_t tau1) {
     Float_t numerator = (1.0f / tau1) * expf(-t / tau1);
@@ -78,6 +80,7 @@ Double_t clusterSizeResponseFactor (TString muon_station) {
 void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSample, Float_t NEvents)
 {
    loadLumiJSON();
+   loadEfficiencyJSON();
    CscClusterPassSel_all.clear();
    jet_list.clear();
    muon_list.clear();
@@ -90,7 +93,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    fChain->GetListOfBranches();
    if (fChain == 0) return;
    Long64_t nentries = fChain->GetEntriesFast();
-   //Long64_t nentries = 1000000;
+   //Long64_t nentries = 100;
    Long64_t nbytes = 0, nb = 0;
    std::cout<<"nentries: "<<nentries<<std::endl;
 
@@ -116,7 +119,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
    //-- CSCs
    cutFlow.insert(std::pair<TString, float> ("nCscRechitClusters > 0", 0));    cutFlowKeys.push_back("nCscRechitClusters > 0");
-   cutFlow.insert(std::pair<TString, float> ("CscClusterSize >= 0", 0));       cutFlowKeys.push_back("CscClusterSize >= 0");
+   cutFlow.insert(std::pair<TString, float> ("CscClusterSize >= 0", 0));       cutFlowKeys.push_back("CscClusterSize >= 50");
    cutFlow.insert(std::pair<TString, float> ("CscPassOverlapLeadMuon", 0));    cutFlowKeys.push_back("CscPassOverlapLeadMuon");
    cutFlow.insert(std::pair<TString, float> ("CscOverlapGenLLP", 0));          cutFlowKeys.push_back("CscOverlapGenLLP");
    cutFlow.insert(std::pair<TString, float> ("CscPassME1112Veto", 0));         cutFlowKeys.push_back("CscPassME1112Veto");
@@ -131,6 +134,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
 
    bool found = true;
+   bool scaleLumi = false;
    TFile *OPT_Histos;
    TFile *f_Weights;
    TH2F * n_events_CSC_A;
@@ -172,6 +176,15 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
    TH1F *h_Jets_valBandPass_v2 = new TH1F("h_Jets_valBandPass_v2","h_Jets_valBandPass_v2", jBins, j_bins);
    TH1F *h_Jets_valBandFail_v2 = new TH1F("h_Jets_valBandFail_v2","h_Jets_valBandFail_v2", jBins, j_bins);
 
+   if (scaleLumi){
+     std::cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"<<std::endl;
+     std::cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"<<std::endl;
+     std::cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@                                 @@@@@@@@@@@@@@@@@@@@@"<<std::endl;
+     std::cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@ WARNING SCALE TO LUMI TURNED ON @@@@@@@@@@@@@@@@@@@@@"<<std::endl;
+     std::cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@                                 @@@@@@@@@@@@@@@@@@@@@"<<std::endl;
+     std::cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"<<std::endl;
+     std::cout<<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"<<std::endl;
+   }
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
@@ -180,21 +193,35 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
      
       if(!isMC && !goodLumi(runNum,lumiSec)) continue;
 
-      //Make MuonList
-      muon_list       =  muonPassSel(muPt, muEta);
        
       //Make Event Weight event_weight=(sigma*Lumi)*genLLPFilterEffSF*TriggerEffSF*[1/Sum GenWeight]*PUWeight*genMuonFilterEff*genEventWeight
       Float_t event_weight = 1.0;
+      Float_t lepIDSF      = 1.0;
+      Float_t lepIDSFError = 1.0;
+
       if(isMC) event_weight = SIGMA*
                               ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
                               pileupWeight*
                               genFilterEff(theSample, i_to_ctau)*
                               genMuonFilterEff*
                               (1./NEvents);
-       
-      if(isMC && muon_list.size()>0) event_weight=event_weight*lepSF[muon_list[0]];
+      // Just for de-bugging cutflow
+      if (scaleLumi) event_weight*=41.58;
+
+      if(b_cutFlow) cutFlow["No cuts"] += event_weight;
+      
+      //Make MuonList
+      muon_list       =  muonPassSel(muPt, muEta);
+      if(isMC && muon_list.size()>0) {
+        getEfficiency(lepPt[muon_list[0]], fabs(lepEta[muon_list[0]]), lepIDSF, lepIDSFError);
+        event_weight*=lepIDSF;
+        event_weight*=lepSF[muon_list[0]];
+      } 
+      muonPassSel_cutflow(muPt, muEta, event_weight);
       //if(isMC && muon_list.size()>0) event_weight=event_weight*lepSFup[muon_list[0]];
       //if(isMC && muon_list.size()>0) event_weight=event_weight*lepSFdn[muon_list[0]];
+
+
       // Just print 
       if(muon_list.size()>0 && found) {
         std::cout<<"sample: "        <<theSample<<
@@ -206,11 +233,16 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                    "  lepSF: "       <<lepSF[muon_list[0]]<<
                    "  genFilterEff: "<<genFilterEff(theSample, to_ctau)<<
                    "  genMuonFilterEff: "<<genMuonFilterEff<<
+                   "  lepIDSF: "<<lepIDSF<<
                    "  NEvents-total: "<<NEvents<<
                    std::endl; 
-        //std::cout<<"Pt:"<<lepPt[muon_list[0]]<<"  IPSig:"<<lepDXYErr[muon_list[0]]<<"  SF:"<<lepSF[muon_list[0]]<<"  SFup:"<<lepSFup[muon_list[0]]<<"  SFdn:"<<lepSFdn[muon_list[0]]<<std::endl;
         found = false;
       }
+      // continue doing the cutflow
+      if(doesPassHLT() && b_cutFlow && muon_list.size() > 0) { 
+      cutFlow["HLT"] += event_weight;
+      }
+
       //saving in the global variable 
       eventW = event_weight;
       if (isMC) {
@@ -339,13 +371,11 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       tup_CscCluster_list.clear();
       tup_CscCluster_list = CscClusterPassSel_all[4];
 
-      if(b_cutFlow) cutFlow["No cuts"] += event_weight;
 
-      muonPassSel_cutflow(muPt, muEta, event_weight);
-       
+      //muonPassSel_cutflow(muPt, muEta, event_weight);
       // continue doing the cutflow
       if(doesPassHLT() && b_cutFlow && muon_list.size() > 0) { 
-      cutFlow["HLT"] += event_weight;
+      //cutFlow["HLT"] += event_weight;
 
       DtClusterPassSel_CutFlow (event_weight);
       CscClusterPassSel_CutFlow(event_weight);

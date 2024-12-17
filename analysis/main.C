@@ -30,7 +30,7 @@ TString inpath = "/uscms/home/ddiaz/nobackup/BParkingLLPs/CMSSW_14_0_6_patch1/sr
 //TString inpath = "root://cmsxrootd.fnal.gov//store/group/lpclonglived/B-ParkingLLPs//V1p19_9/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau5000/";
 
 //Fill Sample file Chain
-TString sampleName = "ParkingBPH1_2018A_partialJets";
+TString sampleName = "ParkingBPH1_2018A_partialJets_BIG";
 //TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300";
 //TString sampleName = "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau5000";
 

@@ -38,14 +38,31 @@ public :
    bool doesPassHLT(); 
    void loadLumiJSON();
    bool goodLumi(int run, int lumi);
+   void loadEfficiencyJSON();
+   void getEfficiency(Float_t pt, Float_t abseta, Float_t& value, Float_t& error);
+
 
 private:
    struct LumiRange {
        int start;
        int end;
    };
+    struct PtBin {
+        float pt_min;
+        float pt_max;
+        float value;
+        float error;
+    };
+
+    struct AbsetaBin {
+        float abseta_min;
+        float abseta_max;
+        std::vector<PtBin> pt_bins;
+    };
+   std::vector<AbsetaBin> abseta_bins;
    std::unordered_map<int, std::vector<LumiRange>> runLumiMap;
    bool isWithinRange(int lumi, int start, int end);
+   cJSON* efficiencyRoot;
 };
 
 #endif
@@ -142,5 +159,117 @@ bool analyzer::goodLumi(int run, int lumi) {
   }
   return false;
 }
+
+
+
+
+
+/// lepton ID Eff SFs
+void analyzer::loadEfficiencyJSON() {
+    // Open the JSON file
+    std::ifstream file(thelepIDJSON);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open efficiency JSON file: " << thelepIDJSON << std::endl;
+        return;
+    }
+
+    // Read the entire file into a string
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string data = buffer.str();
+
+    // Parse the JSON data
+    cJSON* json = cJSON_Parse(data.c_str());
+    if (json == nullptr) {
+        std::cerr << "Failed to parse efficiency JSON: " << cJSON_GetErrorPtr() << std::endl;
+        return;
+    }
+    // Access the "NUM_SoftID_DEN_genTracks" object
+    cJSON* softID = cJSON_GetObjectItem(json, "NUM_SoftID_DEN_genTracks");
+    if (!softID) {
+        std::cerr << "NUM_SoftID_DEN_genTracks not found in efficiency JSON." << std::endl;
+        cJSON_Delete(json);
+        return;
+    }
+
+    cJSON* abseta_pt = cJSON_GetObjectItem(softID, "abseta_pt");
+    if (!abseta_pt) {
+        std::cerr << "abseta_pt not found in efficiency JSON." << std::endl;
+        cJSON_Delete(json);
+        return;
+    }
+
+    // Iterate over abseta bins
+    cJSON* abseta_bin = nullptr;
+    cJSON_ArrayForEach(abseta_bin, abseta_pt) {
+        const char* abseta_key = abseta_bin->string;
+        float abseta_min, abseta_max;
+
+        // Parse the abseta range from the key
+        if (sscanf(abseta_key, "abseta:[%f,%f]", &abseta_min, &abseta_max) != 2) {
+            std::cerr << "Error parsing abseta range from key: " << abseta_key << std::endl;
+            continue;
+        }
+
+        AbsetaBin absetaBin;
+        absetaBin.abseta_min = abseta_min;
+        absetaBin.abseta_max = abseta_max;
+
+        // Iterate over pt bins within this abseta bin
+        cJSON* pt_bin = nullptr;
+        cJSON_ArrayForEach(pt_bin, abseta_bin) {
+            const char* pt_key = pt_bin->string;
+            float pt_min, pt_max;
+
+            // Parse the pt range from the key
+            if (sscanf(pt_key, "pt:[%f,%f]", &pt_min, &pt_max) != 2) {
+                std::cerr << "Error parsing pt range from key: " << pt_key << std::endl;
+                continue;
+            }
+            PtBin ptBin;
+            ptBin.pt_min = pt_min;
+            ptBin.pt_max = pt_max;
+
+            // Get the value and error
+            cJSON* value_item = cJSON_GetObjectItem(pt_bin, "value");
+            cJSON* error_item = cJSON_GetObjectItem(pt_bin, "error");
+
+            if (value_item && error_item) {
+                ptBin.value = static_cast<float>(value_item->valuedouble);
+                ptBin.error = static_cast<float>(error_item->valuedouble);
+                absetaBin.pt_bins.push_back(ptBin);
+            } else {
+                std::cerr << "Value or error not found in pt bin: " << pt_key << std::endl;
+            }
+        }
+
+        // Add the absetaBin to the vector
+        abseta_bins.push_back(absetaBin);
+    }
+
+    cJSON_Delete(json);
+}
+
+
+void analyzer::getEfficiency(Float_t pt, Float_t abseta, Float_t& value, Float_t& error) {
+    for (const auto& absetaBin : abseta_bins) {
+        if (abseta >= absetaBin.abseta_min && abseta <= absetaBin.abseta_max) {
+            // Found matching abseta bin
+            for (const auto& ptBin : absetaBin.pt_bins) {
+                if (pt >= ptBin.pt_min && pt <= ptBin.pt_max) {
+                    // Found matching pt bin
+                    value = ptBin.value;
+                    error = ptBin.error;
+                    return;
+                }
+            }
+            // No matching pt bin found within this abseta bin
+            return;
+        }
+    }
+    // No matching abseta bin found
+    return;
+}
+
 
 #endif // #ifdef analyzer_cxx
