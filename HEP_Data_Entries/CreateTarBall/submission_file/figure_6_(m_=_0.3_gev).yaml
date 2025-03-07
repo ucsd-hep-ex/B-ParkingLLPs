@@ -1,0 +1,97 @@
+dependent_variables:
+- header:
+    name: 95% CL upper limit on $B \rightarrow K \Phi$
+  qualifiers:
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  - name: Quantile
+    value: Median expected limit
+  values:
+  - value: 0.00031729
+  - value: 8.5435e-05
+  - value: 6.6943e-05
+  - value: 6.3154e-05
+  - value: 6.477e-05
+  - value: 0.00011855
+  - value: 0.00019839
+  - value: 0.00030613
+  - value: 0.00058836
+  - value: 0.010734
+  - value: 0.031118
+- header:
+    name: 95% CL upper limit's observed value on $B \rightarrow K \Phi$
+  qualifiers:
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  - name: Quantile
+    value: Observed limit
+  values:
+  - value: 0.00035368
+  - value: 9.508e-05
+  - value: 7.4759e-05
+  - value: 7.0598e-05
+  - value: 7.2611e-05
+  - value: 0.00013214
+  - value: 0.0002212
+  - value: 0.00034142
+  - value: 0.00065578
+  - value: 0.011972
+  - value: 0.034713
+- header:
+    name: 95% CL upper limit's observed value -1$\sigma$ on $B \rightarrow K \Phi$
+  qualifiers:
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  - name: Quantile
+    value: -1 $\sigma$
+  values:
+  - value: 0.00021847
+  - value: 5.8283e-05
+  - value: 4.5668e-05
+  - value: 4.3205e-05
+  - value: 4.4348e-05
+  - value: 8.0873e-05
+  - value: 0.00013534
+  - value: 0.00020961
+  - value: 0.00040284
+  - value: 0.0073496
+  - value: 0.021306
+- header:
+    name: 95% CL upper limit's observed value +1$\sigma$ on $B \rightarrow K \Phi$
+  qualifiers:
+  - name: SQRT(S)
+    units: TeV
+    value: 13
+  - name: Quantile
+    value: +1 $\sigma$
+  values:
+  - value: 0.00049056
+  - value: 0.00013345
+  - value: 0.00010537
+  - value: 9.9404e-05
+  - value: 0.00010195
+  - value: 0.0001847
+  - value: 0.0003091
+  - value: 0.00047697
+  - value: 0.00091669
+  - value: 0.016724
+  - value: 0.048483
+independent_variables:
+- header:
+    name: c$\tau$
+    units: mm
+  values:
+  - value: 10.0
+  - value: 30.0
+  - value: 50.0
+  - value: 70.0
+  - value: 100.0
+  - value: 300.0
+  - value: 500.0
+  - value: 700.0
+  - value: 1000.0
+  - value: 3000.0
+  - value: 5000.0
