@@ -19,3 +19,6 @@ python3 Convert.py
 The tarball is produced using `./HEP_Data_Entries/CreateTarBall/CreateTarBallSubmissionFile.ipynb` file which ueses the produced root files. 
 The names of the graphs and histograms are written manually by looking for them in the root files. 
 
+In the `PrivateCentralValidation` folder the comparison of samples from private and central production can be done. To perform the plotting of the distribution the `llp.C` macro is used. 
+The script produces histograms and saves them in a root file in the same folder. As input data the ntuples are used and the address of the ntuple can be changed in `llp.h`. Once the 
+histograms are produced the `Plotter.C` macro can be used to overlay the produced histograms and calculate the ratios for each bin, for which the filenames are provided manually in the macro. 
