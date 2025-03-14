@@ -5,6 +5,23 @@ void cscRechitClusterDPhiLeadMuon_nominal_log()
 {
 //=========Macro generated from canvas: canvas/canvas
 //=========  (Thu Feb 13 16:50:45 2025) by ROOT version 6.30/03
+   float lumi_x, lumi_y, lumi_size;
+   float cms_x, cms_y, cms_size;
+   float extra_x, extra_y, extra_size;
+
+   lumi_x = 0.9;
+   lumi_y = 0.91;
+  
+   cms_x = 0.35;
+   cms_y = 0.81;
+
+   extra_x = 0.65;
+   extra_y = 0.81;
+
+   lumi_size  = 0.07 ;
+   cms_size   = 0.075;
+   extra_size = 0.06;
+
    TCanvas *canvas = new TCanvas("canvas", "canvas",0,0,800,800);
    gStyle->SetOptStat(0);
    gStyle->SetLineWidth(3);
@@ -121,25 +138,25 @@ void cscRechitClusterDPhiLeadMuon_nominal_log()
    h_bkg__2->GetZaxis()->SetTitleFont(42);
    h_bkg__2->SetLineColor(1);
    h_bkg__2->Draw("hist sames");
-   TLatex *   tex = new TLatex(0.9,0.91,"41.6 fb^{-1} (13 TeV)");
+   TLatex *   tex = new TLatex(lumi_x,lumi_y,"41.6 fb^{-1} (13 TeV)");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(42);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(lumi_size);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.250,0.81,"CMS");
+      tex = new TLatex(cms_x,cms_y,"CMS");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(61);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(cms_size);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.470,0.81,"Preliminary");
+      tex = new TLatex(extra_x,extra_y,"Preliminary");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(52);
-   tex->SetTextSize(0.0456);
+   tex->SetTextSize(extra_size);
    tex->SetLineWidth(2);
    tex->Draw();
    
@@ -247,25 +264,25 @@ void cscRechitClusterDPhiLeadMuon_nominal_log()
    h_bkg__4->GetZaxis()->SetTitleFont(42);
    h_bkg__4->SetLineColor(1);
    h_bkg__4->Draw("hist sames");
-      tex = new TLatex(0.9,0.91,"41.6 fb^{-1} (13 TeV)");
+      tex = new TLatex(lumi_x,lumi_y,"41.6 fb^{-1} (13 TeV)");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(42);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(lumi_size);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.250,0.81,"CMS");
+      tex = new TLatex(cms_x,cms_y,"CMS");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(61);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(cms_size);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.470,0.81,"Preliminary");
+      tex = new TLatex(extra_x,extra_y,"Preliminary");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(52);
-   tex->SetTextSize(0.0456);
+   tex->SetTextSize(extra_size);
    tex->SetLineWidth(2);
    tex->Draw();
    
@@ -372,31 +389,33 @@ void cscRechitClusterDPhiLeadMuon_nominal_log()
    h_bkg__6->GetZaxis()->SetTitleFont(42);
    h_bkg__6->SetLineColor(1);
    h_bkg__6->Draw("hist sames");
-      tex = new TLatex(0.9,0.91,"41.6 fb^{-1} (13 TeV)");
+      tex = new TLatex(lumi_x,lumi_y,"41.6 fb^{-1} (13 TeV)");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(42);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(lumi_size);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.250,0.81,"CMS");
+      tex = new TLatex(cms_x,cms_y,"CMS");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(61);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(cms_size);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.470,0.81,"Preliminary");
+      tex = new TLatex(extra_x,extra_y,"Preliminary");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(52);
-   tex->SetTextSize(0.0456);
+   tex->SetTextSize(extra_size);
    tex->SetLineWidth(2);
    tex->Draw();
    
-   TLegend *leg = new TLegend(0.1,0.6,0.9,0.75,NULL,"brNDC");
+   //TLegend *leg = new TLegend(0.1,0.6,0.9,0.75,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.15,0.57,0.85,0.78,NULL,"brNDC");
+   leg->SetTextSize(0.052);
+   leg->SetMargin(0.15);
    leg->SetBorderSize(0);
-   leg->SetTextSize(0.04);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(3);
@@ -492,6 +511,25 @@ void cscRechitClusterDPhiLeadMuon_nominal_log()
    h_sig_copy__7->GetZaxis()->SetTitleOffset(1);
    h_sig_copy__7->GetZaxis()->SetTitleFont(42);
    h_sig_copy__7->Draw("sameaxis");
+
+   TH1F* histograms[] = {h_sig__1, h_bkg__2, h_sig__3, h_bkg__4, h_sig__5, h_bkg__6, h_sig_copy__7};   
+   for (auto* hist : histograms) {
+    double originalYSize = hist->GetYaxis()->GetTitleSize();
+    double originalXSize = hist->GetXaxis()->GetTitleSize();
+    double originalYlabelSize = hist->GetYaxis()->GetLabelSize();
+    double originalXlabelSize = hist->GetXaxis()->GetLabelSize();
+
+    hist->GetYaxis()->SetTitleSize(originalYSize * 1.5);
+    hist->GetXaxis()->SetTitleSize(originalXSize * 1.5);
+    hist->GetYaxis()->SetLabelSize(originalYlabelSize * 1.5);
+    hist->GetXaxis()->SetLabelSize(originalXlabelSize * 1.5);
+    hist->SetMarkerSize(0.5);
+    hist->GetXaxis()->SetTitleOffset(1.0);
+    hist->GetYaxis()->SetTitleOffset(1.3);
+   }
+   gPad->SetLeftMargin(0.15); 
+   gPad->SetBottomMargin(0.14);    
+
    canvas->Modified();
    canvas->SetSelected(canvas);
    canvas->SaveAs("cscRechitClusterDPhiLeadMuon_nominal_log.pdf");
