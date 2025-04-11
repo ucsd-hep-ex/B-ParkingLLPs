@@ -29,7 +29,7 @@ public :
    Bool_t isMC;
    Float_t counter  = 0;
    Float_t counter2 = 0;
-
+   bool passCS = false;
    Float_t eventW = -999;
 
    std::vector<TFile*> f_out;

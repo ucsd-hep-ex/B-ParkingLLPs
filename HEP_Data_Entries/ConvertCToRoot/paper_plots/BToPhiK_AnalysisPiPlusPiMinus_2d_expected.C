@@ -2,7 +2,8 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
 {
 //=========Macro generated from canvas: c/c
 //=========  (Mon Feb 17 19:16:30 2025) by ROOT version 6.24/06
-   TCanvas *c = new TCanvas("c", "c",0,0,1000,800);
+   //TCanvas *c = new TCanvas("c", "c",0,0,1000,800);
+   TCanvas *c = new TCanvas("c", "c",0,0,900,600);
    gStyle->SetOptFit(1);
    gStyle->SetOptStat(0);
    gStyle->SetOptTitle(0);
@@ -15,10 +16,10 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
    c->SetLogx();
    c->SetLogy();
    c->SetLogz();
-   c->SetLeftMargin(0.16);
-   c->SetRightMargin(0.3);
-   c->SetTopMargin(0.05);
-   c->SetBottomMargin(0.16);
+   c->SetLeftMargin(0.1);
+   c->SetRightMargin(0.2);
+   c->SetTopMargin(0.075);
+   c->SetBottomMargin(0.13);
    c->SetFrameLineWidth(2);
    c->SetFrameBorderMode(0);
    c->SetFrameLineWidth(2);
@@ -6476,13 +6477,17 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
    unnamed->GetXaxis()->SetNoExponent();
    unnamed->GetXaxis()->SetLabelFont(42);
    unnamed->GetXaxis()->SetLabelOffset(0.015);
-   unnamed->GetXaxis()->SetTitleOffset(1.5);
+   unnamed->GetXaxis()->SetTitleOffset(1.0);
+   unnamed->GetXaxis()->SetTitleSize(0.06);
+   unnamed->GetXaxis()->SetLabelSize(0.06);
    unnamed->GetXaxis()->SetTitleFont(42);
    unnamed->GetYaxis()->SetTitle("c#tau [mm]");
+   unnamed->GetYaxis()->SetTitleSize(0.06);
+   unnamed->GetYaxis()->SetLabelSize(0.06);
    unnamed->GetYaxis()->SetLabelFont(42);
    unnamed->GetYaxis()->SetLabelOffset(0.015);
    unnamed->GetYaxis()->SetTickLength(0.02);
-   unnamed->GetYaxis()->SetTitleOffset(1.5);
+   unnamed->GetYaxis()->SetTitleOffset(0.9);
    unnamed->GetYaxis()->SetTitleFont(42);
    unnamed->GetZaxis()->SetTitle("95% CL upper limit on #bf{#it{#Beta}}(B#rightarrow K#Phi)");
 
@@ -6493,28 +6498,30 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
    unnamed->GetZaxis()->SetTitleFont(42);
 
    unnamed->GetZaxis()->SetTitleOffset(1.35);
-   unnamed->GetZaxis()->SetTitleSize(0.035);
-   unnamed->GetZaxis()->SetLabelSize(0.035);
+   //unnamed->GetZaxis()->SetTitleSize(0.035);
+   unnamed->GetZaxis()->SetTitleSize(0.05);
+   //unnamed->GetZaxis()->SetLabelSize(0.035);
+   unnamed->GetZaxis()->SetLabelSize(0.05);
    unnamed->GetZaxis()->SetLabelOffset(0.005);
    unnamed->Draw("colz");
 
-      TLatex *   tex = new TLatex(0.7,0.96,"#scale[1.0]{41.6 fb^{#minus1} (13 TeV)}");
+      TLatex *   tex = new TLatex(0.8,0.94,"#scale[1.0]{41.6 fb^{#minus1} (13 TeV)}");
    tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(42);
-   tex->SetTextSize(0.042);
+   tex->SetTextSize(0.07);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.16,0.96,"CMS");
+      tex = new TLatex(0.1,0.94,"CMS");
    tex->SetNDC();
    tex->SetTextFont(61);
-   tex->SetTextSize(0.0525);
+   tex->SetTextSize(0.075);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.26,0.96,"Preliminary");
+      tex = new TLatex(0.2,0.94,"Preliminary");
    tex->SetNDC();
    tex->SetTextFont(52);
-   tex->SetTextSize(0.0399);
+   tex->SetTextSize(0.06);
    tex->SetLineWidth(2);
    tex->Draw();
 
@@ -7883,7 +7890,8 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
    TLegend *leg = new TLegend(0.4,0.15,0.7,0.32,NULL,"brNDC");
    leg->SetBorderSize(0);
    leg->SetTextFont(62);
-   leg->SetTextSize(0.03);
+   //leg->SetTextSize(0.03);
+   leg->SetTextSize(0.05);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);

@@ -198,7 +198,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       Float_t event_weight = 1.0;
       Float_t lepIDSF      = 1.0;
       Float_t lepIDSFError = 1.0;
-
       if(isMC) event_weight = SIGMA*
                               ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)*
                               pileupWeight*
@@ -207,7 +206,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
                               (1./NEvents);
       // Just for de-bugging cutflow
       if (scaleLumi) event_weight*=41.58;
-
+      //event_weight=1.0;
       if(b_cutFlow) cutFlow["No cuts"] += event_weight;
       
       //Make MuonList
@@ -217,6 +216,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         event_weight*=lepIDSF;
         event_weight*=lepSF[muon_list[0]];
       } 
+      //event_weight=1.0;
       muonPassSel_cutflow(muPt, muEta, event_weight);
       //if(isMC && muon_list.size()>0) event_weight=event_weight*lepSFup[muon_list[0]];
       //if(isMC && muon_list.size()>0) event_weight=event_weight*lepSFdn[muon_list[0]];
@@ -224,6 +224,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
 
       // Just print 
       if(muon_list.size()>0 && found) {
+        std::cout<<"1/NEvents = "<<1./NEvents<<std::endl;
         std::cout<<"sample: "        <<theSample<<
                    "  event_weight: "<<event_weight<<
                    "  event: "       <<jentry<<
@@ -261,6 +262,7 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
         setTree();
         Tree->Fill();
       } 
+      passCS = false;
       // object lists
       //If this changes check indices used below for the PassSel_all vectors
       std::vector<std::vector<int>> dummy; 
@@ -285,6 +287,25 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       dummy.push_back( DtClusterPassSel_PassCS(doesPassHLT()) );
       dummy.push_back( DtClusterPassSel_FailCS(doesPassHLT()) );
       DtClusterPassSel_all = dummy;
+
+      // Just print for extra debugging 
+      //if(passCS) {
+      //  std::cout<<
+      //             "event_weight: "<<event_weight<<
+      //             "  event: "       <<jentry<<
+      //             "  NMuons: "      <<muon_list.size()<<
+      //             "  w_ctau: "      <<ctau_reweighter(gLLP_ctau, from_ctau, to_ctau)<<
+      //             "  PUweight: "    <<pileupWeight<<
+      //             "  lepSF: "       <<lepSF[muon_list[0]]<<
+      //             "  genFilterEff: "<<genFilterEff(theSample, to_ctau)<<
+      //             "  genMuonFilterEff: "<<genMuonFilterEff<<
+      //             "  lepIDSF: "<<lepIDSF<<
+      //             "  NEvents-total: "<<NEvents<<
+      //             std::endl; 
+      //  found = false;
+      //}
+
+
 
       jet_list       =  jetPassSel(jetPtMin, jetCISV_Cut);
       //save number of Jets we have to check FR estimate.
