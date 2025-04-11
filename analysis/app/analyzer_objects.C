@@ -246,7 +246,7 @@ std::vector<int> analyzer_objects::CscClusterPassSel_PassCS(bool passHLT) {     
                 && askDoesPassClusterTime_csc(j)                                       // loggit
                 && askDoesPassdPhiLeadMuon_csc(j)                                      // loggit                      
                 && (cscRechitClusterSize[j] > CscSize)                                 // loggit
-                ) ids.push_back(j);                                                    // loggit
+                ) {ids.push_back(j); passCS = true;}                                   // loggit
         }                                                                              // loggit
     }                                                                                  // loggit
     return ids;                                                                        // loggit

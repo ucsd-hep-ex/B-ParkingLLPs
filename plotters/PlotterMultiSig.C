@@ -37,7 +37,8 @@ SignalInfo extractSignalInfo(TString signalName) {
     Ssiz_t pos_ct = signalName.Index("to");
     Ssiz_t pos_m  = signalName.Index("mPhi");
 
-    TString dl      = signalName(pos_ct+2, pos2-(pos_ct+2));
+    //TString dl      = signalName(pos_ct+2, pos2-(pos_ct+2));
+    TString dl      = signalName(pos2 + 1, signalName.Length() - pos2 - 1);
     TString mass    = signalName(pos_m+4, pos3-(pos_m+4));
     mass.ReplaceAll("p", ".");
 
@@ -105,30 +106,31 @@ void setCanvas(TCanvas* c){
   gStyle->SetPaintTextFormat("4.3f");
 }
 
-void PlotterMultiSig(TString region, bool dolog, TString inpath, TString aversion, TString signalName,  TString signalName2){
+void PlotterMultiSig(TString region, bool dolog, TString inpath, TString aversion, TString signalStr){
+  bool plotbkg = false;
+  std::vector<TFile*> sigFile;
+  std::vector<TH1F*>  h_sig;
+  std::vector<TString> signals;
+  std::vector<TString> sigName;
+  std::vector<TString> sigpath;
+  std::vector<SignalInfo> info;
+  TObjArray* tokens = signalStr.Tokenize(",");
+  std::vector<int> theColor = {kBlue, kBlack, kGreen, kRed, kOrange};
+  TString nameFixed;
+  for (int i = 0; i < tokens->GetEntries(); ++i) {
+      signals.push_back(((TObjString*)tokens->At(i))->GetString());
+      info.push_back(extractSignalInfo(signals[i]));
+      sigName.push_back(info[i].name.Data());
+      nameFixed = signals[i];
+      nameFixed.ReplaceAll("_to_", "to");
+      sigpath.push_back(inpath+signals[i]+"/"+nameFixed+"_"+region+"_plots.root");
+      sigFile.push_back(TFile::Open(sigpath[i]));
+  }
 
-
-
-  SignalInfo info  = extractSignalInfo(signalName);
-  SignalInfo info2 = extractSignalInfo(signalName2);
-  TString sigName = info.name.Data();
-  TString sigName2 = info2.name.Data();
-  std::cout<<"Short Name: "<<sigName<<std::endl;
-  std::cout<<"Short Name 2: "<<sigName2<<std::endl;
   TString bkgName = "Parking_2018_";
-  //TString bkgName = "ParkingBPH2_2018D_";
-
-  TString sigpath  = inpath+signalName+region+"_plots.root";
-  TString sigpath2 = inpath+signalName2+region+"_plots.root";
   TString bkgpath  = inpath+bkgName+region+"_plots.root";
-
-  TFile* sigFile  = TFile::Open(sigpath);  
-  TFile* sigFile2 = TFile::Open(sigpath2);  
-  TFile* bkgFile  = TFile::Open(bkgpath);  
-  std::cout<<sigpath<<std::endl;
-  std::cout<<bkgpath<<std::endl;
-  TH1F* h_sig;
-  TH1F* h_sig2;
+  TFile* bkgFile;
+  if(plotbkg) bkgFile =  TFile::Open(bkgpath);  
   TH1F* h_bkg;
 
    // make canvas and text
@@ -173,7 +175,7 @@ void PlotterMultiSig(TString region, bool dolog, TString inpath, TString aversio
   //variables.push_back("cscRechitClusterTime");
   //variables.push_back("cscRechitClusterTimeTotal");
   //variables.push_back("cscRechitClusterTimeWeighted");
-  //variables.push_back("nDTRechits");
+  //variabes.push_back("nDTRechits");
   //variables.push_back("dtRechitCluster_match_RPCTime_dR0p4");
   //variables.push_back("dtRechitCluster_match_RPCTimeSpread_dR0p4");
   //variables.push_back("dtRechitCluster_match_RPChits_dR0p4");
@@ -183,110 +185,88 @@ void PlotterMultiSig(TString region, bool dolog, TString inpath, TString aversio
   //variables.push_back("dtRechitCluster_match_RPCTimeSpread_sameStation_dR0p4");
 
   for (int i =0; i<variables.size(); i++){
-  
-  if(variables[i]=="nCscRechits"){
-    h_sig  = (TH1F*)sigFile->Get(variables[i])->Clone("h_sig");
-    h_sig2 = (TH1F*)sigFile2->Get(variables[i])->Clone("h_sig2");
-    h_bkg  = (TH1F*)bkgFile->Get(variables[i])->Clone("h_bkg");
-  }
-  else{
-    h_sig  = (TH1F*)sigFile->Get("h_"+variables[i])->Clone("h_sig");
-    h_sig2 = (TH1F*)sigFile2->Get("h_"+variables[i])->Clone("h_sig2");
-    h_bkg  = (TH1F*)bkgFile->Get("h_"+variables[i])->Clone("h_bkg");
-  }
-    std::cout<<"MaxSignal: "<<h_sig->GetMaximum()<<"    Maxbkg: "<<h_bkg->GetMaximum()<<std::endl;
-    //std::cout<<"Normalize to unity"<<std::endl;
-    //if (h_sig->GetEntries()>0)  h_sig->Scale(1./h_sig->Integral());
-    //if (h_sig2->GetEntries()>0) h_sig2->Scale(1./h_sig2->Integral());
-    //if (h_bkg->GetEntries()>0)  h_bkg->Scale(1./h_bkg->Integral());
-
-    if(info2.dl=="1000") h_sig2->Scale(10.*41.58*0.0003);
-    if(info.dl =="1000") h_sig ->Scale(10.*41.58*0.0003);
-    if(info2.dl=="300")  h_sig2->Scale(10.*41.58*1.e-04);
-    if(info.dl =="300")  h_sig ->Scale(10.*41.58*1.e-04);
-
-    //h_sig ->Scale(41.58*1.e-04);
-    //h_sig2->Scale(41.58*0.0003);
-    std::cout<<"###########################"<<variables[i] <<"###################"<<std::endl;
-    std::cout<<"Background: "<<h_bkg->Integral()<<std::endl;
-    std::cout<<"M0p3 300:   "<<h_sig->Integral()<<std::endl;
-    std::cout<<"M1p0 1000:  "<<h_sig->Integral()<<std::endl;
-    std::cout<<"##############################################"<<std::endl;
-
-    std::cout<<"MaxSignal_: "<<h_sig->GetMaximum()<<"    Maxbkg_: "<<h_bkg->GetMaximum()<<std::endl;
-
-    double ymax=0;
-    ymax = max(h_sig->GetMaximum(), h_bkg->GetMaximum());   
-
     // legend
     TLegend *leg = new TLegend(0.15,0.75,0.85,0.87);
     leg->SetNColumns(1);
     leg->SetBorderSize(0);
     leg->SetFillColor(kWhite);
- 
     canvas->Clear();
+    setCanvas(canvas);
+    double norm=1.0; 
+    double ymax=0;
+    if(plotbkg){
+      if(variables[i]=="nCscRechits") h_bkg  = (TH1F*)bkgFile->Get(variables[i])->Clone("h_bkg");
+      else                            h_bkg  = (TH1F*)bkgFile->Get("h_"+variables[i])->Clone("h_bkg");
+      //if (h_bkg->GetEntries()>0)  h_bkg->Scale(1./h_bkg->Integral());
+      ymax = h_bkg->GetMaximum();
+      //if(variables[i] =="cscRechitClusterDPhiLeadMuon"){
+      //  h_bkg ->Rebin(3);
+      //  h_bkg ->GetXaxis()->SetRangeUser(0.9,3.3);
+      //}
+      //if(variables[i] =="cscRechitClusterSize"){
+      //  h_bkg ->Rebin(10);
+      //}
+      h_bkg->Draw("hist");
+    }
+    h_sig.resize(sigFile.size());
+    for(int j = 0; j<h_sig.size(); j++){ 
+      if(variables[i]=="nCscRechits")  h_sig[j]  = (TH1F*)sigFile[j]->Get(variables[i])->Clone(TString::Format("h_sig_%d",j));
+      else                             h_sig[j]  = (TH1F*)sigFile[j]->Get("h_"+variables[i])->Clone(TString::Format("h_sig_%d",j));
+      if (h_sig[j]->GetEntries()>0)  h_sig[j]->Scale(1./h_sig[j]->Integral());
+
+      //if(info2.dl=="1000") h_sig2->Scale(10.*41.58*0.0003);
+      //if(info.dl =="1000") h_sig ->Scale(10.*41.58*0.0003);
+      //if(info2.dl=="300")  h_sig2->Scale(10.*41.58*1.e-04);
+      //if(info.dl =="300")  h_sig ->Scale(10.*41.58*1.e-04);
+
+      //h_sig ->Scale(41.58*1.e-04);
+      //h_sig2->Scale(41.58*0.0003);
+
+      ymax = max(h_sig[j]->GetMaximum(), ymax);   
+
+      if(variables[i] =="cscRechitClusterSize_v2"){
+      //  h_sig[j] ->Rebin(3);
+        h_sig[j] ->GetXaxis()->SetRangeUser(50,200);
+      }
     
-    if(variables[i] =="cscRechitClusterDPhiLeadMuon"){
-      h_bkg ->Rebin(3);
-      h_sig ->Rebin(3);
-      h_sig2->Rebin(3);
-     
-      h_bkg ->GetXaxis()->SetRangeUser(0.9,3.3);
-      h_sig ->GetXaxis()->SetRangeUser(0.9,3.3);
-      h_sig2->GetXaxis()->SetRangeUser(0.9,3.3);
+      if(variables[i] =="cscRechitClusterDPhiLeadMuon"){
+      //  h_sig[j] ->Rebin(3);
+        h_sig[j] ->GetXaxis()->SetRangeUser(0.9,3.3);
+      }
+      if(variables[i] =="cscRechitClusterSize"){
+        h_sig[j] ->Rebin(20);
+      }
     }
-    if(variables[i] =="cscRechitClusterSize"){
-      h_bkg ->Rebin(10);
-      h_sig ->Rebin(10);
-      h_sig2->Rebin(10);
+    for (int k=0; k<h_sig.size(); k++){
+      if (!plotbkg && k==0)  h_sig[k]->Draw("hist E1");
+      else                   h_sig[k]->Draw("hist E1 sames");
+      if(dolog)  {
+        h_sig[k]->SetMaximum(ymax*(1000)); 
+        h_sig[k]->SetMinimum(0.000001);
+      }
+      else{ 
+        h_sig[k]->SetMaximum(ymax*(1.2));
+      }
+
+      h_sig[k]->SetTitle("");    
+      h_sig[k]->GetYaxis()->SetTitle("Events");
+      //h_sig->GetYaxis()->SetTitle("a.u.");
+      h_sig[k]->GetYaxis()->SetTitleOffset(1.5);
+      h_sig[k]->GetXaxis()->SetTitle(variables[i]);
+      if(variables[i].Contains("Size"))
+        h_sig[k]->GetXaxis()->SetTitle("N_{Rechits}");
+      if(variables[i].Contains("DPhi"))
+        h_sig[k]->GetXaxis()->SetTitle("#Delta#Phi(Cluster, #mu)");
+      h_sig[k]->SetLineColor(theColor[k]);
+      h_sig[k]->SetLineWidth(2);
+
+      if(plotbkg) h_bkg->SetLineColor(kBlack);
+      if(plotbkg) h_bkg->SetLineWidth(2);
+      if (sigName[k].Contains("PhiToPiPlusPiMinus")) leg->AddEntry(h_sig[k],   TString("#Phi#rightarrow#pi^{+}#pi^{-}    m_{#Phi}=")+info[k].mass+ "GeV, c#tau_{#Phi}="+info[k].dl+"mm","l");
+      else                                           leg->AddEntry(h_sig[k],   TString("#Phi#rightarrow#pi^{0}#pi^{0}    m_{#Phi}=")+info[k].mass+ "GeV, c#tau_{#Phi}="+info[k].dl+"mm","l");
     }
-
-
-    h_sig->Draw("hist");
-    h_sig2->Draw("hist sames");
-    h_bkg->Draw("hist sames");
-    if(dolog)  {
-      h_sig->SetMaximum(ymax*(1000)); 
-      h_sig->SetMinimum(0.001);
-
-      h_sig2->SetMaximum(ymax*(1000)); 
-      h_sig2->SetMinimum(0.001);
-    }
-    else{ 
-      h_sig->SetMaximum(ymax*(1.2));
-      h_sig2->SetMaximum(ymax*(1.2));
-    }
-
-    h_sig->SetTitle("");    
-    h_sig->GetYaxis()->SetTitle("Events");
-    //h_sig->GetYaxis()->SetTitle("a.u.");
-    h_sig->GetYaxis()->SetTitleOffset(1.5);
-    h_sig->GetXaxis()->SetTitle(variables[i]);
-    if(variables[i].Contains("Size"))
-      h_sig->GetXaxis()->SetTitle("N_{Rechits}");
-    if(variables[i].Contains("DPhi"))
-      h_sig->GetXaxis()->SetTitle("#Delta#Phi(Cluster, #mu)");
-    h_sig->SetLineColor(kRed);
-    h_sig->SetLineWidth(2);
-
-    h_sig2->SetTitle("");    
-    h_sig2->GetYaxis()->SetTitle("Events");
-    //h_sig2->GetYaxis()->SetTitle("a.u.");
-    h_sig2->GetYaxis()->SetTitleOffset(1.5);
-    h_sig2->GetXaxis()->SetTitle(variables[i]);
-    h_sig2->SetLineColor(kBlue);
-    h_sig2->SetLineWidth(2);
-
-
-    h_bkg->SetLineColor(kBlack);
-    h_bkg->SetLineWidth(2);
-
     AddCMS(canvas);
-    if (sigName.Contains("PhiToPiPlusPiMinus")) leg->AddEntry(h_sig,   TString("10 #times #Phi#rightarrow#pi^{+}#pi^{-}    m_{#Phi}=")+info.mass+ "GeV, c#tau_{#Phi}="+info.dl+"mm","l");
-    else                                        leg->AddEntry(h_sig,   TString("10 #times #Phi#rightarrow#pi^{0}#pi^{0}    m_{#Phi}=")+info.mass+ "GeV, c#tau_{#Phi}="+info.dl+"mm","l");
-    if (sigName2.Contains("PhiToPiPlusPiMinus")) leg->AddEntry(h_sig2, TString("10 #times #Phi#rightarrow#pi^{+}#pi^{-}    m_{#Phi}=")+info2.mass+"GeV, c#tau_{#Phi}="+info2.dl+"mm","l");
-    else                                         leg->AddEntry(h_sig2, TString("10 #times #Phi#rightarrow#pi^{0}#pi^{0}    m_{#Phi}=")+info2.mass+"GeV, c#tau_{#Phi}="+info2.dl+"mm","l");
-    leg->AddEntry(h_bkg, "Background","l");
+    if(plotbkg) leg->AddEntry(h_bkg, "Background","l");
     leg->Draw("sames");
     gPad->Update();
     gPad->SetLogx(0);
@@ -294,7 +274,7 @@ void PlotterMultiSig(TString region, bool dolog, TString inpath, TString aversio
 
     if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+"_log.pdf");
     else canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+".pdf");
-    if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+"_log.C");
-    else canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+".C");
+//    if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+"_log.C");
+//    else canvas->SaveAs("plotDump/"+aversion+"/"+variables[i]+"_"+region+".C");
   } 
 }

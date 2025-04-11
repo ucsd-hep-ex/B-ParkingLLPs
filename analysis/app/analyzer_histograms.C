@@ -155,6 +155,8 @@ void analyzer_histograms::InitHistos(){
     h_nLeptons  [i] = InitTH1F("h_nLeptons", "h_nLeptons", 100, 0, 100);
     h_gLLP_ctau [i] = InitTH1F("h_gLLP_ctau", "h_gLLP_ctau", 100, 0, 1000);
 
+    h_eventWeight                          [i] = InitTH1F("h_eventWeight", "h_eventWeight", 100000, 0, 100000);
+
     h_cscRechitClusterDPhivsSize           [i] = InitTH2F("h_cscRechitClusterDPhivsSize", "h_cscRechitClusterDPhivsSize",650,50,700,40,0,4);
     h_cscRechitClusterPhivsEta             [i] = InitTH2F("h_cscRechitClusterPhivsEta"  , "h_cscRechitClusterPhivsEta",80,-2.,2.,40,-3.5,3.5);
 
@@ -213,7 +215,6 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew, const std::vector<i
   f_out[selbin]->cd();
   h_nLeptons[selbin]->Fill(nLeptons, ew);
   h_gLLP_ctau[selbin]->Fill(gLLP_ctau, ew);
-
   h_nJets[selbin]->Fill(nJets,ew);
   for(int j = 0; j<jet_list.size(); j++){
     int jet=jet_list[j];
@@ -263,18 +264,19 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew, const std::vector<i
     }
   }
   if(CscList.size()>0){
+    h_eventWeight[selbin]->Fill(1.,ew);
     h_nCscRechits[selbin]->Fill(nCscRechits, ew);
     bool passCSC = false;
     bool wasFilled_fail = false;
     bool wasFilled_pass = false;
-    
+      
     for(int i = 0; i < CscList.size(); i++){
       int c =  CscList[i];
       double dPhi = -999;
       if(muon_list.size()>0) dPhi = DeltaPhi(lepPhi[muon_list[0]], cscRechitClusterPhi[c]);
       h_cscRechitClusterPhivsEta               [selbin]->Fill(cscRechitClusterEta[c], cscRechitClusterPhi[c], ew);
       h_cscRechitClusterDPhivsSize             [selbin]->Fill(cscRechitClusterSize[c],                  dPhi, ew);
-
+      
       h_cscRechitClusterDPhiLeadMuon           [selbin]->Fill(dPhi, ew);  
       h_cscRechitClusterDPhiLeadMuon_v2        [selbin]->Fill(dPhi, ew);  
       h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c], ew);
@@ -282,6 +284,7 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew, const std::vector<i
       if(passCSC          && !wasFilled_pass) {
         h_cscRechitClusterDPhiLeadMuon_pass[selbin]->Fill(dPhi, ew); 
         wasFilled_pass = true;
+        //std::cout<<"  event_weight: "<<ew<<std::endl;
       }
       if(passCSC == false && !wasFilled_fail) {
         h_cscRechitClusterDPhiLeadMuon_fail[selbin]->Fill(dPhi, ew); 
@@ -358,6 +361,7 @@ void analyzer_histograms::WriteHistos(int selbin){
   f_out[selbin]->cd();
   h_nLeptons[selbin]->Write();
   h_gLLP_ctau[selbin]->Write();
+  h_eventWeight[selbin]->Write();
 
   h_nJets[selbin]->Write();
   h_NoMDS_jetCISV[selbin]->Write();
@@ -450,6 +454,7 @@ void analyzer_histograms::DeleteHistos(int selbin){
   f_out[selbin]->cd();
   h_nLeptons[selbin]->Delete();
   h_gLLP_ctau[selbin]->Delete();
+  h_eventWeight[selbin]->Delete();
 
   h_nJets[selbin]->Delete();
   h_NoMDS_jetCISV[selbin]->Delete();
