@@ -70,7 +70,7 @@ void OOT_CLS_DPHI_CSC()
    tex->SetTextSize(0.075);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.28,0.91,"Preliminary");
+      tex = new TLatex(0.28,0.91,"");
    tex->SetNDC();
    tex->SetTextFont(52);
    tex->SetTextSize(0.06);
