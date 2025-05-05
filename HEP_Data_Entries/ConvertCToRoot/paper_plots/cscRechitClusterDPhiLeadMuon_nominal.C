@@ -1,14 +1,13 @@
-void cscRechitClusterDPhiLeadMuon_nominal_log()
+void cscRechitClusterDPhiLeadMuon_nominal()
 {
 //=========Macro generated from canvas: canvas/canvas
-//=========  (Thu May  1 01:34:22 2025) by ROOT version 6.22/09
+//=========  (Thu May  1 01:34:17 2025) by ROOT version 6.22/09
    TCanvas *canvas = new TCanvas("canvas", "canvas",0,0,800,800);
    gStyle->SetOptStat(0);
-   canvas->Range(0.48,-3.736842,3.502222,1.526316);
+   canvas->Range(0.48,-0.05407895,3.502222,0.3393421);
    canvas->SetFillColor(0);
    canvas->SetBorderMode(0);
    canvas->SetBorderSize(2);
-   canvas->SetLogy();
    canvas->SetTickx(1);
    canvas->SetTicky(1);
    canvas->SetLeftMargin(0.15);
@@ -52,7 +51,7 @@ void cscRechitClusterDPhiLeadMuon_nominal_log()
    h_sig__1->SetBinError(23,0.01344574);
    h_sig__1->SetBinError(24,0.008126567);
    h_sig__1->SetMinimum(0.001);
-   h_sig__1->SetMaximum(10);
+   h_sig__1->SetMaximum(0.3);
    h_sig__1->SetEntries(1706);
    h_sig__1->SetLineColor(2);
    h_sig__1->SetLineWidth(3);
@@ -178,7 +177,7 @@ tex->SetNDC();
    h_sig__3->SetBinError(23,0.007706221);
    h_sig__3->SetBinError(24,0.00602872);
    h_sig__3->SetMinimum(0.001);
-   h_sig__3->SetMaximum(10);
+   h_sig__3->SetMaximum(0.3);
    h_sig__3->SetEntries(5416);
    h_sig__3->SetLineColor(3);
    h_sig__3->SetLineWidth(3);
@@ -304,7 +303,7 @@ tex->SetNDC();
    h_sig__5->SetBinError(23,0.005795668);
    h_sig__5->SetBinError(24,0.00457079);
    h_sig__5->SetMinimum(0.001);
-   h_sig__5->SetMaximum(10);
+   h_sig__5->SetMaximum(0.3);
    h_sig__5->SetEntries(6753);
    h_sig__5->SetLineColor(4);
    h_sig__5->SetLineWidth(3);
@@ -472,7 +471,7 @@ tex->SetNDC();
    h_sig_copy__7->SetBinError(23,0.01344574);
    h_sig_copy__7->SetBinError(24,0.008126567);
    h_sig_copy__7->SetMinimum(0.001);
-   h_sig_copy__7->SetMaximum(10);
+   h_sig_copy__7->SetMaximum(0.3);
    h_sig_copy__7->SetEntries(1706);
    h_sig_copy__7->SetDirectory(0);
    h_sig_copy__7->SetLineColor(2);

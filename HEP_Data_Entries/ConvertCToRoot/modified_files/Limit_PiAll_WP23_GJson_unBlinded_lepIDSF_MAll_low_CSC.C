@@ -63,15 +63,20 @@ void Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC()
    Graph_Graph1->SetLineColor(ci);
    Graph_Graph1->GetXaxis()->SetTitle("#Phi proper decay length [mm]");
    Graph_Graph1->GetXaxis()->SetLabelFont(42);
-   Graph_Graph1->GetXaxis()->SetLabelSize(0.035);
-   Graph_Graph1->GetXaxis()->SetTitleSize(0.05);
-   Graph_Graph1->GetXaxis()->SetTitleOffset(0.9);
+   //Graph_Graph1->GetXaxis()->SetLabelSize(0.035);
+   Graph_Graph1->GetXaxis()->SetLabelSize(0.05);
+   //Graph_Graph1->GetXaxis()->SetTitleSize(0.05);
+   Graph_Graph1->GetXaxis()->SetTitleSize(0.06);
+   //Graph_Graph1->GetXaxis()->SetTitleOffset(0.9);
+   Graph_Graph1->GetXaxis()->SetTitleOffset(1.2);
    Graph_Graph1->GetXaxis()->SetTitleFont(42);
    Graph_Graph1->GetYaxis()->SetTitle("95 % CL Upper Limit on #bf{#it{#Beta}}(B #rightarrow K#Phi)");
    Graph_Graph1->GetYaxis()->SetLabelFont(42);
-   Graph_Graph1->GetYaxis()->SetLabelSize(0.035);
+   //Graph_Graph1->GetYaxis()->SetLabelSize(0.035);
+   Graph_Graph1->GetYaxis()->SetLabelSize(0.05);
    Graph_Graph1->GetYaxis()->SetTitleSize(0.05);
-   Graph_Graph1->GetYaxis()->SetTitleOffset(0.95);
+   //Graph_Graph1->GetYaxis()->SetTitleOffset(0.95);
+   Graph_Graph1->GetYaxis()->SetTitleOffset(1.2);
    Graph_Graph1->GetYaxis()->SetTitleFont(42);
    Graph_Graph1->GetZaxis()->SetLabelFont(42);
    Graph_Graph1->GetZaxis()->SetLabelSize(0.035);
@@ -859,9 +864,10 @@ void Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC()
    
    graph_12->Draw("l ");
    
-   TLegend *leg = new TLegend(0.15,0.75,0.5,0.92,NULL,"brNDC");
+   TLegend *leg = new TLegend(0.15,0.7,0.5,0.92,NULL,"brNDC");
+   leg->SetMargin(0.15);
    leg->SetBorderSize(0);
-   leg->SetTextSize(0.05);
+   leg->SetTextSize(0.055);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
@@ -909,9 +915,10 @@ void Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC()
    entry->SetTextFont(42);
    leg->Draw();
    
-   leg = new TLegend(0.5,0.75,0.925,0.92,NULL,"brNDC");
+   leg = new TLegend(0.5,0.7,0.925,0.92,NULL,"brNDC");
+   leg->SetMargin(0.15);
    leg->SetBorderSize(0);
-   leg->SetTextSize(0.05);
+   leg->SetTextSize(0.055);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
@@ -979,9 +986,9 @@ void Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC()
    entry->SetTextFont(42);
    leg->Draw();
    
-   leg = new TLegend(0.5,0.65,0.925,0.75,NULL,"brNDC");
+   leg = new TLegend(0.4,0.6,0.925,0.7,NULL,"brNDC");
    leg->SetBorderSize(0);
-   leg->SetTextSize(0.04);
+   leg->SetTextSize(0.054);
    leg->SetLineColor(1);
    leg->SetLineStyle(1);
    leg->SetLineWidth(1);
@@ -1004,32 +1011,38 @@ void Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC()
    entry->SetMarkerSize(1);
    entry->SetTextFont(42);
    leg->Draw();
-   TLatex *   tex = new TLatex(0.2,0.7,"#Phi #rightarrow #pi^{+}#pi^{-}   ");
+   TLatex *   tex = new TLatex(0.45,0.55,"#Phi #rightarrow #pi^{+}#pi^{-}   ");
 tex->SetNDC();
+   tex->SetTextSize(0.066);
    tex->SetTextFont(42);
-   tex->SetLineWidth(2);
+   tex->SetLineWidth(0);
    tex->Draw();
-      tex = new TLatex(0.955,0.945,"41.6 fb^{-1} (13 TeV)");
+      tex = new TLatex(0.955,0.935,"41.6 fb^{-1} (13 TeV)");
 tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(42);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(0.07);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.25,0.94,"CMS");
+      tex = new TLatex(0.25,0.935,"CMS");
 tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(61);
-   tex->SetTextSize(0.06);
+   tex->SetTextSize(0.075);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.45,0.94,"Preliminary");
+      tex = new TLatex(0.5,0.935,"Preliminary");
 tex->SetNDC();
    tex->SetTextAlign(31);
    tex->SetTextFont(52);
-   tex->SetTextSize(0.0456);
+   tex->SetTextSize(0.06);
    tex->SetLineWidth(2);
    tex->Draw();
+
+
+   //gPad->SetTopMargin(0.1);    
+   gPad->SetBottomMargin(0.15);    
+  
    c->Modified();
    c->cd();
    c->SetSelected(c);
