@@ -4,116 +4,116 @@ dependent_variables:
   values:
   - errors:
     - label: Statistical
-      symerror: 0.0011524
-    value: 0.82779
+      symerror: 0.0011523
+    value: 0.82749
   - errors:
     - label: Statistical
-      symerror: 0.00044176
-    value: 0.12165
+      symerror: 0.00044211
+    value: 0.12181
   - errors:
     - label: Statistical
-      symerror: 0.00022289
-    value: 0.030968
+      symerror: 0.00022323
+    value: 0.031055
   - errors:
     - label: Statistical
-      symerror: 0.00013008
-    value: 0.010548
+      symerror: 0.00013013
+    value: 0.010554
   - errors:
     - label: Statistical
-      symerror: 8.379e-05
-    value: 0.0043764
+      symerror: 8.3872e-05
+    value: 0.0043839
   - errors:
     - label: Statistical
-      symerror: 5.7058e-05
-    value: 0.0020294
+      symerror: 5.7275e-05
+    value: 0.0020443
   - errors:
     - label: Statistical
-      symerror: 4.2353e-05
-    value: 0.0011182
+      symerror: 4.2485e-05
+    value: 0.0011249
   - errors:
     - label: Statistical
-      symerror: 3.0691e-05
-    value: 0.00058715
+      symerror: 3.0824e-05
+    value: 0.00059211
   - errors:
     - label: Statistical
-      symerror: 2.3956e-05
-    value: 0.00035775
+      symerror: 2.4016e-05
+    value: 0.00035944
   - errors:
     - label: Statistical
-      symerror: 1.8846e-05
-    value: 0.00022139
+      symerror: 1.8918e-05
+    value: 0.00022304
   - errors:
     - label: Statistical
-      symerror: 1.3985e-05
-    value: 0.00012192
+      symerror: 1.3989e-05
+    value: 0.00012195
   - errors:
     - label: Statistical
-      symerror: 9.6255e-06
-    value: 5.7753e-05
+      symerror: 9.7606e-06
+    value: 5.9372e-05
   - errors:
     - label: Statistical
-      symerror: 8.7868e-06
-    value: 4.8127e-05
+      symerror: 8.789e-06
+    value: 4.8139e-05
   - errors:
     - label: Statistical
-      symerror: 7.1744e-06
-    value: 3.2085e-05
+      symerror: 7.3534e-06
+    value: 3.3697e-05
   - errors:
     - label: Statistical
-      symerror: 6.6145e-06
-    value: 2.7272e-05
+      symerror: 6.6161e-06
+    value: 2.7279e-05
 - header:
     name: 'Fraction of events: m = 0.3 GeV, c$\tau_{\Phi}$ = 100 mm'
   values:
   - errors:
     - label: Statistical
-      symerror: 0.019542
-    value: 0.38692
+      symerror: 0.019544
+    value: 0.38691
   - errors:
     - label: Statistical
-      symerror: 0.01589
-    value: 0.23314
+      symerror: 0.015899
+    value: 0.23319
   - errors:
     - label: Statistical
-      symerror: 0.013068
-    value: 0.14571
+      symerror: 0.013081
+    value: 0.14578
   - errors:
     - label: Statistical
-      symerror: 0.010113
-    value: 0.08125
+      symerror: 0.01012
+    value: 0.08128
   - errors:
     - label: Statistical
-      symerror: 0.0083952
-    value: 0.052917
+      symerror: 0.0083914
+    value: 0.052901
   - errors:
     - label: Statistical
-      symerror: 0.0072629
-    value: 0.033213
+      symerror: 0.0072678
+    value: 0.033216
   - errors:
     - label: Statistical
-      symerror: 0.0060204
-    value: 0.024144
+      symerror: 0.0060272
+    value: 0.024153
   - errors:
     - label: Statistical
-      symerror: 0.0047636
-    value: 0.016055
+      symerror: 0.0047608
+    value: 0.016047
   - errors:
     - label: Statistical
-      symerror: 0.0053759
-    value: 0.012618
+      symerror: 0.0053089
+    value: 0.012482
   - errors:
     - label: Statistical
-      symerror: 0.0035448
-    value: 0.0056994
+      symerror: 0.0035488
+    value: 0.0057032
   - errors:
     - label: Statistical
-      symerror: 0.0035152
-    value: 0.006296
+      symerror: 0.0035187
+    value: 0.0063024
   - value: 0.0
   - errors:
     - label: Statistical
-      symerror: 0.0011265
-    value: 0.0015835
+      symerror: 0.0011276
+    value: 0.001585
   - value: 0.0
   - value: 0.0
 - header:
@@ -121,123 +121,123 @@ dependent_variables:
   values:
   - errors:
     - label: Statistical
-      symerror: 0.019542
-    value: 0.38986
+      symerror: 0.011648
+    value: 0.38977
   - errors:
     - label: Statistical
-      symerror: 0.016303
-    value: 0.22948
+      symerror: 0.0090387
+    value: 0.21798
   - errors:
     - label: Statistical
-      symerror: 0.012468
-    value: 0.134
+      symerror: 0.0077267
+    value: 0.14865
   - errors:
     - label: Statistical
-      symerror: 0.012752
-    value: 0.12034
+      symerror: 0.0067076
+    value: 0.097261
   - errors:
     - label: Statistical
-      symerror: 0.0065524
-    value: 0.04033
+      symerror: 0.0044398
+    value: 0.047537
   - errors:
     - label: Statistical
-      symerror: 0.0057407
-    value: 0.024494
+      symerror: 0.0038169
+    value: 0.029108
   - errors:
     - label: Statistical
-      symerror: 0.005578
-    value: 0.018785
+      symerror: 0.0038179
+    value: 0.025471
   - errors:
     - label: Statistical
-      symerror: 0.0053607
-    value: 0.016365
+      symerror: 0.0030742
+    value: 0.017746
   - errors:
     - label: Statistical
-      symerror: 0.0022017
-    value: 0.0056324
+      symerror: 0.0023353
+    value: 0.0094527
   - errors:
     - label: Statistical
-      symerror: 0.0024021
-    value: 0.002865
+      symerror: 0.0019675
+    value: 0.0060412
   - errors:
     - label: Statistical
-      symerror: 0.0032146
-    value: 0.0045014
+      symerror: 0.0012932
+    value: 0.0022248
   - errors:
     - label: Statistical
-      symerror: 0.0032051
-    value: 0.0057611
+      symerror: 0.0011436
+    value: 0.0023323
   - errors:
     - label: Statistical
-      symerror: 0.00066584
-    value: 0.00066584
+      symerror: 0.0012584
+    value: 0.0025023
   - errors:
     - label: Statistical
-      symerror: 0.0027258
-    value: 0.0027258
+      symerror: 0.00090405
+    value: 0.00090405
   - errors:
     - label: Statistical
-      symerror: 0.0018879
-    value: 0.0018879
+      symerror: 0.00062615
+    value: 0.00062615
 - header:
     name: 'Fraction of events: m = 2.0 GeV, c$\tau_{\Phi}$ = 1000 mm'
   values:
   - errors:
     - label: Statistical
-      symerror: 0.015158
-    value: 0.41991
+      symerror: 0.0094104
+    value: 0.41467
   - errors:
     - label: Statistical
-      symerror: 0.011988
-    value: 0.23051
+      symerror: 0.0076418
+    value: 0.24339
   - errors:
     - label: Statistical
-      symerror: 0.0097819
-    value: 0.14384
+      symerror: 0.0059481
+    value: 0.1398
   - errors:
     - label: Statistical
-      symerror: 0.0069847
-    value: 0.075041
+      symerror: 0.0046556
+    value: 0.078318
   - errors:
     - label: Statistical
-      symerror: 0.0062726
-    value: 0.049952
+      symerror: 0.0037615
+    value: 0.050168
   - errors:
     - label: Statistical
-      symerror: 0.0050735
-    value: 0.03396
+      symerror: 0.0028798
+    value: 0.029744
   - errors:
     - label: Statistical
-      symerror: 0.0040455
-    value: 0.018965
+      symerror: 0.0023509
+    value: 0.018043
   - errors:
     - label: Statistical
-      symerror: 0.0030452
-    value: 0.0098478
+      symerror: 0.0017389
+    value: 0.0092867
   - errors:
     - label: Statistical
-      symerror: 0.001766
-    value: 0.0044227
+      symerror: 0.0013416
+    value: 0.0058927
   - errors:
     - label: Statistical
-      symerror: 0.0023155
-    value: 0.0059042
+      symerror: 0.0012946
+    value: 0.0046804
   - errors:
     - label: Statistical
-      symerror: 0.0013423
-    value: 0.0019702
+      symerror: 0.00070694
+    value: 0.0017307
   - errors:
     - label: Statistical
-      symerror: 0.0018282
-    value: 0.0038197
+      symerror: 0.00074231
+    value: 0.0018186
   - errors:
     - label: Statistical
-      symerror: 0.0005487
-    value: 0.0005487
+      symerror: 0.00020996
+    value: 0.00020996
   - errors:
     - label: Statistical
-      symerror: 0.0010139
-    value: 0.0012992
+      symerror: 0.00038878
+    value: 0.00049788
   - value: 0.0
 independent_variables:
 - header:
