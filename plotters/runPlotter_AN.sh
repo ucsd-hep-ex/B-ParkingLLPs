@@ -1,5 +1,6 @@
-aversion=AN_1D_plots
+aversion=1D_histograms_pi0pi0
 path="/eos/user/d/ddiaz/forAram/EXTSamples/"
+path="/uscms/home/ahayrape/nobackup/BToPhiK_Analysis/B-ParkingLLPs/HEP_Data_Entries/CutflowTables/"
 mkdir -p plotDump/${aversion}
 
 regions=(\

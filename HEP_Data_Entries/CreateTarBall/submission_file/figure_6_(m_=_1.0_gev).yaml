@@ -8,7 +8,6 @@ dependent_variables:
   - name: Quantile
     value: Median expected limit
   values:
-  - value: 0.057039
   - value: 0.0010088
   - value: 0.00037115
   - value: 0.00023466
@@ -28,7 +27,6 @@ dependent_variables:
   - name: Quantile
     value: Observed limit
   values:
-  - value: 0.063639
   - value: 0.0011279
   - value: 0.00041546
   - value: 0.00026316
@@ -48,7 +46,6 @@ dependent_variables:
   - name: Quantile
     value: -1 $\sigma$
   values:
-  - value: 0.039054
   - value: 0.0006882
   - value: 0.00025082
   - value: 0.00015739
@@ -78,13 +75,11 @@ dependent_variables:
   - value: 0.00019449
   - value: 0.00025242
   - value: 0.00087072
-  - value: 0.0017407
 independent_variables:
 - header:
     name: c$\tau$
     units: mm
   values:
-  - value: 10.0
   - value: 30.0
   - value: 50.0
   - value: 70.0

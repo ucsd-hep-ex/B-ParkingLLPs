@@ -147,3 +147,15 @@ description: The contour of the 2D distribution which includes the generation pa
 keywords: []
 location: Figure 7
 name: The contour of the limits for BR = 0.001
+---
+data_file: signal_efficiency,_pipluspiminus_decay_channel..yaml
+description: Example description
+keywords: []
+location: Example location
+name: Signal efficiency, PiPlusPiMinus decay channel.
+---
+data_file: signal_efficiency,_pi0pi0_decay_channel..yaml
+description: Example description
+keywords: []
+location: Example location
+name: Signal efficiency, Pi0Pi0 decay channel.
