@@ -4,9 +4,19 @@ plotDump/
 analysis/roots/
 .list
 
+*.DS_Store
 #setup file
 condor/setup.sh
 
+#plotFiles
+HEP_Data_Entries/ConvertCToRoot/paper_plots/*.pdf
+HEP_Data_Entries/ConvertCToRoot/paper_plots/*.png
+
+HEP_Data_Entries/ConvertCToRoot/paper_plots/removePreliminary/*.pdf
+HEP_Data_Entries/ConvertCToRoot/paper_plots/removePreliminary/*.png
+
+HEP_Data_Entries/ConvertCToRoot/paper_plots/withBranchingRatios/*.pdf
+HEP_Data_Entries/ConvertCToRoot/paper_plots/withBranchingRatios/*.png
 #checkpoints
 **/.ipynb_checkpoints/
 
