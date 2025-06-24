@@ -8,16 +8,16 @@ dependent_variables:
   - name: Quantile
     value: Median expected limit
   values:
-  - value: 8.5435e-05
-  - value: 6.6943e-05
-  - value: 6.3154e-05
-  - value: 6.477e-05
-  - value: 0.00011855
-  - value: 0.00019839
-  - value: 0.00030613
-  - value: 0.00058836
-  - value: 0.010734
-  - value: 0.031118
+  - value: 0.00016163
+  - value: 0.00012664
+  - value: 0.00012002
+  - value: 0.00012309
+  - value: 0.00022529
+  - value: 0.00037701
+  - value: 0.00058308
+  - value: 0.0011231
+  - value: 0.020491
+  - value: 0.059402
 - header:
     name: 95% CL upper limit's observed value on $B \rightarrow K \Phi$
   qualifiers:
@@ -27,16 +27,16 @@ dependent_variables:
   - name: Quantile
     value: Observed limit
   values:
-  - value: 9.508e-05
-  - value: 7.4759e-05
-  - value: 7.0598e-05
-  - value: 7.2611e-05
-  - value: 0.00013214
-  - value: 0.0002212
-  - value: 0.00034142
-  - value: 0.00065578
-  - value: 0.011972
-  - value: 0.034713
+  - value: 0.00017993
+  - value: 0.00014162
+  - value: 0.00013396
+  - value: 0.00013762
+  - value: 0.00025116
+  - value: 0.00042104
+  - value: 0.00065029
+  - value: 0.0012504
+  - value: 0.022934
+  - value: 0.066513
 - header:
     name: 95% CL upper limit's observed value -1$\sigma$ on $B \rightarrow K \Phi$
   qualifiers:
@@ -46,16 +46,16 @@ dependent_variables:
   - name: Quantile
     value: -1 $\sigma$
   values:
-  - value: 5.8283e-05
-  - value: 4.5668e-05
-  - value: 4.3205e-05
-  - value: 4.4348e-05
-  - value: 8.0873e-05
-  - value: 0.00013534
-  - value: 0.00020961
-  - value: 0.00040284
-  - value: 0.0073496
-  - value: 0.021306
+  - value: 0.00011026
+  - value: 8.6395e-05
+  - value: 8.1876e-05
+  - value: 8.3972e-05
+  - value: 0.00015425
+  - value: 0.00025814
+  - value: 0.00039923
+  - value: 0.00076901
+  - value: 0.01403
+  - value: 0.040672
 - header:
     name: 95% CL upper limit's observed value +1$\sigma$ on $B \rightarrow K \Phi$
   qualifiers:
@@ -65,16 +65,16 @@ dependent_variables:
   - name: Quantile
     value: +1 $\sigma$
   values:
-  - value: 0.00049056
-  - value: 0.00013345
-  - value: 0.00010537
-  - value: 9.9404e-05
-  - value: 0.00010195
-  - value: 0.0001847
-  - value: 0.0003091
-  - value: 0.00047697
-  - value: 0.00091669
-  - value: 0.016724
+  - value: 0.00092804
+  - value: 0.00025247
+  - value: 0.00019934
+  - value: 0.00018843
+  - value: 0.00019325
+  - value: 0.00035101
+  - value: 0.0005889
+  - value: 0.00087825
+  - value: 0.0016917
+  - value: 0.030864
 independent_variables:
 - header:
     name: c$\tau$

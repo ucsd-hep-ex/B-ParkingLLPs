@@ -8,15 +8,16 @@ dependent_variables:
   - name: Quantile
     value: Median expected limit
   values:
-  - value: 0.0024338
-  - value: 0.00086416
-  - value: 0.00037826
-  - value: 8.6201e-05
-  - value: 6.2188e-05
-  - value: 5.7326e-05
-  - value: 5.8227e-05
-  - value: 0.00011545
-  - value: 0.00020647
+  - value: 0.0020719
+  - value: 0.00064686
+  - value: 0.00037365
+  - value: 0.00024355
+  - value: 0.00014114
+  - value: 0.00015437
+  - value: 0.00018193
+  - value: 0.00023532
+  - value: 0.00080074
+  - value: 0.0015965
 - header:
     name: 95% CL upper limit's observed value on $B \rightarrow K \Phi$
   qualifiers:
@@ -26,15 +27,16 @@ dependent_variables:
   - name: Quantile
     value: Observed limit
   values:
-  - value: 0.0027077
-  - value: 0.00096168
-  - value: 0.00042211
-  - value: 9.3792e-05
-  - value: 6.7666e-05
-  - value: 6.2145e-05
-  - value: 6.3229e-05
-  - value: 0.00012591
-  - value: 0.00022501
+  - value: 0.0022924
+  - value: 0.00071492
+  - value: 0.00041149
+  - value: 0.00026616
+  - value: 0.00015267
+  - value: 0.00016674
+  - value: 0.00019637
+  - value: 0.00025376
+  - value: 0.00086301
+  - value: 0.0017213
 - header:
     name: 95% CL upper limit's observed value -1$\sigma$ on $B \rightarrow K \Phi$
   qualifiers:
@@ -44,15 +46,16 @@ dependent_variables:
   - name: Quantile
     value: -1 $\sigma$
   values:
-  - value: 0.0017148
-  - value: 0.00060677
-  - value: 0.00026559
-  - value: 6.0639e-05
-  - value: 4.4652e-05
-  - value: 4.0951e-05
-  - value: 4.1808e-05
-  - value: 8.1774e-05
-  - value: 0.00014574
+  - value: 0.0014573
+  - value: 0.00045419
+  - value: 0.00026327
+  - value: 0.00017398
+  - value: 0.00010431
+  - value: 0.00011498
+  - value: 0.00013551
+  - value: 0.00017527
+  - value: 0.00059364
+  - value: 0.0011836
 - header:
     name: 95% CL upper limit's observed value +1$\sigma$ on $B \rightarrow K \Phi$
   qualifiers:
@@ -62,20 +65,22 @@ dependent_variables:
   - name: Quantile
     value: +1 $\sigma$
   values:
-  - value: 0.034241
-  - value: 0.0036076
-  - value: 0.0012844
-  - value: 0.00056974
-  - value: 0.00012056
-  - value: 8.648e-05
-  - value: 7.9491e-05
-  - value: 8.0972e-05
-  - value: 0.00016147
+  - value: 0.24206
+  - value: 0.0030381
+  - value: 0.00092276
+  - value: 0.00052408
+  - value: 0.00033675
+  - value: 0.00019121
+  - value: 0.00020791
+  - value: 0.00024502
+  - value: 0.00031693
+  - value: 0.0010752
 independent_variables:
 - header:
     name: c$\tau$
     units: mm
   values:
+  - value: 30.0
   - value: 50.0
   - value: 70.0
   - value: 100.0

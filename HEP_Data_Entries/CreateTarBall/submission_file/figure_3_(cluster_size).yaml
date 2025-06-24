@@ -109,13 +109,22 @@ dependent_variables:
     - label: Statistical
       symerror: 0.0035187
     value: 0.0063024
-  - value: 0.0
+  - errors:
+    - label: Statistical
+      symerror: 1.0
+    value: -999.0
   - errors:
     - label: Statistical
       symerror: 0.0011276
     value: 0.001585
-  - value: 0.0
-  - value: 0.0
+  - errors:
+    - label: Statistical
+      symerror: 1.0
+    value: -999.0
+  - errors:
+    - label: Statistical
+      symerror: 1.0
+    value: -999.0
 - header:
     name: 'Fraction of events: m = 1.0 GeV, c$\tau_{\Phi}$ = 300 mm'
   values:
@@ -238,7 +247,10 @@ dependent_variables:
     - label: Statistical
       symerror: 0.00038878
     value: 0.00049788
-  - value: 0.0
+  - errors:
+    - label: Statistical
+      symerror: 1.0
+    value: -999.0
 independent_variables:
 - header:
     name: Cluster size

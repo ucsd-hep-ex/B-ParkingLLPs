@@ -1,0 +1,104 @@
+dependent_variables:
+- header:
+    name: MLLP = 0.3 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000376
+    value: 0.0853
+  - errors:
+    - label: Statistical
+      symerror: 0.000126
+    value: 0.00978
+  - errors:
+    - label: Statistical
+      symerror: 4.18e-05
+    value: 0.00113
+- header:
+    name: MLLP = 0.5 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000289
+    value: 0.0865
+  - errors:
+    - label: Statistical
+      symerror: 9.6e-05
+    value: 0.0103
+  - errors:
+    - label: Statistical
+      symerror: 3.23e-05
+    value: 0.00103
+- header:
+    name: MLLP = 1.0 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000864
+    value: 0.0834
+  - errors:
+    - label: Statistical
+      symerror: 0.000215
+    value: 0.00913
+  - errors:
+    - label: Statistical
+      symerror: 2.52e-05
+    value: 0.00107
+- header:
+    name: MLLP = 2.0 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000207
+    value: 0.0828
+  - errors:
+    - label: Statistical
+      symerror: 6.98e-05
+    value: 0.00932
+  - errors:
+    - label: Statistical
+      symerror: 2.36e-05
+    value: 0.00114
+- header:
+    name: MLLP = 3.0 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000251
+    value: 0.0859
+  - errors:
+    - label: Statistical
+      symerror: 8.82e-05
+    value: 0.0108
+  - errors:
+    - label: Statistical
+      symerror: 2.85e-05
+    value: 0.00127
+independent_variables:
+- header:
+    name: Selection step
+  values:
+  - value: All events
+  - value: Muon(trigger and > 7 GeV)
+  - value: CSC cluster > 0
+  - value: CSC cluster selections (vetos, | $\eta$ | and time)

@@ -914,7 +914,7 @@ tex->SetNDC();
    h1_swap->GetZaxis()->SetTitleSize(0.04);
    h1_swap->GetZaxis()->SetTitleOffset(1);
    h1_swap->GetZaxis()->SetTitleFont(42);
-   h1_swap->Draw("same colz");
+   h1_swap->Draw("same colz text");
    
    TPaveText *pt = new TPaveText(380,2.5,410,3,"br");
    pt->SetBorderSize(0);

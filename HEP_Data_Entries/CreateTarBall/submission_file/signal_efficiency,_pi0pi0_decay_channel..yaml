@@ -1,0 +1,104 @@
+dependent_variables:
+- header:
+    name: MLLP = 0.3 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000376
+    value: 0.0857
+  - errors:
+    - label: Statistical
+      symerror: 0.000101
+    value: 0.00682
+  - errors:
+    - label: Statistical
+      symerror: 3.09e-05
+    value: 0.000658
+- header:
+    name: MLLP = 0.5 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000164
+    value: 0.0876
+  - errors:
+    - label: Statistical
+      symerror: 4.38e-05
+    value: 0.00706
+  - errors:
+    - label: Statistical
+      symerror: 1.31e-05
+    value: 0.000652
+- header:
+    name: MLLP = 1.0 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000231
+    value: 0.0833
+  - errors:
+    - label: Statistical
+      symerror: 6.33e-05
+    value: 0.00677
+  - errors:
+    - label: Statistical
+      symerror: 1.89e-05
+    value: 0.000624
+- header:
+    name: MLLP = 2.0 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.00015
+    value: 0.0828
+  - errors:
+    - label: Statistical
+      symerror: 4.16e-05
+    value: 0.0069
+  - errors:
+    - label: Statistical
+      symerror: 1.3e-05
+    value: 0.000703
+- header:
+    name: MLLP = 3.0 GeV
+  values:
+  - errors:
+    - label: Statistical
+      symerror: -999
+    value: 1.0
+  - errors:
+    - label: Statistical
+      symerror: 0.000184
+    value: 0.086
+  - errors:
+    - label: Statistical
+      symerror: 5.3e-05
+    value: 0.00749
+  - errors:
+    - label: Statistical
+      symerror: 1.68e-05
+    value: 0.000789
+independent_variables:
+- header:
+    name: Selection step
+  values:
+  - value: All events
+  - value: Muon(trigger and > 7 GeV)
+  - value: CSC cluster > 0
+  - value: CSC cluster selections (vetos, | $\eta$ | and time)
