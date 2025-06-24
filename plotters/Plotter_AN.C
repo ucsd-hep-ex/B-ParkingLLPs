@@ -93,7 +93,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
   // variables.push_back("gLLP_eta");
   // variables.push_back("gLLP_phi");
 
-  variables.push_back("cscRechitClusterMuonVetoPt");
+  // variables.push_back("cscRechitClusterMuonVetoPt");
   variables.push_back("cscRechitClusterDPhiLeadMuon");
   variables.push_back("cscRechitClusterSize");
 

@@ -1,4 +1,4 @@
-aversion=AN_1D_plots
+aversion=1D_histograms_pi0pi0
 path="/eos/user/d/ddiaz/forAram/EXTSamples/"
 mkdir -p plotDump/${aversion}
 
