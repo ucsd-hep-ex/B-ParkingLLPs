@@ -2,12 +2,11 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
 {
 //=========Macro generated from canvas: c/c
 //=========  (Mon Feb 17 19:16:30 2025) by ROOT version 6.24/06
-   //TCanvas *c = new TCanvas("c", "c",0,0,1000,800);
    TCanvas *c = new TCanvas("c", "c",0,0,900,600);
    gStyle->SetOptFit(1);
    gStyle->SetOptStat(0);
    gStyle->SetOptTitle(0);
-   gStyle->SetPalette(kViridis);
+   //gStyle->SetPalette(kViridis);
    c->SetHighLightColor(2);
    c->Range(-0.819175,-0.2088607,1.032677,4.221519);
    c->SetFillColor(0);
@@ -7917,6 +7916,9 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
    c->Modified();
    c->cd();
    c->SetSelected(c);
+   TFile* outFile = new TFile("output_old.root", "RECREATE");
+   unnamed->Write();
+   outFile->Close();
    c->SaveAs("BToPhiK_AnalysisPiPlusPiMinus_2d_expected.png");
    c->SaveAs("BToPhiK_AnalysisPiPlusPiMinus_2d_expected.pdf");
 }
