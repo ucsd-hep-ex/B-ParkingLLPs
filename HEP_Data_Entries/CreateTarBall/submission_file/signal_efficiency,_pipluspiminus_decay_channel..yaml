@@ -2,10 +2,14 @@ dependent_variables:
 - header:
     name: MLLP = 0.3 GeV
   values:
+<<<<<<< HEAD
   - errors:
     - label: Statistical
       symerror: -999
     value: 1.0
+=======
+  - value: 1
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.000376
@@ -21,10 +25,14 @@ dependent_variables:
 - header:
     name: MLLP = 0.5 GeV
   values:
+<<<<<<< HEAD
   - errors:
     - label: Statistical
       symerror: -999
     value: 1.0
+=======
+  - value: 1
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.000289
@@ -40,10 +48,14 @@ dependent_variables:
 - header:
     name: MLLP = 1.0 GeV
   values:
+<<<<<<< HEAD
   - errors:
     - label: Statistical
       symerror: -999
     value: 1.0
+=======
+  - value: 1
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.000864
@@ -59,10 +71,14 @@ dependent_variables:
 - header:
     name: MLLP = 2.0 GeV
   values:
+<<<<<<< HEAD
   - errors:
     - label: Statistical
       symerror: -999
     value: 1.0
+=======
+  - value: 1
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.000207
@@ -78,10 +94,14 @@ dependent_variables:
 - header:
     name: MLLP = 3.0 GeV
   values:
+<<<<<<< HEAD
   - errors:
     - label: Statistical
       symerror: -999
     value: 1.0
+=======
+  - value: 1
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.000251

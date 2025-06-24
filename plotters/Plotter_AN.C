@@ -66,18 +66,41 @@ bool AddCMS( TCanvas* C )
 void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
 
   TString bkgName = "Parking_2018_";
-  TString bkgpath = "/eos/user/d/ddiaz/forAram/Parking_2018_nominal_plots.root";
+  // TString bkgpath = "root://eoscms.cern.ch//eos/user/d/ddiaz/forAram/Parking_2018_nominal_plots.root";
+  TString bkgpath = "Parking_2018_nominal_plots.root";
   TFile * bkgFile = TFile::Open(bkgpath);
   std::vector<TString> signalName;
   signalName.clear();
   
-  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300_to_100/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300to100_");
+  // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300_to_100/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300to100_");
   // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500_to_100/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500to100_");
-  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_to_300/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000to300_");
-  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_to_1000/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000to1000_");
+  // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_to_300/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000to300_");
+  // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_to_1000/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000to1000_");
+
+  // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300to100_");
+  // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500to100_");
+  // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_ext2to300_");
+  // signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_ext2to1000_");
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300_to_100/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300to100_");
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300_to_100/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300to100_");
+
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500_to_100/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p5_ctau500_ext2to100_");
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau500_to_100/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau500_ext2to100_");
+
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_to_300/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_ext2to300_");
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000_to_300/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000_ext2to300_");
+
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_to_1000/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_ext2to1000_");
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000_to_1000/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000_ext2to1000_");
+
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000_to_1000/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000_ext2to1000_");
+  signalName.push_back("BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau3000_to_1000/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau3000_ext2to1000_");
+  
+
+  int colors[] = {kRed, kPink+1, kBlue, kAzure+1, kMagenta, kViolet+1, kGreen, kSpring+1, kYellow, kOrange};
 
   // make canvas and text
-  TCanvas* canvas = new TCanvas("canvas","canvas",1,1,800,800); 
+  TCanvas* canvas = new TCanvas("canvas","canvas",1,1,800,800);
   gStyle->SetOptStat(0);
   gPad->SetLogy(dolog);
   // gPad->SetGrid();
@@ -129,11 +152,23 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
   for (int j =0; j<signalName.size(); j++) {
 
   Ssiz_t pos1   = signalName[j].Index("PhiT");
-  Ssiz_t pos2   = signalName[j].Index("/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus");
+  // Ssiz_t pos2   = signalName[j].Index("/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus");
+  // Ssiz_t pos2   = signalName[j].Index("/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0");
+  Ssiz_t pos2;
+  TString legend_decay_channel;
+  if (signalName[j].Contains("PiPlusPiMinus")) {
+      pos2   = signalName[j].Index("/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus");
+      legend_decay_channel = "#rightarrow #pi^{+}#pi^{-}";
+  } else {
+      pos2   = signalName[j].Index("/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0");
+      legend_decay_channel = "#rightarrow #pi^{0}#pi^{0}";
+  }
+  
   Ssiz_t pos3   = signalName[j].Index("_ctau");
   Ssiz_t pos_ct = signalName[j].Index("to");
   Ssiz_t pos_m  = signalName[j].Index("mPhi");
   // TString dl      = signalName[j](pos_ct+2,pos2-(pos_ct+2) );
+  // TString dl      = signalName[j](pos_ct+3,pos2-(pos_ct+3)); // (start_index, steps towards right)
   TString dl      = signalName[j](pos_ct+3,pos2-(pos_ct+3)); // (start_index, steps towards right)
   std::cout<<"------------------------------->  "<<pos_ct+3<<"  <->  "<<pos2<<"  <->  "<<dl<<"  <->  "<<signalName[j]<<std::endl;
   TString mass    = signalName[j](pos_m+4,pos3-(pos_m+4));
@@ -181,7 +216,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
             h_sig[j]->SetMinimum(0.000001);
         }
         else {
-            h_sig[j]->SetMaximum(0.4);
+            h_sig[j]->SetMaximum(0.42);
             h_sig[j]->SetMinimum(0.00000);
             h_sig[j]->GetXaxis()->SetRangeUser(-30,30);
             h_bkg->GetXaxis()->SetRangeUser(-30,30);
@@ -195,7 +230,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
             h_sig[j]->SetMinimum(0.000001);
         }
         else {
-            h_sig[j]->SetMaximum(0.4);
+            h_sig[j]->SetMaximum(0.42);
             h_sig[j]->SetMinimum(0.000001);
         }
     }
@@ -315,19 +350,20 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     } else {
         h_sig[j]->SetLineColor(j+2-3);
     }
+    h_sig[j]->SetLineColor(colors[j]);
     h_sig[j]->SetLineWidth(3);
 
     std::cout<<"------------------------------->  "<<pos_ct+3<<"  <->  "<<pos2<<"  <->  "<<dl<<"  <->  "<<signalName[j]<<std::endl;
     if (sigName.Contains("PhiToPiPlusPiMinus")) {
         if (j == 1 && false) { // For the plot which demonstrates the reweighted ctau distribution.
-            leg->AddEntry(h_sig[j], "m_{#Phi} = 0.3 GeV, c #tau_{#Phi} = 1000 #rightarrow 300 mm","l");
+            leg->AddEntry(h_sig[j], "m_{#Phi" + legend_decay_channel + "}=0.3 GeV, c#tau_{#Phi}=1000 #rightarrow 300 mm","l");
         } else {
-            leg->AddEntry(h_sig[j], "m_{#Phi} = "+mass+" GeV, c #tau_{#Phi} = "+dl+" mm","l");
+            leg->AddEntry(h_sig[j], "m_{#Phi" + legend_decay_channel + "}="+mass+" GeV, c#tau_{#Phi}="+dl+" mm","l");
         }
     }
     else {
-        h_sig[j]->SetLineStyle(7);
-        leg->AddEntry(h_sig[j], "m_{#Phi} = "+mass+" GeV, c #tau_{#Phi} = "+dl+" mm","l");
+        // h_sig[j]->SetLineStyle(7);
+        leg->AddEntry(h_sig[j], "m_{#Phi" + legend_decay_channel + "}="+mass+" GeV, c#tau_{#Phi}="+dl+" mm","l");
     }
 
     AddCMS(canvas);

@@ -1,0 +1,210 @@
+to_ctau_str:  to100
+from: 30 cm
+to: 10 cm
+/eos/uscms/store/group/lpclonglived/B-ParkingLLPs/V1p19_14/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300.root
+1.52904e+06
+in the INITT 
+100  0.210862
+BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300
+In Loop
+nentries: 1529039
+Event: 0 -of- 1529039
+1/NEvents = 6.54006e-07
+sample: BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300  event_weight: 80.1071  event: 4  NMuons: 1  w_ctau: 0.235308  PUweight: 1.31793  lepSF: 0.242  genFilterEff: 0.0291508  genMuonFilterEff: 0.00541267  lepIDSF: 1  NEvents-total: 1.52904e+06
+Event: 10000 -of- 1529039
+Event: 20000 -of- 1529039
+Event: 30000 -of- 1529039
+Event: 40000 -of- 1529039
+Event: 50000 -of- 1529039
+Event: 60000 -of- 1529039
+Event: 70000 -of- 1529039
+Event: 80000 -of- 1529039
+Event: 90000 -of- 1529039
+Event: 100000 -of- 1529039
+Event: 110000 -of- 1529039
+Event: 120000 -of- 1529039
+Event: 130000 -of- 1529039
+Event: 140000 -of- 1529039
+Event: 150000 -of- 1529039
+Event: 160000 -of- 1529039
+Event: 170000 -of- 1529039
+Event: 180000 -of- 1529039
+Event: 190000 -of- 1529039
+Event: 200000 -of- 1529039
+Event: 210000 -of- 1529039
+Event: 220000 -of- 1529039
+Event: 230000 -of- 1529039
+Event: 240000 -of- 1529039
+Event: 250000 -of- 1529039
+Event: 260000 -of- 1529039
+Event: 270000 -of- 1529039
+Event: 280000 -of- 1529039
+Event: 290000 -of- 1529039
+Event: 300000 -of- 1529039
+Event: 310000 -of- 1529039
+Event: 320000 -of- 1529039
+Event: 330000 -of- 1529039
+Event: 340000 -of- 1529039
+Event: 350000 -of- 1529039
+Event: 360000 -of- 1529039
+Event: 370000 -of- 1529039
+Event: 380000 -of- 1529039
+Event: 390000 -of- 1529039
+Event: 400000 -of- 1529039
+Event: 410000 -of- 1529039
+Event: 420000 -of- 1529039
+Event: 430000 -of- 1529039
+Event: 440000 -of- 1529039
+Event: 450000 -of- 1529039
+Event: 460000 -of- 1529039
+Event: 470000 -of- 1529039
+Event: 480000 -of- 1529039
+Event: 490000 -of- 1529039
+Event: 500000 -of- 1529039
+Event: 510000 -of- 1529039
+Event: 520000 -of- 1529039
+Event: 530000 -of- 1529039
+Event: 540000 -of- 1529039
+Event: 550000 -of- 1529039
+Event: 560000 -of- 1529039
+Event: 570000 -of- 1529039
+Event: 580000 -of- 1529039
+Event: 590000 -of- 1529039
+Event: 600000 -of- 1529039
+Event: 610000 -of- 1529039
+Event: 620000 -of- 1529039
+Event: 630000 -of- 1529039
+Event: 640000 -of- 1529039
+Event: 650000 -of- 1529039
+Event: 660000 -of- 1529039
+Event: 670000 -of- 1529039
+Event: 680000 -of- 1529039
+Event: 690000 -of- 1529039
+Event: 700000 -of- 1529039
+Event: 710000 -of- 1529039
+Event: 720000 -of- 1529039
+Event: 730000 -of- 1529039
+Event: 740000 -of- 1529039
+Event: 750000 -of- 1529039
+Event: 760000 -of- 1529039
+Event: 770000 -of- 1529039
+Event: 780000 -of- 1529039
+Event: 790000 -of- 1529039
+Event: 800000 -of- 1529039
+Event: 810000 -of- 1529039
+Event: 820000 -of- 1529039
+Event: 830000 -of- 1529039
+Event: 840000 -of- 1529039
+Event: 850000 -of- 1529039
+Event: 860000 -of- 1529039
+Event: 870000 -of- 1529039
+Event: 880000 -of- 1529039
+Event: 890000 -of- 1529039
+Event: 900000 -of- 1529039
+Event: 910000 -of- 1529039
+Event: 920000 -of- 1529039
+Event: 930000 -of- 1529039
+Event: 940000 -of- 1529039
+Event: 950000 -of- 1529039
+Event: 960000 -of- 1529039
+Event: 970000 -of- 1529039
+Event: 980000 -of- 1529039
+Event: 990000 -of- 1529039
+Event: 1000000 -of- 1529039
+Event: 1010000 -of- 1529039
+Event: 1020000 -of- 1529039
+Event: 1030000 -of- 1529039
+Event: 1040000 -of- 1529039
+Event: 1050000 -of- 1529039
+Event: 1060000 -of- 1529039
+Event: 1070000 -of- 1529039
+Event: 1080000 -of- 1529039
+Event: 1090000 -of- 1529039
+Event: 1100000 -of- 1529039
+Event: 1110000 -of- 1529039
+Event: 1120000 -of- 1529039
+Event: 1130000 -of- 1529039
+Event: 1140000 -of- 1529039
+Event: 1150000 -of- 1529039
+Event: 1160000 -of- 1529039
+Event: 1170000 -of- 1529039
+Event: 1180000 -of- 1529039
+Event: 1190000 -of- 1529039
+Event: 1200000 -of- 1529039
+Event: 1210000 -of- 1529039
+Event: 1220000 -of- 1529039
+Event: 1230000 -of- 1529039
+Event: 1240000 -of- 1529039
+Event: 1250000 -of- 1529039
+Event: 1260000 -of- 1529039
+Event: 1270000 -of- 1529039
+Event: 1280000 -of- 1529039
+Event: 1290000 -of- 1529039
+Event: 1300000 -of- 1529039
+Event: 1310000 -of- 1529039
+Event: 1320000 -of- 1529039
+Event: 1330000 -of- 1529039
+Event: 1340000 -of- 1529039
+Event: 1350000 -of- 1529039
+Event: 1360000 -of- 1529039
+Event: 1370000 -of- 1529039
+Event: 1380000 -of- 1529039
+Event: 1390000 -of- 1529039
+Event: 1400000 -of- 1529039
+Event: 1410000 -of- 1529039
+Event: 1420000 -of- 1529039
+Event: 1430000 -of- 1529039
+Event: 1440000 -of- 1529039
+Event: 1450000 -of- 1529039
+Event: 1460000 -of- 1529039
+Event: 1470000 -of- 1529039
+Event: 1480000 -of- 1529039
+Event: 1490000 -of- 1529039
+Event: 1500000 -of- 1529039
+Event: 1510000 -of- 1529039
+Event: 1520000 -of- 1529039
+	No cuts                       ,	1.24894e+09                   
+	Muon Exists                   ,	1.16654e+09                   
+	MuonPt > 7 GeV                ,	5.35273e+08                   
+	abs(MuonEta) < 1.5            ,	4.25657e+08                   
+	MuonHLTRequirement            ,	9.8821e+07                    
+	MuonQuality                   ,	9.60323e+07                   
+	HLT                           ,	9.60323e+07                   
+	nDtRechitClusters > 0         ,	7.65639e+07                   
+	DtClusterSize >= 50           ,	166219                        
+	DtPassOverlapLeadMuon         ,	0                             
+	DtOverlapGenLLP               ,	0                             
+	DtPassRPCMatching             ,	0                             
+	DtPassMuonVeto                ,	0                             
+	DtPassMB1Veto                 ,	0                             
+	DtPassRPCTimeCut              ,	0                             
+	DtPassMB1Adjacent             ,	0                             
+	DtPassMaxStation              ,	0                             
+	nCscRechitClusters > 0        ,	1.02232e+07                   
+	CscClusterSize >= 50          ,	7.26829e+06                   
+	CscPassOverlapLeadMuon        ,	6.69924e+06                   
+	CscOverlapGenLLP              ,	5.79812e+06                   
+	CscPassME1112Veto             ,	3.39414e+06                   
+	CscPassMB1Veto                ,	3.3308e+06                    
+	CscPassRB1Veto                ,	3.29836e+06                   
+	CscPassRE12Veto               ,	3.26514e+06                   
+	CscPassMuonVeto               ,	3.17189e+06                   
+	CscPassClusterTime            ,	3.16672e+06                   
+	CscPassClusterTimeSpread      ,	3.03218e+06                   
+	CscPassClusterEta             ,	1.569e+06                     
+	CscPassID                     ,	1.22415e+06                   
+isMC?: 1
+Make Tree?: 0
+Counter (nFail): 0
+Counter2 (nNominal): 0
+Closing Fail  histograms file
+Closing FailOOT  histograms file
+Closing Pass  histograms file
+Closing PassOOT  histograms file
+Closing nominal  histograms file
+Closing nominalPlusTime  histograms file
+Closing PassCS  histograms file
+Closing FailCS  histograms file
+Done with Final Loop
+Real Time: 0.959595 mins
+CPU Time: 0.856167 mins

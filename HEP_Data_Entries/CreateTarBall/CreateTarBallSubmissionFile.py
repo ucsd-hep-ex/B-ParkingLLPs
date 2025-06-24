@@ -4,6 +4,10 @@ import ROOT as rt
 import uproot
 import os
 import pdb
+<<<<<<< HEAD
+=======
+import pandas as pd
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
 
 submission = Submission()
 base = "../ConvertCToRoot/roots"
@@ -40,7 +44,11 @@ unc = {}
 x_edges = []
 hist = reader.Get(branch["background"])
 for i in range(1, hist.GetXaxis().GetNbins()+1):
+<<<<<<< HEAD
     if hist.GetXaxis().GetBinLowEdge(i) < -60 or hist.GetXaxis().GetBinUpEdge(i) > 60: continue
+=======
+    if hist.GetXaxis().GetBinLowEdge(i) < -30 or hist.GetXaxis().GetBinUpEdge(i) > 30: continue
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
     # if hist.GetBinContent(i) == 0: continue
     x_edges.append((hist.GetXaxis().GetBinLowEdge(i), hist.GetXaxis().GetBinUpEdge(i)))
 
@@ -55,7 +63,11 @@ for b_i, (b_k, b) in enumerate(branch.items()):
     hist = reader.Get(b)
     print(hist)
     for i in range(1, hist.GetXaxis().GetNbins()+1):
+<<<<<<< HEAD
         if hist.GetXaxis().GetBinLowEdge(i) < -60 or hist.GetXaxis().GetBinUpEdge(i) > 60: continue
+=======
+        if hist.GetXaxis().GetBinLowEdge(i) < -30 or hist.GetXaxis().GetBinUpEdge(i) > 30: continue
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
         if b_i == 0:
             x_edges.append((hist.GetXaxis().GetBinLowEdge(i), hist.GetXaxis().GetBinUpEdge(i)))
         # y.append(hist.GetBinContent(i))
@@ -427,6 +439,88 @@ for c, f_c in enumerate(contour_files):
         table.add_variable(llp_mass)
         submission.add_table(table)
 
+<<<<<<< HEAD
+=======
+base = "../CutflowTables/"
+mass = ["0p3", "0p5", "1p0", "2p0", "3p0"]
+ctau = ["70", "100", "300", "700", "700"]
+channel = ["PiPlusPiMinus", "Pi0Pi0"]
+selections = ["Nocuts", "HLT", "nCscRechitClusters>0", "CscPassID"]
+selections_names = ["All events", "Muon(trigger and > 7 GeV)", "CSC cluster > 0", "CSC cluster selections (vetos, | $\eta$ | and time)"]
+
+# BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300.csv
+
+pi0pi0_df_ratios     = [[1.00,0.0752,0.0054,0.0005], 
+                        [1.00,0.0750,0.0057,0.0006], 
+                        [1.00,0.0761,0.0061,0.0007]]
+
+pipluspiminus_ratios = [[1.00,0.0748,0.0063,0.0008], 
+                        [1.00,0.0754,0.0069,0.0009], 
+                        [1.00,0.0754,0.0073,0.0010]]
+
+
+pi0pi0_df_errors     = [[0.0,0.0001517780868,0.00003974548187,0.00001305377457],
+                        [0.0,0.0001081607832,0.00002912450386,0.000009952361337],
+                        [0.0,0.0001115185327,0.000030848887,0.00001122346313]]
+
+pipluspiminus_errors = [[0.0,0.0001480775491,0.00004251317895,0.00001527795008],
+                        [0.0,0.0001502502594,0.00004501478714,0.00001699086803],
+                        [0.0,0.0001504787281,0.0000466316669,0.00001786720683]]
+                        
+pi0pi0_df_ratios     = [[1,8.57E-02,6.82E-03,6.58E-04],
+                        [1,8.76E-02,7.06E-03,6.52E-04],
+                        [1,8.33E-02,6.77E-03,6.24E-04],
+                        [1,8.28E-02,6.90E-03,7.03E-04], 
+                        [1,8.60E-02,7.49E-03,7.89E-04]]
+
+pipluspiminus_ratios = [[1,8.53E-02,9.78E-03,1.13E-03],
+                        [1,8.65E-02,1.03E-02,1.03E-03],
+                        [1,8.34E-02,9.13E-03,1.07E-03],
+                        [1,8.28E-02,9.32E-03,1.14E-03],
+                        [1,8.59E-02,1.08E-02,1.27E-03]]
+
+pi0pi0_df_errors     = [[0.0,3.76E-04,1.01E-04,3.09E-05],
+                        [0.0,1.64E-04,4.38E-05,1.31E-05],
+                        [0.0,2.31E-04,6.33E-05,1.89E-05],
+                        [0.0,1.50E-04,4.16E-05,1.30E-05],
+                        [0.0,1.84E-04,5.30E-05,1.68E-05]]
+
+pipluspiminus_errors = [[0.0,3.76E-04,1.26E-04,4.18E-05],
+                        [0.0,2.89E-04,9.60E-05,3.23E-05],
+                        [0.0,8.64E-04,2.15E-04,2.52E-05],
+                        [0.0,2.07E-04,6.98E-05,2.36E-05],
+                        [0.0,2.51E-04,8.82E-05,2.85E-05]]
+
+ratios = {"PiPlusPiMinus": pipluspiminus_ratios, "Pi0Pi0": pi0pi0_df_ratios}
+errors = {"PiPlusPiMinus": pipluspiminus_errors, "Pi0Pi0": pi0pi0_df_errors}
+
+for i in range(len(channel)):
+    table = Table(f'Signal efficiency, {channel[i]} decay channel.')
+    var = {}
+    var_err = {}
+    unc = {}
+    x = []
+    hist = reader.Get(branch["background"])
+    var[0] = Variable(f'Selection step', is_independent = True, is_binned = False) 
+    for j in range(len(mass)):
+        # filename = f"{base}/weighted_cutflow_tables/BToKPhi_MuonLLPDecayGenFilter_PhiTo{channel[i]}_mPhi{mass[j]}_ctau{ctau[j]}_weighted.csv"
+        # filename_err = f"{base}/not_weighted_cutflow_tables/BToKPhi_MuonLLPDecayGenFilter_PhiTo{channel[i]}_mPhi{mass[j]}_ctau{ctau[j]}_not_weighted_err.csv"
+        # data = pd.read_csv(filename)
+        # data_err = pd.read_csv(filename_err)
+        data_err_sel = errors[channel[i]] # data_err[data["Selections"].isin(selections)]
+        data_sel = ratios[channel[i]] # data[data["Selections"].isin(selections)]
+        var[0].values = selections_names # data_sel["Selections"]
+        # data_err_sel["Cum efficiency"].iloc[0] = 0.0
+        var[f"MLLP = {mass[j]}"] = Variable(f'MLLP = {mass[j].replace("p", ".")} GeV', is_independent = False, is_binned = False)
+        var_err[f"MLLP = {mass[j]}"] = Uncertainty("Statistical")
+        var[f"MLLP = {mass[j]}"].values = data_sel[j] # ["Cum efficiency"]
+        var_err[f"MLLP = {mass[j]}"].values = data_err_sel[j] # ["Cum efficiency"]
+        var[f"MLLP = {mass[j]}"].add_uncertainty(var_err[f"MLLP = {mass[j]}"])
+        if (j == 0): table.add_variable(var[0])
+        table.add_variable(var[f"MLLP = {mass[j]}"])
+    submission.add_table(table)
+
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
 os.system("mkdir -p submission_file")
 os.system('rm -rf submission_file')
 submission.create_files('submission_file/')

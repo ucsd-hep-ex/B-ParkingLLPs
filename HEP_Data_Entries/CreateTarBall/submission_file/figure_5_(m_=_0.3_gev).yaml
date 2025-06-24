@@ -8,6 +8,7 @@ dependent_variables:
   - name: Quantile
     value: Median expected limit
   values:
+<<<<<<< HEAD:HEP_Data_Entries/CreateTarBall/submission_file/figure_5_(m_=_0.3_gev).yaml
   - value: 0.00016163
   - value: 0.00012664
   - value: 0.00012002
@@ -18,6 +19,17 @@ dependent_variables:
   - value: 0.0011231
   - value: 0.020491
   - value: 0.059402
+=======
+  - value: 0.025259
+  - value: 0.0043589
+  - value: 0.0011561
+  - value: 0.00014592
+  - value: 0.00010043
+  - value: 9.3188e-05
+  - value: 9.7568e-05
+  - value: 0.0002189
+  - value: 0.00041303
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0:HEP_Data_Entries/CreateTarBall/submission_file/figure_6_(m_=_2.0_gev).yaml
 - header:
     name: 95% CL upper limit's observed value on $B \rightarrow K \Phi$
   qualifiers:
@@ -27,6 +39,7 @@ dependent_variables:
   - name: Quantile
     value: Observed limit
   values:
+<<<<<<< HEAD:HEP_Data_Entries/CreateTarBall/submission_file/figure_5_(m_=_0.3_gev).yaml
   - value: 0.00017993
   - value: 0.00014162
   - value: 0.00013396
@@ -37,6 +50,17 @@ dependent_variables:
   - value: 0.0012504
   - value: 0.022934
   - value: 0.066513
+=======
+  - value: 0.028203
+  - value: 0.0048641
+  - value: 0.0012918
+  - value: 0.0001578
+  - value: 0.00010783
+  - value: 9.9876e-05
+  - value: 0.00010496
+  - value: 0.00023509
+  - value: 0.00044356
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0:HEP_Data_Entries/CreateTarBall/submission_file/figure_6_(m_=_2.0_gev).yaml
 - header:
     name: 95% CL upper limit's observed value -1$\sigma$ on $B \rightarrow K \Phi$
   qualifiers:
@@ -46,6 +70,7 @@ dependent_variables:
   - name: Quantile
     value: -1 $\sigma$
   values:
+<<<<<<< HEAD:HEP_Data_Entries/CreateTarBall/submission_file/figure_5_(m_=_0.3_gev).yaml
   - value: 0.00011026
   - value: 8.6395e-05
   - value: 8.1876e-05
@@ -56,6 +81,17 @@ dependent_variables:
   - value: 0.00076901
   - value: 0.01403
   - value: 0.040672
+=======
+  - value: 0.017517
+  - value: 0.0030121
+  - value: 0.00079603
+  - value: 0.00010584
+  - value: 7.4804e-05
+  - value: 6.9829e-05
+  - value: 7.3551e-05
+  - value: 0.00016551
+  - value: 0.00031229
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0:HEP_Data_Entries/CreateTarBall/submission_file/figure_6_(m_=_2.0_gev).yaml
 - header:
     name: 95% CL upper limit's observed value +1$\sigma$ on $B \rightarrow K \Phi$
   qualifiers:
@@ -65,6 +101,7 @@ dependent_variables:
   - name: Quantile
     value: +1 $\sigma$
   values:
+<<<<<<< HEAD:HEP_Data_Entries/CreateTarBall/submission_file/figure_5_(m_=_0.3_gev).yaml
   - value: 0.00092804
   - value: 0.00025247
   - value: 0.00019934
@@ -75,12 +112,22 @@ dependent_variables:
   - value: 0.00087825
   - value: 0.0016917
   - value: 0.030864
+=======
+  - value: 2.0776
+  - value: 0.038449
+  - value: 0.0066698
+  - value: 0.0018013
+  - value: 0.00020525
+  - value: 0.00014007
+  - value: 0.00012922
+  - value: 0.00013529
+  - value: 0.00030354
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0:HEP_Data_Entries/CreateTarBall/submission_file/figure_6_(m_=_2.0_gev).yaml
 independent_variables:
 - header:
     name: c$\tau$
     units: mm
   values:
-  - value: 30.0
   - value: 50.0
   - value: 70.0
   - value: 100.0

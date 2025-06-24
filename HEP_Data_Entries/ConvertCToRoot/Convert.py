@@ -41,6 +41,7 @@ if __name__ == "__main__":
     base = "paper_plots/"
     filelist = glob.glob(f"{base}*.C")
     print(filelist)
+    '''
     for f in filelist:
         print(f)
         with open(f, "r") as file:
@@ -61,4 +62,4 @@ if __name__ == "__main__":
                 new_file.write("\n".join([prefix, content[0:-3], suffix, "\n}"]))
                 new_file.close()
                 os.system(f"root -b -q ./modified_files/{filename}.C")
-
+    '''

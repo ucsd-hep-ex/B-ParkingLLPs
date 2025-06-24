@@ -4,6 +4,7 @@ dependent_variables:
   values:
   - errors:
     - label: Statistical
+<<<<<<< HEAD
       symerror: 0.00010504
     value: 0.0068741
   - errors:
@@ -126,6 +127,10 @@ dependent_variables:
     - label: Statistical
       symerror: 0.00016587
     value: 0.017143
+=======
+      symerror: 0.00010505
+    value: 0.0068772
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.00015425
@@ -363,6 +368,7 @@ dependent_variables:
     value: 0.14387
   - errors:
     - label: Statistical
+<<<<<<< HEAD
       symerror: 0.016022
     value: 0.21055
   - errors:
@@ -485,9 +491,14 @@ dependent_variables:
     - label: Statistical
       symerror: 1.0
     value: -999.0
+=======
+      symerror: 9.7985e-05
+    value: 0.0059835
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
 - header:
     name: 'Fraction of events: m = 1.0 GeV, c$\tau_{\Phi}$ = 300 mm'
   values:
+<<<<<<< HEAD
   - errors:
     - label: Statistical
       symerror: 1.0
@@ -520,6 +531,43 @@ dependent_variables:
     - label: Statistical
       symerror: 1.7161e-06
     value: 1.7161e-06
+=======
+  - errors:
+    - label: Statistical
+      symerror: 3.215e-05
+    value: 3.215e-05
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 6.5441e-05
+    value: 6.5441e-05
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.00011319
+    value: 0.00011319
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.00084928
+    value: 0.00084928
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 1.0
@@ -598,6 +646,7 @@ dependent_variables:
     value: 0.016851
   - errors:
     - label: Statistical
+<<<<<<< HEAD
       symerror: 0.0044008
     value: 0.048558
   - errors:
@@ -640,6 +689,57 @@ dependent_variables:
     - label: Statistical
       symerror: 0.00093339
     value: 0.0026799
+=======
+      symerror: 0.00066767
+    value: 0.00066767
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.0022158
+    value: 0.0026041
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.00011418
+    value: 0.00011418
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+- header:
+    name: 'Fraction of events: m = 1.0 GeV, c$\tau_{\Phi}$ = 300 mm'
+  values:
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.00026887
@@ -714,14 +814,24 @@ dependent_variables:
     value: 0.00011704
   - errors:
     - label: Statistical
+<<<<<<< HEAD
       symerror: 1.0
     value: -999.0
+=======
+      symerror: 0.00090267
+    value: 0.0012799
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 2.9032e-05
     value: 2.9032e-05
   - errors:
     - label: Statistical
+<<<<<<< HEAD
       symerror: 1.0
     value: -999.0
   - errors:
@@ -855,6 +965,68 @@ dependent_variables:
     - label: Statistical
       symerror: 0.0068885
     value: 0.19127
+=======
+      symerror: 6.9097e-06
+    value: 6.9097e-06
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.00019972
+    value: 0.00020263
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 1.7827e-05
+    value: 1.7827e-05
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.00016269
+    value: 0.00016269
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 8.7648e-05
+    value: 8.7648e-05
+  - value: -999
+  - value: -999
+- header:
+    name: 'Fraction of events: m = 2.0 GeV, c$\tau_{\Phi}$ = 1000 mm'
+  values:
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.00032313
+    value: 0.00032313
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 4.2925e-05
+    value: 4.2925e-05
+  - value: -999
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
   - errors:
     - label: Statistical
       symerror: 0.0068132
@@ -933,6 +1105,7 @@ dependent_variables:
     value: 0.00014356
   - errors:
     - label: Statistical
+<<<<<<< HEAD
       symerror: 1.0
     value: -999.0
   - errors:
@@ -971,6 +1144,36 @@ dependent_variables:
     - label: Statistical
       symerror: 1.0
     value: -999.0
+=======
+      symerror: 0.00013819
+    value: 0.00013819
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 2.8496e-05
+    value: 2.8496e-05
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 2.0529e-06
+    value: 2.0529e-06
+  - value: -999
+  - value: -999
+  - value: -999
+  - errors:
+    - label: Statistical
+      symerror: 0.00017111
+    value: 0.00017111
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+  - value: -999
+>>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
 independent_variables:
 - header:
     name: Cluster time
