@@ -64,8 +64,8 @@ samples = [
 base = "/eos/user/d/ddiaz/forAram"
 base_old = "/eos/user/d/ddiaz/forAram"
 
-limitDir_old = f'{base_old}/Lim_WP23_GJson_unBlinded_lepIDSF_moreStats1_IT--beforePi0'
-dataCardDir_old = f'{base_old}/Lim_WP23_GJson_unBlinded_lepIDSF_moreStats1_IT--beforePi0'
+limitDir_old = f'{base_old}/Lim_WP23_GJson_unBlinded_lepIDSF_moreStats1_IT'
+dataCardDir_old = f'{base_old}/Lim_WP23_GJson_unBlinded_lepIDSF_moreStats1_IT'
 
 limitDir = f'{base}/Lim_WP23_GJson_unBlinded_lepIDSF_moreStats1_IT'
 dataCardDir = f'{base}/Lim_WP23_GJson_unBlinded_lepIDSF_moreStats1_IT'
@@ -84,16 +84,16 @@ for i_m, m in enumerate(samples):
         ct_str = str(ct).replace('.','p')
         if ct == int(ct):ct_str = str(int(ct)).replace('.','p')
         else: ct_str      = str(ct).replace('.','p')
-        if ("0p3" in m) or ("1p0" in m):
-            dataCardLocation  = dataCardDir + '/'+m+'_low_ctau'+ct_str+'/'+samples_pipluspiminus[i_m]+'_low_ctau'+ct_str+"/"+ category.upper() + '/card_s.txt'
-            print(dataCardLocation)
-            limitTreeLocation =    limitDir + '/'+m+'_low_ctau'+ct_str+'/'+samples_pipluspiminus[i_m]+'_low_ctau'+ct_str+"/"+ category.upper() + '/higgsCombineTest.AsymptoticLimits.mH120.root'
+        if ("3p0" not in m) and False: # ("0p3" in m) or ("1p0" in m) or True:
+            dataCardLocation  = dataCardDir + '/'+m+'_low_ctau'+ct_str+'/'+samples_pipluspiminus[i_m]+'_low_ctau'+ct_str+"/"+ category.upper() + '/card.txt'
+            # print(dataCardLocation, os.path.exists(dataCardLocation))
+            limitTreeLocation = limitDir + '/'+m+'_low_ctau'+ct_str+'/'+samples_pipluspiminus[i_m]+'_low_ctau'+ct_str+"/"+ category.upper() + '/higgsCombineTest.AsymptoticLimits.mH120.root'
             dataCards[m][ct]  = dataCardLocation
             limitTrees[m][ct] = limitTreeLocation
         else:
-            dataCardLocation  = dataCardDir + '/'+m+'_low_ctau'+ct_str+'/'+ category.upper() + '/card_s.txt'
-            print(dataCardLocation)
-            limitTreeLocation =    limitDir + '/'+m+'_low_ctau'+ct_str+'/'+ category.upper() + '/higgsCombineTest.AsymptoticLimits.mH120.root'
+            dataCardLocation  = dataCardDir + '/'+m+'_low_ctau'+ct_str+'/'+ category.upper() + '/card.txt'
+            # print(dataCardLocation, os.path.exists(dataCardLocation))
+            limitTreeLocation = limitDir + '/'+m+'_low_ctau'+ct_str+'/'+ category.upper() + '/higgsCombineTest.AsymptoticLimits.mH120.root'
             dataCards[m][ct]  = dataCardLocation
             limitTrees[m][ct] = limitTreeLocation
 print(len(limitTrees))
@@ -103,24 +103,27 @@ for i,m in enumerate(limitTrees.keys()):
     limits[m] = np.ones((len(ctaus), 6))*1000000
     for j, k in enumerate(limitTrees[m].keys()):
         try:
+            # print(dataCards[m][k])
             line = open(dataCards[m][k], "r").readline()
+            # print(line)
             line = float(line.split("#SF: ")[1]) # 1.88423E-06
             if len(uproot.open(limitTrees[m][k]).keys()) == 2:
+                # print(uproot.open(limitTrees[m][k])['limit']['limit'].array())
                 T = uproot.open(limitTrees[m][k])['limit']['limit'].array()
                 limits[m][j] = np.array(T)*line
         except:
             ct_str = str(ctaus[j]).replace('.','p')
-            dataCardLocation_old  = dataCardDir_old + '/' +samples_pipluspiminus[i]+'_low_ctau'+ct_str+"/"+ category.upper() + '/card_s.txt'
+            dataCardLocation_old  = dataCardDir_old + '/' +samples_pipluspiminus[i]+'_low_ctau'+ct_str+"/"+ category.upper() + '/card.txt'
             limitTreeLocation_old =    limitDir_old + '/' +samples_pipluspiminus[i]+'_low_ctau'+ct_str+"/"+ category.upper() + '/higgsCombineTest.AsymptoticLimits.mH120.root'
-            print(f"Card not found: {dataCardLocation}. Using the old path: {dataCardLocation_old}.")
-            try:
-                line = open(dataCardLocation_old, "r").readline()
-                line = float(line.split("#SF: ")[1]) # 1.88423E-06
-                if len(uproot.open(limitTreeLocation_old).keys()) == 2:
-                    T = uproot.open(limitTreeLocation_old)['limit']['limit'].array()
-                    limits[m][j] = np.array(T)*line
-            except:
-                print("The old path didn't work as well.")
+            print(f"Card not found: {dataCards[m][k]}. Using the old path: {dataCardLocation_old}.")
+        #     try:
+        #         line = open(dataCardLocation_old, "r").readline()
+        #         line = float(line.split("#SF: ")[1]) # 1.88423E-06
+        #         if len(uproot.open(limitTreeLocation_old).keys()) == 2:
+        #             T = uproot.open(limitTreeLocation_old)['limit']['limit'].array()
+        #             limits[m][j] = np.array(T)*line
+        #     except:
+        #         print("The old path didn't work as well.")
 
     limits[m] = np.array(limits[m])
 

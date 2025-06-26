@@ -1,5 +1,0 @@
-to_ctau_str:  to2000
-from: 200 cm
-to: 200 cm
-/eos/uscms/store/group/lpclonglived/B-ParkingLLPs/V1p19_14/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000_ext2/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000_ext2.root
-5.70812e+06

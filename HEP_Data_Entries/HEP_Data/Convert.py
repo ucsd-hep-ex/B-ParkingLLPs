@@ -38,14 +38,14 @@ if __name__ == "__main__":
     # Copy the files from "plotters"
     # os.system("cp ../../plotters/plotDump/*/* ./paper_plots/")
     os.system("mkdir -p roots")
-    base = "paper_plots/"
+    base = "C_files/"
     filelist = glob.glob(f"{base}*.C")
     print(filelist)
     for f in filelist:
         print(f)
         with open(f, "r") as file:
             filename = f.split(base)[1].split(".C")[0]
-            with open(f"./modified_files/{filename}.C", "w") as new_file:
+            with open(f"./modified_C_files/{filename}.C", "w") as new_file:
                 output_root = f'./roots/{filename}.root'
                 prefix = f'TFile * output_root = new TFile("{output_root}", "RECREATE");'
                 suffix = ''
@@ -60,5 +60,5 @@ if __name__ == "__main__":
                 print(suffix)
                 new_file.write("\n".join([prefix, content[0:-3], suffix, "\n}"]))
                 new_file.close()
-                os.system(f"root -b -q ./modified_files/{filename}.C")
+                os.system(f"root -b -q ./modified_C_files/{filename}.C")
 

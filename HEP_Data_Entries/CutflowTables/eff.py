@@ -48,19 +48,6 @@ def analyze_histogram(root_file_path_contents, root_file_path_errors, hist_name)
     return np.array(ratios), np.array(ratio_errors)
 
 if __name__ == "__main__":
-    root_file_path_contents = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000_ext2to2000_nominal_plots.root"
-    root_file_path_errors = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000_ext2to2000_nominal_plots.root"
-    root_file_path_contents = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau3000_ext2to3000_nominal_plots.root"
-    root_file_path_errors = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau3000_ext2to3000_nominal_plots.root"
-    root_file_path_contents = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000_ext2to1000_nominal_plots.root"
-    root_file_path_errors = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000_ext2to1000_nominal_plots.root"
-
-    root_file_path_contents = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_ext2to1000_nominal_plots.root"
-    root_file_path_errors = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_ext2to1000_nominal_plots.root"
-    root_file_path_contents = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_ext2to2000_nominal_plots.root"
-    root_file_path_errors = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_ext2to2000_nominal_plots.root"
-    root_file_path_contents = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000_ext2to3000_nominal_plots.root"
-    root_file_path_errors = "./roots_weighted/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000_ext2to3000_nominal_plots.root"
     
     root_file_path_contents = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000_ext2to300_nominal_plots.root"
     root_file_path_errors = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000_ext2to300_nominal_plots.root"
@@ -75,11 +62,6 @@ if __name__ == "__main__":
     root_file_path_errors = "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300_ext2to70_nominal_plots.root"
     
     filelist = [
-        # "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi1p0_ctau1000_ext2to300_nominal_plots.root",
-        # "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi2p0_ctau2000_ext2to700_nominal_plots.root",
-        # "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi3p0_ctau3000_ext2to700_nominal_plots.root",
-        # "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300to70_nominal_plots.root",
-        # "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p5_ctau500_ext2to100_nominal_plots.root",
         "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi1p0_ctau1000_ext2to300_nominal_plots.root",
         "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi2p0_ctau2000_ext2to700_nominal_plots.root",
         "BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi3p0_ctau3000_ext2to700_nominal_plots.root",
@@ -89,8 +71,8 @@ if __name__ == "__main__":
     
     for file in filelist:
         print(file)
-        root_file_path_contents = file # "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300_ext2to70_nominal_plots.root"
-        root_file_path_errors = file # "BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300_ext2to70_nominal_plots.root"
+        root_file_path_contents = file
+        root_file_path_errors = file
         
         histogram_name = "cutflow_histogram"
         ratios, errors = analyze_histogram(root_file_path_contents, root_file_path_errors, histogram_name)

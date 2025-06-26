@@ -1,0 +1,323 @@
+dependent_variables:
+- header:
+    name: 'Fraction of events: Background-Enriched Data'
+  values:
+  - errors:
+    - label: Statistical
+      symerror: 0.00021962
+    value: 0.030059
+  - errors:
+    - label: Statistical
+      symerror: 0.00031038
+    value: 0.06004
+  - errors:
+    - label: Statistical
+      symerror: 0.00031142
+    value: 0.060441
+  - errors:
+    - label: Statistical
+      symerror: 0.00031333
+    value: 0.061184
+  - errors:
+    - label: Statistical
+      symerror: 0.00031165
+    value: 0.060531
+  - errors:
+    - label: Statistical
+      symerror: 0.00031066
+    value: 0.060146
+  - errors:
+    - label: Statistical
+      symerror: 0.0003127
+    value: 0.060942
+  - errors:
+    - label: Statistical
+      symerror: 0.00031295
+    value: 0.061038
+  - errors:
+    - label: Statistical
+      symerror: 0.00031283
+    value: 0.060992
+  - errors:
+    - label: Statistical
+      symerror: 0.00031543
+    value: 0.062011
+  - errors:
+    - label: Statistical
+      symerror: 0.00031534
+    value: 0.061975
+  - errors:
+    - label: Statistical
+      symerror: 0.00031645
+    value: 0.062412
+  - errors:
+    - label: Statistical
+      symerror: 0.00031991
+    value: 0.063784
+  - errors:
+    - label: Statistical
+      symerror: 0.00032192
+    value: 0.064586
+  - errors:
+    - label: Statistical
+      symerror: 0.00032395
+    value: 0.065406
+  - errors:
+    - label: Statistical
+      symerror: 0.00032687
+    value: 0.066588
+  - errors:
+    - label: Statistical
+      symerror: 0.00024648
+    value: 0.037862
+- header:
+    name: 'Fraction of events: m = 0.3 GeV, c$\tau_{\Phi}$ = 100 mm'
+  values:
+  - errors:
+    - label: Statistical
+      symerror: 0.0036708
+    value: 0.012375
+  - errors:
+    - label: Statistical
+      symerror: 0.0047121
+    value: 0.021472
+  - errors:
+    - label: Statistical
+      symerror: 0.0042972
+    value: 0.019417
+  - errors:
+    - label: Statistical
+      symerror: 0.0049231
+    value: 0.021534
+  - errors:
+    - label: Statistical
+      symerror: 0.0048954
+    value: 0.027021
+  - errors:
+    - label: Statistical
+      symerror: 0.0059186
+    value: 0.030828
+  - errors:
+    - label: Statistical
+      symerror: 0.0054303
+    value: 0.03284
+  - errors:
+    - label: Statistical
+      symerror: 0.0061623
+    value: 0.043584
+  - errors:
+    - label: Statistical
+      symerror: 0.0082692
+    value: 0.058768
+  - errors:
+    - label: Statistical
+      symerror: 0.0090921
+    value: 0.067035
+  - errors:
+    - label: Statistical
+      symerror: 0.0081566
+    value: 0.064191
+  - errors:
+    - label: Statistical
+      symerror: 0.0089415
+    value: 0.073825
+  - errors:
+    - label: Statistical
+      symerror: 0.0096348
+    value: 0.089217
+  - errors:
+    - label: Statistical
+      symerror: 0.010552
+    value: 0.099642
+  - errors:
+    - label: Statistical
+      symerror: 0.013937
+    value: 0.14045
+  - errors:
+    - label: Statistical
+      symerror: 0.013446
+    value: 0.13766
+  - errors:
+    - label: Statistical
+      symerror: 0.0081266
+    value: 0.060131
+- header:
+    name: 'Fraction of events: m = 1.0 GeV, c$\tau_{\Phi}$ = 300 mm'
+  values:
+  - errors:
+    - label: Statistical
+      symerror: 0.0022138
+    value: 0.011711
+  - errors:
+    - label: Statistical
+      symerror: 0.0026325
+    value: 0.019925
+  - errors:
+    - label: Statistical
+      symerror: 0.0024713
+    value: 0.019568
+  - errors:
+    - label: Statistical
+      symerror: 0.0031584
+    value: 0.02776
+  - errors:
+    - label: Statistical
+      symerror: 0.0024744
+    value: 0.019556
+  - errors:
+    - label: Statistical
+      symerror: 0.0033921
+    value: 0.030572
+  - errors:
+    - label: Statistical
+      symerror: 0.003461
+    value: 0.033609
+  - errors:
+    - label: Statistical
+      symerror: 0.0039198
+    value: 0.041196
+  - errors:
+    - label: Statistical
+      symerror: 0.004343
+    value: 0.049756
+  - errors:
+    - label: Statistical
+      symerror: 0.0048454
+    value: 0.058797
+  - errors:
+    - label: Statistical
+      symerror: 0.0053723
+    value: 0.072927
+  - errors:
+    - label: Statistical
+      symerror: 0.0055206
+    value: 0.076732
+  - errors:
+    - label: Statistical
+      symerror: 0.0058384
+    value: 0.089454
+  - errors:
+    - label: Statistical
+      symerror: 0.0064247
+    value: 0.10124
+  - errors:
+    - label: Statistical
+      symerror: 0.0071508
+    value: 0.1229
+  - errors:
+    - label: Statistical
+      symerror: 0.0077062
+    value: 0.13705
+  - errors:
+    - label: Statistical
+      symerror: 0.0060287
+    value: 0.08725
+- header:
+    name: 'Fraction of events: m = 2.0 GeV, c$\tau_{\Phi}$ = 1000 mm'
+  values:
+  - errors:
+    - label: Statistical
+      symerror: 0.0017397
+    value: 0.012571
+  - errors:
+    - label: Statistical
+      symerror: 0.0021788
+    value: 0.022415
+  - errors:
+    - label: Statistical
+      symerror: 0.0020749
+    value: 0.02081
+  - errors:
+    - label: Statistical
+      symerror: 0.0024765
+    value: 0.027443
+  - errors:
+    - label: Statistical
+      symerror: 0.0025742
+    value: 0.031033
+  - errors:
+    - label: Statistical
+      symerror: 0.002829
+    value: 0.035158
+  - errors:
+    - label: Statistical
+      symerror: 0.0029727
+    value: 0.039001
+  - errors:
+    - label: Statistical
+      symerror: 0.0028597
+    value: 0.037857
+  - errors:
+    - label: Statistical
+      symerror: 0.0034488
+    value: 0.051021
+  - errors:
+    - label: Statistical
+      symerror: 0.0034241
+    value: 0.050723
+  - errors:
+    - label: Statistical
+      symerror: 0.0039754
+    value: 0.065696
+  - errors:
+    - label: Statistical
+      symerror: 0.0043667
+    value: 0.07791
+  - errors:
+    - label: Statistical
+      symerror: 0.0047499
+    value: 0.094807
+  - errors:
+    - label: Statistical
+      symerror: 0.0050555
+    value: 0.10277
+  - errors:
+    - label: Statistical
+      symerror: 0.0054295
+    value: 0.12066
+  - errors:
+    - label: Statistical
+      symerror: 0.0057957
+    value: 0.13112
+  - errors:
+    - label: Statistical
+      symerror: 0.0045708
+    value: 0.079005
+independent_variables:
+- header:
+    name: $\Delta\Phi$ (cluster, $\mu_{trigger}$)
+  values:
+  - high: 1.0667
+    low: 0.93333
+  - high: 1.2
+    low: 1.0667
+  - high: 1.3333
+    low: 1.2
+  - high: 1.4667
+    low: 1.3333
+  - high: 1.6
+    low: 1.4667
+  - high: 1.7333
+    low: 1.6
+  - high: 1.8667
+    low: 1.7333
+  - high: 2.0
+    low: 1.8667
+  - high: 2.1333
+    low: 2.0
+  - high: 2.2667
+    low: 2.1333
+  - high: 2.4
+    low: 2.2667
+  - high: 2.5333
+    low: 2.4
+  - high: 2.6667
+    low: 2.5333
+  - high: 2.8
+    low: 2.6667
+  - high: 2.9333
+    low: 2.8
+  - high: 3.0667
+    low: 2.9333
+  - high: 3.2
+    low: 3.0667
