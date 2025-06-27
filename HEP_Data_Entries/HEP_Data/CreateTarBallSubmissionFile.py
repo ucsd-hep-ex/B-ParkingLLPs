@@ -325,7 +325,8 @@ for l, label in enumerate(labels):
 
     for i in range(len(lines)):
         line_list = lines[i].split(",")
-        if len(line_list) != 6: continue
+        # if len(line_list) != 6: continue
+        if line_list == ['']: continue
         print(line_list)
         x[keys[l]].append(float(line_list[1]))
         data_obs[keys[l]].append(float(line_list[5]))
