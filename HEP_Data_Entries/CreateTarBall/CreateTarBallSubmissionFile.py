@@ -4,10 +4,7 @@ import ROOT as rt
 import uproot
 import os
 import pdb
-<<<<<<< HEAD
-=======
 import pandas as pd
->>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
 
 submission = Submission()
 base = "../ConvertCToRoot/roots"
@@ -44,11 +41,7 @@ unc = {}
 x_edges = []
 hist = reader.Get(branch["background"])
 for i in range(1, hist.GetXaxis().GetNbins()+1):
-<<<<<<< HEAD
-    if hist.GetXaxis().GetBinLowEdge(i) < -60 or hist.GetXaxis().GetBinUpEdge(i) > 60: continue
-=======
     if hist.GetXaxis().GetBinLowEdge(i) < -30 or hist.GetXaxis().GetBinUpEdge(i) > 30: continue
->>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
     # if hist.GetBinContent(i) == 0: continue
     x_edges.append((hist.GetXaxis().GetBinLowEdge(i), hist.GetXaxis().GetBinUpEdge(i)))
 
@@ -63,18 +56,14 @@ for b_i, (b_k, b) in enumerate(branch.items()):
     hist = reader.Get(b)
     print(hist)
     for i in range(1, hist.GetXaxis().GetNbins()+1):
-<<<<<<< HEAD
-        if hist.GetXaxis().GetBinLowEdge(i) < -60 or hist.GetXaxis().GetBinUpEdge(i) > 60: continue
-=======
         if hist.GetXaxis().GetBinLowEdge(i) < -30 or hist.GetXaxis().GetBinUpEdge(i) > 30: continue
->>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
         if b_i == 0:
             x_edges.append((hist.GetXaxis().GetBinLowEdge(i), hist.GetXaxis().GetBinUpEdge(i)))
         # y.append(hist.GetBinContent(i))
         if hist.GetBinContent(i) == 0:
             # pass
             y.append(-999)
-            yerr.append(0.0)
+            yerr.append(1.0)
         else:
             # pass
             y.append(hist.GetBinContent(i))            
@@ -139,9 +128,18 @@ for b_i, (b_k, b) in enumerate(branch.items()):
         if hist.GetXaxis().GetBinUpEdge(i) > 500: continue
         if b_i == 0:
             x_edges.append((hist.GetXaxis().GetBinLowEdge(i), hist.GetXaxis().GetBinUpEdge(i)))
-        y.append(hist.GetBinContent(i))
+        # y.append(hist.GetBinContent(i))
         # if hist.GetBinContent(i) == 0: continue
-        yerr.append(hist.GetBinError(i))
+        # yerr.append(hist.GetBinError(i))
+        if hist.GetBinContent(i) == 0:
+            # pass
+            y.append(-999)
+            yerr.append(1.0)
+        else:
+            # pass
+            y.append(hist.GetBinContent(i))
+            yerr.append(hist.GetBinError(i))
+
 
     unc[b_i+1] = Uncertainty("Statistical")
     var[b_i+1].values = y
@@ -226,7 +224,7 @@ submission.add_table(table)
 files = {}
 branch = {}
 base = "../ConvertCToRoot/roots/"
-variable_label = "fig5_DeltaclsMuonVSClsSize"
+variable_label = "fig4_DeltaclsMuonVSClsSize"
 files[variable_label] = "OOT_CLS_DPHI_CSC.root"
 branch["background"] = "h1_swap"
 titles = ["Background-Enriched Data"]
@@ -244,9 +242,9 @@ reader = rt.TFile(filename, 'READ')
 for b_i, (b_k, b) in enumerate(branch.items()):
     print(b_i, b_k, b)
 
-    table = Table(f'Figure 5')
+    table = Table(f'Figure 4')
     table.description=description
-    table.location = f'Figure 5'
+    table.location = f'Figure 4'
     table.keywords["cmenergies"] = ["13000.0"]
     table.keywords["observables"] = ["EFF"]
     table.description = "The 2D distribution of the $\Delta\Phi$ (cluster, $\\mu_{trigger}$) vs the number of hits in clusters, in events from the out-of-time region."
@@ -285,7 +283,8 @@ for b_i, (b_k, b) in enumerate(branch.items()):
 
 labels = ["m = 0.3 GeV", "m = 1.0 GeV", "m = 2.0 GeV", "m = 3.0 GeV"]
 keys = ["data_0p3","data_1p0","data_2p0", "data_3p0"]
-filename = "../ConvertCToRoot/roots/Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC.root"
+# filename = "../ConvertCToRoot/roots/Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC.root"
+filename = "../ConvertCToRoot/roots/Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_moreStats1_MAll_low_CSC.root"
 # for f, filename in enumerate(["m0p3_limit.txt", "m1p0_limit.txt", "m2p0_limit.txt", "m3p0_limit.txt"]):
 
 x = {}
@@ -295,9 +294,9 @@ data_plus = {}
 data_minus = {}
 
 for l, label in enumerate(labels):
-    table = Table(f"Figure 6 ({labels[l]})")
+    table = Table(f"Figure 5 ({labels[l]})")
     table.description = "Exclusion limits at 95% CL on the $B \\rightarrow K \Phi$ as a function of the decay distance of the long-lived particle."
-    table.location = "Figure 6"
+    table.location = "Figure 5"
 
     table.keywords["observables"] = ["CLS", "CLS"]
     table.keywords["cmenergies"] = ["13000"]
@@ -324,7 +323,8 @@ for l, label in enumerate(labels):
         data_median[keys[l]].append(hist_median.values()[1][i])
         data_plus[keys[l]].append(hist_errors.values()[1][i])
         data_minus[keys[l]].append(hist_errors.values()[1][nbins_errors-i])
-
+        if l == 0:
+            print(x[keys[l]][-1], data_obs[keys[l]][-1], data_median[keys[l]][-1], data_plus[keys[l]][-1], data_minus[keys[l]][-1])
     x_v = Variable("c$\\tau$", is_independent=True, is_binned=False, units="mm")
     x_v.values = x[keys[l]]
 
@@ -339,12 +339,12 @@ for l, label in enumerate(labels):
     obsL.add_qualifier("Quantile", "Observed limit")
 
     OneS_p = Variable("95% CL upper limit's observed value -1$\sigma$ on $B \\rightarrow K \Phi$", is_independent=False, is_binned=False, units="")
-    OneS_p.values = data_plus[keys[l]]
+    OneS_p.values = data_minus[keys[l]]
     OneS_p.add_qualifier("SQRT(S)", 13, "TeV")
     OneS_p.add_qualifier("Quantile", "-1 $\\sigma$")
 
     OneS_m = Variable("95% CL upper limit's observed value +1$\sigma$ on $B \\rightarrow K \Phi$", is_independent=False, is_binned=False, units="")
-    OneS_m.values = data_minus[keys[l]]
+    OneS_m.values = data_plus[keys[l]]
     OneS_m.add_qualifier("SQRT(S)", 13, "TeV")
     OneS_m.add_qualifier("Quantile", "+1 $\\sigma$")
 
@@ -358,7 +358,7 @@ for l, label in enumerate(labels):
 files = {}
 branch = {}
 base = "../ConvertCToRoot/roots/"
-variable_label = "fig7_limits_vs_ctau_mass"
+variable_label = "fig6_limits_vs_ctau_mass"
 files[variable_label] = "BToPhiK_AnalysisPiPlusPiMinus_2d_expected.root"
 branch["background"] = "unnamed"
 titles = ["Background-Enriched Data"]
@@ -376,9 +376,9 @@ reader = rt.TFile(filename, 'READ')
 for b_i, (b_k, b) in enumerate(branch.items()):
     print(b_i, b_k, b)
 
-    table = Table(f'Figure 7')
+    table = Table(f'Figure 6')
     table.description=description
-    table.location = f'Figure 7'
+    table.location = f'Figure 6'
     table.keywords["cmenergies"] = ["13000.0"]
     table.keywords["observables"] = ["EFF"]
 
@@ -424,7 +424,7 @@ descriptions = ["The contour of the 2D distribution which includes the generatio
 for c, f_c in enumerate(contour_files):
     with open(f_c, "r") as contour:
         table = Table(Table_titles[c])
-        table.location = "Figure 7"
+        table.location = "Figure 6"
         table.description = descriptions[c]
         ctau = Variable("$c\\tau$", is_independent=True, is_binned=False, units="mm")
         llp_mass = Variable("$m_{LLP}$", is_independent=False, is_binned=False, units = "GeV")
@@ -439,8 +439,6 @@ for c, f_c in enumerate(contour_files):
         table.add_variable(llp_mass)
         submission.add_table(table)
 
-<<<<<<< HEAD
-=======
 base = "../CutflowTables/"
 mass = ["0p3", "0p5", "1p0", "2p0", "3p0"]
 ctau = ["70", "100", "300", "700", "700"]
@@ -459,13 +457,13 @@ pipluspiminus_ratios = [[1.00,0.0748,0.0063,0.0008],
                         [1.00,0.0754,0.0073,0.0010]]
 
 
-pi0pi0_df_errors     = [[0.0,0.0001517780868,0.00003974548187,0.00001305377457],
-                        [0.0,0.0001081607832,0.00002912450386,0.000009952361337],
-                        [0.0,0.0001115185327,0.000030848887,0.00001122346313]]
+pi0pi0_df_errors     = [[-999,0.0001517780868,0.00003974548187,0.00001305377457],
+                        [-999,0.0001081607832,0.00002912450386,0.000009952361337],
+                        [-999,0.0001115185327,0.000030848887,0.00001122346313]]
 
-pipluspiminus_errors = [[0.0,0.0001480775491,0.00004251317895,0.00001527795008],
-                        [0.0,0.0001502502594,0.00004501478714,0.00001699086803],
-                        [0.0,0.0001504787281,0.0000466316669,0.00001786720683]]
+pipluspiminus_errors = [[-999,0.0001480775491,0.00004251317895,0.00001527795008],
+                        [-999,0.0001502502594,0.00004501478714,0.00001699086803],
+                        [-999,0.0001504787281,0.0000466316669,0.00001786720683]]
                         
 pi0pi0_df_ratios     = [[1,8.57E-02,6.82E-03,6.58E-04],
                         [1,8.76E-02,7.06E-03,6.52E-04],
@@ -479,17 +477,17 @@ pipluspiminus_ratios = [[1,8.53E-02,9.78E-03,1.13E-03],
                         [1,8.28E-02,9.32E-03,1.14E-03],
                         [1,8.59E-02,1.08E-02,1.27E-03]]
 
-pi0pi0_df_errors     = [[0.0,3.76E-04,1.01E-04,3.09E-05],
-                        [0.0,1.64E-04,4.38E-05,1.31E-05],
-                        [0.0,2.31E-04,6.33E-05,1.89E-05],
-                        [0.0,1.50E-04,4.16E-05,1.30E-05],
-                        [0.0,1.84E-04,5.30E-05,1.68E-05]]
+pi0pi0_df_errors     = [[-999,3.76E-04,1.01E-04,3.09E-05],
+                        [-999,1.64E-04,4.38E-05,1.31E-05],
+                        [-999,2.31E-04,6.33E-05,1.89E-05],
+                        [-999,1.50E-04,4.16E-05,1.30E-05],
+                        [-999,1.84E-04,5.30E-05,1.68E-05]]
 
-pipluspiminus_errors = [[0.0,3.76E-04,1.26E-04,4.18E-05],
-                        [0.0,2.89E-04,9.60E-05,3.23E-05],
-                        [0.0,8.64E-04,2.15E-04,2.52E-05],
-                        [0.0,2.07E-04,6.98E-05,2.36E-05],
-                        [0.0,2.51E-04,8.82E-05,2.85E-05]]
+pipluspiminus_errors = [[-999,3.76E-04,1.26E-04,4.18E-05],
+                        [-999,2.89E-04,9.60E-05,3.23E-05],
+                        [-999,8.64E-04,2.15E-04,2.52E-05],
+                        [-999,2.07E-04,6.98E-05,2.36E-05],
+                        [-999,2.51E-04,8.82E-05,2.85E-05]]
 
 ratios = {"PiPlusPiMinus": pipluspiminus_ratios, "Pi0Pi0": pi0pi0_df_ratios}
 errors = {"PiPlusPiMinus": pipluspiminus_errors, "Pi0Pi0": pi0pi0_df_errors}
@@ -520,7 +518,6 @@ for i in range(len(channel)):
         table.add_variable(var[f"MLLP = {mass[j]}"])
     submission.add_table(table)
 
->>>>>>> c00e0ff26dda8f9985561974e6dc88cfd7abcab0
 os.system("mkdir -p submission_file")
 os.system('rm -rf submission_file')
 submission.create_files('submission_file/')
