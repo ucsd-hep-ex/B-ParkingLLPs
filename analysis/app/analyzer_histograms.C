@@ -117,6 +117,7 @@ void analyzer_histograms::InitHistos(){
     int nBins = sizeof(jetPt_bins)/sizeof(float) -1;
     f_out[i]->cd();
     
+    cutflow_histogram[i] = InitTH1F("cutflow_histogram", "cutflow_histogram", 18, -2, 16);
     h_nJets  [i] = InitTH1F("h_nJets", "h_nJets", 20, 0, 20);
     h_NoMDS_jetCISV[i] = InitTH1F("h_NoMDS_jetCISV", "h_NoMDS_jetCISV", 30, 0, 1.5);
     h_NoMDS_jetPt  [i] = InitTH1F("h_NoMDS_jetPt",   "h_NoMDS_jetPt", nBins, jetPt_bins);
@@ -358,11 +359,13 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew, const std::vector<i
 }
 
 void analyzer_histograms::WriteHistos(int selbin){
+
   f_out[selbin]->cd();
+  cutflow_histogram[selbin]->Write();
+
   h_nLeptons[selbin]->Write();
   h_gLLP_ctau[selbin]->Write();
   h_eventWeight[selbin]->Write();
-
   h_nJets[selbin]->Write();
   h_NoMDS_jetCISV[selbin]->Write();
   h_NoMDS_jetPt[selbin]->Write();
@@ -452,6 +455,8 @@ void analyzer_histograms::WriteHistos(int selbin){
 
 void analyzer_histograms::DeleteHistos(int selbin){
   f_out[selbin]->cd();
+  cutflow_histogram[selbin]->Delete();
+  
   h_nLeptons[selbin]->Delete();
   h_gLLP_ctau[selbin]->Delete();
   h_eventWeight[selbin]->Delete();
