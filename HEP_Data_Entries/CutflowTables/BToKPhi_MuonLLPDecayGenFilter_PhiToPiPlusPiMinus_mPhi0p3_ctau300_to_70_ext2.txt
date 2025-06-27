@@ -1,0 +1,4 @@
+to_ctau_str:  to70
+from: 30 cm
+to: 7 cm
+/eos/uscms/store/group/lpclonglived/B-ParkingLLPs/V1p19_14/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300_ext2/BToKPhi_MuonLLPDecayGenFilter_PhiToPiPlusPiMinus_mPhi0p3_ctau300_ext2.root

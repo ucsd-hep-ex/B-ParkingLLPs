@@ -28,16 +28,20 @@ def get_graphs(filename):
     histograms = []
     variables = []
     for l in lines:
-        graph = l.split("TGraph *")[1].split(" = ")[0] # .strip('"')
+        graph = l.split("TGraph *")[1].split(" = ")[0]
         if graph == "": continue
         histograms.append(graph)
         variables.append(graph)
     return variables, histograms
 
 if __name__ == "__main__":
+    # Copy the files from "plotters"
+    os.system("cp ../../plotters/plotDump/*/* ./paper_plots/")
+    os.system("mkdir -p roots")
     base = "paper_plots/"
     filelist = glob.glob(f"{base}*.C")
     print(filelist)
+    '''
     for f in filelist:
         print(f)
         with open(f, "r") as file:
@@ -48,16 +52,14 @@ if __name__ == "__main__":
                 suffix = ''
                 content = file.read()
                 variables1D, histograms1D = get_1D_histograms(f)
-                # variables2D, histograms2D = get_2D_histograms(f)
                 variablesGraphs, graphs = get_graphs(f)
                 print(variablesGraphs)
                 variables = variables1D + variablesGraphs
                 for v in variables:
                     suffix += f"\n{v}->Write();"
                 print(prefix)
-                # print(content)
                 print(suffix)
                 new_file.write("\n".join([prefix, content[0:-3], suffix, "\n}"]))
                 new_file.close()
                 os.system(f"root -b -q ./modified_files/{filename}.C")
-
+    '''

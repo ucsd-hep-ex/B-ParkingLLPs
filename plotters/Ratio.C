@@ -121,4 +121,3 @@ void Ratio(bool dolog, TString inpath1, TString inpath2, TString var, TString av
  if(dolog) canvas->SaveAs("plotDump/"+aversion+"/"+name1+"-"+name2+"-"+var+"-ratio_log.pdf");
  else canvas->SaveAs("plotDump/"+aversion+"/"+name1+"-"+name2+"-"+var+"-ratio.pdf"); 
 }
-
