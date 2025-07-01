@@ -6518,7 +6518,7 @@ void BToPhiK_AnalysisPiPlusPiMinus_2d_expected()
    tex->SetTextSize(0.075);
    tex->SetLineWidth(2);
    tex->Draw();
-      tex = new TLatex(0.2,0.94,"");
+      tex = new TLatex(0.2,0.94,"Preliminary");
    tex->SetNDC();
    tex->SetTextFont(52);
    tex->SetTextSize(0.06);

@@ -35,7 +35,7 @@ std::vector<int> analyzer_objects::muonPassSel(Float_t muPtCut, Float_t muEtaCut
   }
   return ids;
 }
-void analyzer_objects::muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Float_t ew){
+void analyzer_objects::muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Float_t ew, TH1F * cutflow_histogram[]){
   bool MuonExists  = false;
   bool MuonPassPt  = false;
   bool MuonPassEta = false;
@@ -68,6 +68,12 @@ void analyzer_objects::muonPassSel_cutflow(Float_t muPtCut, Float_t muEtaCut, Fl
   if(MuonPassEta)       cutFlow["abs(MuonEta) < 1.5"] +=ew;
   if(MuonPassHLTFilter) cutFlow["MuonHLTRequirement"] +=ew;
   if(MuonPassQuality)   cutFlow["MuonQuality"] +=ew;
+  
+  for (int b = 0; b < 8; b++) {
+      cutflow_histogram[b]->Fill(0.0,ew);
+      if(MuonPassQuality) cutflow_histogram[b]->Fill(1.0,ew);
+  }
+  
 }
 
 std::vector<int> analyzer_objects::jetPassSel(Float_t jetPtCut, Float_t CISVCut){
@@ -315,7 +321,7 @@ std::vector<int> analyzer_objects::DtClusterPassSel_nominalPlusTime(bool passHLT
 //============================================================================================== Ends Region Definitions
 
 // ----CutFlow Table stuff
-void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
+void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew, TH1F * cutflow_histogram[]){
   double dR_mu;
   double dR_LLP;
   bool PassAll         = false;
@@ -407,7 +413,7 @@ void analyzer_objects::DtClusterPassSel_CutFlow(Float_t ew){
 
 }
 
-void analyzer_objects::CscClusterPassSel_CutFlow(Float_t ew){
+void analyzer_objects::CscClusterPassSel_CutFlow(Float_t ew, TH1F * cutflow_histogram[]){
   double dR_mu;
   double dR_LLP;
   bool PassClusterSize       = false;
@@ -526,6 +532,23 @@ void analyzer_objects::CscClusterPassSel_CutFlow(Float_t ew){
     if(PassClusterTimeSpread) cutFlow["CscPassClusterTimeSpread"] +=ew;
     if(PassClusterEta)        cutFlow["CscPassClusterEta"] +=ew;
     if(PassID)                cutFlow["CscPassID"] +=ew;
+
+   for (int b = 0; b < 8; b++) {
+    if(nCscRechitClusters>0)  cutflow_histogram[b]->Fill(2.0,ew);
+    if(PassClusterSize)       cutflow_histogram[b]->Fill(3.0,ew);
+    if(PassOverlapMuon)       cutflow_histogram[b]->Fill(4.0,ew);
+    if(OverlapGenLLP)         cutflow_histogram[b]->Fill(5.0,ew);
+    if(PassME1112Veto)        cutflow_histogram[b]->Fill(6.0,ew);
+    if(PassMB1Veto)           cutflow_histogram[b]->Fill(7.0,ew);
+    if(PassRB1Veto)           cutflow_histogram[b]->Fill(8.0,ew);
+    if(PassRE12Veto)          cutflow_histogram[b]->Fill(9.0,ew);
+    if(PassMuonVeto)          cutflow_histogram[b]->Fill(10.0,ew);
+    if(PassClusterTime)       cutflow_histogram[b]->Fill(11.0,ew);
+    if(PassClusterTimeSpread) cutflow_histogram[b]->Fill(12.0,ew);
+    if(PassClusterEta)        cutflow_histogram[b]->Fill(13.0,ew);
+    if(PassID)                cutflow_histogram[b]->Fill(14.0,ew);
+   }
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
