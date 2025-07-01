@@ -20,6 +20,10 @@ HEP_Data_Entries/ConvertCToRoot/paper_plots/withBranchingRatios/*.png
 #checkpoints
 **/.ipynb_checkpoints/
 
+# python junk
+__pycache__/
+*.pyc
+
 # Prerequisites
 *.d
 
