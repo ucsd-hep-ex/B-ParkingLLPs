@@ -12,7 +12,7 @@ class analyzer_histograms : public analyzer_tree{
  
            analyzer_histograms();
   virtual ~analyzer_histograms();
-
+  TH1F* cutflow_histogram            [SELBINNAMESIZE];
   TH1F* h_nLeptons                   [SELBINNAMESIZE];
   TH1F* h_gLLP_ctau                  [SELBINNAMESIZE];
   TH1F* h_eventWeight                [SELBINNAMESIZE];

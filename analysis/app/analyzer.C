@@ -208,34 +208,6 @@ void analyzer::Loop(TFile *f, Float_t from_ctau, Float_t to_ctau, TString theSam
       //event_weight=1.0;
       if(b_cutFlow) cutFlow["No cuts"] += event_weight;
 
-      /*
-         askDoesPassClusterSize_csc(index)               // loggit
-      && askDoesPassMinDPhiLeadMuon_csc(index)           // loggit
-      && askDoesPassOverlapMuon_csc(index)               // loggit
-      && askDoesPassME1112Veto_csc(index)                // loggit
-      && askDoesPassMB1Veto_csc(index)                   // loggit
-      && askDoesPassRB1Veto_csc(index)                   // loggit
-      && askDoesPassRE12Veto_csc(index)                  // loggit
-      && askDoesPassMuonVeto_csc(index)                  // loggit
-      && askDoesPassClusterTimeSpread_csc(index)         // loggit
-      && askDoesPassClusterEta_csc(index)                // loggit
-      //&& askDoesPassJetVetoPt_csc(index)               // loggit
-      askDoesPassID_csc(index);                       // loggit
-      */
-      
-      /*
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index)) cutflow_histogram->Fill(3);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index)) cutflow_histogram->Fill(4);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index)) cutflow_histogram->Fill(5);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index)) cutflow_histogram->Fill(6);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index) && askDoesPassMB1Veto_csc(index)) cutflow_histogram->Fill(7);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index) && askDoesPassMB1Veto_csc(index) && askDoesPassRB1Veto_csc(index) ) cutflow_histogram->Fill(8);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index) && askDoesPassMB1Veto_csc(index) && askDoesPassRB1Veto_csc(index) && askDoesPassRE12Veto_csc(index) ) cutflow_histogram->Fill(9);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index) && askDoesPassMB1Veto_csc(index) && askDoesPassRB1Veto_csc(index) && askDoesPassRE12Veto_csc(index) && askDoesPassMuonVeto_csc(index) ) cutflow_histogram->Fill(10);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index) && askDoesPassMB1Veto_csc(index) && askDoesPassRB1Veto_csc(index) && askDoesPassRE12Veto_csc(index) && askDoesPassMuonVeto_csc(index) && askDoesPassClusterTimeSpread_csc(index)) cutflow_histogram->Fill(11);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index) && askDoesPassMB1Veto_csc(index) && askDoesPassRB1Veto_csc(index) && askDoesPassRE12Veto_csc(index) && askDoesPassMuonVeto_csc(index) && askDoesPassClusterTimeSpread_csc(index) && askDoesPassClusterEta_csc(index)) cutflow_histogram->Fill(12);
-      if (muonPassSel(muPt, muEta) && askDoesPassClusterSize_csc(index) && askDoesPassMinDPhiLeadMuon_csc(index) && askDoesPassOverlapMuon_csc(index) && askDoesPassME1112Veto_csc(index) && askDoesPassMB1Veto_csc(index) && askDoesPassRB1Veto_csc(index) && askDoesPassRE12Veto_csc(index) && askDoesPassMuonVeto_csc(index) && askDoesPassClusterTimeSpread_csc(index) && askDoesPassClusterEta_csc(index) askDoesPassID_csc(index);) cutflow_histogram->Fill(13);
-      */
       
       //Make MuonList
       muon_list =  muonPassSel(muPt, muEta);
