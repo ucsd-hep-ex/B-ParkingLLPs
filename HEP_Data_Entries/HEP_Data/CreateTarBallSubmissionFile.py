@@ -7,6 +7,7 @@ import pdb
 import pandas as pd
 
 submission = Submission()
+submission.read_abstract("abstract.txt")
 base = "./roots"
 files = os.listdir(base)
 print(files)
@@ -62,8 +63,8 @@ for b_i, (b_k, b) in enumerate(branch.items()):
         # y.append(hist.GetBinContent(i))
         if hist.GetBinContent(i) == 0:
             # pass
-            y.append(-999)
-            yerr.append(1.0)
+            y.append('-')#-999)
+            yerr.append(0)#1.0)
         else:
             # pass
             y.append(hist.GetBinContent(i))            
@@ -133,8 +134,8 @@ for b_i, (b_k, b) in enumerate(branch.items()):
         # yerr.append(hist.GetBinError(i))
         if hist.GetBinContent(i) == 0:
             # pass
-            y.append(-999)
-            yerr.append(1.0)
+            y.append('-')#-999)
+            yerr.append(0)#1.0)
         else:
             # pass
             y.append(hist.GetBinContent(i))
@@ -205,8 +206,8 @@ for b_i, (b_k, b) in enumerate(branch.items()):
         # yerr.append(hist.GetBinError(i))
         if hist.GetBinContent(i) == 0:
             # pass
-            y.append(-999)
-            yerr.append(0.0)
+            y.append('-')#-999)
+            yerr.append(0)#0.0)
         else:
             y.append(hist.GetBinContent(i))
             yerr.append(hist.GetBinError(i))
@@ -282,91 +283,47 @@ for b_i, (b_k, b) in enumerate(branch.items()):
     submission.add_table(table)
 
 labels = ["m = 0.3 GeV", "m = 1.0 GeV", "m = 2.0 GeV", "m = 3.0 GeV"]
-keys = ["data_0p3","data_1p0","data_2p0", "data_3p0"]
-# filename = "../ConvertCToRoot/roots/Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_MAll_low_CSC.root"
-filename = "./roots/Limit_PiAll_WP23_GJson_unBlinded_lepIDSF_moreStats1_MAll_low_CSC.root"
-# for f, filename in enumerate(["m0p3_limit.txt", "m1p0_limit.txt", "m2p0_limit.txt", "m3p0_limit.txt"]):
+keys = ["1dLimit_M0p3.txt","1dLimit_M1p0.txt","1dLimit_M2p0.txt", "1dLimit_M3p0.txt"]
 
-table_filenames = ["limits_0p3.txt", "limits_0p5.txt", "limits_1p0.txt", "limits_2p0.txt", "limits_3p0.txt"]
-
-x = {}
-data_obs = {}
-data_median = {}
-data_plus = {}
-data_minus = {}
-
-for l, label in enumerate(labels):
-    table = Table(f"Figure 5 ({labels[l]})")
+for l, label in enumerate(labels): 
+    table = Table(f"Figure 5 ({label})")
     table.description = "Exclusion limits at 95% CL on the $B \\rightarrow K \Phi$ as a function of the decay distance of the long-lived particle."
     table.location = "Figure 5"
-
+    
     table.keywords["observables"] = ["CLS", "CLS"]
     table.keywords["cmenergies"] = ["13000"]
     
-    file = uproot.open(filename)
+    data = np.loadtxt(f'txt_files/{keys[l]}', delimiter=',')
+    ctau_values = data[:, 0]
+    expL_values = data[:, 1]
+    oneS_lower_values = data[:, 2]
+    oneS_upper_values = data[:, 3]
+    obsL_values = data[:, 4]
     
-    x[keys[l]] = []
-    data_obs[keys[l]] = []
-    data_median[keys[l]] = []
-    data_plus[keys[l]] = []
-    data_minus[keys[l]] = []
-    print(file)
-    hist_median = file.get(f"Graph{l*3}")
-    hist_obs = file.get(f"Graph{l*3+2}")
-    hist_errors = file.get(f"Graph{l*3+1}")
-    nbins = len(hist_median.values()[0])
-    nbins_errors = len(hist_errors.values()[0])
-    print(len(hist_median.values()[0]), len(hist_obs.values()[0]), len(hist_errors.values()[0]))
-    print(len(hist_median.values()[1]), len(hist_obs.values()[1]), len(hist_errors.values()[1]))
-    print(hist_median.values()[1], hist_obs.values()[1])
-
-    file_content = open(table_filenames[l], "r").read()
-    lines = file_content.split("\n")
-
-    for i in range(len(lines)):
-        line_list = lines[i].split(",")
-        # if len(line_list) != 6: continue
-        if line_list == ['']: continue
-        print(line_list)
-        x[keys[l]].append(float(line_list[1]))
-        data_obs[keys[l]].append(float(line_list[5]))
-        data_median[keys[l]].append(float(line_list[2]))
-        data_plus[keys[l]].append(float(line_list[4]))
-        data_minus[keys[l]].append(float(line_list[3]))
-
-    # for i in range(1, nbins):
-    #     x[keys[l]].append(hist_median.values()[0][i])
-    #     data_obs[keys[l]].append(hist_obs.values()[1][i])
-    #     data_median[keys[l]].append(hist_median.values()[1][i])
-    #     data_plus[keys[l]].append(hist_errors.values()[1][i])
-    #     data_minus[keys[l]].append(hist_errors.values()[1][nbins_errors-i])
-    #     if l == 0:
-    #         print(x[keys[l]][-1], data_obs[keys[l]][-1], data_median[keys[l]][-1], data_plus[keys[l]][-1], data_minus[keys[l]][-1])
-
-    x_v = Variable("c$\\tau$", is_independent=True, is_binned=False, units="mm")
-    x_v.values = x[keys[l]]
-
+    ct = Variable("c$\\tau$", is_independent=True, is_binned=False, units="mm")
+    ct.values = ctau_values
+    
     expL = Variable("95% CL upper limit on $B \\rightarrow K \Phi$", is_independent=False, is_binned=False, units="")
-    expL.values = data_median[keys[l]]
+    expL.values = expL_values
     expL.add_qualifier("SQRT(S)", 13, "TeV")
     expL.add_qualifier("Quantile", "Median expected limit")
-
+    
     obsL = Variable("95% CL upper limit's observed value on $B \\rightarrow K \Phi$", is_independent=False, is_binned=False, units="")
-    obsL.values = data_obs[keys[l]]
+    obsL.values = obsL_values
     obsL.add_qualifier("SQRT(S)", 13, "TeV")
     obsL.add_qualifier("Quantile", "Observed limit")
-
+    
     OneS_p = Variable("95% CL upper limit's observed value -1$\sigma$ on $B \\rightarrow K \Phi$", is_independent=False, is_binned=False, units="")
-    OneS_p.values = data_minus[keys[l]]
+    OneS_p.values = oneS_lower_values
     OneS_p.add_qualifier("SQRT(S)", 13, "TeV")
     OneS_p.add_qualifier("Quantile", "-1 $\\sigma$")
-
+    
     OneS_m = Variable("95% CL upper limit's observed value +1$\sigma$ on $B \\rightarrow K \Phi$", is_independent=False, is_binned=False, units="")
-    OneS_m.values = data_plus[keys[l]]
+    OneS_m.values = oneS_upper_values
     OneS_m.add_qualifier("SQRT(S)", 13, "TeV")
     OneS_m.add_qualifier("Quantile", "+1 $\\sigma$")
-
-    table.add_variable(x_v)
+    
+    table.add_variable(ct)
     table.add_variable(expL)
     table.add_variable(obsL)
     table.add_variable(OneS_p)
@@ -435,7 +392,7 @@ for b_i, (b_k, b) in enumerate(branch.items()):
         table.add_variable(v)
     submission.add_table(table)
 
-contour_location = "./"
+contour_location = "./2D_limit_plot_test/"
 contour_files = [f"{contour_location}limit_vs_ctau_mass_0p01_contour.txt", f"{contour_location}limit_vs_ctau_mass_0p001_contour.txt"]
 Table_titles = ["The contour of the limits for BR = 0.01", "The contour of the limits for BR = 0.001"]
 descriptions = ["The contour of the 2D distribution which includes the generation parameter values corresponding to the BR of 0.01.", "The contour of the 2D distribution which includes the generation parameter values corresponding to the BR of 0.001."]
@@ -458,81 +415,95 @@ for c, f_c in enumerate(contour_files):
         submission.add_table(table)
 
 base = "../CutflowTables/"
-mass = ["0p3", "0p5", "1p0", "2p0", "3p0"]
+#mass = ["0p3", "0p5", "1p0", "2p0", "3p0"]
+mass = ["0p3","0p5","1p0", "2p0", "3p0"]
 ctau = ["70", "100", "300", "700", "700"]
 channel = ["PiPlusPiMinus", "Pi0Pi0"]
-selections = ["Nocuts", "HLT", "nCscRechitClusters>0", "CscPassID"]
-selections_names = ["All events", "Muon(trigger and > 7 GeV)", "CSC cluster > 0", "CSC cluster selections (vetos, | $\eta$ | and time)"]
+channel2 = ["hadronic shower", "electromagnetic shower"]
+selections_names = ["All events", "Muon(trigger, ID, selections)", "CSC cluster > 0", "CSC cluster selections (vetos, | $\eta$ | and time)", r"Signal Region ($N_{\mathrm{rechits}}$ > 310 and $\Delta\phi(\mathrm{cluster},\ \mu_{\mathrm{lead}})$ < 2.1)"]
+names= [
+    "All Events","Muon Present","Pass Trigger and Muon selections",
+    "Number of CSC clusters > 0","Number of Hits in CSC clusters > 50",
+    "Cluster does not overlap with a muon ($\Delta$R>0.4)","passOverlapGen",
+    "Pass ME11/12 Veto","Pass MB1 Veto","Pass RB1 Veto","Pass RE12 Veto","Pass Muon Veto",
+    "Pass Cluster Time selection","Pass Cluster Time Spread selection",
+    "Cluster $\abs{\eta}$ <1.9","Pass Cut-based ID selection", "Pass all selections"
+]
+#names[i=0] = All events
+#names[i=1] = Muon Present
+#names[i=2] = Pass Trigger and Muon Selections
+#names[i=3] = N CSC Clusters >0
+#names[i=15] = Pass all cluster-level selections before NHits and dPhi
+#names[i=16] = Pass all selections
+indices_to_keep = [0, 2, 3, 15, 16]
 
-# BToKPhi_MuonLLPDecayGenFilter_PhiToPi0Pi0_mPhi0p3_ctau300.csv
+M0p5_Pi0Pi0 = [1, 0.933, 0.0816, 0.00657, 0.00443, 0.00402, 0.00326, 0.00182, 0.00182, 0.00181, 0.00179, 0.00178, 0.00178, 0.00174, 0.000798, 0.000607, 3.54e-08 ]
+M0p5_errUp_Pi0Pi0 = [0, 0.000173, 0.000141, 4.05e-05, 3.38e-05, 3.2e-05, 2.92e-05, 2.16e-05, 2.16e-05, 2.16e-05, 2.15e-05, 2.14e-05, 2.14e-05, 2.12e-05, 1.39e-05, 1.22e-05, 2.5e-08 ]
+M0p5_errDn_Pi0Pi0 = [0, 0.000173, 0.000141, 4.05e-05, 3.38e-05, 3.2e-05, 2.92e-05, 2.16e-05, 2.16e-05, 2.16e-05, 2.15e-05, 2.14e-05, 2.14e-05, 2.12e-05, 1.39e-05, 1.22e-05, 2.5e-08 ]
 
-pi0pi0_df_ratios     = [[1.00,0.0752,0.0054,0.0005], 
-                        [1.00,0.0750,0.0057,0.0006], 
-                        [1.00,0.0761,0.0061,0.0007]]
+M1p0_Pi0Pi0 = [1, 0.934, 0.0776, 0.0063, 0.00417, 0.00379, 0.00306, 0.00172, 0.00172, 0.00171, 0.00169, 0.00169, 0.00168, 0.00164, 0.000779, 0.000581, 2.1e-06 ]
+M1p0_errUp_Pi0Pi0 = [0, 0.00025, 0.000199, 5.86e-05, 4.83e-05, 4.6e-05, 4.17e-05, 3.12e-05, 3.11e-05, 3.1e-05, 3.09e-05, 3.08e-05, 3.08e-05, 3.05e-05, 2.05e-05, 1.76e-05, 1.67e-06 ]
+M1p0_errDn_Pi0Pi0 = [0, 0.00025, 0.000199, 5.86e-05, 4.83e-05, 4.6e-05, 4.17e-05, 3.12e-05, 3.11e-05, 3.1e-05, 3.09e-05, 3.08e-05, 3.08e-05, 3.05e-05, 2.05e-05, 1.76e-05, 1.67e-06 ]
 
-pipluspiminus_ratios = [[1.00,0.0748,0.0063,0.0008], 
-                        [1.00,0.0754,0.0069,0.0009], 
-                        [1.00,0.0754,0.0073,0.0010]]
+M0p3_PiPlusPiMinus = [1, 0.933, 0.0794, 0.0091, 0.00665, 0.00613, 0.00538, 0.00303, 0.00297, 0.00294, 0.00291, 0.00283, 0.00283, 0.0027, 0.00135, 0.00105, 3.07e-05 ]
+M0p3_errUp_PiPlusPiMinus = [0, 0.000399, 0.000324, 0.000116, 0.000101, 9.72e-05, 9.21e-05, 6.7e-05, 6.62e-05, 6.59e-05, 6.55e-05, 6.44e-05, 6.43e-05, 6.29e-05, 4.41e-05, 3.89e-05, 1.01e-05 ]
+M0p3_errDn_PiPlusPiMinus = [0, 0.000399, 0.000324, 0.000116, 0.000101, 9.72e-05, 9.21e-05, 6.7e-05, 6.62e-05, 6.59e-05, 6.55e-05, 6.44e-05, 6.43e-05, 6.29e-05, 4.41e-05, 3.89e-05, 1.01e-05 ]
 
+M0p5_PiPlusPiMinus = [1, 0.933, 0.0805, 0.00958, 0.00704, 0.0065, 0.00575, 0.0031, 0.00302, 0.00299, 0.00296, 0.00289, 0.00288, 0.00279, 0.00126, 0.000956, 1.94e-05 ]
+M0p5_errUp_PiPlusPiMinus = [0, 0.000308, 0.000251, 9.32e-05, 8.21e-05, 7.87e-05, 7.49e-05, 5.27e-05, 5.17e-05, 5.15e-05, 5.13e-05, 5.07e-05, 5.07e-05, 4.98e-05, 3.22e-05, 2.75e-05, 5.84e-06 ]
+M0p5_errDn_PiPlusPiMinus = [0, 0.000308, 0.000251, 9.32e-05, 8.21e-05, 7.87e-05, 7.49e-05, 5.27e-05, 5.17e-05, 5.15e-05, 5.13e-05, 5.07e-05, 5.07e-05, 4.98e-05, 3.22e-05, 2.75e-05, 5.84e-06 ]
 
-pi0pi0_df_errors     = [[-999,0.0001517780868,0.00003974548187,0.00001305377457],
-                        [-999,0.0001081607832,0.00002912450386,0.000009952361337],
-                        [-999,0.0001115185327,0.000030848887,0.00001122346313]]
+M1p0_PiPlusPiMinus = [1, 0.934, 0.0776, 0.0085, 0.00608, 0.00559, 0.00491, 0.00286, 0.00281, 0.00278, 0.00275, 0.00268, 0.00268, 0.00258, 0.00129, 0.000994, 1.31e-05 ]
+M1p0_errUp_PiPlusPiMinus = [0, 0.000245, 0.000196, 6.92e-05, 6.01e-05, 5.75e-05, 5.48e-05, 4.08e-05, 4.04e-05, 4.02e-05, 4e-05, 3.95e-05, 3.94e-05, 3.87e-05, 2.69e-05, 2.35e-05, 3.4e-06 ]
+M1p0_errDn_PiPlusPiMinus = [0, 0.000245, 0.000196, 6.92e-05, 6.01e-05, 5.75e-05, 5.48e-05, 4.08e-05, 4.04e-05, 4.02e-05, 4e-05, 3.95e-05, 3.94e-05, 3.87e-05, 2.69e-05, 2.35e-05, 3.4e-06 ]
 
-pipluspiminus_errors = [[-999,0.0001480775491,0.00004251317895,0.00001527795008],
-                        [-999,0.0001502502594,0.00004501478714,0.00001699086803],
-                        [-999,0.0001504787281,0.0000466316669,0.00001786720683]]
-                        
-pi0pi0_df_ratios     = [[1,8.57E-02,6.82E-03,6.58E-04],
-                        [1,8.76E-02,7.06E-03,6.52E-04],
-                        [1,8.33E-02,6.77E-03,6.24E-04],
-                        [1,8.28E-02,6.90E-03,7.03E-04], 
-                        [1,8.60E-02,7.49E-03,7.89E-04]]
+M2p0_PiPlusPiMinus = [1, 0.934, 0.0703, 0.00639, 0.00419, 0.00384, 0.00317, 0.00202, 0.00198, 0.00196, 0.00194, 0.0019, 0.0019, 0.00183, 0.00103, 0.000841, 5.58e-06 ]
+M2p0_errUp_PiPlusPiMinus = [0, 0.000175, 0.000131, 4.01e-05, 3.27e-05, 3.13e-05, 2.86e-05, 2.29e-05, 2.27e-05, 2.26e-05, 2.25e-05, 2.22e-05, 2.22e-05, 2.19e-05, 1.65e-05, 1.49e-05, 1.28e-06 ]
+M2p0_errDn_PiPlusPiMinus = [0, 0.000175, 0.000131, 4.01e-05, 3.27e-05, 3.13e-05, 2.86e-05, 2.29e-05, 2.27e-05, 2.26e-05, 2.25e-05, 2.22e-05, 2.22e-05, 2.19e-05, 1.65e-05, 1.49e-05, 1.28e-06 ]
 
-pipluspiminus_ratios = [[1,8.53E-02,9.78E-03,1.13E-03],
-                        [1,8.65E-02,1.03E-02,1.03E-03],
-                        [1,8.34E-02,9.13E-03,1.07E-03],
-                        [1,8.28E-02,9.32E-03,1.14E-03],
-                        [1,8.59E-02,1.08E-02,1.27E-03]]
+M2p0_PiPlusPiMinus = [1, 0.933, 0.0771, 0.00868, 0.00613, 0.00565, 0.00492, 0.00286, 0.0028, 0.00277, 0.00274, 0.00269, 0.00268, 0.0026, 0.00133, 0.00106, 1.32e-05 ]
+M2p0_errUp_PiPlusPiMinus = [0, 0.000226, 0.000179, 6.44e-05, 5.53e-05, 5.3e-05, 5.01e-05, 3.71e-05, 3.66e-05, 3.64e-05, 3.62e-05, 3.58e-05, 3.58e-05, 3.52e-05, 2.46e-05, 2.19e-05, 3.12e-06 ]
+M2p0_errDn_PiPlusPiMinus = [0, 0.000226, 0.000179, 6.44e-05, 5.53e-05, 5.3e-05, 5.01e-05, 3.71e-05, 3.66e-05, 3.64e-05, 3.62e-05, 3.58e-05, 3.58e-05, 3.52e-05, 2.46e-05, 2.19e-05, 3.12e-06 ]
 
-pi0pi0_df_errors     = [[-999,3.76E-04,1.01E-04,3.09E-05],
-                        [-999,1.64E-04,4.38E-05,1.31E-05],
-                        [-999,2.31E-04,6.33E-05,1.89E-05],
-                        [-999,1.50E-04,4.16E-05,1.30E-05],
-                        [-999,1.84E-04,5.30E-05,1.68E-05]]
+M3p0_PiPlusPiMinus = [1, 0.933, 0.0799, 0.01, 0.00739, 0.00683, 0.00609, 0.00343, 0.00334, 0.0033, 0.00325, 0.00318, 0.00318, 0.00308, 0.00152, 0.00118, 2.51e-05 ]
+M3p0_errUp_PiPlusPiMinus = [0, 0.000266, 0.000215, 8.12e-05, 7.13e-05, 6.86e-05, 6.53e-05, 4.73e-05, 4.65e-05, 4.62e-05, 4.58e-05, 4.53e-05, 4.52e-05, 4.47e-05, 3.03e-05, 2.65e-05, 5.32e-06 ]
+M3p0_errDn_PiPlusPiMinus = [0, 0.000266, 0.000215, 8.12e-05, 7.13e-05, 6.86e-05, 6.53e-05, 4.73e-05, 4.65e-05, 4.62e-05, 4.58e-05, 4.53e-05, 4.52e-05, 4.47e-05, 3.03e-05, 2.65e-05, 5.32e-06 ]
 
-pipluspiminus_errors = [[-999,3.76E-04,1.26E-04,4.18E-05],
-                        [-999,2.89E-04,9.60E-05,3.23E-05],
-                        [-999,8.64E-04,2.15E-04,2.52E-05],
-                        [-999,2.07E-04,6.98E-05,2.36E-05],
-                        [-999,2.51E-04,8.82E-05,2.85E-05]]
-
-ratios = {"PiPlusPiMinus": pipluspiminus_ratios, "Pi0Pi0": pi0pi0_df_ratios}
-errors = {"PiPlusPiMinus": pipluspiminus_errors, "Pi0Pi0": pi0pi0_df_errors}
 
 for i in range(len(channel)):
-    table = Table(f'Signal efficiency, {channel[i]} decay channel.')
+    table = Table(f'Signal efficiency: {channel2[i]} decay mode')
+    table.description=f"Signal cut-flow efficiencies for the {channel2[i]} decay mode"
+    table.location =f"{channel2[i]} decay mode efficiencies" 
+    table.keywords["cmenergies"] = ["13000.0"]
+    table.keywords["observables"] = ["EFF"]
     var = {}
     var_err = {}
     unc = {}
     x = []
-    hist = reader.Get(branch["background"])
     var[0] = Variable(f'Selection step', is_independent = True, is_binned = False) 
+    table.add_variable(var[0])
     for j in range(len(mass)):
-        # filename = f"{base}/weighted_cutflow_tables/BToKPhi_MuonLLPDecayGenFilter_PhiTo{channel[i]}_mPhi{mass[j]}_ctau{ctau[j]}_weighted.csv"
-        # filename_err = f"{base}/not_weighted_cutflow_tables/BToKPhi_MuonLLPDecayGenFilter_PhiTo{channel[i]}_mPhi{mass[j]}_ctau{ctau[j]}_not_weighted_err.csv"
-        # data = pd.read_csv(filename)
-        # data_err = pd.read_csv(filename_err)
-        data_err_sel = errors[channel[i]] # data_err[data["Selections"].isin(selections)]
-        data_sel = ratios[channel[i]] # data[data["Selections"].isin(selections)]
-        var[0].values = selections_names # data_sel["Selections"]
-        # data_err_sel["Cum efficiency"].iloc[0] = 0.0
+        if channel[i] == "Pi0Pi0" and mass[j] == "0p3":
+             continue
+        if channel[i] == "Pi0Pi0" and mass[j] == "2p0":
+             continue
+        if channel[i] == "Pi0Pi0" and mass[j] == "3p0":
+             continue
+        var[0].values = selections_names #[names[k] for k in indices_to_keep]
+
         var[f"MLLP = {mass[j]}"] = Variable(f'MLLP = {mass[j].replace("p", ".")} GeV', is_independent = False, is_binned = False)
         var_err[f"MLLP = {mass[j]}"] = Uncertainty("Statistical")
-        var[f"MLLP = {mass[j]}"].values = data_sel[j] # ["Cum efficiency"]
-        var_err[f"MLLP = {mass[j]}"].values = data_err_sel[j] # ["Cum efficiency"]
+
+        varname = f"M{mass[j]}_{channel[i]}"
+        varname_err = f"M{mass[j]}_errUp_{channel[i]}"
+        
+        full_var = globals().get(varname) 
+        full_err = globals().get(varname_err) 
+
+        var[f"MLLP = {mass[j]}"].values     = [full_var[k] for k in indices_to_keep]
+        var_err[f"MLLP = {mass[j]}"].values = [full_err[k] for k in indices_to_keep]
         var[f"MLLP = {mass[j]}"].add_uncertainty(var_err[f"MLLP = {mass[j]}"])
-        if (j == 0): table.add_variable(var[0])
+        #f (j == 0): table.add_variable(var[0])
         table.add_variable(var[f"MLLP = {mass[j]}"])
     submission.add_table(table)
 
