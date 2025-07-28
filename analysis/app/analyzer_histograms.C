@@ -282,6 +282,12 @@ void analyzer_histograms::FillHistos(int selbin, Float_t ew, const std::vector<i
       h_cscRechitClusterDPhiLeadMuon_v2        [selbin]->Fill(dPhi, ew);  
       h_cscRechitClusterSize                   [selbin]->Fill(cscRechitClusterSize                 [c], ew);
       if(cscRechitClusterSize[c]>CscSize)      passCSC = true;
+      //if(passCSC && selbin ==2) {
+      //   std::cout<<"Matching event: "<<evtNum<<"  run: "<<runNum<<"  lumiSec: "<<lumiSec
+      //            <<"  Size: "<< cscRechitClusterSize[c]
+      //            <<"  NStaion: "<< cscRechitClusterNStation[c]
+      //            <<"  NChamber: "<<cscRechitClusterNChamber[c]
+      //   <<std::endl;}
       if(passCSC          && !wasFilled_pass) {
         h_cscRechitClusterDPhiLeadMuon_pass[selbin]->Fill(dPhi, ew); 
         wasFilled_pass = true;
