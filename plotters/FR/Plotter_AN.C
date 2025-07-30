@@ -99,7 +99,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
 
   // make canvas and text
   TCanvas* canvas = new TCanvas("canvas","canvas",1,1,800,800);
-  canvas->SetLeftMargin(0.15);
+  canvas->SetLeftMargin(0.155);
   canvas->SetBottomMargin(0.14);
   gStyle->SetOptStat(0);
   gPad->SetLogy(dolog);
@@ -117,7 +117,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
  for (int i =0; i<variables.size(); i++){
   std::vector<TH1F*> h_sig;
   TH1F * h_bkg;
-  TLegend *leg = new TLegend(0.15,0.57,0.95,0.78);
+  TLegend *leg = new TLegend(0.17,0.57,0.97,0.78);
   leg->SetNColumns(1);
   leg->SetBorderSize(0);
   leg->SetTextSize(0.052);
@@ -183,8 +183,8 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
         // h_sig[j]->Rebin(2);
         // h_bkg->Rebin(2);
         if (dolog) {
-            h_sig[j]->SetMaximum(100.0);
-            h_sig[j]->SetMinimum(0.000001);
+            h_sig[j]->SetMaximum(200.0);
+            h_sig[j]->SetMinimum(0.0001);
         }
         else {
             h_sig[j]->SetMaximum(0.42);
@@ -265,8 +265,8 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     // else       h_sig[j]->SetMaximum(ymax*(1.5));
 
     h_sig[j]->SetTitle("");
-    h_sig[j]->GetYaxis()->SetTitle("a.u.");
-    h_sig[j]->GetYaxis()->SetTitleOffset(1.0);
+    h_sig[j]->GetYaxis()->SetTitle("fraction of events/bin");
+    h_sig[j]->GetYaxis()->SetTitleOffset(1.35);
     // h_sig[j]->GetXaxis()->SetTitleOffset(0.8);
     h_sig[j]->GetXaxis()->SetTitleOffset(1.0);
     h_sig[j]->GetYaxis()->SetTitleSize(0.04);
@@ -283,7 +283,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     h_sig[j]->GetYaxis()->SetTitleSize(originalYSize * 1.5);
     h_sig[j]->GetXaxis()->SetTitleSize(originalXSize * 1.5);
     
-    gPad->SetLeftMargin(0.15);
+    gPad->SetLeftMargin(0.155);
     gPad->SetBottomMargin(0.14);
     
     if (variables[i].Contains("Bx") && variables[i].Contains("dt")) {
@@ -291,21 +291,21 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     } else if (variables[i].Contains("Time") && variables[i].Contains("csc")) {
         h_sig[j]->GetXaxis()->SetTitle("t_{cluster} [ns]");
         h_sig[j]->GetXaxis()->SetRangeUser(-30, 30);
-        h_sig[j]->GetYaxis()->SetTitleOffset(1.2);
+        h_sig[j]->GetYaxis()->SetTitleOffset(1.35);
     }
 
     if (variables[i].Contains("ClusterSize") && variables[i].Contains("dt")) {
         h_sig[j]->GetXaxis()->SetTitle("N_{Hits}");
     } if (variables[i].Contains("ClusterSize") && variables[i].Contains("csc")) {
         h_sig[j]->GetXaxis()->SetTitle("N_{hits}");
-        h_sig[j]->GetYaxis()->SetTitleOffset(1.2);
+        h_sig[j]->GetYaxis()->SetTitleOffset(1.35);
     }
 
     if (variables[i].Contains("DPhi") && variables[i].Contains("dt")) {
-        h_sig[j]->GetXaxis()->SetTitle("#Delta#phi(cluster, #mu_{trigger})");
+        h_sig[j]->GetXaxis()->SetTitle("#Delta#phi(cluster, #mu_{trigger} [radians])");
     } if (variables[i].Contains("DPhi") && variables[i].Contains("csc")) {
-        h_sig[j]->GetXaxis()->SetTitle("#Delta#phi(cluster, #mu_{trigger})");
-        h_sig[j]->GetYaxis()->SetTitleOffset(1.2);
+        h_sig[j]->GetXaxis()->SetTitle("#Delta#phi(cluster, #mu_{trigger}) [radians]");
+        h_sig[j]->GetYaxis()->SetTitleOffset(1.35);
     }
     
     h_bkg->SetLineWidth(3);
