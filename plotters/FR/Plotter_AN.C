@@ -164,6 +164,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     std::cout<<"Normalize to unity"<<std::endl;
     std::cout<<"Number of events SIGNAL: "<<h_sig[j]->GetEntries()<<std::endl;
     // std::cout<<"Number of events DATA  : "<<h_bkg->GetEntries()<<std::endl;
+    TString s_bkgLabel = "Background-enriched data";
     if (h_sig[j]->GetEntries()>0) h_sig[j]->Scale(1./h_sig[j]->Integral());
     if (h_bkg->GetEntries()>0) h_bkg->Scale(1./h_bkg->Integral());
     if (variables[i] == "cscRechitClusterDPhiLeadMuon" || variables[i] == "dtRechitClusterDPhiLeadMuon") {
@@ -182,6 +183,9 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     if (variables[i] == "cscRechitClusterTime" || variables[i] == "dtRechitClusterTime") {
         // h_sig[j]->Rebin(2);
         // h_bkg->Rebin(2);
+        s_bkgLabel = "Background-enriched data #times10";
+        if (h_bkg->GetEntries()>0) h_bkg->Scale(10./h_bkg->Integral());
+        
         if (dolog) {
             h_sig[j]->SetMaximum(200.0);
             h_sig[j]->SetMinimum(0.0001);
@@ -257,7 +261,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     } else {
         h_sig[j]->Draw("hist e");
         // leg->AddEntry(h_bkg, "Background","l");
-        leg->AddEntry(h_bkg, "Background-enriched data","l");
+        leg->AddEntry(h_bkg, s_bkgLabel,"l");
     }
     h_bkg->Draw("hist e sames");
     // if(dolog)  {h_sig[j]->SetMaximum(ymax*(50)); h_sig[j]->SetMinimum(0.001);}
@@ -265,7 +269,7 @@ void Plotter_AN(TString region, bool dolog, TString inpath, TString aversion){
     // else       h_sig[j]->SetMaximum(ymax*(1.5));
 
     h_sig[j]->SetTitle("");
-    h_sig[j]->GetYaxis()->SetTitle("fraction of events/bin");
+    h_sig[j]->GetYaxis()->SetTitle("Fraction of events/bin");
     h_sig[j]->GetYaxis()->SetTitleOffset(1.35);
     // h_sig[j]->GetXaxis()->SetTitleOffset(0.8);
     h_sig[j]->GetXaxis()->SetTitleOffset(1.0);
